@@ -1,5 +1,5 @@
 # MarineGEO data submission app example 
-# This is the UI script for three-file version of an example data submission application
+# This is the UI script for three-file version of the prototype MarineGEO data portal
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 
@@ -95,8 +95,12 @@ navbarPage("MarineGEO Data Portal", id="nav",
                         
                         tags$br(), tags$br(), 
                         
-                        actionButton("new_submission", "Submit new data", 
-                                     class = "btn-primary"), tags$br(), tags$br()
+                        "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
+                        
+                        actionButton("new_submission", "I accept the MarineGEO data policy", 
+                                     class = "btn-primary"), tags$br(), tags$br(),
+                        
+                        actionButton("return_to_intro", "Return to previous page"), tags$br(), tags$br()
                         
                       )
                     )
@@ -130,7 +134,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$br(), tags$br(), 
                                       
-                                      actionButton("submit", "Submit", class = "btn-primary")
+                                      actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
+                                      actionButton("return_to_data_policy", "Return to the data policy page"), tags$br(), tags$br()
+                                      
                                   )
                     )
            ), 
@@ -146,10 +152,15 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       it will be uploaded to MarineGEO. If it fails, the results will be displayed to the uploader, and they will need to make 
                                       corrections before attempting to upload their data again.", 
                                       
-                                      tags$br(), tags$br()
-                                          
+                                      tags$br(), tags$br(),
+                                      
+                                      actionButton("return_to_upload", "Return to the data upload page"), tags$br(), tags$br()
                                   )
                     )
-           )
+           ),
+           
+           # Users cannot user the header to move between tabs so the cursor will need to change accordingly
+           useShinyjs(), 
+           tags$head(tags$style(HTML('.navbar-nav a {cursor: default}')))
            
 )

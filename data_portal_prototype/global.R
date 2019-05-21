@@ -1,5 +1,5 @@
 # MarineGEO data submission app example 
-# This is the global script for three-file version of an example data submission application
+# This is the global script for three-file version of the prototype MarineGEO data portal
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 # Load necessary packages
