@@ -68,22 +68,6 @@ navbarPage("MarineGEO Data Portal", id="nav",
                         
                         tags$br(),tags$br(),
                         
-                        "The CCRCN can assist submitters in securing space on a public data repository and issuing DOIs through 
-                        our partnership with Smithsonian Libraries. We recognize that there is no official definition for what 
-                        constitutes a trusted repository, but we hope that the reputation of the Smithsonian Institution, 
-                        the status of FigShare as an approved technology, and the commitment of the Smithsonian Libraries to digital 
-                        object curation generate this level of community trust. All data archived by the CCRCN will be 
-                        listed under a ", tags$i("Creative Commons With Attribution"), " license.",
-                        
-                        tags$br(),tags$br(),
-                        
-                        "Contributors have the option of requesting an embargo period before a private dataset changes status to 
-                        publically available, typically until associated manuscripts or other products are published. 
-                        In this case, submitters of private data will specify a date-until-release or request so that data 
-                        releases can be publicly released in conjunction with manuscripts or other products.",
-                        
-                        tags$br(),tags$br(),
-                        
                         "Finally, CCRCN compiles publically available data into a central data clearing house. 
                         These include both data releases curated by the CCRCN and those originating from other public sources. 
                         Datasets are downloaded, reformatted to a common standard, and compiled with other studies using publically 
@@ -113,6 +97,12 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   width = "50%", height = "auto", style="padding:10px;",
                                   
                                   div(id = "file_uploads",
+                                      
+                                      "Please enter your email address (required to submit data).", 
+                                      tags$br(), 
+                                      
+                                      textInput("email", label = NULL, width = "80%"),
+                                      
                                       fileInput("fileCSV", "Upload CSV File",
                                                 multiple = TRUE,
                                                 accept = c("text/csv",
@@ -134,7 +124,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$br(), tags$br(), 
                                       
+                                      # Submit button starts as disabled until the user provides an email address 
                                       actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
+                                      
                                       actionButton("return_to_data_policy", "Return to the data policy page"), tags$br(), tags$br()
                                       
                                   )

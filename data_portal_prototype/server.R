@@ -9,6 +9,7 @@ function(input, output, session) {
   observeEvent(input$data_policy_intro, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
+  
   # Accept data policy and move to data submission
   observeEvent( input$new_submission, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
@@ -29,6 +30,15 @@ function(input, output, session) {
   observeEvent(input$return_to_data_policy, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
+  # Prevent the "submit" button on the data submission page you be pressed if a user does not provide an email address. 
+  observeEvent(input$email,{
+    if(input$email != ""){
+      shinyjs::enable("submit")
+    } else {
+      shinyjs::disable("submit")
+    }
+  })
+  
   # Return to data submission page 
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
@@ -37,5 +47,5 @@ function(input, output, session) {
   # Prevent users from clicking on tabs in the header 
   # They'll need to use action buttons to move between pages
   shinyjs::disable(selector = '.navbar-nav a')
-  
+
 }
