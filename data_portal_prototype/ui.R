@@ -26,6 +26,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                     )
            ),
            
+           ## Data policy ############
            tabPanel("Data Policy",
                     
                     absolutePanel(
@@ -90,6 +91,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                     )
                   ),
            
+           ## Data Upload ############
            tabPanel("Data Upload", 
                     
                     absolutePanel(id = "study_info_panel", class = "panel panel-default", fixed = FALSE,
@@ -103,31 +105,18 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       textInput("email", label = NULL, width = "80%"),
                                       
-                                      fileInput("fileCSV", "Upload CSV File",
-                                                multiple = TRUE,
-                                                accept = c("text/csv",
-                                                           "text/comma-separated-values,text/plain",
-                                                           ".csv")),
-                                      
-                                      # Horizontal line ----
-                                      tags$hr(),
-                                      
-                                      # Input: Checkbox if file has header ----
-                                      checkboxInput("header", "Header", TRUE),
-                                      
-                                      # Input: Select separator ----
-                                      radioButtons("sep", "Separator",
-                                                   choices = c(Comma = ",",
-                                                               Semicolon = ";",
-                                                               Tab = "\t"),
-                                                   selected = ","),
+                                      fileInput("fileExcel", "Upload Excel files",
+                                                multiple = FALSE,
+                                                accept = c(".xlsx")),
                                       
                                       tags$br(), tags$br(), 
                                       
                                       # Submit button starts as disabled until the user provides an email address 
                                       actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
                                       
-                                      actionButton("return_to_data_policy", "Return to the data policy page"), tags$br(), tags$br()
+                                      actionButton("return_to_data_policy", "Return to the data policy page"), 
+                                      
+                                      tags$br(), tags$br()
                                       
                                   )
                     )
