@@ -3,15 +3,20 @@
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 
+bootstrapPage('', 
 navbarPage("MarineGEO Data Portal", id="nav",
-           
+
            tabPanel("Welcome", 
                     
                     absolutePanel(id = "study_info_panel", class = "panel panel-default", fixed = FALSE,
                                   draggable = TRUE, top = "10%", left = "25%", right = "auto", bottom = "auto",
                                   width = "50%", height = "auto", style="padding:10px;",
                                   
+                                  div(img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250)),
+                                  
                                   div(id = "welcome_message", 
+                                      tags$br(), tags$br(), 
+
                                       "Welcome to the prototype MarineGEO data portal! 
                                       This application allows you to submit data and metadata to the MarineGEO database.", tags$br(), tags$br(), 
                                       
@@ -33,6 +38,12 @@ navbarPage("MarineGEO Data Portal", id="nav",
                       id = "memorandum", class = "panel panel-default", fixed = TRUE,
                       draggable = FALSE, top = "auto", left = "auto", right = "auto", bottom = "auto",
                       width = "70%", height = "90%", style="padding: 50px; overflow-y: scroll;",
+                      
+                      div(
+                        img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250), 
+                          
+                        tags$br(), tags$br()
+                      ),
                       
                       tags$div(
                         tags$h4(tags$b("Memorandum of CCRCN Data Responsibility"), align="center"), tags$br(),
@@ -98,6 +109,12 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   draggable = TRUE, top = "10%", left = "25%", right = "auto", bottom = "auto",
                                   width = "50%", height = "auto", style="padding:10px;",
                                   
+                                  div(
+                                    img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250), 
+                                    
+                                    tags$br(), tags$br()
+                                  ),
+                                  
                                   div(id = "file_uploads",
                                       
                                       "Please enter your email address (required to submit data).", 
@@ -140,8 +157,34 @@ navbarPage("MarineGEO Data Portal", id="nav",
                     )
            ),
            
-           # Users cannot user the header to move between tabs so the cursor will need to change accordingly
-           useShinyjs(), 
-           tags$head(tags$style(HTML('.navbar-nav a {cursor: default}')))
+            useShinyjs()
+
+), 
+
+tags$style(type = 'text/css', 
+
+           '.navbar { background-color: #97C8EB;
+           font-family: Arial;
+           font-size: 13px;
+           color: #FF0000; }',
+           
+           '.navbar-dropdown { background-color: #97C8EB;
+           font-family: Arial;
+           font-size: 13px;
+           color: #FF0000; }',
+           
+           '.navbar-default .navbar-brand {
+           color: #2a2c2d;
+           }',
+           
+           '.nav.navbar-nav li a {
+             color: #2a2c2d;
+           }',
+           
+           # Users cannot use the header to move between tabs so the cursor will need to change accordingly
+           '.navbar-nav a {cursor: default}'
            
 )
+
+)
+
