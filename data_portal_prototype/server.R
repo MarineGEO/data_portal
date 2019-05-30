@@ -33,16 +33,11 @@ function(input, output, session) {
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
   observeEvent(input$submit, {
+    # Get the current time
+    submission_time(humanTime())
+    saveInitialData()
     
-    if(!is.null(input$fileExcel)){
-      
-      # Get the current time
-      submission_time(humanTime())
-      saveInitialData()
-      
-      updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
-      
-    }
+    updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
   })
   
   # Return to data policy from submission page
@@ -51,8 +46,8 @@ function(input, output, session) {
   })
   
   # Prevent the "submit" button on the data submission page you be pressed if a user does not provide an email address. 
-  observeEvent(input$email,{
-    if(input$email != ""){
+  observe({
+    if(input$email != "" & !is.null(input$fileExcel)){
       shinyjs::enable("submit")
     } else {
       shinyjs::disable("submit")
