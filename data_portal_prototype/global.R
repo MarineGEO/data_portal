@@ -12,3 +12,15 @@ library(rdrop2)
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
 
+# footer disclaimer code
+footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
+                                          align = "center", 
+                                          style = "
+                                          position:absolute;
+                                          bottom:0;
+                                          width:100%;
+                                          height:20px; /* Height of the footer */
+                                          color: black;
+                                          background-color: yellow;
+                                          z-index: 1000;"
+)

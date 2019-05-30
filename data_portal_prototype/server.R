@@ -8,11 +8,14 @@ function(input, output, session) {
   submission_time <- reactiveVal(0)
   
   ## Action button logic ###############
+  
+  ## ... Intro/First page ####################
   # Move to data policy page from introduction
   observeEvent(input$data_policy_intro, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
   
+  # ... Data policy page #####################
   # Accept data policy and move to data submission
   observeEvent( input$new_submission, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
@@ -24,19 +27,22 @@ function(input, output, session) {
     updateTabsetPanel(session, inputId = "nav", selected = "Welcome")
   })
   
+  ## ... Data submission page ###############
   # Confirm data submission
   # As long as the user has also provided an excel file and an email address, the initial file will be uploaded to a dropbox directory
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
   observeEvent(input$submit, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
     
     if(!is.null(input$fileExcel)){
+      
       # Get the current time
       submission_time(humanTime())
       saveInitialData()
+      
+      updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+      
     }
-    
   })
   
   # Return to data policy from submission page
@@ -53,6 +59,7 @@ function(input, output, session) {
     }
   })
   
+  ## ... Finalize data submission/View report ##################
   # Return to data submission page 
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
