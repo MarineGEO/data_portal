@@ -7,6 +7,10 @@ function(input, output, session) {
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
   
+  # Excel sheets with sensitive data must be tracked and stored separately from other files 
+  # When users select the sensitive checkbox, this reactive value will change to TRUE
+  sensitive <- reactiveVal()
+  
   ## Action button logic ###############
   
   ## ... Intro/First page ####################
@@ -45,14 +49,27 @@ function(input, output, session) {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
   
-  # Prevent the "submit" button on the data submission page you be pressed if a user does not provide an email address. 
+  # Prevent the "submit" button on the data submission page to be pressed if a user does not 
+  # A. provide an email address. 
+  # B. select if their data does or does not contain sensitive information 
+  # C. upload an excel document 
   observe({
-    if(input$email != "" & !is.null(input$fileExcel)){
+    if(input$email != "" & 
+       !is.null(input$fileExcel) &
+       input$sensitive_prompt != "Not specified"){
       shinyjs::enable("submit")
     } else {
       shinyjs::disable("submit")
     }
   })
+  
+  observeEvent(input$sensitive_prompt, {
+    if(input$sensitive_prompt == "Yes, my data contains sensitive information") {
+      sensitive(TRUE)
+    } else {
+      sensitive(FALSE)
+    }
+  }) 
   
   ## ... Finalize data submission/View report ##################
   # Return to data submission page 

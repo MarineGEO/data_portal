@@ -94,21 +94,31 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   
                                   div(id = "file_uploads",
                                       
-                                      "Please enter your email address (required to submit data).", 
                                       tags$br(), 
                                       
+                                      "Please enter your email address (required to submit data).", 
+                                      tags$br(), tags$br(), 
+                                      
                                       textInput("email", label = NULL, width = "80%"),
+                                      hr(), 
+                                      
+                                      "Does your data include sensitive information, such as the location of endangered animals or personally identifiable information?",
+                                      tags$br(), tags$br(),
+                                      
+                                      selectInput("sensitive_prompt", label = NULL, choices = c("Not specified", 
+                                                                                                "Yes, my data contains sensitive information", 
+                                                                                                "No, my data does not contain sensitive information")), 
+                                      hr(),
                                       
                                       fileInput("fileExcel", "Upload Excel files",
                                                 multiple = FALSE,
                                                 accept = c(".xlsx")),
+                                      hr(), 
                                       
-                                      tags$br(), tags$br(), 
+                                      tags$br(),
                                       
                                       # Submit button starts as disabled until the user provides an email address 
                                       actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
-                                      
-                                      renderUI("warnings"), 
                                       
                                       actionButton("return_to_data_policy", "Return to the data policy page"), 
                                       
