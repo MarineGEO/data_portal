@@ -55,6 +55,7 @@ function(input, output, session) {
   # C. upload an excel document 
   observe({
     if(input$email != "" & 
+       grepl("@", input$email) &
        !is.null(input$fileExcel) &
        input$sensitive_prompt != "Not specified"){
       shinyjs::enable("submit")
@@ -81,29 +82,47 @@ function(input, output, session) {
   # Once a user provides an email, uploads an excel file, and clicks "submit", 
   # the data is sent to the Dropbox directory.
   saveInitialData <- function() {
-    # Upload the Excel file to Dropbox
+    # Upload the Excel file and updated submission log file to Dropbox
     
     # Create a temporary working directory
     tmpdir <- tempdir()
     setwd(tempdir())
     
     # Rename the file to reflect the time the submit button was pressed
-    filePath_data <- paste0(submission_time(),".xlsx")
-                            
-    file.rename(input$fileExcel$datapath, filePath_data)
+    original_file_name <- gsub(".xlsx", "_", input$fileExcel$name)
+    filepath_data <- paste0(original_file_name, submission_time(),".xlsx")
+    file.rename(input$fileExcel$datapath, filepath_data)
+
+    # Access the submission log from DropBox and append current emails/time/datafile name
+    submission_log <- generateSubmissionInfo(filepath_data)
+    submission_log_path <- file.path("submission_log.csv")
+    write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
     
-    # Take the email information and save it as a csv
-    initial_upload_metadata <- sprintf("%s_submission_metadata.csv", humanTime())
-    # # Write the data to a temporary file locally
-    #filePath <- file.path(tempdir(), initial_upload_metadata)
-    filePath <- file.path(initial_upload_metadata)
-    write.csv(input$email, filePath, row.names = FALSE, quote = TRUE)
-    
-    # upload both the initial data and the metadata to dropbox
-    drop_upload(filePath_data, path = "Data")
-    drop_upload(filePath, path = "Data")
+    # upload both the initial data submission to dropbox
+    drop_upload(filepath_data, path = "Data")
+
+    # Overwrite the old submission log with the updated info
+    drop_upload(submission_log_path, path = "Data", mode = "overwrite")
   }
   
+## Helper functions ########
+# Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
+generateSubmissionInfo <- function(filepath_data){
+  
+  # Read in the submission log from Dropbox
+  submission_log <- drop_read_csv("Data/submission_log.csv")
+  
+  # Split emails and create a dataframe based on the number of emails provided
+  emails <- strsplit(input$email, split=";")
+  num_emails <- length(unlist(emails))
+  
+  # Crate a new dataframe based on the number of emails provided 
+  df <- setNames(data.frame(submission_time(), emails, filepath_data), c("submission_time", "email", "filename"))
+
+  # Append the new data and send back to the dropbox upload function 
+  rbind(submission_log, df)
+}
+
   # Prevent users from clicking on tabs in the header 
   # They'll need to use action buttons to move between pages
   shinyjs::disable(selector = '.navbar-nav a')

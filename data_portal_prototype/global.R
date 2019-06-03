@@ -19,7 +19,7 @@ footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu",
                                           position:absolute;
                                           bottom:0;
                                           width:100%;
-                                          height:20px; /* Height of the footer */
+                                          height:20px; 
                                           color: black;
                                           background-color: yellow;
                                           z-index: 1000;"
