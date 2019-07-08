@@ -27,3 +27,6 @@ footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu",
 
 # Authenticate your dropbox token 
 drop_auth(rdstoken = "./droptoken.rds")
+
+
+

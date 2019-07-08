@@ -111,7 +111,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       hr(),
                                       
                                       fileInput("fileExcel", "Upload Excel files",
-                                                multiple = FALSE,
+                                                multiple = TRUE,
                                                 accept = c(".xlsx")),
                                       hr(), 
                                       
