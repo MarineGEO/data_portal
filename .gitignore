@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 .rds
-
+*droptoken.rds*
 *token.rds*
+.httr-oauth
