@@ -37,11 +37,29 @@ function(input, output, session) {
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
   observeEvent(input$submit, {
+    
     # Get the current time
     submission_time(humanTime())
-    saveInitialData()
     
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+    # Make sure each file is an excel (.xlsx) file
+    file_test <- checkFileExtensions()
+    
+    # Only upload data if all files are .xlsx
+    if(file_test){
+       saveInitialData()
+       updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+    } else {
+      # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
+      shinyjs::reset("fileExcel")
+      
+      showModal(modalDialog(
+        title = "Invalid file type", 
+        div("One or more files you uploaded are not Microsoft Excel files. Please reload the application and ensure all uploads have '.xlsx' file extensions."),
+        
+        easyClose = TRUE
+      ))
+    }
+    
   })
   
   # Return to data policy from submission page
@@ -83,7 +101,6 @@ function(input, output, session) {
   # the data is sent to the Dropbox directory.
   saveInitialData <- function() {
     # Upload the Excel file and updated submission log file to Dropbox
-    
     # Create a temporary working directory
     tmpdir <- tempdir()
     setwd(tempdir())
@@ -118,6 +135,7 @@ function(input, output, session) {
 
     # Overwrite the old submission log with the updated info
     drop_upload(submission_log_path, path = "Data", mode = "overwrite")
+    
   }
   
 ## Helper functions ########
@@ -138,6 +156,15 @@ generateSubmissionInfo <- function(new_filepaths){
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
+}
+
+# Test each file extension and ensure it's an xslx file
+checkFileExtensions <- function(){
+
+  if(any(!grepl("xlsx", input$fileExcel$name))){
+    return(FALSE)
+  } else return(TRUE)
+
 }
 
   # Prevent users from clicking on tabs in the header 
