@@ -40,39 +40,53 @@ navbarPage("MarineGEO Data Portal", id="nav",
                     absolutePanel(
                       id = "memorandum", class = "panel panel-default", fixed = TRUE,
                       draggable = FALSE, top = "auto", left = "auto", right = "auto", bottom = "auto",
-                      width = "70%", height = "90%", style="padding: 50px; overflow-y: scroll;",
+                      width = "90%", height = "90%", style="padding: 50px;overflow-y: scroll;",
                       
                       div(
-                        img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250), 
-                          
-                        tags$br(), tags$br()
-                      ),
+                      #   img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250), 
+                      #     
+                      #   tags$br(), tags$br()
+                      # ),
+                      # 
+                      # tags$div(
+                      #   tags$h4(tags$b("Data Policy & Authorship Agreement"), align="center"), tags$br(),
+                      #   
+                      #   tags$a(href="https://marinegeo.github.io/assets/projects/seagrass-food-webs//MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf",
+                      #          "Review the entire MarineGEO data policy and authorship agreement here."),
+                      # 
+                      #   tags$br(), tags$br(), 
+                      #   
+                      #   tags$h5("Summary"), 
+                      #   
+                      #   tags$ul(
+                      #     tags$li("Data are made available to all participants in the network immediately"),
+                      #     tags$li("Data are made public within (2) years of submission"),
+                      #     tags$li("Use of data for any scientific purpose requires proper attribution"), 
+                      #     tags$li("Co-authorship on any MarineGEO-lead products is open and flexible but contingent
+                      #              on providing substantial contributions (e.g., data, analysis, writing), and must
+                      #              be extended to contributing participants by lead authors on other products")
+                      #   ),
+                      #   
+                      #   "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
+                      #   
+                      #   actionButton("new_submission", "I accept the MarineGEO data policy", 
+                      #                class = "btn-primary"), tags$br(), tags$br(),
+                      #   
+                      #   actionButton("return_to_intro", "Return to previous page"), tags$br(), tags$br()
+                      #   
+                      # )
+                      tags$iframe(style="height:400px; width:100%", 
+                                  src="MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf"), tags$br(), tags$br(),
                       
-                      tags$div(
-                        tags$h4(tags$b("Data Policy & Authorship Agreement"), align="center"), tags$br(),
-                        
-                        "Data collected as part of MarineGEO activities will be made available to contributing participants 
-                        immediately upon meeting all requirements for data quality assurance. 
-                        Contributors indicated during data submission will have access to all data 
-                        relevant to the project(s) in which they are participating at the time. ", 
-                        
-                        tags$br(), tags$br(), 
-                        
-                        "Data will contain identifying information, such as the specific geographic location and taxonomic 
-                        identities, and names and contact information of the collectors, including institutional affiliation 
-                        and e-mail addresses. If you do not wish this information to be made public and/or it must be 
-                        anonymized, please indicate so during data submission.",
-                        
-                        tags$br(), tags$br(), 
-                        
                         "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
-                        
-                        actionButton("new_submission", "I accept the MarineGEO data policy", 
+
+                        actionButton("new_submission", "I accept the MarineGEO data policy",
                                      class = "btn-primary"), tags$br(), tags$br(),
-                        
-                        actionButton("return_to_intro", "Return to previous page"), tags$br(), tags$br()
-                        
+
+                        actionButton("return_to_intro", "Return to previous page")
+                      
                       )
+                    
                     ),
                     
                     # See global for footer code 
@@ -96,7 +110,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$br(), 
                                       
-                                      "Please enter your email address (required to submit data).", 
+                                      "Please enter your email address (required to submit data). 
+                                      You can include multiple emails, each separated by a semicolon (;).", 
+                                      
                                       tags$br(), tags$br(), 
                                       
                                       textInput("email", label = NULL, width = "80%"),
