@@ -75,7 +75,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                       #   actionButton("return_to_intro", "Return to previous page"), tags$br(), tags$br()
                       #   
                       # )
-                      tags$iframe(style="height:400px; width:100%", 
+                      tags$iframe(style="height:600px; width:100%", 
                                   src="MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf"), tags$br(), tags$br(),
                       
                         "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
