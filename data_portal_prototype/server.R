@@ -11,15 +11,15 @@ function(input, output, session) {
   # When users select the sensitive checkbox, this reactive value will change to TRUE
   sensitive <- reactiveVal()
   
-  ## Action button logic ###############
+  ## Welcome and Data Policy action button logic ###############
   
-  ## ... Intro/First page ####################
+  ## ... Intro/First page
   # Move to data policy page from introduction
   observeEvent(input$data_policy_intro, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
   
-  # ... Data policy page #####################
+  # ... Data policy page
   # Accept data policy and move to data submission
   observeEvent( input$new_submission, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
@@ -31,8 +31,14 @@ function(input, output, session) {
     updateTabsetPanel(session, inputId = "nav", selected = "Welcome")
   })
   
-  ## ... Data submission page ###############
-  # Confirm data submission
+  ##  Data submission page button logic and observers ##############
+  
+  # Return to data policy from submission page
+  observeEvent(input$return_to_data_policy, {
+    updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
+  })
+  
+  ## ... submit data button ##############
   # As long as the user has also provided an excel file and an email address, the initial file will be uploaded to a dropbox directory
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
@@ -62,11 +68,7 @@ function(input, output, session) {
     
   })
   
-  # Return to data policy from submission page
-  observeEvent(input$return_to_data_policy, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
-  })
-  
+  ## ... data submission button lock conditions ###########
   # Prevent the "submit" button on the data submission page to be pressed if a user does not 
   # A. provide an email address. 
   # B. select if their data does or does not contain sensitive information 
@@ -90,13 +92,20 @@ function(input, output, session) {
     }
   }) 
   
-  ## ... Finalize data submission/View report ##################
+  ## Finalize data submission/View report ##################
   # Return to data submission page 
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
   })
   
-  ## Dropbox functions ##########
+  ## Dropbox functions ####################
+  # There can be up to 5 instances of writing data to Dropbox per data submission session
+  # 1. initial data (raw excel spreadsheets)
+  # 2. initial submission-related metadata
+  # 3. curated data (flat csv files)
+  # 4. RMD report of QA/QC 
+  # 5. curated data merged into public-facing directories (flat csv files)
+  
   # Once a user provides an email, uploads an excel file, and clicks "submit", 
   # the data is sent to the Dropbox directory.
   saveInitialData <- function() {
@@ -120,25 +129,19 @@ function(input, output, session) {
       drop_upload(filepath_data, path = "Data")
     }
     
-    # original_file_name <- gsub(".xlsx", "_", input$fileExcel$name)
-    # filepath_data <- paste0(original_file_name, submission_time(),".xlsx")
-    # file.rename(input$fileExcel$datapath, filepath_data)
-
-    # Access the submission log from DropBox and append current emails/time/datafile name
+    # Access the submission log from dropbox and append current emails/time/datafile name
     submission_log <- generateSubmissionInfo(new_filepaths)
     
     submission_log_path <- file.path("submission_log.csv")
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
     
-    # upload both the initial data submission to dropbox
-    # drop_upload(filepath_data, path = "Data")
-
     # Overwrite the old submission log with the updated info
     drop_upload(submission_log_path, path = "Data", mode = "overwrite")
     
   }
   
-## Helper functions ########
+## Helper functions ##########
+
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 generateSubmissionInfo <- function(new_filepaths){
   
