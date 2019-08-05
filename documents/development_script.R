@@ -17,4 +17,4 @@ file_name <- paste(protocol_metadata$protocol_name, first(sample_metadata$site_c
 # Make sure there's only one site code in sample metadata 
 # Scan directory to make sure there isn't a shared name
 
-
+# If excel sheet was done on Mac, date may be wrong since origin is different

@@ -8,6 +8,7 @@ library(shinyjs)
 library(readxl)
 library(tidyverse)
 library(rdrop2)
+library(lubridate)
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")

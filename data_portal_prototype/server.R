@@ -11,6 +11,9 @@ function(input, output, session) {
   # When users select the sensitive checkbox, this reactive value will change to TRUE
   sensitive <- reactiveVal()
   
+  # Create empty list to hold original and standardized filenames of uploaded protocols
+  filenames <- reactiveValues()
+  
   ## Welcome and Data Policy action button logic ###############
   
   ## ... Intro/First page
@@ -114,39 +117,77 @@ function(input, output, session) {
     tmpdir <- tempdir()
     setwd(tempdir())
     
-    new_filepaths <- c()
-    # For each file uploaded: 
+    # Save filnames and create standardized filenames based on protocol-site-data entry date
+    updateFileNames()
+    
+    # For each file uploaded:
     for(i in 1:nrow(input$fileExcel)){
-      # Rename the file to reflect the time the submit button was pressed
-      original_file_name <- gsub(".xlsx", "_", input$fileExcel$name[i])
-      filepath_data <- paste0(original_file_name, submission_time(),".xlsx")
-      file.rename(input$fileExcel$datapath[i], filepath_data)
       
-      # Collect a vector with all of the new filepath names
-      new_filepaths <- append(new_filepaths, filepath_data)
-
       # upload the initial data submission to dropbox
-      drop_upload(filepath_data, path = "Data")
+      drop_upload(filenames$new[i], 
+                  path = paste0("Data/test_initial_directory/",
+                                filenames$year[i], "/", 
+                                filenames$site[i], "/",
+                                filenames$protocol[i]))
     }
-    
+
     # Access the submission log from dropbox and append current emails/time/datafile name
-    submission_log <- generateSubmissionInfo(new_filepaths)
-    
+    submission_log <- generateSubmissionInfo(paste(filenames$new, collapse=", "))
+
     submission_log_path <- file.path("submission_log.csv")
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
-    
+
     # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "Data", mode = "overwrite")
+    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
     
   }
   
 ## Helper functions ##########
 
+# Reads in metadata from each file and generates standard filename
+updateFileNames <- function(){
+
+  # For each file uploaded: 
+  for(i in 1:nrow(input$fileExcel)){
+    # Extract the original file name to be saved in the submission log 
+    filenames$original[i] <- input$fileExcel$name[i]
+    
+    # Import data
+    # Format metadata to be more machine-readable
+    # Turn to wide form, remove first row
+    protocol_metadata <- read_xlsx(input$fileExcel$datapath[i], 
+                                   sheet = "protocol_metadata", 
+                                   col_names = c("category", "response"), skip=1) %>%
+      spread(category, response) %>%
+      mutate(data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
+    
+    print(protocol_metadata$data_entry_date)
+    # Read in sample metadata to get site code
+    sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
+    
+    filenames$year[i] <- year(protocol_metadata$data_entry_date)
+    filenames$protocol[i] <- protocol_metadata$protocol_name
+    filenames$site[i] <- first(sample_metadata$site_code)
+    #filenames$data_entry_date[i] <- protocol_metadata$data_entry_date
+      
+    print(year(protocol_metadata$data_entry_date))
+    print(protocol_metadata$data_entry_date)
+    
+    # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
+    filenames$new[i] <- paste0(filenames$protocol[i], "_",
+                               filenames$site[i], "_",
+                               protocol_metadata$data_entry_date, ".xlsx")
+    
+    file.rename(input$fileExcel$datapath[i], filenames$new[i])
+    
+    }
+}
+  
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 generateSubmissionInfo <- function(new_filepaths){
   
   # Read in the submission log from Dropbox
-  submission_log <- drop_read_csv("Data/submission_log.csv")
+  submission_log <- drop_read_csv("Data/test_initial_directory/submission_log.csv")
   
   # Split emails and create a dataframe based on the number of emails provided
   emails <- strsplit(input$email, split=";")
