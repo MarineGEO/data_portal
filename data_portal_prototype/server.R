@@ -123,6 +123,29 @@ function(input, output, session) {
     # For each file uploaded:
     for(i in 1:nrow(input$fileExcel)){
       
+      # Make sure site folder exists
+      if(!drop_exists(path = paste0("Data/test_initial_directory/",
+                                    filenames$year[i], "/", 
+                                    filenames$site[i]))){
+        
+        # If it doesn't, create the site and protocol folders 
+        drop_create(path = paste0("Data/test_initial_directory/",
+                                  filenames$year[i], "/", 
+                                  filenames$site[i])) 
+      }
+        
+      # Make sure protocol folder exists
+      if(!drop_exists(path = paste0("Data/test_initial_directory/",
+                                    filenames$year[i], "/", 
+                                    filenames$site[i], "/",
+                                    filenames$protocol[i]))){
+        
+        drop_create(path = paste0("Data/test_initial_directory/",
+                                  filenames$year[i], "/", 
+                                  filenames$site[i], "/",
+                                  filenames$protocol[i]))
+      }
+      
       # upload the initial data submission to dropbox
       drop_upload(filenames$new[i], 
                   path = paste0("Data/test_initial_directory/",
@@ -132,7 +155,7 @@ function(input, output, session) {
     }
 
     # Access the submission log from dropbox and append current emails/time/datafile name
-    submission_log <- generateSubmissionInfo(paste(filenames$new, collapse=", "))
+    submission_log <- generateSubmissionInfo()
 
     submission_log_path <- file.path("submission_log.csv")
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
@@ -161,18 +184,13 @@ updateFileNames <- function(){
       spread(category, response) %>%
       mutate(data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
     
-    print(protocol_metadata$data_entry_date)
     # Read in sample metadata to get site code
     sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
     
     filenames$year[i] <- year(protocol_metadata$data_entry_date)
     filenames$protocol[i] <- protocol_metadata$protocol_name
     filenames$site[i] <- first(sample_metadata$site_code)
-    #filenames$data_entry_date[i] <- protocol_metadata$data_entry_date
-      
-    print(year(protocol_metadata$data_entry_date))
-    print(protocol_metadata$data_entry_date)
-    
+
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
     filenames$new[i] <- paste0(filenames$protocol[i], "_",
                                filenames$site[i], "_",
@@ -184,19 +202,20 @@ updateFileNames <- function(){
 }
   
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
-generateSubmissionInfo <- function(new_filepaths){
+generateSubmissionInfo <- function(){
   
   # Read in the submission log from Dropbox
   submission_log <- drop_read_csv("Data/test_initial_directory/submission_log.csv")
-  
-  # Split emails and create a dataframe based on the number of emails provided
-  emails <- strsplit(input$email, split=";")
-  num_emails <- length(unlist(emails))
-  
-  filepaths <- paste(new_filepaths, collapse=",")
+
+  # Collapse all variables to fit into a row in the submission log. 
+  # They can be split by ; later 
+  protocols <- paste(unique(filenames$protocol), collapse = "; ")
+  original_filenames <- paste(filenames$original, collapse = "; ")  
+  standardized_filenames <- paste(filenames$new, collapse="; ")
   
   # Crate a new dataframe based on the number of emails provided 
-  df <- setNames(data.frame(submission_time(), emails, filepaths), c("submission_time", "email", "filenames"))
+  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames), 
+                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames"))
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
