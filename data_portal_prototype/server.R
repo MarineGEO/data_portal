@@ -14,6 +14,9 @@ function(input, output, session) {
   # Create empty list to hold original and standardized filenames of uploaded protocols
   filenames <- reactiveValues()
   
+  # Create empty list to hold protocol data for QA testing and curation
+  submission_data <- reactiveValues()
+  
   ## Welcome and Data Policy action button logic ###############
   
   ## ... Intro/First page
@@ -228,6 +231,31 @@ checkFileExtensions <- function(){
     return(FALSE)
   } else return(TRUE)
 
+}
+
+testQA <- function(){
+  # Read in protocol structure table
+  protocol_structure <- read_csv("./documents/protocol_structure.csv")
+  
+  # Temp
+  current_protocol <- "seagrass_density"
+  
+  # Get names of sheets in given protocol
+  protocol_sheets <- protocol_structure %>%
+    filter(protocol == current_protocol) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
+    unique(.$sheet)
+  
+  # Create an empty list, each object will be a sheet for the protocol
+  protocol_df <- vector("list", length(protocol_sheets))
+  names(protocol_df) <- protocol_sheets
+  
+  # Read in each sheet for the protocol, assign to respective list object 
+  for(sheet_name in protocol_sheets) {
+    protocol_df[[sheet_name]] <- read_excel(input$fileExcel$datapath[1], sheet = sheet_name)
+  }
+  
+  print(protocol_df[["sample_metadata"]])
+  
 }
 
   # Prevent users from clicking on tabs in the header 
