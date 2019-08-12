@@ -10,6 +10,10 @@ library(tidyverse)
 library(rdrop2)
 library(lubridate)
 library(magrittr)
+library(rmarkdown)
+library(markdown)
+library(knitr)
+library(DT)
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
@@ -33,4 +37,6 @@ drop_auth(rdstoken = "./droptoken.rds")
 # Read in protocol structure table
 protocol_structure <- read_csv("./data/protocol_structure.csv")
 
+# Record working directory to return to after moving to temporary directory
+original_wd <- getwd()
 

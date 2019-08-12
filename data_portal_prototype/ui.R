@@ -154,12 +154,12 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   width = "50%", height = "auto", style="padding:10px;",
                                   
                                   div(id = "file_uploads",
-                                      "This page will display QA/QC results based on the data submitted on the previous page. If a data submission passes QA/QC, 
-                                      it will be uploaded to MarineGEO. If it fails, the results will be displayed to the uploader, and they will need to make 
-                                      corrections before attempting to upload their data again.", 
-                                      
+                                      uiOutput("html_report"),
+
                                       tags$br(), tags$br(),
                                       
+                                      downloadButton("downloadReport", "Download report"),
+
                                       actionButton("return_to_upload", "Return to the data upload page"), tags$br(), tags$br()
                                   )
                     ),

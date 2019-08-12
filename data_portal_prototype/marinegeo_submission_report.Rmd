@@ -13,10 +13,10 @@ output: html_document
 
 ```{r, echo=FALSE}
 
-table_length <- nrow(QA_results)
+table_length <- nrow(QA_results$df)
 
 # data table of results 
-datatable(QA_results, options = list(pageLength = table_length,
+datatable(QA_results$df, options = list(pageLength = table_length,
                                      autoWidth = TRUE,
                                      #columnDefs = list(list(width = "47%", targets = c(1,2))),
                                      searching = FALSE,

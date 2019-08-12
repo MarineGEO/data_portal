@@ -23,6 +23,9 @@ function(input, output, session) {
   # If submission fails QA testing, report status will be sent to False 
   report_status <- reactiveVal()
   
+  # Save the filepath of the resulting QA report
+  report_path <- reactiveVal()
+  
   ## Welcome and Data Policy action button logic ###############
   
   ## ... Intro/First page
@@ -109,9 +112,35 @@ function(input, output, session) {
   
   ## Finalize data submission/View report ##################
   # Return to data submission page 
+  
+  output$html_report <- renderUI({
+    if(file.exists(paste0("./www/", report_path()))){
+      
+      tags$iframe(style="height:600px; width:100%", 
+                  src=report_path())
+      
+    }
+  })
+    
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
   })
+  
+  ## ... Download Report ##############
+  # Note: It appears downloadHandler changes the wd to a temporary dir 
+  # Have to set wd back to original in order to clear the RMD HTML report when the app closes
+  output$downloadReport <- downloadHandler(
+    filename = function() {
+      report_path()
+    },
+    content = function(file) {
+      # As far as I can tell, you can't return a file path here, 
+      # this function moves a given file to its required directory
+      file.copy(paste0(original_wd, "/www/", report_path()), file)
+      
+    }, 
+    contentType = "text/html"
+  )
   
   ## Dropbox functions ####################
   # There can be up to 5 instances of writing data to Dropbox per data submission session
@@ -159,11 +188,11 @@ function(input, output, session) {
       }
       
       # upload the initial data submission to dropbox
-      # drop_upload(filenames$new[i], 
-      #             path = paste0("Data/test_initial_directory/",
-      #                           filenames$year[i], "/", 
-      #                           filenames$site[i], "/",
-      #                           filenames$protocol[i]))
+      drop_upload(filenames$new[i],
+                  path = paste0("Data/test_initial_directory/",
+                                filenames$year[i], "/",
+                                filenames$site[i], "/",
+                                filenames$protocol[i]))
     }
 
     # Access the submission log from dropbox and append current emails/time/datafile name
@@ -173,7 +202,7 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
 
     # Overwrite the old submission log with the updated info
-    # drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
+    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
     
   }
   
@@ -303,7 +332,10 @@ testQA <- function(){
   }
 }
 
+# Generate the QA report in HTML
 renderReport <- function(){
+  
+  setwd(original_wd)
   
   # Check if the submission failed any QA tests
   if(any(QA_results$df$status != "Passed")){
@@ -314,15 +346,28 @@ renderReport <- function(){
 
   rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
                     output_format = "html_document",
-                    output_file = paste0("submission_report_", submission_time, ".html"),
-                    output_dir = "./")
+                    output_file = paste0("submission_report_", submission_time(), ".html"),
+                    output_dir = "./www/")
   
   
+  report_path(paste0("submission_report_", submission_time(), ".html"))
+  
+  # Send the report to the dropbox
+  drop_upload(paste0("./www/", report_path()),
+              path = paste0("Data/test_initial_directory/submission_reports"))
   
 }
 
-  # Prevent users from clicking on tabs in the header 
-  # They'll need to use action buttons to move between pages
-  shinyjs::disable(selector = '.navbar-nav a')
+## Clear the RMarkdown report when the session ends #####
+session$onSessionEnded(function() {
+  observe({
+    setwd(original_wd)
+    system(paste("rm -f", paste0("./www/", report_path())))
+  })
+})
+
+# Prevent users from clicking on tabs in the header 
+# They'll need to use action buttons to move between pages
+shinyjs::disable(selector = '.navbar-nav a')
 
 }
