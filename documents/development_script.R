@@ -73,7 +73,6 @@ for(sheet_name in protocol_sheets){
         mutate_at(sheet_numeric_columns, as.numeric)
       
       QA_results[nrow(QA_results) + 1,] <- c("Test numeric variables", current_protocol, sheet_name, "Passed")
-      
     },
     
     warning = function(w){

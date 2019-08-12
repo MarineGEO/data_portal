@@ -17,6 +17,12 @@ function(input, output, session) {
   # Create empty list to hold protocol data for QA testing and curation
   submission_data <- reactiveValues()
   
+  # Create object to save errors to 
+  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "status")))
+  
+  # If submission fails QA testing, report status will be sent to False 
+  report_status <- reactiveVal()
+  
   ## Welcome and Data Policy action button logic ###############
   
   ## ... Intro/First page
@@ -59,7 +65,10 @@ function(input, output, session) {
     # Only upload data if all files are .xlsx
     if(file_test){
        saveInitialData()
+       testQA()
+       renderReport()
        updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+       
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
       shinyjs::reset("fileExcel")
@@ -150,11 +159,11 @@ function(input, output, session) {
       }
       
       # upload the initial data submission to dropbox
-      drop_upload(filenames$new[i], 
-                  path = paste0("Data/test_initial_directory/",
-                                filenames$year[i], "/", 
-                                filenames$site[i], "/",
-                                filenames$protocol[i]))
+      # drop_upload(filenames$new[i], 
+      #             path = paste0("Data/test_initial_directory/",
+      #                           filenames$year[i], "/", 
+      #                           filenames$site[i], "/",
+      #                           filenames$protocol[i]))
     }
 
     # Access the submission log from dropbox and append current emails/time/datafile name
@@ -164,7 +173,7 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
 
     # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
+    # drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
     
   }
   
@@ -234,27 +243,81 @@ checkFileExtensions <- function(){
 }
 
 testQA <- function(){
-  # Read in protocol structure table
-  protocol_structure <- read_csv("./documents/protocol_structure.csv")
   
-  # Temp
-  current_protocol <- "seagrass_density"
+  # Create an empty list to hold all uploaded data
+  # It will become a list of lists, where each first order list is a sheet in a protocol
+  # And each second order list represents a protocol
+  submission_data <-  vector("list", length(filenames$new))
+  names(submission_data) <- filenames$protocol
   
-  # Get names of sheets in given protocol
-  protocol_sheets <- protocol_structure %>%
-    filter(protocol == current_protocol) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
-    unique(.$sheet)
-  
-  # Create an empty list, each object will be a sheet for the protocol
-  protocol_df <- vector("list", length(protocol_sheets))
-  names(protocol_df) <- protocol_sheets
-  
-  # Read in each sheet for the protocol, assign to respective list object 
-  for(sheet_name in protocol_sheets) {
-    protocol_df[[sheet_name]] <- read_excel(input$fileExcel$datapath[1], sheet = sheet_name)
+  # Loop through each uploaded protocol
+  for(i in 1:length(filenames$new)){
+    current_protocol <- filenames$protocol[i]
+    
+    # Get names of sheets for given protocol
+    protocol_sheets <- protocol_structure %>%
+      filter(protocol == current_protocol) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
+      unique(.$sheet)
+    
+    # Create an empty list, each object will be a sheet for the protocol
+    protocol_df <- vector("list", length(protocol_sheets))
+    names(protocol_df) <- protocol_sheets
+    
+    # Read in each sheet for the protocol, assign to respective list object 
+    for(sheet_name in protocol_sheets) {
+      protocol_df[[sheet_name]] <- read_excel(filenames$new[1], sheet = sheet_name)
+    }
+    
+    ## TEST numeric type 
+    # Get vector of numeric type columns in the given protocol
+    numeric_columns <- protocol_structure %>%
+      filter(protocol == current_protocol) %>%
+      filter(type == "numeric") %$%
+      unique(.$attribute_name)
+    
+    for(sheet_name in protocol_sheets){
+      
+      # Extract vector of numeric columns in sheet
+      sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]), 
+                                      colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
+      
+      # If a sheet has numeric columns, attempt to convert them to numeric
+      # If they have to coerce values to NA, the resulting warning will be logged 
+      if(!is.null(sheet_numeric_columns)){
+        tryCatch({
+          protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
+            mutate_at(sheet_numeric_columns, as.numeric)
+          
+          QA_results$df[nrow(QA_results$df) + 1,] <- c("Test numeric variables", filenames$original[i], current_protocol, sheet_name, "Passed")
+        },
+        
+        warning = function(w){
+          QA_results$df[nrow(QA_results$df) + 1,] <<- c("Test numeric variables", filenames$original[i], current_protocol, sheet_name, unlist(w[1]))
+        })
+      }
+    }
+      
+    # Add the protocol to the overall submission data list 
+    submission_data[[current_protocol]] <- protocol_df
+    
   }
+}
+
+renderReport <- function(){
   
-  print(protocol_df[["sample_metadata"]])
+  # Check if the submission failed any QA tests
+  if(any(QA_results$df$status != "Passed")){
+    report_status <- FALSE
+  } else report_status <- TRUE
+  
+  ## Write RMarkdown report #########
+
+  rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
+                    output_format = "html_document",
+                    output_file = paste0("submission_report_", submission_time, ".html"),
+                    output_dir = "./")
+  
+  
   
 }
 
