@@ -4,7 +4,7 @@ output: html_document
 ---
 
 #### Report date: `r submission_time`
-#### Synthesis status: `r if(report_status) {"Successful"} else "Failed"`
+#### Synthesis status: `r if(report_status()) {"Successful"} else "Failed"`
 #### Contact: MarineGEO (marinegeo@si.edu)  
 
 

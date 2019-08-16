@@ -22,7 +22,7 @@ humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
 footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
                                           align = "center", 
                                           style = "
-                                          position:absolute;
+                                          position:fixed;
                                           bottom:0;
                                           width:100%;
                                           height:20px; 
@@ -39,4 +39,3 @@ protocol_structure <- read_csv("./data/protocol_structure.csv")
 
 # Record working directory to return to after moving to temporary directory
 original_wd <- getwd()
-

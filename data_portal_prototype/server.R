@@ -15,7 +15,7 @@ function(input, output, session) {
   filenames <- reactiveValues()
   
   # Create empty list to hold protocol data for QA testing and curation
-  submission_data <- reactiveValues()
+  submission_data <- reactiveValues(all_data = list())
   
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "status")))
@@ -53,7 +53,7 @@ function(input, output, session) {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
   })
   
-  ## ... submit data button ##############
+  ## ... submit data button - file save, QA, report display functions ##############
   # As long as the user has also provided an excel file and an email address, the initial file will be uploaded to a dropbox directory
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
@@ -67,10 +67,15 @@ function(input, output, session) {
     
     # Only upload data if all files are .xlsx
     if(file_test){
+       # Upload initial files to dropbox and run QA checks
        saveInitialData()
        testQA()
+       # Render the report and save to MarineGEO dropbox
        renderReport()
+       # Move user to the data report page
        updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+       # If the QA QC checks were successful, save the curated data in the proper directory
+       if(report_status()) {saveCuratedData()}
        
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
@@ -155,7 +160,7 @@ function(input, output, session) {
   saveInitialData <- function() {
     # Upload the Excel file and updated submission log file to Dropbox
     # Create a temporary working directory
-    tmpdir <- tempdir()
+    #tmpdir <- tempdir()
     setwd(tempdir())
     
     # Save filnames and create standardized filenames based on protocol-site-data entry date
@@ -188,11 +193,11 @@ function(input, output, session) {
       }
       
       # upload the initial data submission to dropbox
-      drop_upload(filenames$new[i],
-                  path = paste0("Data/test_initial_directory/",
-                                filenames$year[i], "/",
-                                filenames$site[i], "/",
-                                filenames$protocol[i]))
+      # drop_upload(filenames$new[i],
+      #             path = paste0("Data/test_initial_directory/",
+      #                           filenames$year[i], "/",
+      #                           filenames$site[i], "/",
+      #                           filenames$protocol[i]))
     }
 
     # Access the submission log from dropbox and append current emails/time/datafile name
@@ -202,8 +207,75 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
 
     # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
+    #drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
     
+  }
+  
+  saveCuratedData <- function(){
+    setwd(tempdir())
+    
+    # Save each curated protocol to the proper dropbox repository
+    for(i in 1:length(submission_data$all_data)){
+      
+      if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                    filenames$year[i], "/",
+                                    filenames$site[i]))){
+
+        # If it doesn't, create the site and protocol folders
+        drop_create(path = paste0("Data/test_curated_directory/",
+                                  filenames$year[i], "/",
+                                  filenames$site[i]))
+      }
+
+      # Make sure protocol folder exists
+      if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                    filenames$year[i], "/",
+                                    filenames$site[i], "/",
+                                    filenames$protocol[i]))){
+
+        drop_create(path = paste0("Data/test_curated_directory/",
+                                  filenames$year[i], "/",
+                                  filenames$site[i], "/",
+                                  filenames$protocol[i]))
+
+      }
+      
+      for(sheet in names(submission_data$all_data[[i]])) {
+        # Make sure sheet folder exists
+        if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                      filenames$year[i], "/",
+                                      filenames$site[i], "/",
+                                      filenames$protocol[i], "/",
+                                      sheet))){
+        
+          drop_create(path = paste0("Data/test_curated_directory/",
+                                    filenames$year[i], "/",
+                                    filenames$site[i], "/",
+                                    filenames$protocol[i], "/",
+                                    sheet))
+
+        }
+        # Write the curated set to the temporary directory and send to Dropbox
+        write_csv(submission_data$all_data[[i]][[sheet]], 
+                  paste0(filenames$protocol[i], "_",
+                         filenames$site[i], "_",
+                         filenames$data_entry_date[i], "_", 
+                         sheet, ".csv"))
+        
+        # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+        drop_upload(paste0(filenames$protocol[i], "_",
+                           filenames$site[i], "_",
+                           filenames$data_entry_date[i], "_", 
+                           sheet, ".csv"),
+                    path = paste0("Data/test_curated_directory/",
+                                  filenames$year[i], "/",
+                                  filenames$site[i], "/",
+                                  filenames$protocol[i], "/",
+                                  sheet))
+      }
+      
+    }
+    setwd(original_wd)
   }
   
 ## Helper functions ##########
@@ -231,6 +303,7 @@ updateFileNames <- function(){
     filenames$year[i] <- year(protocol_metadata$data_entry_date)
     filenames$protocol[i] <- protocol_metadata$protocol_name
     filenames$site[i] <- first(sample_metadata$site_code)
+    filenames$data_entry_date <- protocol_metadata$data_entry_date
 
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
     filenames$new[i] <- paste0(filenames$protocol[i], "_",
@@ -276,8 +349,8 @@ testQA <- function(){
   # Create an empty list to hold all uploaded data
   # It will become a list of lists, where each first order list is a sheet in a protocol
   # And each second order list represents a protocol
-  submission_data <-  vector("list", length(filenames$new))
-  names(submission_data) <- filenames$protocol
+  submission_data$all_data <-  vector("list", length(filenames$new))
+  names(submission_data$all_data) <- filenames$protocol
   
   # Loop through each uploaded protocol
   for(i in 1:length(filenames$new)){
@@ -327,9 +400,10 @@ testQA <- function(){
     }
       
     # Add the protocol to the overall submission data list 
-    submission_data[[current_protocol]] <- protocol_df
-    
+    submission_data$all_data[[current_protocol]] <- protocol_df
+  
   }
+  print(names(submission_data$all_data))
 }
 
 # Generate the QA report in HTML
@@ -339,9 +413,9 @@ renderReport <- function(){
   
   # Check if the submission failed any QA tests
   if(any(QA_results$df$status != "Passed")){
-    report_status <- FALSE
-  } else report_status <- TRUE
-  
+    report_status(FALSE)
+  } else report_status(TRUE)
+
   ## Write RMarkdown report #########
 
   rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
@@ -353,8 +427,8 @@ renderReport <- function(){
   report_path(paste0("submission_report_", submission_time(), ".html"))
   
   # Send the report to the dropbox
-  drop_upload(paste0("./www/", report_path()),
-              path = paste0("Data/test_initial_directory/submission_reports"))
+  # drop_upload(paste0("./www/", report_path()),
+  #             path = paste0("Data/test_initial_directory/submission_reports"))
   
 }
 
@@ -362,7 +436,9 @@ renderReport <- function(){
 session$onSessionEnded(function() {
   observe({
     setwd(original_wd)
-    system(paste("rm -f", paste0("./www/", report_path())))
+    if(!is.null(report_path())){
+      system(paste("rm -f", paste0("./www/", report_path())))
+    }
   })
 })
 
