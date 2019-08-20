@@ -121,19 +121,38 @@ function(input, output, session) {
   output$html_report <- renderUI({
     if(file.exists(paste0("./www/", report_path()))){
       
-      tags$iframe(style="height:600px; width:100%", 
-                  src=report_path())
+      if(report_status()) {
+        status <- "Successful"
+      } else status <- "Failed"
+      
+      # tags$iframe(style="height:600px; width:100%",
+      #             src=report_path())
+      
+      div(
+        "Report date: ", submission_time(), tags$br(),
+        "Synthesis status:", status, tags$br(),
+        "Contact: MarineGEO (marinegeo@si.edu)",
+        
+        tags$br(), tags$br(), 
+        
+        "QA/QC Test Results", tags$br()
+      )
       
     }
   })
     
+  
+  output$qa_table_results <- renderDataTable({
+    QA_results$df
+  })
+
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
   })
   
   ## ... Download Report ##############
   # Note: It appears downloadHandler changes the wd to a temporary dir 
-  # Have to set wd back to original in order to clear the RMD HTML report when the app closes
+  # Have to set wd back to original in order to clear the HTML report when the app closes
   output$downloadReport <- downloadHandler(
     filename = function() {
       report_path()
@@ -193,11 +212,11 @@ function(input, output, session) {
       }
       
       # upload the initial data submission to dropbox
-      # drop_upload(filenames$new[i],
-      #             path = paste0("Data/test_initial_directory/",
-      #                           filenames$year[i], "/",
-      #                           filenames$site[i], "/",
-      #                           filenames$protocol[i]))
+      drop_upload(filenames$new[i],
+                  path = paste0("Data/test_initial_directory/",
+                                filenames$year[i], "/",
+                                filenames$site[i], "/",
+                                filenames$protocol[i]))
     }
 
     # Access the submission log from dropbox and append current emails/time/datafile name
@@ -207,7 +226,7 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
 
     # Overwrite the old submission log with the updated info
-    #drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
+    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
     
   }
   
@@ -275,6 +294,7 @@ function(input, output, session) {
       }
       
     }
+    
     setwd(original_wd)
   }
   
@@ -406,7 +426,7 @@ testQA <- function(){
   print(names(submission_data$all_data))
 }
 
-# Generate the QA report in HTML
+# Generate the QA report in markdown
 renderReport <- function(){
   
   setwd(original_wd)
@@ -427,8 +447,8 @@ renderReport <- function(){
   report_path(paste0("submission_report_", submission_time(), ".html"))
   
   # Send the report to the dropbox
-  # drop_upload(paste0("./www/", report_path()),
-  #             path = paste0("Data/test_initial_directory/submission_reports"))
+  drop_upload(paste0("./www/", report_path()),
+              path = paste0("Data/test_initial_directory/submission_reports"))
   
 }
 

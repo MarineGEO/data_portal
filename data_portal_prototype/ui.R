@@ -154,7 +154,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   width = "50%", height = "auto", style="padding:10px;",
                                   
                                   div(id = "file_uploads",
+                                      
                                       uiOutput("html_report"),
+                                      dataTableOutput("qa_table_results"),
 
                                       tags$br(), tags$br(),
                                       

@@ -1,6 +1,8 @@
 ---
 title: "MarineGEO Data Submission Report"
-output: html_document
+output: 
+  md_document: 
+    variant: markdown
 ---
 
 #### Report date: `r submission_time`
@@ -15,7 +17,7 @@ output: html_document
 
 table_length <- nrow(QA_results$df)
 
-# data table of results 
+# data table of results
 datatable(QA_results$df, options = list(pageLength = table_length,
                                      autoWidth = TRUE,
                                      #columnDefs = list(list(width = "47%", targets = c(1,2))),
