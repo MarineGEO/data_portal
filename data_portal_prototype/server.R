@@ -14,6 +14,9 @@ function(input, output, session) {
   # Create empty list to hold original and standardized filenames of uploaded protocols
   filenames <- reactiveValues()
   
+  # Project affiliation of submission
+  project_affiliation <- reactiveValues(vector = c())
+  
   # Create empty list to hold protocol data for QA testing and curation
   submission_data <- reactiveValues(all_data = list())
   
@@ -226,75 +229,83 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
 
     # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "Data/test_initial_directory", mode = "overwrite")
+    drop_upload(submission_log_path, path = "Data", mode = "overwrite")
     
   }
   
   saveCuratedData <- function(){
     setwd(tempdir())
     
-    # Save each curated protocol to the proper dropbox repository
-    for(i in 1:length(submission_data$all_data)){
+    for(project in project_affiliation$vector){
       
-      if(!drop_exists(path = paste0("Data/test_curated_directory/",
+      # Save each curated protocol to the proper dropbox repository
+      for(i in 1:length(submission_data$all_data)){
+        
+        if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                      project, "/",
+                                      filenames$year[i], "/",
+                                      filenames$site[i]))){
+          
+          # If it doesn't, create the site and protocol folders
+          drop_create(path = paste0("Data/test_curated_directory/",
+                                    project, "/",
                                     filenames$year[i], "/",
-                                    filenames$site[i]))){
-
-        # If it doesn't, create the site and protocol folders
-        drop_create(path = paste0("Data/test_curated_directory/",
-                                  filenames$year[i], "/",
-                                  filenames$site[i]))
-      }
-
-      # Make sure protocol folder exists
-      if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                    filenames$site[i]))
+        }
+        
+        # Make sure protocol folder exists
+        if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                      project, "/",
+                                      filenames$year[i], "/",
+                                      filenames$site[i], "/",
+                                      filenames$protocol[i]))){
+          
+          drop_create(path = paste0("Data/test_curated_directory/",
+                                    project, "/",
                                     filenames$year[i], "/",
                                     filenames$site[i], "/",
-                                    filenames$protocol[i]))){
-
-        drop_create(path = paste0("Data/test_curated_directory/",
-                                  filenames$year[i], "/",
-                                  filenames$site[i], "/",
-                                  filenames$protocol[i]))
-
-      }
-      
-      for(sheet in names(submission_data$all_data[[i]])) {
-        # Make sure sheet folder exists
-        if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                    filenames$protocol[i]))
+          
+        }
+        
+        for(sheet in names(submission_data$all_data[[i]])) {
+          # Make sure sheet folder exists
+          if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                        project, "/",
+                                        filenames$year[i], "/",
+                                        filenames$site[i], "/",
+                                        filenames$protocol[i], "/",
+                                        sheet))){
+            
+            drop_create(path = paste0("Data/test_curated_directory/",
+                                      project, "/",
                                       filenames$year[i], "/",
                                       filenames$site[i], "/",
                                       filenames$protocol[i], "/",
-                                      sheet))){
-        
-          drop_create(path = paste0("Data/test_curated_directory/",
+                                      sheet))
+            
+          }
+          # Write the curated set to the temporary directory and send to Dropbox
+          write_csv(submission_data$all_data[[i]][[sheet]], 
+                    paste0(filenames$protocol[i], "_",
+                           filenames$site[i], "_",
+                           filenames$data_entry_date[i], "_", 
+                           sheet, ".csv"))
+          
+          # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+          drop_upload(paste0(filenames$protocol[i], "_",
+                             filenames$site[i], "_",
+                             filenames$data_entry_date[i], "_", 
+                             sheet, ".csv"),
+                      path = paste0("Data/test_curated_directory/",
+                                    project, "/",
                                     filenames$year[i], "/",
                                     filenames$site[i], "/",
                                     filenames$protocol[i], "/",
                                     sheet))
-
         }
-        # Write the curated set to the temporary directory and send to Dropbox
-        write_csv(submission_data$all_data[[i]][[sheet]], 
-                  paste0(filenames$protocol[i], "_",
-                         filenames$site[i], "_",
-                         filenames$data_entry_date[i], "_", 
-                         sheet, ".csv"))
-        
-        # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-        drop_upload(paste0(filenames$protocol[i], "_",
-                           filenames$site[i], "_",
-                           filenames$data_entry_date[i], "_", 
-                           sheet, ".csv"),
-                    path = paste0("Data/test_curated_directory/",
-                                  filenames$year[i], "/",
-                                  filenames$site[i], "/",
-                                  filenames$protocol[i], "/",
-                                  sheet))
       }
-      
     }
-    
     setwd(original_wd)
   }
   
@@ -339,17 +350,28 @@ updateFileNames <- function(){
 generateSubmissionInfo <- function(){
   
   # Read in the submission log from Dropbox
-  submission_log <- drop_read_csv("Data/test_initial_directory/submission_log.csv")
+  submission_log <- drop_read_csv("Data/submission_log.csv")
 
   # Collapse all variables to fit into a row in the submission log. 
   # They can be split by ; later 
   protocols <- paste(unique(filenames$protocol), collapse = "; ")
   original_filenames <- paste(filenames$original, collapse = "; ")  
   standardized_filenames <- paste(filenames$new, collapse="; ")
+  emails <- tolower(input$email)
+  
+  # check which projects the emails provided with the submission are affiliated with
+  project <- unique(filter(roster, email %in% emails)$project_affiliation)
+  
+  # If they're not affiliated, the curated submission will be sent to the unaffiliated submissions directory
+  if(length(project)==0){
+    project_affiliation$vector <- "unaffiliated_submissions"
+  } else {
+    project_affiliation$vector <- project
+  }
   
   # Crate a new dataframe based on the number of emails provided 
-  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames), 
-                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames"))
+  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; ")), 
+                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project"))
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
@@ -448,7 +470,7 @@ renderReport <- function(){
   
   # Send the report to the dropbox
   drop_upload(paste0("./www/", report_path()),
-              path = paste0("Data/test_initial_directory/submission_reports"))
+              path = paste0("Data/submission_reports"))
   
 }
 

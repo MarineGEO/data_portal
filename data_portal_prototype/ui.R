@@ -43,41 +43,29 @@ navbarPage("MarineGEO Data Portal", id="nav",
                       width = "90%", height = "90%", style="padding: 50px;overflow-y: scroll;",
                       
                       div(
-                      #   img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250), 
-                      #     
-                      #   tags$br(), tags$br()
-                      # ),
-                      # 
-                      # tags$div(
-                      #   tags$h4(tags$b("Data Policy & Authorship Agreement"), align="center"), tags$br(),
-                      #   
-                      #   tags$a(href="https://marinegeo.github.io/assets/projects/seagrass-food-webs//MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf",
-                      #          "Review the entire MarineGEO data policy and authorship agreement here."),
-                      # 
-                      #   tags$br(), tags$br(), 
-                      #   
-                      #   tags$h5("Summary"), 
-                      #   
-                      #   tags$ul(
-                      #     tags$li("Data are made available to all participants in the network immediately"),
-                      #     tags$li("Data are made public within (2) years of submission"),
-                      #     tags$li("Use of data for any scientific purpose requires proper attribution"), 
-                      #     tags$li("Co-authorship on any MarineGEO-lead products is open and flexible but contingent
-                      #              on providing substantial contributions (e.g., data, analysis, writing), and must
-                      #              be extended to contributing participants by lead authors on other products")
-                      #   ),
-                      #   
-                      #   "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
-                      #   
-                      #   actionButton("new_submission", "I accept the MarineGEO data policy", 
-                      #                class = "btn-primary"), tags$br(), tags$br(),
-                      #   
-                      #   actionButton("return_to_intro", "Return to previous page"), tags$br(), tags$br()
-                      #   
-                      # )
-                      tags$iframe(style="height:600px; width:100%", 
-                                  src="MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf"), tags$br(), tags$br(),
-                      
+                        img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250),
+
+                        tags$br(), tags$br(), 
+                        
+                        tags$h4(tags$b("MarineGEO Network Data Policy"), align="center"), tags$br(),
+                        tags$h6("Updated 2018-11-05", align="center"), tags$br(), tags$br(), 
+
+                        # tags$a(href="https://marinegeo.github.io/assets/projects/seagrass-food-webs//MarineGEO_Data_Policy_Authorship_Agreement_v0.0.2.pdf",
+                        #        "Review the entire MarineGEO data policy and authorship agreement here."),
+                        # 
+                        # tags$br(), tags$br(),
+                        # 
+                        # tags$h5("Summary"),
+                        # 
+                        # tags$ul(
+                        #   tags$li("Data are made available to all participants in the network immediately"),
+                        #   tags$li("Data are made public within (2) years of submission"),
+                        #   tags$li("Use of data for any scientific purpose requires proper attribution"),
+                        #   tags$li("Co-authorship on any MarineGEO-lead products is open and flexible but contingent
+                        #            on providing substantial contributions (e.g., data, analysis, writing), and must
+                        #            be extended to contributing participants by lead authors on other products")
+                        # ),
+
                         "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
 
                         actionButton("new_submission", "I accept the MarineGEO data policy",

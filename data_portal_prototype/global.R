@@ -39,3 +39,5 @@ protocol_structure <- read_csv("./data/protocol_structure.csv")
 
 # Record working directory to return to after moving to temporary directory
 original_wd <- getwd()
+
+roster <- drop_read_csv("Data/marinegeo_roster.csv")
