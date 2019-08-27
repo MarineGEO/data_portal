@@ -49,6 +49,9 @@ function(input, output, session) {
     updateTabsetPanel(session, inputId = "nav", selected = "Welcome")
   })
   
+  # Data policy table
+  output$data_policy <- renderTable({data_policy_table})
+  
   ##  Data submission page button logic and observers ##############
   
   # Return to data policy from submission page
