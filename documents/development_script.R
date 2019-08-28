@@ -44,7 +44,7 @@ names(protocol_df) <- protocol_sheets
 
 # Read in each sheet for the protocol, assign to respective list object 
 for(sheet_name in protocol_sheets) {
-  protocol_df[[sheet_name]] <- read_excel("./documents/testerror.xlsx", sheet = sheet_name)
+  protocol_df[[sheet_name]] <- read_excel("./documents/test.xlsx", sheet = sheet_name, na = "NA")
 }
 
 # QA test 

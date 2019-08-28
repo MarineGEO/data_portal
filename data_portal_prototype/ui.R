@@ -258,8 +258,8 @@ navbarPage("MarineGEO Data Portal", id="nav",
            tabPanel("Data Report", 
                     
                     absolutePanel(id = "study_info_panel", class = "panel panel-default", fixed = FALSE,
-                                  draggable = TRUE, top = "10%", left = "25%", right = "auto", bottom = "auto",
-                                  width = "50%", height = "auto", style="padding:10px;",
+                                  draggable = TRUE, top = "10%", left = "auto", right = "auto", bottom = "auto",
+                                  width = "90%", height = "auto", style="padding:10px;",
                                   
                                   div(id = "file_uploads",
                                       

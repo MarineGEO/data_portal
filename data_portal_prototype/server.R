@@ -73,8 +73,18 @@ function(input, output, session) {
     
     # Only upload data if all files are .xlsx
     if(file_test){
-       # Upload initial files to dropbox and run QA checks
+      showModal(modalDialog(
+        title = "Data Uploading", 
+        div("Thank you for submitting data to MarineGEO! Your data is currently undergoing QA tests, 
+            and being saved to our database. This will take a few moments. Once complete, this page will update, and you will have access to a report 
+            with additional details about the status of your submission."),
+        
+        easyClose = TRUE
+      ))
+      
+      # Upload initial files to dropbox and run QA checks
        saveInitialData()
+      
        testQA()
        # Render the report and save to MarineGEO dropbox
        renderReport()
@@ -135,13 +145,19 @@ function(input, output, session) {
       #             src=report_path())
       
       div(
-        "Report date: ", submission_time(), tags$br(),
-        "Synthesis status:", status, tags$br(),
-        "Contact: MarineGEO (marinegeo@si.edu)",
+        tags$h4("Report date: ", submission_time()),
+        tags$h4("Synthesis status:", status),
+        tags$h4("Contact: MarineGEO (marinegeo@si.edu)"),
+        tags$h4("Project affiliation:", paste(project_affiliation$vector, collapse="; ")), tags$br(), 
         
+        "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any errors based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
         tags$br(), tags$br(), 
         
-        "QA/QC Test Results", tags$br()
+        "Once you've addressed the error(s), resubmit ALL of the data associated with this submission.", tags$br(), tags$br(), 
+
+        tags$h4("QA/QC Test Results"),
+        "Test numeric variables: All data associated with numeric-type columns should either be a numeric value or 'NA'. If a given sheet fails this test, then a column within that sheet has a character value. Ensure all 'NA' values are uppercase.",
+        tags$br(), tags$br()
       )
       
     }
@@ -412,7 +428,7 @@ testQA <- function(){
     
     # Read in each sheet for the protocol, assign to respective list object 
     for(sheet_name in protocol_sheets) {
-      protocol_df[[sheet_name]] <- read_excel(filenames$new[1], sheet = sheet_name)
+      protocol_df[[sheet_name]] <- read_excel(filenames$new[1], sheet = sheet_name, na = "NA")
     }
     
     ## TEST numeric type 
