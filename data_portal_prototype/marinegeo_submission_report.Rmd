@@ -6,13 +6,27 @@ output:
 ---
 
 #### Report date: `r submission_time`
-#### Synthesis status: `r if(report_status()) {"Successful"} else "Failed"`
+#### Synthesis status: `r report_status()`
 #### Project affiliation: `r paste(project_affiliation$vector, collapse="; ")`
 #### Contact: MarineGEO (marinegeo@si.edu)  
 
 This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any errors based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
 
-Once you've addressed the error(s), resubmit ALL of the data associated with this submission. 
+Once you've addressed any error(s), resubmit ONLY the data associated with the failed submission. All protocols that pass the QA tests were successfully send to MarineGEO. 
+
+```{r, echo=FALSE}
+
+table_length <- nrow(QA_results$summary)
+
+# data table of results
+datatable(QA_results$summary, options = list(pageLength = table_length,
+                                     autoWidth = TRUE,
+                                     #columnDefs = list(list(width = "47%", targets = c(1,2))),
+                                     searching = FALSE,
+                                     paging = FALSE))
+
+```
+
 
 ### QA/QC Test Results
 

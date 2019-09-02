@@ -21,7 +21,8 @@ function(input, output, session) {
   submission_data <- reactiveValues(all_data = list())
   
   # Create object to save errors to 
-  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "status")))
+  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "status")),
+                               summary = data.frame()) # Summary of all protocols uploaded
   
   # If submission fails QA testing, report status will be sent to False 
   report_status <- reactiveVal()
@@ -91,7 +92,7 @@ function(input, output, session) {
        # Move user to the data report page
        updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
        # If the QA QC checks were successful, save the curated data in the proper directory
-       if(report_status()) {saveCuratedData()}
+       if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {saveCuratedData()}
        
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
@@ -134,40 +135,43 @@ function(input, output, session) {
   ## Finalize data submission/View report ##################
   # Return to data submission page 
   
-  output$html_report <- renderUI({
+  output$html_report_intro <- renderUI({
     if(file.exists(paste0("./www/", report_path()))){
-      
-      if(report_status()) {
-        status <- "Successful"
-      } else status <- "Failed"
-      
-      # tags$iframe(style="height:600px; width:100%",
-      #             src=report_path())
       
       div(
         tags$h4("Report date: ", submission_time()),
-        tags$h4("Synthesis status:", status),
+        tags$h4("Synthesis status:", report_status()),
         tags$h4("Contact: MarineGEO (marinegeo@si.edu)"),
         tags$h4("Project affiliation:", paste(project_affiliation$vector, collapse="; ")), tags$br(), 
         
         "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any errors based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
         tags$br(), tags$br(), 
         
-        "Once you've addressed the error(s), resubmit ALL of the data associated with this submission.", tags$br(), tags$br(), 
-
+        "Once you've addressed any error(s), resubmit ONLY the data associated with the failed submission. All protocols that pass the QA tests were successfully send to MarineGEO.", tags$br(), tags$br()      
+        )
+  
+    }
+  })
+    
+  output$html_report_qa <- renderUI({
+    if(file.exists(paste0("./www/", report_path()))){
+      
+      div(        
         tags$h4("QA/QC Test Results"),
         "Test numeric variables: All data associated with numeric-type columns should either be a numeric value or 'NA'. If a given sheet fails this test, then a column within that sheet has a character value. Ensure all 'NA' values are uppercase.",
         tags$br(), tags$br()
       )
-      
     }
   })
-    
   
   output$qa_table_results <- renderDataTable({
     QA_results$df
   })
 
+  output$qa_summary_results <- renderDataTable({
+    QA_results$summary
+  })
+  
   observeEvent(input$return_to_upload, {
     updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
   })
@@ -260,68 +264,72 @@ function(input, output, session) {
       # Save each curated protocol to the proper dropbox repository
       for(i in 1:length(submission_data$all_data)){
         
-        if(!drop_exists(path = paste0("Data/test_curated_directory/",
+        # Only upload individual file submission if it passed all QA tests
+        if(filenames$status[i]){
+          
+          if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                        project, "/",
+                                        filenames$year[i], "/",
+                                        filenames$site[i]))){
+            
+            # If it doesn't, create the site and protocol folders
+            drop_create(path = paste0("Data/test_curated_directory/",
                                       project, "/",
                                       filenames$year[i], "/",
-                                      filenames$site[i]))){
+                                      filenames$site[i]))
+          }
           
-          # If it doesn't, create the site and protocol folders
-          drop_create(path = paste0("Data/test_curated_directory/",
-                                    project, "/",
-                                    filenames$year[i], "/",
-                                    filenames$site[i]))
-        }
-        
-        # Make sure protocol folder exists
-        if(!drop_exists(path = paste0("Data/test_curated_directory/",
-                                      project, "/",
-                                      filenames$year[i], "/",
-                                      filenames$site[i], "/",
-                                      filenames$protocol[i]))){
-          
-          drop_create(path = paste0("Data/test_curated_directory/",
-                                    project, "/",
-                                    filenames$year[i], "/",
-                                    filenames$site[i], "/",
-                                    filenames$protocol[i]))
-          
-        }
-        
-        for(sheet in names(submission_data$all_data[[i]])) {
-          # Make sure sheet folder exists
+          # Make sure protocol folder exists
           if(!drop_exists(path = paste0("Data/test_curated_directory/",
                                         project, "/",
                                         filenames$year[i], "/",
                                         filenames$site[i], "/",
-                                        filenames$protocol[i], "/",
-                                        sheet))){
+                                        filenames$protocol[i]))){
             
             drop_create(path = paste0("Data/test_curated_directory/",
                                       project, "/",
                                       filenames$year[i], "/",
                                       filenames$site[i], "/",
-                                      filenames$protocol[i], "/",
-                                      sheet))
+                                      filenames$protocol[i]))
             
           }
-          # Write the curated set to the temporary directory and send to Dropbox
-          write_csv(submission_data$all_data[[i]][[sheet]], 
-                    paste0(filenames$protocol[i], "_",
-                           filenames$site[i], "_",
-                           filenames$data_entry_date[i], "_", 
-                           sheet, ".csv"))
           
-          # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-          drop_upload(paste0(filenames$protocol[i], "_",
+          for(sheet in names(submission_data$all_data[[i]])) {
+            # Make sure sheet folder exists
+            if(!drop_exists(path = paste0("Data/test_curated_directory/",
+                                          project, "/",
+                                          filenames$year[i], "/",
+                                          filenames$site[i], "/",
+                                          filenames$protocol[i], "/",
+                                          sheet))){
+              
+              drop_create(path = paste0("Data/test_curated_directory/",
+                                        project, "/",
+                                        filenames$year[i], "/",
+                                        filenames$site[i], "/",
+                                        filenames$protocol[i], "/",
+                                        sheet))
+              
+            }
+            # Write the curated set to the temporary directory and send to Dropbox
+            write_csv(submission_data$all_data[[i]][[sheet]], 
+                      paste0(filenames$protocol[i], "_",
                              filenames$site[i], "_",
                              filenames$data_entry_date[i], "_", 
-                             sheet, ".csv"),
-                      path = paste0("Data/test_curated_directory/",
-                                    project, "/",
-                                    filenames$year[i], "/",
-                                    filenames$site[i], "/",
-                                    filenames$protocol[i], "/",
-                                    sheet))
+                             sheet, ".csv"))
+            
+            # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+            drop_upload(paste0(filenames$protocol[i], "_",
+                               filenames$site[i], "_",
+                               filenames$data_entry_date[i], "_", 
+                               sheet, ".csv"),
+                        path = paste0("Data/test_curated_directory/",
+                                      project, "/",
+                                      filenames$year[i], "/",
+                                      filenames$site[i], "/",
+                                      filenames$protocol[i], "/",
+                                      sheet))
+          }
         }
       }
     }
@@ -353,15 +361,17 @@ updateFileNames <- function(){
     filenames$year[i] <- year(protocol_metadata$data_entry_date)
     filenames$protocol[i] <- protocol_metadata$protocol_name
     filenames$site[i] <- first(sample_metadata$site_code)
-    filenames$data_entry_date <- protocol_metadata$data_entry_date
+    filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
 
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
     filenames$new[i] <- paste0(filenames$protocol[i], "_",
                                filenames$site[i], "_",
-                               protocol_metadata$data_entry_date, ".xlsx")
+                               filenames$data_entry_date[i], ".xlsx")
     
     file.rename(input$fileExcel$datapath[i], filenames$new[i])
     
+    print(protocol_metadata$data_entry_date)
+    print(filenames$data_entry_date[i])
     }
 }
   
@@ -407,12 +417,10 @@ checkFileExtensions <- function(){
 
 testQA <- function(){
   
-  # Create an empty list to hold all uploaded data
-  # It will become a list of lists, where each first order list is a sheet in a protocol
+  # Data that passes QA tests will be saved to submission_data$all_data
+  # It is a list of lists, where each first order list is a sheet in a protocol
   # And each second order list represents a protocol
-  submission_data$all_data <-  vector("list", length(filenames$new))
-  names(submission_data$all_data) <- filenames$protocol
-  
+
   # Loop through each uploaded protocol
   for(i in 1:length(filenames$new)){
     current_protocol <- filenames$protocol[i]
@@ -428,7 +436,7 @@ testQA <- function(){
     
     # Read in each sheet for the protocol, assign to respective list object 
     for(sheet_name in protocol_sheets) {
-      protocol_df[[sheet_name]] <- read_excel(filenames$new[1], sheet = sheet_name, na = "NA")
+      protocol_df[[sheet_name]] <- read_excel(filenames$new[i], sheet = sheet_name, na = "NA")
     }
     
     ## TEST numeric type 
@@ -461,10 +469,28 @@ testQA <- function(){
     }
       
     # Add the protocol to the overall submission data list 
-    submission_data$all_data[[current_protocol]] <- protocol_df
+    submission_data$all_data[[paste(current_protocol, filenames$original[i], sep="_")]] <- protocol_df
+    
+    # Set success of protocol submission 
+    current_results <- QA_results$df %>%
+      filter(filename == filenames$original[i])
+    
+    print("current results")
+    print(current_results)
+    
+    if(all(current_results$status == "Passed")){
+      filenames$status[i] <- TRUE
+    } else filenames$status[i] <- FALSE
   
   }
-  print(names(submission_data$all_data))
+  
+  QA_results$summary <- QA_results$df %>%
+    group_by(filename) %>%
+    summarize(protocol = first(protocol), 
+              result = ifelse(any(status != "Passed"), "Submission failed", "Submission passed"))
+  
+  print("summary")
+  print(QA_results$summary)
 }
 
 # Generate the QA report in markdown
@@ -473,9 +499,13 @@ renderReport <- function(){
   setwd(original_wd)
   
   # Check if the submission failed any QA tests
-  if(any(QA_results$df$status != "Passed")){
-    report_status(FALSE)
-  } else report_status(TRUE)
+  if(all(QA_results$summary$result == "Submission passed")){
+    report_status("Submission successful")
+  } else if(all(QA_results$summary$result == "Submission failed")){
+    report_status("Submission failed")
+  } else{
+    report_status("Some files failed submission process")
+  }
 
   ## Write RMarkdown report #########
 

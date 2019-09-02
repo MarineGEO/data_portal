@@ -254,6 +254,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                     # See global for footer code 
                     footer 
            ), 
+           ## Data Report ####
            
            tabPanel("Data Report", 
                     
@@ -263,7 +264,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   
                                   div(id = "file_uploads",
                                       
-                                      uiOutput("html_report"),
+                                      uiOutput("html_report_intro"),
+                                      dataTableOutput("qa_summary_results"),
+                                      uiOutput("html_report_qa"),
                                       dataTableOutput("qa_table_results"),
 
                                       tags$br(), tags$br(),
