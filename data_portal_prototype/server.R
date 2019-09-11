@@ -440,10 +440,10 @@ testQA <- function(){
     }
     
     ## TEST numeric type 
-    # Get vector of numeric type columns in the given protocol
+    # Get vector of numeric and integer type columns in the given protocol
     numeric_columns <- protocol_structure %>%
       filter(protocol == current_protocol) %>%
-      filter(type == "numeric") %$%
+      filter(type == "numeric" | type == "integer") %$%
       unique(.$attribute_name)
     
     for(sheet_name in protocol_sheets){
