@@ -11,7 +11,7 @@ function(input, output, session) {
   # When users select the sensitive checkbox, this reactive value will change to TRUE
   sensitive <- reactiveVal()
   
-  # Create empty list to hold original and standardized filenames of uploaded protocols
+  # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
   
   # Project affiliation of submission
@@ -363,18 +363,29 @@ updateFileNames <- function(){
       protocol_metadata <- read_xlsx(input$fileExcel$datapath[i], 
                                      sheet = "protocol_metadata", 
                                      col_names = c("category", "response"), skip=1) %>%
-        spread(category, response) %>%
-        mutate(data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
-      
-      
+        spread(category, response) 
+        
       # Read in sample metadata to get site code
       sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
       
-      filenames$year[i] <- year(protocol_metadata$data_entry_date)
+      # Format the date properly
+      # Version 0.3 has single date value
+      if(protocol_metadata$workbook_version == "v0.3.0"){
+        protocol_metadata <- mutate(protocol_metadata, data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
+        filenames$year[i] <- year(protocol_metadata$data_entry_date)
+        filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
+      # Version 0.4 has a unique cell each for day, month and year
+      } else {
+        filenames$year[i] <- protocol_metadata$data_entry_year
+        filenames$data_entry_date[i] <- paste(protocol_metadata$data_entry_year, 
+                                               protocol_metadata$data_entry_month, 
+                                               protocol_metadata$data_entry_day, sep="-")
+      }
+      
+      filenames$wb_version[i] <- protocol_metadata$workbook_version
       filenames$protocol[i] <- protocol_metadata$protocol_name
       filenames$site[i] <- first(sample_metadata$site_code)
-      filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
-      
+
       # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
       filenames$new[i] <- paste0(filenames$protocol[i], "_",
                                  filenames$site[i], "_",
@@ -383,21 +394,20 @@ updateFileNames <- function(){
       file.rename(input$fileExcel$datapath[i], filenames$new[i])
     }
     
-    return(import_status)
   },
   error = function(e){
-    import_status <<- paste("Protocol metadata sheet does not exist for", input$fileExcel$datapath[i], sep=" ")
-    
+    import_status <<- paste("Protocol metadata sheet does not exist for", filenames$original[i], sep=" ")
+
     showModal(modalDialog(
-      title = "Data Upload Failure", 
+      title = "Data Upload Failure",
       div("Data submissions must use MarineGEO data templates (Excel spreadsheets). The first sheet should be titled 'protocol_metadata'.",
           "Please update the following files:", import_status),
-      
+
       easyClose = TRUE
     ))
-    
+
     protocol_metadata_error(FALSE)
-    
+
   })
   
   
@@ -415,6 +425,7 @@ generateSubmissionInfo <- function(){
   original_filenames <- paste(filenames$original, collapse = "; ")  
   standardized_filenames <- paste(filenames$new, collapse="; ")
   emails <- tolower(input$email)
+  wb_versions <- paste(filenames$wb_version, collapse = "; ")  
   
   # check which projects the emails provided with the submission are affiliated with
   project <- unique(filter(roster, email %in% emails)$project_affiliation)
@@ -427,8 +438,10 @@ generateSubmissionInfo <- function(){
   }
   
   # Crate a new dataframe based on the number of emails provided 
-  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; ")), 
-                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project"))
+  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
+                            portal_version, wb_versions),
+                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
+                   "portal_version", "workbook_version"))
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
@@ -464,7 +477,7 @@ testQA <- function(){
     
     # Read in each sheet for the protocol, assign to respective list object 
     for(sheet_name in protocol_sheets) {
-      protocol_df[[sheet_name]] <- read_excel(filenames$new[i], sheet = sheet_name, na = "NA")
+      protocol_df[[sheet_name]] <- read_excel(filenames$new[i], sheet = sheet_name, na = c("NA", "This cell will autocalculate"))
     }
     
     ## TEST numeric type 
@@ -487,6 +500,11 @@ testQA <- function(){
           protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
             mutate_at(sheet_numeric_columns, as.numeric)
           
+          # Remove any row that is all NAs - possible due to the autocalculation values
+          if("sample_collection_date" %in% colnames(protocol_df[[sheet_name]])){
+            protocol_df[[sheet_name]] <- filter(protocol_df[[sheet_name]], !is.na(sample_collection_date))
+          }
+          
           QA_results$df[nrow(QA_results$df) + 1,] <- c("Test numeric variables", filenames$original[i], current_protocol, sheet_name, "Passed")
         },
         
@@ -495,16 +513,13 @@ testQA <- function(){
         })
       }
     }
-      
+    
     # Add the protocol to the overall submission data list 
     submission_data$all_data[[paste(current_protocol, filenames$original[i], sep="_")]] <- protocol_df
     
     # Set success of protocol submission 
     current_results <- QA_results$df %>%
       filter(filename == filenames$original[i])
-    
-    print("current results")
-    print(current_results)
     
     if(all(current_results$status == "Passed")){
       filenames$status[i] <- TRUE
