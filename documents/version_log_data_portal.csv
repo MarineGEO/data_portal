@@ -1,0 +1,3 @@
+version,notes,protocol versions
+0.1.0,begin beta testing,0.3.0
+0.2.0,templates with mutltiple sites are subset and deposited in their respective sub-directories,0.4.0

@@ -18,6 +18,11 @@ library(DT)
 # Portal version
 portal_version <- "v0.1.0"
 
+# Testing mode: 
+# FALSE = Objects saved to DB
+# TRUE = Objects not saved to DB
+testing <- FALSE
+
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
 
@@ -47,3 +52,5 @@ data_policy_table <- read_csv("./data/data_policy_table.csv")
 original_wd <- getwd()
 
 roster <- drop_read_csv("Data/marinegeo_roster.csv")
+
+warnings <- read_csv("./data/warnings_lookup.csv")
