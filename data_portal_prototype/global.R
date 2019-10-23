@@ -16,12 +16,12 @@ library(knitr)
 library(DT)
 
 # Portal version
-portal_version <- "v0.1.0"
+portal_version <- "v0.2.0"
 
 # Testing mode: 
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-testing <- FALSE
+testing <- TRUE
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")

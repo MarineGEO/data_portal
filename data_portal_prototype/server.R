@@ -1,8 +1,10 @@
-# MarineGEO data submission app example 
+# MarineGEO data submission app 
 # This is the server script for three-file version of the prototype MarineGEO data portal
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 function(input, output, session) {
+  # Functions for extracting submission metadata
+  source("extractSubmissionMetadata.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -13,6 +15,7 @@ function(input, output, session) {
   
   # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
+  submission_metadata <- reactiveValues()
   
   # Project affiliation of submission
   project_affiliation <- reactiveValues(vector = c())
@@ -35,7 +38,10 @@ function(input, output, session) {
   
   # If a submission does not have proper protocol metadata fields, submission will automatically fail
   # protocol_metadata_error changes to FALSE if that occurs
-  protocol_metadata_error <- reactiveVal(TRUE)
+  # protocol_metadata_error <- reactiveVal(TRUE)
+  # If a submission does not have proper protocol metadata fields, submission will automatically fail
+  # protocol metadata error is a table that tracks the errors and associated files
+  protocol_metadata_error <- reactiveValues(df = setNames(data.frame(matrix(ncol = 2, nrow = 0)), c("filename", "error")))
   
   # Store specific error message(s) if protocol metadata information extraction fails 
   protocol_error_message <- reactiveVal()
@@ -97,12 +103,14 @@ function(input, output, session) {
       ))
       
       # Save filnames and create standardized filenames based on protocol-site-data entry date
-      updateFileNames()
+      # updateFileNames()
+      extractProtocolMetadata()
       
       # Upload initial files to dropbox and run QA checks
       if(!testing) saveInitialData()
       
-      if(protocol_metadata_error()){
+      # If no errors are recorded continue with the submission 
+      if(nrow(protocol_metadata_error$df)==0){
         # Determine how many output CSVs will need to be created 
         # Each protocol-site combination gets a collection of CSV files
         determineOutputs()
@@ -116,7 +124,20 @@ function(input, output, session) {
         if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
           if(!testing) saveCuratedData()
         }
+      } else {
+        # If any elements of the protocol metadata failed
+        showModal(modalDialog(
+          title = "Failed Submission", 
+          size = "l",
+          div("The application failed to obtain the necessary metadata from one or more of your uploaded files.",
+              "The following table lists which files produced an error. Contact 'marinegeo@si.edu' if you need further assistance.",
+              tags$br(), 
+              renderTable(protocol_metadata_error$df)),
+          
+          easyClose = TRUE
+        ))
       }
+      
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
       shinyjs::reset("fileExcel")
@@ -441,8 +462,6 @@ updateFileNames <- function(){
     protocol_metadata_error(FALSE)
 
   })
-  
-  #setwd(original_wd)
   
 }
   

@@ -1,5 +1,8 @@
 ﻿title,type,message
 no_excel_files,error,One or more files you uploaded are not Microsoft Excel files. Please reload the application and ensure all uploads have '.xlsx' file extensions.
-protocol_metadata_error,error,"One or more files you uploaded does not have the standard MarineGEO ""protocol_metadata"" sheet. The sheet may have been deleted, renamed, or the first column of names may have been changed.  You can find MarineGEO protocols at https://marinegeo.github.io/modules.html"
+protocol_metadata_error,error,"This file does not have the standard MarineGEO ""protocol_metadata"" sheet. The sheet may have been deleted, renamed, or the first column of names may have been changed.  You can find MarineGEO spreadsheets  at https://marinegeo.github.io/modules.html"
+sample_metadata_error,error,"This file does not have the standard MarineGEO ""sample_metadata"" sheet. The sheet may have been deleted, renamed, or the first column of names may have been changed.  You can find MarineGEO protocols at https://marinegeo.github.io/modules.html"
 data_entry_date_error,error,"One or more files you uploaded has invalid data entry date values in the ""protocol_metadata"" sheet. Please ensure ""data_entry_day"", ""data_entry_month"", and ""data_entry_year"" all have valid values."
 site_error,error,"One or more files you uploaded has an invalid ""site_code"" value. If you do not know your approved site code, or have not been assigned one, please contact ""marinegeo@si.edu"". "
+workbook_version_error,error,"This file does not have a valid workbook version recorded in the ""protocol_metadata"" sheet of your submission. Make sure the first column of values weren't renamed or deleted."
+invalid_workbook_version,error,This file does not have a valid workbook version. Acquire updated MarineGEO spreadsheets at https://marinegeo.github.io/modules.html
