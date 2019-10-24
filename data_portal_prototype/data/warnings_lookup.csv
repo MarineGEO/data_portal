@@ -6,3 +6,5 @@ data_entry_date_error,error,"One or more files you uploaded has invalid data ent
 site_error,error,"One or more files you uploaded has an invalid ""site_code"" value. If you do not know your approved site code, or have not been assigned one, please contact ""marinegeo@si.edu"". "
 workbook_version_error,error,"This file does not have a valid workbook version recorded in the ""protocol_metadata"" sheet of your submission. Make sure the first column of values weren't renamed or deleted."
 invalid_workbook_version,error,This file does not have a valid workbook version. Acquire updated MarineGEO spreadsheets at https://marinegeo.github.io/modules.html
+protocol_name_error,error,"This file does not have a valid protocol name recorded in the ""protocol_metadata"" sheet. Make sure the first column of values weren't renamed or deleted."
+missing_site_column,error,"This file does not have a valid site code recorded in the ""sample_metadata"" sheet. Make sure the ""site_code"" column is present."

@@ -21,10 +21,15 @@ extractProtocolMetadata <- function(){
 
     ## Extract each piece of metadata needed to store submission ##
     submission_metadata$wb_version[i] <- extractWorkbookVersions(original_filename, protocol_metadata) 
+    submission_metadata$protocol[i] <- extractProtocolName(original_filename, protocol_metadata) 
     
-    extractProtocolSites()
+    # Check the number of sites - if more than one, data for each site will be filed separately. 
+    submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
     
-    extractProtocolName()
+    # If more than one site, list of sites created
+    if(submission_metadata$site[i] == "multiple"){
+      submission_metadata$all_sites[i] <- list(unique(sample_metadata$site_code)) 
+    } else submission_metadata$all_sites[i] <- submission_metadata$site[i]
     
     extractProtocolDate()
     
@@ -45,6 +50,7 @@ readProtocolMetadata <- function(filepath, original_filename){
     # Track which file triggered the error and the cause (no protocol metadata sheet)
     protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename, 
                                                                             filter(warnings, title == "protocol_metadata_error")$message)
+  return(NA)
   })
 }
 
@@ -58,10 +64,13 @@ readSampleMetadata <- function(filepath, original_filename){
     # Track which file triggered the error and the cause (no sample metadata sheet)
     protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
                                                                             filter(warnings, title == "sample_metadata_error")$message)
+  return(NA)
   })
 }
 
 extractWorkbookVersions <- function(original_filename, protocol_metadata){
+  if(is.na(protocol_metadata)) return("invalid")
+  
   # Wrapped in an error catcher - if there is no workbook version value present the submission will fail
   tryCatch({
     # Pull workbook version
@@ -81,31 +90,48 @@ extractWorkbookVersions <- function(original_filename, protocol_metadata){
     # Track which file triggered the error and the cause (no workbook version column present)
     protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
                                                                             filter(warnings, title == "workbook_version_error")$message)
-    
     return("invalid")
   })
 }
 
-extractProtocolSites <- function(){
+extractProtocolName <- function(original_filename, protocol_metadata){
+  if(is.na(protocol_metadata)) return("invalid")
+  
+  # Wrapped in an error catcher - if there is no protocol name value present the submission will fail
+  tryCatch({
+    # Pull protocol name
+    # If $protocol_name doesn't exist, will only generate a warning rather than an error
+    protocol_metadata$protocol_name
+  },
+  warning = function(w){
+    # Track which file triggered the error and the cause (no protocol name column present)
+    protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
+                                                                            filter(warnings, title == "protocol_name_error")$message)
+    return("invalid")
+  })
 }
 
-extractProtocolName <- function(){
+checkNumberOfSites <- function(original_filename, sample_metadata){
+  if(is.na(sample_metadata)) return("invalid")
+  
+  # Wrapped in an error catcher - if there is no site column present the submission will fail
+  tryCatch({
+    if(length(unique(sample_metadata$site_code))==1) {
+      return(unique(sample_metadata$site_code))
+    } else {
+      return("multiple")
+    }  
+  },
+  warning = function(w){
+    # Track which file triggered the error and the cause (no site code column present)
+    protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
+                                                                            filter(warnings, title == "missing_site_column")$message)
+    return("invalid")
+  })
+  
 }
 
 extractProtocolDate <- function(){
 }
 
-# import_status <<- paste("Protocol metadata sheet does not exist for", filenames$original[i], sep=" ")
-# 
-# showModal(modalDialog(
-#   title = "Data Upload Failure",
-#   div("Data submissions must use MarineGEO data templates (Excel spreadsheets). The first sheet should be titled 'protocol_metadata'.",
-#       "If you are using a protocol metadata sheet, make sure the data entry date values, the name of the protocol, and any site codes in the 'sample metadata' sheet are properly formatted.",
-#       "Contact 'marinegeo@si.edu' if you have any questions.",
-#       "Please update the following files:", import_status),
-#   
-#   easyClose = TRUE
-# ))
-# 
-# # Protocol metadata error let's the server app know that no error was created when extracting the information 
-# protocol_metadata_error(FALSE)
+
