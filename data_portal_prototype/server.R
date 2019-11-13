@@ -254,45 +254,27 @@ function(input, output, session) {
     # Create a temporary working directory
     #tmpdir <- tempdir()
     setwd(tempdir())
+    date <- as.character(submissionDate())
     
     if(nrow(protocol_metadata_error$df)==0){
       # For each file uploaded:
       for(i in 1:nrow(input$fileExcel)){
         
-        # Make sure site folder exists
-        if(!drop_exists(path = paste0("Data/test_initial_directory/",
-                                      submission_metadata$year[i], "/", 
-                                      submission_metadata$site[i]))){
+        # Make sure date folder exists
+        if(!drop_exists(path = paste0("Data/test_initial_directory/", date))){
           
-          # If it doesn't, create the site and protocol folders 
-          drop_create(path = paste0("Data/test_initial_directory/",
-                                    submission_metadata$year[i], "/", 
-                                    submission_metadata$site[i])) 
-        }
-        
-        # Make sure protocol folder exists
-        if(!drop_exists(path = paste0("Data/test_initial_directory/",
-                                      submission_metadata$year[i], "/", 
-                                      submission_metadata$site[i], "/",
-                                      submission_metadata$protocol[i]))){
-          
-          drop_create(path = paste0("Data/test_initial_directory/",
-                                    submission_metadata$year[i], "/", 
-                                    submission_metadata$site[i], "/",
-                                    submission_metadata$protocol[i]))
+          # If it doesn't, create 
+          drop_create(path = paste0("Data/test_initial_directory/", date))
         }
         
         # upload the initial data submission to dropbox
         drop_upload(submission_metadata$new[i],
-                    path = paste0("Data/test_initial_directory/",
-                                  submission_metadata$year[i], "/",
-                                  submission_metadata$site[i], "/",
-                                  submission_metadata$protocol[i]))
+                    path = paste0("Data/test_initial_directory/", date))
         
       }
       
     } 
-
+    
     # Access the submission log from dropbox and append current emails/time/datafile name
     submission_log <- generateSubmissionInfo()
     

@@ -21,11 +21,12 @@ portal_version <- "v0.2.0"
 # Testing mode: 
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-testing <- TRUE
+testing <- FALSE
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
-
+submissionDate <- function() format(Sys.time(), "%Y%m%d")
+  
 # footer disclaimer code
 footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
                                           align = "center", 
