@@ -33,9 +33,10 @@ extractProtocolMetadata <- function(){
     
     # Extract data entry date - method will depend on workbook version
     submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, protocol_metadata, submission_metadata$wb_version[i])
+
     # Extract year from date string - year will be first four characters or simply a substring of "invalid" and submission will fail. 
     submission_metadata$year[i] <- substr(as.character(submission_metadata$data_entry_date[i]), 1, 4)
-    
+
     # Create new filename and record original filename
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
     submission_metadata$new[i] <- paste0(submission_metadata$protocol[i], "_",
@@ -170,12 +171,13 @@ extractProtocolDate <- function(original_filename, protocol_metadata, workbook_v
     tryCatch({
       # Return the data entry date value formatted as in Date format
       date <- mutate(protocol_metadata, data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))$data_entry_date
+
       # Unless it's NA
       if(is.na(date)){
         protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
                                                                                 filter(warnings, title == "v3_date")$message)
         return("invalid")
-      } else return(date)
+      } else return(as.character(date))
     },
     warning = function(w){
       # Track which file triggered the error and the cause (issue with date format)

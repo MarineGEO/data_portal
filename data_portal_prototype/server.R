@@ -474,9 +474,9 @@ generateSubmissionInfo <- function(){
   
   # Crate a new dataframe based on the number of emails provided 
   df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
-                            portal_version, wb_versions),
+                            portal_version, wb_versions, NA),
                  c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
-                   "portal_version", "workbook_version"))
+                   "portal_version", "workbook_version", "notes"))
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
@@ -550,7 +550,7 @@ testQA <- function(){
     for(sheet_name in protocol_sheets) {
       protocol_df[[sheet_name]] <- read_excel(output_metadata$filename_new[i], 
                                               sheet = sheet_name, 
-                                              na = c("NA", "This cell will autocalculate"))
+                                              na = c("NA", "This cell will autocalculate", "N/A"))
       
       # Keep only site information 
       if("site_code" %in% colnames(protocol_df[[sheet_name]])){
