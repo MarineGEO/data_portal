@@ -1,8 +1,10 @@
-# MarineGEO data submission app example 
+# MarineGEO data submission app 
 # This is the server script for three-file version of the prototype MarineGEO data portal
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 function(input, output, session) {
+  # Functions for extracting submission metadata
+  source("extractSubmissionMetadata.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -13,6 +15,7 @@ function(input, output, session) {
   
   # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
+  submission_metadata <- reactiveValues()
   
   # Project affiliation of submission
   project_affiliation <- reactiveValues(vector = c())
@@ -35,7 +38,10 @@ function(input, output, session) {
   
   # If a submission does not have proper protocol metadata fields, submission will automatically fail
   # protocol_metadata_error changes to FALSE if that occurs
-  protocol_metadata_error <- reactiveVal(TRUE)
+  # protocol_metadata_error <- reactiveVal(TRUE)
+  # If a submission does not have proper protocol metadata fields, submission will automatically fail
+  # protocol metadata error is a table that tracks the errors and associated files
+  protocol_metadata_error <- reactiveValues(df = setNames(data.frame(matrix(ncol = 2, nrow = 0)), c("filename", "error")))
   
   # Store specific error message(s) if protocol metadata information extraction fails 
   protocol_error_message <- reactiveVal()
@@ -97,12 +103,15 @@ function(input, output, session) {
       ))
       
       # Save filnames and create standardized filenames based on protocol-site-data entry date
-      updateFileNames()
+      # updateFileNames()
+      extractProtocolMetadata()
       
       # Upload initial files to dropbox and run QA checks
       if(!testing) saveInitialData()
       
-      if(protocol_metadata_error()){
+      # If no errors are recorded continue with the submission 
+      if(nrow(protocol_metadata_error$df)==0){
+
         # Determine how many output CSVs will need to be created 
         # Each protocol-site combination gets a collection of CSV files
         determineOutputs()
@@ -116,7 +125,20 @@ function(input, output, session) {
         if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
           if(!testing) saveCuratedData()
         }
+      } else {
+        # If any elements of the protocol metadata failed
+        showModal(modalDialog(
+          title = "Failed Submission", 
+          size = "l",
+          div("The application failed to obtain the necessary metadata from one or more of your uploaded files.",
+              "The following table lists which files produced an error. Contact 'marinegeo@si.edu' if you need further assistance.",
+              tags$br(), 
+              renderTable(protocol_metadata_error$df)),
+          
+          easyClose = TRUE
+        ))
       }
+      
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
       shinyjs::reset("fileExcel")
@@ -232,45 +254,27 @@ function(input, output, session) {
     # Create a temporary working directory
     #tmpdir <- tempdir()
     setwd(tempdir())
+    date <- as.character(submissionDate())
     
-    if(protocol_metadata_error()){
+    if(nrow(protocol_metadata_error$df)==0){
       # For each file uploaded:
       for(i in 1:nrow(input$fileExcel)){
         
-        # Make sure site folder exists
-        if(!drop_exists(path = paste0("Data/test_initial_directory/",
-                                      filenames$year[i], "/", 
-                                      filenames$site[i]))){
+        # Make sure date folder exists
+        if(!drop_exists(path = paste0("Data/test_initial_directory/", date))){
           
-          # If it doesn't, create the site and protocol folders 
-          drop_create(path = paste0("Data/test_initial_directory/",
-                                    filenames$year[i], "/", 
-                                    filenames$site[i])) 
-        }
-        
-        # Make sure protocol folder exists
-        if(!drop_exists(path = paste0("Data/test_initial_directory/",
-                                      filenames$year[i], "/", 
-                                      filenames$site[i], "/",
-                                      filenames$protocol[i]))){
-          
-          drop_create(path = paste0("Data/test_initial_directory/",
-                                    filenames$year[i], "/", 
-                                    filenames$site[i], "/",
-                                    filenames$protocol[i]))
+          # If it doesn't, create 
+          drop_create(path = paste0("Data/test_initial_directory/", date))
         }
         
         # upload the initial data submission to dropbox
-        drop_upload(filenames$new[i],
-                    path = paste0("Data/test_initial_directory/",
-                                  filenames$year[i], "/",
-                                  filenames$site[i], "/",
-                                  filenames$protocol[i]))
+        drop_upload(submission_metadata$new[i],
+                    path = paste0("Data/test_initial_directory/", date))
         
       }
       
     } 
-
+    
     # Access the submission log from dropbox and append current emails/time/datafile name
     submission_log <- generateSubmissionInfo()
     
@@ -365,86 +369,84 @@ function(input, output, session) {
 ## Helper functions ##########
 
 # Reads in metadata from each file and generates standard filename
-updateFileNames <- function(){
-
-  setwd(tempdir())
-  
-  # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
-  tryCatch({
-    # For each file uploaded: 
-    for(i in 1:nrow(input$fileExcel)){
-      # Extract the original file name to be saved in the submission log 
-      filenames$original[i] <- input$fileExcel$name[i]
-      
-      # Import data
-      # Format metadata to be more machine-readable
-      # Turn to wide form, remove first row
-      # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
-      protocol_metadata <- read_xlsx(input$fileExcel$datapath[i], 
-                                     sheet = "protocol_metadata", 
-                                     col_names = c("category", "response"), skip=1) %>%
-        spread(category, response) 
-        
-      # Read in sample metadata to get site code
-      sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
-      
-      # Format the date properly
-      # Version 0.3 has single date value
-      if(protocol_metadata$workbook_version == "v0.3.0"){
-        protocol_metadata <- mutate(protocol_metadata, data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
-        filenames$year[i] <- year(protocol_metadata$data_entry_date)
-        filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
-      # Version 0.4 has a unique cell each for day, month and year
-      } else {
-        filenames$year[i] <- protocol_metadata$data_entry_year
-        filenames$data_entry_date[i] <- paste(protocol_metadata$data_entry_year, 
-                                               protocol_metadata$data_entry_month, 
-                                               protocol_metadata$data_entry_day, sep="-")
-      }
-      
-      filenames$wb_version[i] <- protocol_metadata$workbook_version
-      filenames$protocol[i] <- protocol_metadata$protocol_name
-      
-      # temporary measure: document site as "multiple" if more than one site in a protocol
-      # filenames$all_sites represents a vector will all unique site codes, which will help create the necessary number of output CSVs later
-      if(length(unique(sample_metadata$site_code))==1) {
-        filenames$site[i] <- unique(sample_metadata$site_code)
-        filenames$all_sites[i] <- unique(sample_metadata$site_code)
-      } else {
-        filenames$site[i] <- "multiple"
-        filenames$all_sites[i] <- list(unique(sample_metadata$site_code))
-      }
-      
-      # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
-      filenames$new[i] <- paste0(filenames$protocol[i], "_",
-                                 filenames$site[i], "_",
-                                 filenames$data_entry_date[i], ".xlsx")
-
-      file.rename(input$fileExcel$datapath[i], filenames$new[i])
-      
-    }
-    
-  },
-  error = function(e){
-    import_status <<- paste("Protocol metadata sheet does not exist for", filenames$original[i], sep=" ")
-
-    showModal(modalDialog(
-      title = "Data Upload Failure",
-      div("Data submissions must use MarineGEO data templates (Excel spreadsheets). The first sheet should be titled 'protocol_metadata'.",
-          "If you are using a protocol metadata sheet, make sure the data entry date values, the name of the protocol, and any site codes in the 'sample metadata' sheet are properly formatted.",
-          "Contact 'marinegeo@si.edu' if you have any questions.",
-          "Please update the following files:", import_status),
-
-      easyClose = TRUE
-    ))
-
-    protocol_metadata_error(FALSE)
-
-  })
-  
-  #setwd(original_wd)
-  
-}
+# updateFileNames <- function(){
+# 
+#   setwd(tempdir())
+#   
+#   # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
+#   tryCatch({
+#     # For each file uploaded: 
+#     for(i in 1:nrow(input$fileExcel)){
+#       # Extract the original file name to be saved in the submission log 
+#       filenames$original[i] <- input$fileExcel$name[i]
+#       
+#       # Import data
+#       # Format metadata to be more machine-readable
+#       # Turn to wide form, remove first row
+#       # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
+#       protocol_metadata <- read_xlsx(input$fileExcel$datapath[i], 
+#                                      sheet = "protocol_metadata", 
+#                                      col_names = c("category", "response"), skip=1) %>%
+#         spread(category, response) 
+#         
+#       # Read in sample metadata to get site code
+#       sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
+#       
+#       # Format the date properly
+#       # Version 0.3 has single date value
+#       if(protocol_metadata$workbook_version == "v0.3.0"){
+#         protocol_metadata <- mutate(protocol_metadata, data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
+#         filenames$year[i] <- year(protocol_metadata$data_entry_date)
+#         filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
+#       # Version 0.4 has a unique cell each for day, month and year
+#       } else {
+#         filenames$year[i] <- protocol_metadata$data_entry_year
+#         filenames$data_entry_date[i] <- paste(protocol_metadata$data_entry_year, 
+#                                                protocol_metadata$data_entry_month, 
+#                                                protocol_metadata$data_entry_day, sep="-")
+#       }
+#       
+#       filenames$wb_version[i] <- protocol_metadata$workbook_version
+#       filenames$protocol[i] <- protocol_metadata$protocol_name
+#       
+#       # temporary measure: document site as "multiple" if more than one site in a protocol
+#       # filenames$all_sites represents a vector will all unique site codes, which will help create the necessary number of output CSVs later
+#       if(length(unique(sample_metadata$site_code))==1) {
+#         filenames$site[i] <- unique(sample_metadata$site_code)
+#         filenames$all_sites[i] <- unique(sample_metadata$site_code)
+#       } else {
+#         filenames$site[i] <- "multiple"
+#         filenames$all_sites[i] <- list(unique(sample_metadata$site_code))
+#       }
+#       
+#       # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
+#       filenames$new[i] <- paste0(filenames$protocol[i], "_",
+#                                  filenames$site[i], "_",
+#                                  filenames$data_entry_date[i], ".xlsx")
+# 
+#       file.rename(input$fileExcel$datapath[i], filenames$new[i])
+#       
+#     }
+#     
+#   },
+#   error = function(e){
+#     import_status <<- paste("Protocol metadata sheet does not exist for", filenames$original[i], sep=" ")
+# 
+#     showModal(modalDialog(
+#       title = "Data Upload Failure",
+#       div("Data submissions must use MarineGEO data templates (Excel spreadsheets). The first sheet should be titled 'protocol_metadata'.",
+#           "If you are using a protocol metadata sheet, make sure the data entry date values, the name of the protocol, and any site codes in the 'sample metadata' sheet are properly formatted.",
+#           "Contact 'marinegeo@si.edu' if you have any questions.",
+#           "Please update the following files:", import_status),
+# 
+#       easyClose = TRUE
+#     ))
+# 
+#     protocol_metadata_error(FALSE)
+# 
+#   })
+#   
+# }
   
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 generateSubmissionInfo <- function(){
@@ -454,11 +456,11 @@ generateSubmissionInfo <- function(){
 
   # Collapse all variables to fit into a row in the submission log. 
   # They can be split by ; later 
-  protocols <- paste(unique(filenames$protocol), collapse = "; ")
-  original_filenames <- paste(filenames$original, collapse = "; ")  
-  standardized_filenames <- paste(filenames$new, collapse="; ")
+  protocols <- paste(unique(submission_metadata$protocol), collapse = "; ")
+  original_filenames <- paste(submission_metadata$original, collapse = "; ")  
+  standardized_filenames <- paste(submission_metadata$new, collapse="; ")
   emails <- tolower(input$email)
-  wb_versions <- paste(filenames$wb_version, collapse = "; ")  
+  wb_versions <- paste(submission_metadata$wb_version, collapse = "; ")  
   
   # check which projects the emails provided with the submission are affiliated with
   project <- unique(filter(roster, email %in% emails)$project_affiliation)
@@ -472,9 +474,9 @@ generateSubmissionInfo <- function(){
   
   # Crate a new dataframe based on the number of emails provided 
   df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
-                            portal_version, wb_versions),
+                            portal_version, wb_versions, NA),
                  c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
-                   "portal_version", "workbook_version"))
+                   "portal_version", "workbook_version", "notes"))
 
   # Append the new data and send back to the dropbox upload function 
   rbind(submission_log, df)
@@ -499,24 +501,24 @@ determineOutputs <- function(){
   # C. Create list of output protocols
   index <- 1
 
-  for(i in 1:length(filenames$new)){
-    if(filenames$site[i] != "multiple"){
-      output_metadata$protocol[[index]] <- filenames$protocol[i] 
-      output_metadata$filename_new[[index]] <- filenames$new[i]
-      output_metadata$filename_original[[index]] <- filenames$original[i]
-      output_metadata$year[[index]] <- filenames$year[i]
-      output_metadata$site[[index]] <- filenames$site[i]
-      output_metadata$data_entry_date[[index]] <- filenames$data_entry_date[i]
+  for(i in 1:length(submission_metadata$new)){
+    if(submission_metadata$site[i] != "multiple"){
+      output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
+      output_metadata$filename_new[[index]] <- submission_metadata$new[i]
+      output_metadata$filename_original[[index]] <- submission_metadata$original[i]
+      output_metadata$year[[index]] <- submission_metadata$year[i]
+      output_metadata$site[[index]] <- submission_metadata$site[i]
+      output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
       index <- index + 1
       
     } else {
-      for(j in 1:length(unlist(filenames$all_sites[i]))){
-        output_metadata$protocol[[index]] <- filenames$protocol[i] 
-        output_metadata$filename_new[[index]] <- filenames$new[i]
-        output_metadata$filename_original[[index]] <- filenames$original[i]
-        output_metadata$year[[index]] <- filenames$year[i]
-        output_metadata$site[[index]] <- unlist(filenames$all_sites[i])[j]
-        output_metadata$data_entry_date[[index]] <- filenames$data_entry_date[i]
+      for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
+        output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
+        output_metadata$filename_new[[index]] <- submission_metadata$new[i]
+        output_metadata$filename_original[[index]] <- submission_metadata$original[i]
+        output_metadata$year[[index]] <- submission_metadata$year[i]
+        output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
+        output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
         index <- index + 1
       }
     }
@@ -548,7 +550,7 @@ testQA <- function(){
     for(sheet_name in protocol_sheets) {
       protocol_df[[sheet_name]] <- read_excel(output_metadata$filename_new[i], 
                                               sheet = sheet_name, 
-                                              na = c("NA", "This cell will autocalculate"))
+                                              na = c("NA", "This cell will autocalculate", "N/A"))
       
       # Keep only site information 
       if("site_code" %in% colnames(protocol_df[[sheet_name]])){

@@ -20,7 +20,13 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       "Welcome to the prototype MarineGEO data portal! 
                                       This application allows you to submit data and metadata to the MarineGEO database.", tags$br(), tags$br(), 
                                       
-                                      "New data submissions: Review our data policy and submit your data as specified by the MarineGEO data collection protocols.", 
+                                      "New data submissions: Review our data policy and submit your data as specified by the MarineGEO data collection protocols. ", 
+                                      "You must upload your data on our MarineGEO spreadsheets, which you can find on our", 
+                                      
+                                      tags$a(href="https://marinegeo.github.io/modules.html", "website."),
+                                      
+                                      "Each file must be an Excel file (the file extension is '.xlsx'). ",
+                                      "We do not require your files to have a specific naming convention.",
                                       
                                       tags$br(), tags$br(), 
                                       
@@ -233,6 +239,8 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                                                                                 "Yes, my data contains sensitive information", 
                                                                                                 "No, my data does not contain sensitive information")), 
                                       hr(),
+                                      "Upload one or more spreadsheets. Each spreadsheet should be an official MarineGEO data spreadsheet, which you can find on our",
+                                      tags$a(href="https://marinegeo.github.io/modules.html", "website."), tags$br(), tags$br(),
                                       
                                       fileInput("fileExcel", "Upload Excel files",
                                                 multiple = TRUE,

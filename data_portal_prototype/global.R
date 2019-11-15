@@ -16,7 +16,7 @@ library(knitr)
 library(DT)
 
 # Portal version
-portal_version <- "v0.1.0"
+portal_version <- "v0.2.0"
 
 # Testing mode: 
 # FALSE = Objects saved to DB
@@ -25,7 +25,8 @@ testing <- FALSE
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
-
+submissionDate <- function() format(Sys.time(), "%Y%m%d")
+  
 # footer disclaimer code
 footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
                                           align = "center", 
