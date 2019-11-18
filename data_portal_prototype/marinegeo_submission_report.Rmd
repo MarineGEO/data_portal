@@ -5,7 +5,7 @@ output:
     variant: markdown
 ---
 
-#### Report date: `r submission_time`
+#### Report date: `r submission_time()`
 #### Synthesis status: `r report_status()`
 #### Project affiliation: `r paste(project_affiliation$vector, collapse="; ")`
 #### Contact: MarineGEO (marinegeo@si.edu)  

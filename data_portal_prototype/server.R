@@ -325,22 +325,22 @@ function(input, output, session) {
           }
           
           for(sheet in names(submission_data$all_data[[i]])) {
-            # Make sure sheet folder exists
-            if(!drop_exists(path = paste0("Data/test_curated_directory/",
-                                          project, "/",
-                                          output_metadata$year[i], "/",
-                                          output_metadata$site[i], "/",
-                                          output_metadata$protocol[i], "/",
-                                          sheet))){
-              
-              drop_create(path = paste0("Data/test_curated_directory/",
-                                        project, "/",
-                                        output_metadata$year[i], "/",
-                                        output_metadata$site[i], "/",
-                                        output_metadata$protocol[i], "/",
-                                        sheet))
-              
-            }
+          #   # Make sure sheet folder exists
+          #   if(!drop_exists(path = paste0("Data/test_curated_directory/",
+          #                                 project, "/",
+          #                                 output_metadata$year[i], "/",
+          #                                 output_metadata$site[i], "/",
+          #                                 output_metadata$protocol[i], "/",
+          #                                 sheet))){
+          #     
+          #     drop_create(path = paste0("Data/test_curated_directory/",
+          #                               project, "/",
+          #                               output_metadata$year[i], "/",
+          #                               output_metadata$site[i], "/",
+          #                               output_metadata$protocol[i], "/",
+          #                               sheet))
+          #     
+          #   }
             # Write the curated set to the temporary directory and send to Dropbox
             write_csv(submission_data$all_data[[i]][[sheet]], 
                       paste0(output_metadata$protocol[i], "_",
@@ -357,8 +357,9 @@ function(input, output, session) {
                                       project, "/",
                                       output_metadata$year[i], "/",
                                       output_metadata$site[i], "/",
-                                      output_metadata$protocol[i], "/",
-                                      sheet))
+                                      output_metadata$protocol[i]))
+                                      # output_metadata$protocol[i], "/",
+                                      # sheet))
           }
         }
       }
