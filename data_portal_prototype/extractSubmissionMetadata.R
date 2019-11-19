@@ -15,8 +15,10 @@ extractProtocolMetadata <- function(){
     original_filename <- input$fileExcel$name[i]
     
     ## Each sub-function has a unique error catcher ##
-    # Read in protocol and sample metadata sheets
+    # Read in protocol and sample metadata sheets, save protocol metadata
     protocol_metadata <- readProtocolMetadata(input$fileExcel$datapath[i], original_filename)
+    submission_metadata$protocol_df[i][[1]] <- protocol_metadata
+
     sample_metadata <- readSampleMetadata(input$fileExcel$datapath[i], original_filename)
 
     ## Extract each piece of metadata needed to store submission ##

@@ -323,24 +323,26 @@ function(input, output, session) {
                                       output_metadata$protocol[i]))
             
           }
+          # Write protocol metadata sheet
+          write_csv(output_metadata$protocol_df[[i]], 
+                    paste0(output_metadata$protocol[i], "_",
+                           output_metadata$site[i], "_",
+                           output_metadata$data_entry_date[i], "_", 
+                           "protocol_metadata", ".csv"))
+          
+          # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+          drop_upload(paste0(output_metadata$protocol[i], "_",
+                             output_metadata$site[i], "_",
+                             output_metadata$data_entry_date[i], "_", 
+                             "protocol_metadata", ".csv"),
+                      path = paste0("Data/test_curated_directory/",
+                                    project, "/",
+                                    output_metadata$year[i], "/",
+                                    output_metadata$site[i], "/",
+                                    output_metadata$protocol[i]))
           
           for(sheet in names(submission_data$all_data[[i]])) {
-          #   # Make sure sheet folder exists
-          #   if(!drop_exists(path = paste0("Data/test_curated_directory/",
-          #                                 project, "/",
-          #                                 output_metadata$year[i], "/",
-          #                                 output_metadata$site[i], "/",
-          #                                 output_metadata$protocol[i], "/",
-          #                                 sheet))){
-          #     
-          #     drop_create(path = paste0("Data/test_curated_directory/",
-          #                               project, "/",
-          #                               output_metadata$year[i], "/",
-          #                               output_metadata$site[i], "/",
-          #                               output_metadata$protocol[i], "/",
-          #                               sheet))
-          #     
-          #   }
+
             # Write the curated set to the temporary directory and send to Dropbox
             write_csv(submission_data$all_data[[i]][[sheet]], 
                       paste0(output_metadata$protocol[i], "_",
@@ -358,8 +360,6 @@ function(input, output, session) {
                                       output_metadata$year[i], "/",
                                       output_metadata$site[i], "/",
                                       output_metadata$protocol[i]))
-                                      # output_metadata$protocol[i], "/",
-                                      # sheet))
           }
         }
       }
@@ -510,6 +510,7 @@ determineOutputs <- function(){
       output_metadata$year[[index]] <- submission_metadata$year[i]
       output_metadata$site[[index]] <- submission_metadata$site[i]
       output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
+      output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
       index <- index + 1
       
     } else {
@@ -520,6 +521,7 @@ determineOutputs <- function(){
         output_metadata$year[[index]] <- submission_metadata$year[i]
         output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
         output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
+        output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
         index <- index + 1
       }
     }
