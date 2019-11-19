@@ -17,7 +17,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   div(id = "welcome_message", 
                                       tags$br(), tags$br(), 
 
-                                      "Welcome to the prototype MarineGEO data portal! 
+                                      "Welcome to the MarineGEO data portal! 
                                       This application allows you to submit data and metadata to the MarineGEO database.", tags$br(), tags$br(), 
                                       
                                       "New data submissions: Review our data policy and submit your data as specified by the MarineGEO data collection protocols. ", 

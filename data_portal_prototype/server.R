@@ -96,7 +96,7 @@ function(input, output, session) {
       showModal(modalDialog(
         title = "Data Uploading", 
         div("Thank you for submitting data to MarineGEO! Your data is currently undergoing QA tests, 
-            and being saved to our database. This will take a few moments. Once complete, this page will update, and you will have access to a report 
+            and being saved to our database. This will take a few moments. If you are uploading data for multiple sites or more than three protocols, it could take from one to three minutes. Once complete, this page will update, and you will have access to a report 
             with additional details about the status of your submission."),
         
         easyClose = TRUE
