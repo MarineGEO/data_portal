@@ -87,6 +87,9 @@ function(input, output, session) {
     # Get the current time
     submission_time(humanTime())
     
+    # Create inital submission receipt (save email and submission time)
+    initialReceipt() 
+    
     # Make sure each file is an excel (.xlsx) file
     # And data entry date - protocol - site information can all be extracted
     file_test <- checkFileExtensions()
@@ -368,86 +371,17 @@ function(input, output, session) {
   }
   
 ## Helper functions ##########
-
-# Reads in metadata from each file and generates standard filename
-# updateFileNames <- function(){
-# 
-#   setwd(tempdir())
-#   
-#   # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
-#   tryCatch({
-#     # For each file uploaded: 
-#     for(i in 1:nrow(input$fileExcel)){
-#       # Extract the original file name to be saved in the submission log 
-#       filenames$original[i] <- input$fileExcel$name[i]
-#       
-#       # Import data
-#       # Format metadata to be more machine-readable
-#       # Turn to wide form, remove first row
-#       # Wrapped in an error catcher - if user does not upload an excel sheet with a protocol_metadata sheet, the submission will fail
-#       protocol_metadata <- read_xlsx(input$fileExcel$datapath[i], 
-#                                      sheet = "protocol_metadata", 
-#                                      col_names = c("category", "response"), skip=1) %>%
-#         spread(category, response) 
-#         
-#       # Read in sample metadata to get site code
-#       sample_metadata <- read_xlsx(input$fileExcel$datapath[i], sheet = "sample_metadata")
-#       
-#       # Format the date properly
-#       # Version 0.3 has single date value
-#       if(protocol_metadata$workbook_version == "v0.3.0"){
-#         protocol_metadata <- mutate(protocol_metadata, data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
-#         filenames$year[i] <- year(protocol_metadata$data_entry_date)
-#         filenames$data_entry_date[i] <- as.character(protocol_metadata$data_entry_date)
-#       # Version 0.4 has a unique cell each for day, month and year
-#       } else {
-#         filenames$year[i] <- protocol_metadata$data_entry_year
-#         filenames$data_entry_date[i] <- paste(protocol_metadata$data_entry_year, 
-#                                                protocol_metadata$data_entry_month, 
-#                                                protocol_metadata$data_entry_day, sep="-")
-#       }
-#       
-#       filenames$wb_version[i] <- protocol_metadata$workbook_version
-#       filenames$protocol[i] <- protocol_metadata$protocol_name
-#       
-#       # temporary measure: document site as "multiple" if more than one site in a protocol
-#       # filenames$all_sites represents a vector will all unique site codes, which will help create the necessary number of output CSVs later
-#       if(length(unique(sample_metadata$site_code))==1) {
-#         filenames$site[i] <- unique(sample_metadata$site_code)
-#         filenames$all_sites[i] <- unique(sample_metadata$site_code)
-#       } else {
-#         filenames$site[i] <- "multiple"
-#         filenames$all_sites[i] <- list(unique(sample_metadata$site_code))
-#       }
-#       
-#       # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
-#       filenames$new[i] <- paste0(filenames$protocol[i], "_",
-#                                  filenames$site[i], "_",
-#                                  filenames$data_entry_date[i], ".xlsx")
-# 
-#       file.rename(input$fileExcel$datapath[i], filenames$new[i])
-#       
-#     }
-#     
-#   },
-#   error = function(e){
-#     import_status <<- paste("Protocol metadata sheet does not exist for", filenames$original[i], sep=" ")
-# 
-#     showModal(modalDialog(
-#       title = "Data Upload Failure",
-#       div("Data submissions must use MarineGEO data templates (Excel spreadsheets). The first sheet should be titled 'protocol_metadata'.",
-#           "If you are using a protocol metadata sheet, make sure the data entry date values, the name of the protocol, and any site codes in the 'sample metadata' sheet are properly formatted.",
-#           "Contact 'marinegeo@si.edu' if you have any questions.",
-#           "Please update the following files:", import_status),
-# 
-#       easyClose = TRUE
-#     ))
-# 
-#     protocol_metadata_error(FALSE)
-# 
-#   })
-#   
-# }
+# Records any submission attempt
+# Allows MarineGEO to know someone is trying to submit data in case they are getting errors that crash the application
+initialReceipt <- function(){
+  setwd(tempdir())
+  
+  writeLines(input$email, paste0(submission_time(), ".txt"))
+  drop_upload(paste0(submission_time(), ".txt"), 
+                     path = "Data/submission_reports/initial_submission_receipts", mode = "overwrite")
+  
+  setwd(original_wd)
+}  
   
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 generateSubmissionInfo <- function(){
