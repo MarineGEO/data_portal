@@ -264,15 +264,15 @@ function(input, output, session) {
       for(i in 1:nrow(input$fileExcel)){
         
         # Make sure date folder exists
-        if(!drop_exists(path = paste0("Data/test_initial_directory/", date))){
+        if(!drop_exists(path = paste0("MarineGEO/Data/test_initial_directory/", date))){
           
           # If it doesn't, create 
-          drop_create(path = paste0("Data/test_initial_directory/", date))
+          drop_create(path = paste0("MarineGEO/Data/test_initial_directory/", date))
         }
         
         # upload the initial data submission to dropbox
         drop_upload(submission_metadata$new[i],
-                    path = paste0("Data/test_initial_directory/", date))
+                    path = paste0("MarineGEO/Data/test_initial_directory/", date))
         
       }
       
@@ -300,26 +300,26 @@ function(input, output, session) {
         # Only upload individual file submission if it passed all QA tests
         if(output_metadata$status[i]){
           
-          if(!drop_exists(path = paste0("Data/test_curated_directory/",
+          if(!drop_exists(path = paste0("MarineGEO/Data/test_curated_directory/",
                                         project, "/",
                                         output_metadata$year[i], "/",
                                         output_metadata$site[i]))){
             
             # If it doesn't, create the site and protocol folders
-            drop_create(path = paste0("Data/test_curated_directory/",
+            drop_create(path = paste0("MarineGEO/Data/test_curated_directory/",
                                       project, "/",
                                       output_metadata$year[i], "/",
                                       output_metadata$site[i]))
           }
           
           # Make sure protocol folder exists
-          if(!drop_exists(path = paste0("Data/test_curated_directory/",
+          if(!drop_exists(path = paste0("MarineGEO/Data/test_curated_directory/",
                                         project, "/",
                                         output_metadata$year[i], "/",
                                         output_metadata$site[i], "/",
                                         output_metadata$protocol[i]))){
             
-            drop_create(path = paste0("Data/test_curated_directory/",
+            drop_create(path = paste0("MarineGEO/Data/test_curated_directory/",
                                       project, "/",
                                       output_metadata$year[i], "/",
                                       output_metadata$site[i], "/",
@@ -338,7 +338,7 @@ function(input, output, session) {
                              output_metadata$site[i], "_",
                              output_metadata$data_entry_date[i], "_", 
                              "protocol_metadata", ".csv"),
-                      path = paste0("Data/test_curated_directory/",
+                      path = paste0("MarineGEO/Data/test_curated_directory/",
                                     project, "/",
                                     output_metadata$year[i], "/",
                                     output_metadata$site[i], "/",
@@ -358,7 +358,7 @@ function(input, output, session) {
                                output_metadata$site[i], "_",
                                output_metadata$data_entry_date[i], "_", 
                                sheet, ".csv"),
-                        path = paste0("Data/test_curated_directory/",
+                        path = paste0("MarineGEO/Data/test_curated_directory/",
                                       project, "/",
                                       output_metadata$year[i], "/",
                                       output_metadata$site[i], "/",
@@ -378,7 +378,7 @@ initialReceipt <- function(){
   
   writeLines(input$email, paste0(submission_time(), ".txt"))
   drop_upload(paste0(submission_time(), ".txt"), 
-                     path = "Data/submission_reports/initial_submission_receipts", mode = "overwrite")
+                     path = "MarineGEO/Data/submission_reports/initial_submission_receipts", mode = "overwrite")
   
   setwd(original_wd)
 }  
@@ -387,7 +387,7 @@ initialReceipt <- function(){
 generateSubmissionInfo <- function(){
   
   # Read in the submission log from Dropbox
-  submission_log <- drop_read_csv("Data/submission_log.csv")
+  submission_log <- drop_read_csv("MarineGEO/Data/submission_log.csv")
 
   # Collapse all variables to fit into a row in the submission log. 
   # They can be split by ; later 
@@ -591,7 +591,7 @@ renderReport <- function(){
   if(!testing){
     # Send the report to the dropbox
     drop_upload(paste0("./www/", report_path()),
-                path = paste0("Data/submission_reports"))
+                path = paste0("MarineGEO/Data/submission_reports"))
   }
   
 }
