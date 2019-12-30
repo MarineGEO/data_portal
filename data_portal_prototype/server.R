@@ -88,7 +88,7 @@ function(input, output, session) {
     submission_time(humanTime())
     
     # Create inital submission receipt (save email and submission time)
-    initialReceipt() 
+    if(!testing) initialReceipt() 
     
     # Make sure each file is an excel (.xlsx) file
     # And data entry date - protocol - site information can all be extracted
@@ -125,9 +125,9 @@ function(input, output, session) {
         # Move user to the data report page
         updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
         # If the QA QC checks were successful, save the curated data in the proper directory
-        if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
+        # if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
           if(!testing) saveCuratedData()
-        }
+        # }
       } else {
         # If any elements of the protocol metadata failed
         showModal(modalDialog(
@@ -190,14 +190,15 @@ function(input, output, session) {
       
       div(
         tags$h4("Report date: ", submission_time()),
-        tags$h4("Synthesis status:", report_status()),
+        # tags$h4("Synthesis status:", report_status()),
         tags$h4("Contact: MarineGEO (marinegeo@si.edu)"),
         tags$h4("Project affiliation:", paste(project_affiliation$vector, collapse="; ")), tags$br(), 
         
-        "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any errors based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
+        "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
         tags$br(), tags$br(), 
         
-        "Once you've addressed any error(s), resubmit ONLY the data associated with the failed submission. All protocols that pass the QA tests were successfully send to MarineGEO.", tags$br(), tags$br()      
+        "Once you've addressed any issues(s), resubmit ONLY the file that did not pass the test", tags$br(), tags$br()
+        
         )
   
     }
@@ -285,13 +286,13 @@ function(input, output, session) {
     write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
     
     # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "Data", mode = "overwrite")
+    drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
     
   }
   
   saveCuratedData <- function(){
     setwd(tempdir())
-    
+
     for(project in project_affiliation$vector){
       
       # Save each curated protocol to the proper dropbox repository
@@ -300,6 +301,7 @@ function(input, output, session) {
         # Only upload individual file submission if it passed all QA tests
         if(output_metadata$status[i]){
           
+
           if(!drop_exists(path = paste0("MarineGEO/Data/test_curated_directory/",
                                         project, "/",
                                         output_metadata$year[i], "/",
@@ -491,9 +493,14 @@ testQA <- function(){
       
       # Keep only site information 
       if("site_code" %in% colnames(protocol_df[[sheet_name]])){
-        protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-          filter(site_code == output_metadata$site[i])
+        
+        # Line of code protects submission in case there is a typo between site code in sample metadata and site code in data
+        if(output_metadata$site[i] %in% unique(protocol_df[[sheet_name]]$site_code)){
+          protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
+            filter(site_code == output_metadata$site[i])
+        }
       }
+      
       
     }
     
@@ -553,14 +560,15 @@ testQA <- function(){
     
     if(all(current_results$status == "Passed")){
       output_metadata$status[i] <- TRUE
-    } else output_metadata$status[i] <- FALSE
-  
+      # Currently everything is saved to curated directory
+    } else output_metadata$status[i] <- TRUE
+
   }
   
   QA_results$summary <- QA_results$df %>%
     group_by(filename, site) %>%
     summarize(protocol = first(protocol), 
-              result = ifelse(any(status != "Passed"), "Submission failed", "Submission passed"))
+              result = ifelse(any(status != "Passed"), "Submission did not pass all tests", "Submission passed"))
   
 }
 
@@ -572,8 +580,8 @@ renderReport <- function(){
   # Check if the submission failed any QA tests
   if(all(QA_results$summary$result == "Submission passed")){
     report_status("Submission successful")
-  } else if(all(QA_results$summary$result == "Submission failed")){
-    report_status("Submission failed")
+  } else if(all(QA_results$summary$result == "Submission did not pass all tests")){
+    report_status("Submission did not pass all tests")
   } else{
     report_status("Some files failed submission process")
   }
