@@ -37,9 +37,6 @@ function(input, output, session) {
   report_path <- reactiveVal()
   
   # If a submission does not have proper protocol metadata fields, submission will automatically fail
-  # protocol_metadata_error changes to FALSE if that occurs
-  # protocol_metadata_error <- reactiveVal(TRUE)
-  # If a submission does not have proper protocol metadata fields, submission will automatically fail
   # protocol metadata error is a table that tracks the errors and associated files
   protocol_metadata_error <- reactiveValues(df = setNames(data.frame(matrix(ncol = 2, nrow = 0)), c("filename", "error")))
   
