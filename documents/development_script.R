@@ -3,81 +3,26 @@
 library(tidyverse)
 library(readxl)
 
-# Format metadata to be more machine-readable
-# Turn to wide form, remove first row
-protocol_metadata <- read_xlsx("./documents/test.xlsx", sheet = "protocol_metadata", col_names = c("category", "response"), skip=1) %>%
-  spread(category, response) %>%
-  mutate(data_entry_date = as.Date(as.numeric(data_entry_date), origin = "1899-12-30"))
+sample_metadata <- read_excel(paste("./documents/secrets", "fish_seines_USA-VASB_2019-09-23.xlsx", sep="/"), 
+                              sheet = "sample_metadata", 
+                              na = c("NA", "This cell will autocalculate", "N/A"))
 
-sample_metadata <- read_xlsx("./documents/test.xlsx", sheet = "sample_metadata")
+data <- read_excel(paste("./documents/secrets", "fish_seines_USA-VASB_2019-09-23.xlsx", sep="/"), 
+                   sheet = "sample_data", 
+                   na = c("NA", "This cell will autocalculate", "N/A"))
 
-# file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
-file_name <- paste(protocol_metadata$protocol_name, first(sample_metadata$site_code), protocol_metadata$data_entry_date, sep="_")
+test <- anti_join(data, sample_metadata, by=c("sample_collection_date", "site_code", "location_name", "transect"))
+test <- anti_join(sample_metadata, data, by=c("sample_collection_date", "site_code", "location_name", "transect"))
 
-# Make sure there's only one site code in sample metadata 
-# Scan directory to make sure there isn't a shared name
+# First do anti_join with data on left side
+# If there are rows, combine IDs for alert
 
-# If excel sheet was done on Mac, date may be wrong since origin is different
+# Second, do opposite anti join
+# Combine IDs for alerts
 
-# QA functions 
-library(tidyverse)
-library(readxl)
-library(magrittr)
+# If none of these provide alerts, done
+# But if so, run tests for each ID category
+# Make sure all data sheets are found in sample metadata, check for any NAs
 
-#test <- read_xlsx("./documents/testerror.xlsx", sheet = "shoot_count_sample_data")
 
-#is.numeric(test$fruits_count)
-#as.numeric(test$fruits_count)
-
-protocol_structure <- read_csv("./documents/protocol_structure.csv")
-
-current_protocol <- "seagrass_density"
-
-# Get names of sheets in given protocol
-protocol_sheets <- protocol_structure %>%
-  filter(protocol == current_protocol) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
-  unique(.$sheet)
-
-# Create an empty list, each object will be a sheet for the protocol
-protocol_df <- vector("list", length(protocol_sheets))
-names(protocol_df) <- protocol_sheets
-
-# Read in each sheet for the protocol, assign to respective list object 
-for(sheet_name in protocol_sheets) {
-  protocol_df[[sheet_name]] <- read_excel("./documents/test.xlsx", sheet = sheet_name, na = "NA")
-}
-
-# QA test 
-# Test if columns that should be numeric are numeric
-# If not, try to convert
-
-# Get vector of numeric type columns in the given protocol
-numeric_columns <- protocol_structure %>%
-  filter(protocol == current_protocol) %>%
-  filter(type == "numeric") %$%
-  unique(.$attribute_name)
-
-# Create object to save errors to 
-QA_results <- setNames(data.frame(matrix(ncol = 4, nrow = 0)), c("test", "protocol", "sheet_name", "error_message"))
-
-for(sheet_name in protocol_sheets){
-  
-  # Extract vector of numeric columns in sheet
-  sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]), 
-                                  colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
-  
-  # Select sheet dataframe to the subset. 
-  if(!is.null(sheet_numeric_columns)){
-    tryCatch({
-      protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-        mutate_at(sheet_numeric_columns, as.numeric)
-      
-      QA_results[nrow(QA_results) + 1,] <- c("Test numeric variables", current_protocol, sheet_name, "Passed")
-    },
-    
-    warning = function(w){
-      QA_results[nrow(QA_results) + 1,] <<- c("Test numeric variables", current_protocol, sheet_name, unlist(w[1]))
-    })
-  }
-  
-}
+test <- unite(data, id)
