@@ -26,3 +26,28 @@ test <- anti_join(sample_metadata, data, by=c("sample_collection_date", "site_co
 
 
 test <- unite(data, id)
+
+## Test 1 ##
+# If ID in data sheet but missing from sample metadata: Row from data
+# If ID in sample metadata but missing from data sheet: Nothing
+
+## Test 2 ##
+# If ID in data sheet but missing from sample metadata: Nothing
+# If ID in sample metadata but missing from data sheet: Row from sample metadata
+
+id <- "transect"
+test <- rowid_to_column(data, "row") %>%
+  anti_join(sample_metadata, by=id) %>%
+  select(id, row)
+
+results <- test %>%
+  gather("column_name", "value", -row)%>%
+  group_by(column_name, value) %>%
+  summarize(row_numbers = paste(row, collapse=", ")) %>%
+  mutate(sheet_name = sheet_name,
+         protocol = current_protocol,
+         test = "Test1: Data ID relationships",
+         filename = filenames[i]) %>%
+  select(test, filename, protocol, sheet_name, column_name, value, row_numbers) 
+
+

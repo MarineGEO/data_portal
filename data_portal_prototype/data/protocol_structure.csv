@@ -277,17 +277,17 @@ visual_census,sample_metadata,direction,numeric,Transect direction,
 visual_census,sample_metadata,diver,character,The diver's name,
 visual_census,fish_survey_data,invert_count,numeric,"Count of inverts for that invert taxa, in the block",
 visual_census,sample_metadata,location_comments,character,Any additional comments regarding the sampling location,
-visual_census,sample_metadata,location_name,character,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,1
-visual_census,fish_survey_data,location_name,character,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,1
+visual_census,sample_metadata,location_name,character,"The name of the specific location where the sample was collected; e.g., Curlew Cay",1
+visual_census,fish_survey_data,location_name,character,"The name of the specific location where the sample was collected; e.g., Curlew Cay",1
 visual_census,fish_survey_data,method,numeric,"1, 2, or 0.
 1 = Fish surveys; 
 2 = Mobile macroinvertebrate and cryptic fish surveys; 
 0 = Large, rare, or non-resident species seen outside the block boundary or the time of the survey ",
-visual_census,sample_metadata,sample_collection_date,character,"The name of the specific location where the sample was collected; e.g., Curlew Cay",1
-visual_census,fish_survey_data,sample_collection_date,character,"The name of the specific location where the sample was collected; e.g., Curlew Cay",1
+visual_census,sample_metadata,sample_collection_date,Date,The date the sample was collected in the field,1
+visual_census,fish_survey_data,sample_collection_date,Date,The date the sample was collected in the field,1
 visual_census,taxa_list,scientific_name,character,"Corresponding TaxaCodes' scientific names using standard scientific nomenclature. If the taxon cannot be identified to species, report genus or higher",
-visual_census,sample_metadata,site_code,Date,The date the sample was collected in the field,1
-visual_census,fish_survey_data,site_code,Date,The date the sample was collected in the field,1
+visual_census,sample_metadata,site_code,character,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,1
+visual_census,fish_survey_data,site_code,character,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,1
 visual_census,taxa_list,taxa_code,character,"Unique, user generated codes. Can be and unique code but MUST correspond to a single Scientific.Name.
 
 Cells that turn red are duplicate Codes and must be changed to unique values.",
