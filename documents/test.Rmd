@@ -1,0 +1,38 @@
+---
+title: "MarineGEO Data Submission Report"
+output: html_document
+---
+
+This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
+
+Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
+
+```{r, results='asis'}
+headers <- list("We","are","your","friends")
+for (i in headers){
+  cat("#", i, "\n")
+}
+```
+
+
+```{r, results='asis'}
+
+if(nrow(results)>0){
+  warning <- filter(warnings, title == "ID relationships (2)")
+  
+  cat("#", warning$title, 
+      "\n",
+      warning$message)
+}
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

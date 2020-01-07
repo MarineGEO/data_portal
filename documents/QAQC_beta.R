@@ -4,10 +4,10 @@ library(readxl)
 
 # Tests
 # Check for empty rows & remove
-# ... Check if ALL rows are empty
 
 # Test data for QA/QC beta
 protocol_structure <- read_csv("./data_portal_prototype/data/protocol_structure.csv")
+warnings <- read_csv("./data_portal_prototype/data/warnings_lookup.csv")
 
 filenames <- c("fish_seines_USA-VASB_2019-09-23.xlsx",
                "seagrass_density_USA-VASB_2019-09-23.xlsx",
@@ -61,5 +61,12 @@ for(i in 1:length(filenames)){
   
   
 }
+
+results <- QA_results$id_relationships
+
+rmarkdown::render(input = "./documents/test.Rmd",
+                  output_format = "html_document",
+                  output_file = "test.html",
+                  output_dir = "./documents/")
 
 
