@@ -7,32 +7,35 @@ This report documents whether the data submission passes MarineGEO's quality ass
 
 Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
 
-```{r, results='asis'}
-headers <- list("We","are","your","friends")
-for (i in headers){
-  cat("#", i, "\n")
-}
-```
-
 
 ```{r, results='asis'}
 
-if(nrow(results)>0){
-  warning <- filter(warnings, title == "ID relationships (2)")
+if(nrow(QA_results$id_relationships)>0){
+  id_warnings <- filter(warnings, title %in% QA_results$id_relationships$test)
   
-  cat("#", warning$title, 
-      "\n",
-      warning$message)
+  for(i in 1:nrow(id_warnings)){
+    warning <- id_warnings[i,]
+    result <- filter(QA_results$id_relationships, test == warning$title)
+    
+    cat("##", warning$title, 
+        "\n",
+        warning$message, "\n", "\n")
+    
+    cat("**", paste(result$filename, collapse=", "), "**", sep="")
+    
+    print(   
+      kable(
+        result %>%
+          select(sheet_name, column_name, row_numbers, value),
+        caption = "Test"
+      )
+    )
+    
+    cat("\n", "\n")
+    
+  }
+  
 }
 
+
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

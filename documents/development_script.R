@@ -36,6 +36,7 @@ test <- unite(data, id)
 # If ID in sample metadata but missing from data sheet: Row from sample metadata
 
 id <- "transect"
+
 test <- rowid_to_column(data, "row") %>%
   anti_join(sample_metadata, by=id) %>%
   select(id, row)

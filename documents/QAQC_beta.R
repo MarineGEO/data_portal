@@ -1,6 +1,8 @@
 library(tidyverse)
 library(magrittr)
 library(readxl)
+library(rmarkdown)
+library(knitr)
 
 # Tests
 # Check for empty rows & remove

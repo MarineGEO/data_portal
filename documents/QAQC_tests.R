@@ -34,7 +34,7 @@ checkIDRelationships <- function(){
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
                  protocol = current_protocol,
-                 test = "Test1: Data ID relationships",
+                 test = "ID relationships (1)",
                  filename = filenames[i],
                  value = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
@@ -54,7 +54,7 @@ checkIDRelationships <- function(){
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
                  protocol = current_protocol,
-                 test = "Test2: Sample Metadata ID relationships",
+                 test = "ID relationships (2)",
                  filename = filenames[i],
                  value = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
