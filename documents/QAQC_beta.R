@@ -4,8 +4,7 @@ library(readxl)
 library(rmarkdown)
 library(knitr)
 
-# Tests
-# Check for empty rows & remove
+start_time <- Sys.time()
 
 # Test data for QA/QC beta
 protocol_structure <- read_csv("./data_portal_prototype/data/protocol_structure.csv")
@@ -79,11 +78,13 @@ QA_summary <- data.frame(filenames) %>%
   left_join(all_qa_results, by="filename") %>%
   mutate(failed_tests = ifelse(is.na(failed_tests), "Passed", failed_tests)) %>%
   group_by(filename) %>%
-  summarize(failed_tests = paste(unique(failed_tests), collapse=", ")) 
+  summarize(failed_tests = paste(unique(failed_tests), collapse=", "))
 
 rmarkdown::render(input = "./documents/test.Rmd",
                   output_format = "html_document",
                   output_file = "test.html",
                   output_dir = "./documents/")
 
+end_time <- Sys.time()
 
+end_time - start_time

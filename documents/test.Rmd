@@ -3,6 +3,12 @@ title: "MarineGEO Data Submission Report"
 output: html_document
 ---
 
+**Report date:**
+
+**Project affiliation:**
+
+**Data provider:**
+
 This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
 
 Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
@@ -44,6 +50,30 @@ if(nrow(QA_results$id_relationships)>0){
       kable(
         result %>%
           select(filename, sheet_name, column_name, row_numbers, value)
+      )
+    )
+    
+    cat("\n", "\n")
+    
+  }
+  
+}
+ 
+if(nrow(QA_results$numeric)>0){
+  id_warnings <- filter(warnings, title %in% QA_results$numeric$test)
+  
+  for(i in 1:nrow(id_warnings)){
+    warning <- id_warnings[i,]
+    result <- filter(QA_results$numeric, test == warning$title)
+    
+    cat("###", warning$title, 
+        "\n",
+        warning$message, "\n", "\n")
+    
+    print(   
+      kable(
+        result %>%
+          select(filename, sheet_name, column_name, row_numbers)
       )
     )
     
