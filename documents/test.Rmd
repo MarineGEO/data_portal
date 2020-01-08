@@ -7,9 +7,26 @@ This report documents whether the data submission passes MarineGEO's quality ass
 
 Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
 
+## Summary
 
-```{r, results='asis'}
+The table below summarizes our QA/QC tests for each file uploaded. If any file did not pass a test, additional information will be provided below detailing the nature of the failed test, and if it is necessary for the data to be updated, which excel sheet, column, and row should be modified. 
 
+```{r echo=FALSE}
+
+colnames(QA_summary) <- gsub("_", " ", colnames(QA_summary))
+
+kable(
+  QA_summary
+)
+
+```
+
+## QA Test Details
+
+If any files failed a QA test, a description of the test and the next steps to take are located below. 
+
+```{r echo=FALSE, results='asis'}
+ 
 if(nrow(QA_results$id_relationships)>0){
   id_warnings <- filter(warnings, title %in% QA_results$id_relationships$test)
   
@@ -17,17 +34,16 @@ if(nrow(QA_results$id_relationships)>0){
     warning <- id_warnings[i,]
     result <- filter(QA_results$id_relationships, test == warning$title)
     
-    cat("##", warning$title, 
+    cat("###", warning$title, 
         "\n",
         warning$message, "\n", "\n")
     
-    cat("**", paste(result$filename, collapse=", "), "**", sep="")
+    # cat("**", paste(result$filename, collapse=", "), "**", sep="")
     
     print(   
       kable(
         result %>%
-          select(sheet_name, column_name, row_numbers, value),
-        caption = "Test"
+          select(filename, sheet_name, column_name, row_numbers, value)
       )
     )
     

@@ -34,7 +34,7 @@ checkIDRelationships <- function(){
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
                  protocol = current_protocol,
-                 test = "ID relationships (1)",
+                 test = "Invalid ID value in sample data",
                  filename = filenames[i],
                  value = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
@@ -54,7 +54,7 @@ checkIDRelationships <- function(){
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
                  protocol = current_protocol,
-                 test = "ID relationships (2)",
+                 test = "Invalid ID value in sample metadata",
                  filename = filenames[i],
                  value = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
@@ -110,7 +110,7 @@ numericTests <- function(){
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
                  protocol = current_protocol,
-                 test = "Test numeric variables",
+                 test = "Invalid characters in numeric attribute",
                  filename = filenames[i]) %>%
           select(test, filename, protocol, sheet_name, column_name, row_numbers) %>%
           bind_rows(numeric_results)

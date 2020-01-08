@@ -64,7 +64,22 @@ for(i in 1:length(filenames)){
   
 }
 
-results <- QA_results$id_relationships
+all_qa_results <- data.frame()
+for(table in QA_results){
+  if(nrow(table)>0){
+    all_qa_results <- table %>%
+      group_by(filename) %>%
+      summarize(failed_tests = paste(unique(test), collapse=", ")) %>%
+      bind_rows(all_qa_results)
+  }
+}
+
+QA_summary <- data.frame(filenames) %>%
+  rename(filename = filenames) %>%
+  left_join(all_qa_results, by="filename") %>%
+  mutate(failed_tests = ifelse(is.na(failed_tests), "Passed", failed_tests)) %>%
+  group_by(filename) %>%
+  summarize(failed_tests = paste(unique(failed_tests), collapse=", ")) 
 
 rmarkdown::render(input = "./documents/test.Rmd",
                   output_format = "html_document",
