@@ -1,9 +1,9 @@
 protocol,sheet,attribute_name,type,definition,id_variable
-fish_seines,sample_data,abundance,,"Abundance of each fish taxon. 
+fish_seines,sample_data,abundance,numeric,"Abundance of each fish taxon. 
 
 For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",
 fish_seines,sample_metadata,depth_m,numeric,"Site depth in meters. For sites spanning a depth range, please provide a single average depth.",
-fish_seines,sample_data,length_mm,,"Length, in millimeters, of the first 20 individuals per taxon.
+fish_seines,sample_data,length_mm,numeric,"Length, in millimeters, of the first 20 individuals per taxon.
 
 Each cell should contain only one length measurement.",
 fish_seines,sample_metadata,location_comments,character,Any additional comments regarding the sampling location,
@@ -27,11 +27,11 @@ fish_seines,sample_metadata,transect_begin_decimal_latitude,numeric,"Latitude of
 fish_seines,sample_metadata,transect_begin_decimal_longitude,numeric,"Longitude of the transect beginning, in decimal degrees (to five decimal places)",
 fish_seines,sample_metadata,transect_end_decimal_latitude,numeric,"Latitude of the transect ending, in decimal degrees (to five decimal places)",
 fish_seines,sample_metadata,transect_end_decimal_longitude,numeric,"Latitude of the transect ending, in decimal degrees (to five decimal places)",
-fish_trawls,SampleData,abundance,,"Abundance of each fish taxon. 
+fish_trawls,SampleData,abundance,numeric,"Abundance of each fish taxon. 
 
 For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",
 fish_trawls,sample_metadata,depth_m,numeric,"Site depth in meters. For sites spanning a depth range, please provide a single average depth",
-fish_trawls,SampleData,length_mm,,"Length, in millimeters, of the first 20 individuals per taxon.
+fish_trawls,SampleData,length_mm,numeric,"Length, in millimeters, of the first 20 individuals per taxon.
 
 Each cell should contain only one length measurement.",
 fish_trawls,sample_metadata,location_comments,character,Any additional comments regarding the sampling location,

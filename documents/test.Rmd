@@ -85,3 +85,13 @@ if(nrow(QA_results$numeric)>0){
 
 
 ```
+
+## Visualizations
+
+```{r echo=FALSE}
+
+for(protocol in numeric_plots){
+  print(protocol)
+}
+
+```

@@ -16,8 +16,12 @@ filenames <- c("fish_seines_USA-VASB_2019-09-23.xlsx",
                "seagrass_shoots_USA-VASB_2019-09-23.xlsx")
 
 protocols <- c("fish_seines", "seagrass_density", "seagrass_epifauna", "seagrass_shoots")
-
 sites <- c("USA-VASB", "USA-VASB", "USA-VASB", "USA-VASB")
+
+# List to hold all uploaded spreadsheets
+all_data <- list()
+# List to hold generated plots
+numeric_plots <- list()
 
 # QA results stored in a list of dataframes
 # Each dataframe represents an overarching type of test (numeric, testing ID relationships, etc)
@@ -60,7 +64,12 @@ for(i in 1:length(filenames)){
   QA_results$id_relationships <- bind_rows(QA_results$id_relationships, checkIDRelationships())
   QA_results$numeric <- bind_rows(QA_results$numeric , numericTests())
   
+  # Generate visualizations
+  numeric_plots[[current_protocol]] <- generateVisualizations()
   
+  all_data[[paste(current_protocol, 
+                  filenames[i], 
+                  sites[i], sep="_")]] <- protocol_df
 }
 
 all_qa_results <- data.frame()
@@ -88,3 +97,9 @@ rmarkdown::render(input = "./documents/test.Rmd",
 end_time <- Sys.time()
 
 end_time - start_time
+
+for(protocol in numeric_plots){
+  print(names(numeric_plots[1]))
+  print(names(protocol))
+}
+

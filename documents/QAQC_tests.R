@@ -121,3 +121,37 @@ numericTests <- function(){
   return(numeric_results)
   
 }
+
+# Generate visualizations for RMarkdown document
+generateVisualizations <- function(){
+  # Histograms of each non-ID numeric column
+  visualizations <- list()
+  
+  numeric_columns <- protocol_structure %>%
+    filter(protocol == current_protocol) %>%
+    filter((type == "numeric" | type == "integer") & is.na(id_variable)) %$%
+    unique(.$attribute_name)
+  
+  for(sheet_name in protocol_sheets[!protocol_sheets %in% c("sample_metadata", "taxa_list")]){
+    
+    # Extract vector of numeric columns in sheet
+    sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]),
+                                    colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
+    
+    # If a sheet has numeric columns, attempt to convert them to numeric
+    # If they have to coerce values to NA, the resulting warning will be logged
+    if(!is.null(sheet_numeric_columns) & nrow(protocol_df[[sheet_name]]) != 0){
+      
+      visualizations[[sheet_name]] <- protocol_df[[sheet_name]] %>%
+        select(sheet_numeric_columns) %>%
+        gather() %>% 
+        ggplot(aes(value)) +
+        facet_wrap(~ key, scales = "free") +
+        geom_histogram()
+    }
+  }
+  
+  return(visualizations)
+
+}
+
