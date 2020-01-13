@@ -1,7 +1,16 @@
 ---
-title: "MarineGEO Data Submission Report"
 output: html_document
 ---
+
+![](Logomark_MarineGEO_Tennenbaum_RGB.png)
+
+  
+  
+  
+  <br />
+  <br />
+
+## MarineGEO Data Submission Report
 
 **Report date:**
 
@@ -12,6 +21,9 @@ output: html_document
 This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
 
 Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
+
+  <br />
+  <br />
 
 ## Summary
 
@@ -26,6 +38,9 @@ kable(
 )
 
 ```
+
+  <br />
+  <br />
 
 ## QA Test Details
 
@@ -85,6 +100,10 @@ if(nrow(QA_results$numeric)>0){
 
 
 ```
+
+  <br />
+  <br />
+
 
 ## Visualizations
 

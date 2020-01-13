@@ -98,8 +98,5 @@ end_time <- Sys.time()
 
 end_time - start_time
 
-for(protocol in numeric_plots){
-  print(names(numeric_plots[1]))
-  print(names(protocol))
-}
+
 
