@@ -2,53 +2,45 @@
 
 library(tidyverse)
 library(readxl)
+library(purrr)
 
-sample_metadata <- read_excel(paste("./documents/secrets", "fish_seines_USA-VASB_2019-09-23.xlsx", sep="/"), 
-                              sheet = "sample_metadata", 
-                              na = c("NA", "This cell will autocalculate", "N/A"))
+df <- all_data$`fish_seines_fish_seines_USA-VASB_2019-09-23.xlsx_USA-VASB`$sample_metadata
 
-data <- read_excel(paste("./documents/secrets", "fish_seines_USA-VASB_2019-09-23.xlsx", sep="/"), 
-                   sheet = "sample_data", 
-                   na = c("NA", "This cell will autocalculate", "N/A"))
+df_numeric <- select(df, depth_m, seine_mesh_size_mm, seine_width_m, seine_height_m, seine_distance_m)
 
-test <- anti_join(data, sample_metadata, by=c("sample_collection_date", "site_code", "location_name", "transect"))
-test <- anti_join(sample_metadata, data, by=c("sample_collection_date", "site_code", "location_name", "transect"))
+results <- apply(df_numeric, 2, min)
 
-# First do anti_join with data on left side
-# If there are rows, combine IDs for alert
+rownames_to_column(as.data.frame(results), var="attribute_name")
 
-# Second, do opposite anti join
-# Combine IDs for alerts
+apply(df_numeric, c(1,2), function(x){
+  
+})
 
-# If none of these provide alerts, done
-# But if so, run tests for each ID category
-# Make sure all data sheets are found in sample metadata, check for any NAs
+map_dbl(df_numeric, min) %>%
+  mutate(test = "column_min")
+
+map_dbl(df_numeric, max) %>%
+  mutate(test = "column_max")
 
 
-test <- unite(data, id)
+rownames_to_column(as.data.frame(map_dbl(df_numeric, min)), var="attribute_name")
 
-## Test 1 ##
-# If ID in data sheet but missing from sample metadata: Row from data
-# If ID in sample metadata but missing from data sheet: Nothing
-
-## Test 2 ##
-# If ID in data sheet but missing from sample metadata: Nothing
-# If ID in sample metadata but missing from data sheet: Row from sample metadata
-
-id <- "transect"
-
-test <- rowid_to_column(data, "row") %>%
-  anti_join(sample_metadata, by=id) %>%
-  select(id, row)
-
-results <- test %>%
-  gather("column_name", "value", -row)%>%
-  group_by(column_name, value) %>%
-  summarize(row_numbers = paste(row, collapse=", ")) %>%
-  mutate(sheet_name = sheet_name,
-         protocol = current_protocol,
-         test = "Test1: Data ID relationships",
-         filename = filenames[i]) %>%
-  select(test, filename, protocol, sheet_name, column_name, value, row_numbers) 
+test <- setNames(as.data.frame(map_dbl(df_numeric, min)), "minimum") %>%
+  rownames_to_column(var="attribute_name") %>%
+  mutate(protocol = "fish_seines") %>%
+  merge(protocol_structure, by=c("protocol", "attribute_name"), all.x=TRUE, all.y=FALSE) %>%
+  select(protocol, attribute_name, minimum, minimum_warning)
 
 
+test <- setNames(as.data.frame(map_dbl(df_numeric, min)), "maximum") %>%
+  rownames_to_column(var="attribute_name") 
+
+
+protocol_minimums <- protocol_structure %>%
+  filter(protocol == "fish_seines" & sheet == "sample_metadata" & attribute_name %in% colnames(df_numeric))
+
+df_numeric$depth_m <- c(-5, -8, 1)
+
+# Numeric test 
+df_numeric$depth_m < filter(protocol_minimums, attribute_name == "depth_m")$minimum_warning
+which((test < 0) %in% 1) 
