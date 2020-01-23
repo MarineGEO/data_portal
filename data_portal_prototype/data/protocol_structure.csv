@@ -4,7 +4,7 @@ fish_seines,sample_data,abundance,numeric,"Abundance of each fish taxon.
 For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",,1,0,,,
 fish_seines,sample_data,length_mm,numeric,"Length, in millimeters, of the first 20 individuals per taxon.
 
-Each cell should contain only one length measurement.",,2,0,3,,
+Each cell should contain only one length measurement.",,2,0,300,,
 fish_seines,sample_data,location_name,character,"The name of the specific location where the sample was collected; e.g., Curlew Cay",1,,,,,
 fish_seines,sample_data,sample_collection_date,Date,The date the sample was collected in the field,1,,,,,
 fish_seines,sample_data,site_code,character,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,1,,,,,

@@ -3,6 +3,7 @@ library(magrittr)
 library(readxl)
 library(rmarkdown)
 library(knitr)
+library(anytime)
 
 start_time <- Sys.time()
 
@@ -26,6 +27,7 @@ numeric_plots <- list()
 # QA results stored in a list of dataframes
 # Each dataframe represents an overarching type of test (numeric, testing ID relationships, etc)
 QA_results <- list()
+QA_results$sample_metadata <- data.frame()
 QA_results$id_relationships <- data.frame()
 QA_results$numeric <- setNames(data.frame(matrix(ncol = 6, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers"))
 
@@ -61,11 +63,12 @@ for(i in 1:length(filenames)){
   }
   
   # Run QA tests
+  QA_results$sample_metadata <- bind_rows(QA_results$sample_metadata, checkSampleMetadata())
   QA_results$id_relationships <- bind_rows(QA_results$id_relationships, checkIDRelationships())
   QA_results$numeric <- bind_rows(QA_results$numeric , numericTests())
   
   # Generate visualizations
-  numeric_plots[[current_protocol]] <- generateVisualizations()
+  # numeric_plots[[current_protocol]] <- generateVisualizations()
   
   all_data[[paste(current_protocol, 
                   filenames[i], 
@@ -98,5 +101,4 @@ end_time <- Sys.time()
 
 end_time - start_time
 
-
-
+#results

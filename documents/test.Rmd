@@ -47,7 +47,33 @@ kable(
 If any files failed a QA test, a description of the test and the next steps to take are located below. 
 
 ```{r echo=FALSE, results='asis'}
- 
+  
+if(nrow(QA_results$sample_metadata)>0){
+  id_warnings <- filter(warnings, title %in% QA_results$sample_metadata$test)
+  
+  for(i in 1:nrow(id_warnings)){
+    warning <- id_warnings[i,]
+    result <- filter(QA_results$sample_metadata, test == warning$title)
+    
+    cat("###", warning$title, 
+        "\n",
+        warning$message, "\n", "\n")
+    
+    # cat("**", paste(result$filename, collapse=", "), "**", sep="")
+    
+    print(   
+      kable(
+        result %>%
+          select(filename, sheet_name, column_name, row_numbers, value)
+      )
+    )
+    
+    cat("\n", "\n")
+    
+  }
+  
+}
+
 if(nrow(QA_results$id_relationships)>0){
   id_warnings <- filter(warnings, title %in% QA_results$id_relationships$test)
   
@@ -88,7 +114,7 @@ if(nrow(QA_results$numeric)>0){
     print(   
       kable(
         result %>%
-          select(filename, sheet_name, column_name, row_numbers)
+          select(filename, sheet_name, column_name, row_numbers, values)
       )
     )
     
@@ -105,12 +131,10 @@ if(nrow(QA_results$numeric)>0){
   <br />
 
 
-## Visualizations
-
 ```{r echo=FALSE}
 
-for(protocol in numeric_plots){
-  print(protocol)
-}
+# for(protocol in numeric_plots){
+#   print(protocol)
+# }
 
 ```
