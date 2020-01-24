@@ -1,10 +1,12 @@
+## Tests for sample metadata sheet ####
+
 checkSampleMetadata <- function(){
   sample_metadata_results <- data.frame()
   testing_df <- protocol_df$sample_metadata 
     
-  # Test that site codes are in roster
+  ## ... Test that site codes are in roster ####
   
-  # Test sample collection date
+  ## ... Test sample collection date ####
   invalid_date_index <- which(is.na(anydate(testing_df$sample_collection_date)))
   
   if(length(invalid_date_index)>0){
@@ -22,13 +24,27 @@ checkSampleMetadata <- function(){
       bind_rows(sample_metadata_results)
   }
   
+  ## ... Check existance of coordinates ####
+  # ID value 2 represents coordinate attributes (lat and long)
+  coordinate_attributes <- protocol_structure %>%
+    filter(protocol == current_protocol & sheet == "sample_metadata") %>%
+    filter(id_variable == 2) %$%
+    unique(.$attribute_name)
+  
+  
+  
+  ## ... Convert DMS to DD #####
+  
+  
+  
   return(sample_metadata_results)
 }
 
+## Test validity of ID variables ####
 checkIDRelationships <- function(){
   protocol_id_results <- data.frame()
   
-  ## Check sample metadata ID links #####
+  ## Match IDs across sheets #####
   # Get unique ID variables in sample metadata sheet
   sample_metadata_ids <- protocol_structure %>%
     filter(protocol == current_protocol & sheet == "sample_metadata") %>%
@@ -134,7 +150,7 @@ checkIDRelationships <- function(){
   return(protocol_id_results)
 }
 
-## TEST numeric type 
+## Numeric variable tests ####
 # Get vector of numeric and integer type columns in the given protocol
 numericTests <- function(){
   numeric_results <- data.frame()
@@ -150,7 +166,7 @@ numericTests <- function(){
     sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]),
                                     colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
     
-    ## Test for numeric values ####
+    ## ... Test for non-numeric values ####
     # If a sheet has numeric columns, attempt to convert them to numeric
     # If they have to coerce values to NA, the resulting warning will be logged
     if(!is.null(sheet_numeric_columns) & nrow(protocol_df[[sheet_name]]) != 0){
@@ -193,7 +209,7 @@ numericTests <- function(){
   
 }
 
-## Test for valid minimum and maximum values ####
+## ... Test for valid minimum and maximum values ####
 numericMinMaxTest <- function(numeric_results, current_protocol, sheet_name, testing_df){
   
   protocol_minmax <- protocol_structure %>%
