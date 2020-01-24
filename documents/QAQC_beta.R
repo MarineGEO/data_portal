@@ -100,5 +100,3 @@ rmarkdown::render(input = "./documents/test.Rmd",
 end_time <- Sys.time()
 
 end_time - start_time
-
-#results
