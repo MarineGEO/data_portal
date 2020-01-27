@@ -55,7 +55,8 @@ for(i in 1:length(filenames)){
                      na = c("NA", "This cell will autocalculate", "N/A"))
     
     # Need to prevent empty sheets from getting uploaded
-    # Needs to be recorded!
+    # TO DO - Add entry to QA_results in else statement
+    
     if(nrow(df) > 0){
       protocol_df[[sheet_name]] <- df
     } else{
@@ -63,11 +64,7 @@ for(i in 1:length(filenames)){
     }
   }
   
-  # Run QA tests
-  # QA_results$sample_metadata <- bind_rows(QA_results$sample_metadata, checkSampleMetadata())
-  # QA_results$id_relationships <- bind_rows(QA_results$id_relationships, checkIDRelationships())
-  # QA_results$numeric <- bind_rows(QA_results$numeric , numericTests())
-  
+  # Run  QA tests
   QA_results <- QA_results %>%
     bind_rows(checkSampleMetadata()) %>%
     bind_rows(checkIDRelationships()) %>%

@@ -32,7 +32,7 @@ determineOutputs <- function(){
   for(i in 1:length(submission_metadata$new_filename)){
     if(submission_metadata$site[i] != "multiple"){
       output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-      output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+      submission_metadata$new_filename[[index]] <- submission_metadata$new_filename[i]
       output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
       output_metadata$year[[index]] <- submission_metadata$year[i]
       output_metadata$site[[index]] <- submission_metadata$site[i]
@@ -43,7 +43,7 @@ determineOutputs <- function(){
     } else {
       for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
         output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-        output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+        submission_metadata$new_filename[[index]] <- submission_metadata$new_filename[i]
         output_metadata$filename_original[[index]] <- submission_metadata$original[i]
         output_metadata$year[[index]] <- submission_metadata$year[i]
         output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
@@ -57,9 +57,13 @@ determineOutputs <- function(){
 
 testQA <- function(){
   
-  # Data that passes QA tests will be saved to submission_data$all_data
-  # It is a list of lists, where each first order list is a sheet in a protocol
+  # Data will be read in, tested, and stored in submission_data$all_data
+  # Submission_data$all_data is a list of lists, where each first order list is a sheet in a protocol
   # And each second order list represents a protocol
+  
+  # Store QA results in a data frame 
+  QA_results <- setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
+                         c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"))
   
   # Loop through each uploaded protocol
   for(i in 1:length(submission_metadata$original_filename)){
@@ -77,85 +81,48 @@ testQA <- function(){
     
     # Read in each sheet for the protocol, assign to respective list object 
     for(sheet_name in protocol_sheets) {
-      protocol_df[[sheet_name]] <- read_excel(output_metadata$filename_new[i], 
-                                              sheet = sheet_name, 
-                                              na = c("NA", "This cell will autocalculate", "N/A"))
-    }
-    
-    ## TEST numeric type 
-    # Get vector of numeric and integer type columns in the given protocol
-    numeric_columns <- protocol_structure %>%
-      filter(protocol == current_protocol) %>%
-      filter(type == "numeric" | type == "integer") %$%
-      unique(.$attribute_name)
-    
-    for(sheet_name in protocol_sheets){
+      df <- read_excel(submission_metadata$new_filename[i], 
+                       sheet = sheet_name, 
+                       na = c("NA", "This cell will autocalculate", "N/A"))
       
-      # Extract vector of numeric columns in sheet
-      sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]), 
-                                      colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
-      
-      # If a sheet has numeric columns, attempt to convert them to numeric
-      # If they have to coerce values to NA, the resulting warning will be logged 
-      if(!is.null(sheet_numeric_columns)){
-        tryCatch({
-          
-          protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-            mutate_at(sheet_numeric_columns, as.numeric)
-          
-          # Remove any row that is all NAs - possible due to the autocalculation values
-          # THIS NEEDS TO BE CHANGED IN THE FUTURE - only one column filtered on, will lead to problems
-          if("sample_collection_date" %in% colnames(protocol_df[[sheet_name]])){
-            protocol_df[[sheet_name]] <- filter(protocol_df[[sheet_name]], !is.na(sample_collection_date))
-          }
-          
-          QA_results$df[nrow(QA_results$df) + 1,] <- c("Test numeric variables", 
-                                                       output_metadata$filename_original[i], 
-                                                       current_protocol, 
-                                                       sheet_name, 
-                                                       output_metadata$site[i], 
-                                                       "Passed")
-        },
-        warning = function(w){
-          QA_results$df[nrow(QA_results$df) + 1,] <<- c("Test numeric variables", 
-                                                        output_metadata$filename_original[i], 
-                                                        current_protocol, 
-                                                        sheet_name, 
-                                                        output_metadata$site[i], 
-                                                        unlist(w[1]))
-        })
+      # Need to prevent empty sheets from getting uploaded
+      # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
+      # TO DO - Add entry to QA_results in else statement
+      if(nrow(df) > 0){
+        protocol_df[[sheet_name]] <- df
+      } else{
+        protocol_sheets <- protocol_sheets[protocol_sheets != sheet_name]
       }
     }
     
+    # Run  QA tests
+    QA_results <- QA_results %>%
+      bind_rows(checkSampleMetadata()) %>%
+      bind_rows(checkIDRelationships()) %>%
+      bind_rows(numericTests())
+    
     # Add the protocol to the overall submission data list 
     submission_data$all_data[[paste(current_protocol, 
-                                    output_metadata$filename_original[i], 
-                                    output_metadata$site[i], sep="_")]] <- protocol_df
+                                    submission_metadata$filename_original[i], 
+                                    submission_metadata$site[i], sep="_")]] <- protocol_df
     
     # Set success of protocol submission 
     current_results <- QA_results$df %>%
-      filter(filename == output_metadata$filename_original[i] & site == output_metadata$site[i])
+      filter(filename == submission_metadata$filename_original[i] & site == submission_metadata$site[i])
     
     if(all(current_results$status == "Passed")){
-      output_metadata$status[i] <- TRUE
+      submission_metadata$status[i] <- TRUE
       # Currently everything is saved to curated directory
-    } else output_metadata$status[i] <- TRUE
-    
+    } else submission_metadata$status[i] <- TRUE
   }
-  
-  QA_results$summary <- QA_results$df %>%
-    group_by(filename, site) %>%
-    summarize(protocol = first(protocol), 
-              result = ifelse(any(status != "Passed"), "Submission did not pass all tests", "Submission passed"))
-  
 }
 
 ## Code for filtering by site:
 # if("site_code" %in% colnames(protocol_df[[sheet_name]])){
 #   
 #   # Line of code protects submission in case there is a typo between site code in sample metadata and site code in data
-#   if(output_metadata$site[i] %in% unique(protocol_df[[sheet_name]]$site_code)){
+#   if(submission_metadata$site[i] %in% unique(protocol_df[[sheet_name]]$site_code)){
 #     protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-#       filter(site_code == output_metadata$site[i])
+#       filter(site_code == submission_metadata$site[i])
 #   }
 # }

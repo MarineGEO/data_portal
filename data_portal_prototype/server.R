@@ -5,6 +5,8 @@
 function(input, output, session) {
   # Functions for extracting submission metadata
   source("extractSubmissionMetadata.R", local=TRUE)
+  # QA functions
+  source("qaqcTests.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -27,8 +29,14 @@ function(input, output, session) {
   output_metadata <- reactiveValues()
   
   # Create object to save errors to 
-  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 6, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "site", "status")),
-                               summary = data.frame()) # Summary of all protocols uploaded
+  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
+                                             c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"))) 
+  
+  # Objects hold each protocol and related metadata as they undergo QA in called functions
+  current_protocol <- reactiveVal()
+  protocol_sheets <- reactiveVal()
+  original_filename_qa <- reactiveVal()
+  stored_protocol <- reactiveValues()
   
   # If submission fails QA testing, report status will be sent to False 
   report_status <- reactiveVal()
@@ -116,7 +124,7 @@ function(input, output, session) {
         # Each protocol-site combination gets a collection of CSV files
         determineOutputs()
         # Run beta QA process 
-        testQA()
+        QAQC()
         # Render the report and save to MarineGEO dropbox
         renderReport()
         # Move user to the data report page
@@ -433,140 +441,89 @@ determineOutputs <- function(){
   # A. Get protocol name
   # B. determine which has multiple sites
   # C. Create list of output protocols
-  index <- 1
-
-  for(i in 1:length(submission_metadata$new_filename)){
-    if(submission_metadata$site[i] != "multiple"){
-      output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-      output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
-      output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
-      output_metadata$year[[index]] <- submission_metadata$year[i]
-      output_metadata$site[[index]] <- submission_metadata$site[i]
-      output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
-      output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
-      index <- index + 1
-      
-    } else {
-      for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
-        output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-        output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
-        output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
-        output_metadata$year[[index]] <- submission_metadata$year[i]
-        output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
-        output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
-        output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
-        index <- index + 1
-      }
-    }
-  }
+  # index <- 1
+  # 
+  # for(i in 1:length(submission_metadata$new_filename)){
+  #   if(submission_metadata$site[i] != "multiple"){
+  #     output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
+  #     output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+  #     output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
+  #     output_metadata$year[[index]] <- submission_metadata$year[i]
+  #     output_metadata$site[[index]] <- submission_metadata$site[i]
+  #     output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
+  #     output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
+  #     index <- index + 1
+  #     
+  #   } else {
+  #     for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
+  #       output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
+  #       output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+  #       output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
+  #       output_metadata$year[[index]] <- submission_metadata$year[i]
+  #       output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
+  #       output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
+  #       output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
+  #       index <- index + 1
+  #     }
+  #   }
+  # }
 }
 
-testQA <- function(){
-  
-  # Data that passes QA tests will be saved to submission_data$all_data
-  # It is a list of lists, where each first order list is a sheet in a protocol
+QAQC <- function(){
+  # Data will be read in, tested, and stored in submission_data$all_data
+  # Submission_data$all_data is a list of lists, where each first order list is a sheet in a protocol
   # And each second order list represents a protocol
-
+  
   # Loop through each uploaded protocol
-  for(i in 1:length(output_metadata$filename_new)){
-
-    current_protocol <- output_metadata$protocol[i]
+  for(i in 1:length(submission_metadata$original_filename)){
+    
+    original_filename_qa(submission_metadata$original_filename[i])
+    current_protocol(submission_metadata$protocol[i])
     
     # Get names of sheets for given protocol
-    protocol_sheets <- protocol_structure %>%
-      filter(protocol == current_protocol) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
-      unique(.$sheet)
+    protocol_sheets(protocol_structure %>%
+      filter(protocol == current_protocol()) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
+      unique(.$sheet))
     
     # Create an empty list, each object will be a sheet for the protocol
-    protocol_df <- vector("list", length(protocol_sheets))
-    names(protocol_df) <- protocol_sheets
+    protocol_df <- vector("list", length(protocol_sheets()))
+    names(protocol_df) <- protocol_sheets()
     
     # Read in each sheet for the protocol, assign to respective list object 
-    for(sheet_name in protocol_sheets) {
-      protocol_df[[sheet_name]] <- read_excel(output_metadata$filename_new[i], 
-                                              sheet = sheet_name, 
-                                              na = c("NA", "This cell will autocalculate", "N/A"))
+    for(sheet_name in protocol_sheets()) {
+      df <- read_excel(submission_metadata$new_filename[i], 
+                       sheet = sheet_name, 
+                       na = c("NA", "This cell will autocalculate", "N/A"))
       
-      # Keep only site information 
-      if("site_code" %in% colnames(protocol_df[[sheet_name]])){
-        
-        # Line of code protects submission in case there is a typo between site code in sample metadata and site code in data
-        if(output_metadata$site[i] %in% unique(protocol_df[[sheet_name]]$site_code)){
-          protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-            filter(site_code == output_metadata$site[i])
-        }
-      }
-      
-      
-    }
-    
-    ## TEST numeric type 
-    # Get vector of numeric and integer type columns in the given protocol
-    numeric_columns <- protocol_structure %>%
-      filter(protocol == current_protocol) %>%
-      filter(type == "numeric" | type == "integer") %$%
-      unique(.$attribute_name)
-    
-    for(sheet_name in protocol_sheets){
-      
-      # Extract vector of numeric columns in sheet
-      sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]), 
-                                      colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
-      
-      # If a sheet has numeric columns, attempt to convert them to numeric
-      # If they have to coerce values to NA, the resulting warning will be logged 
-      if(!is.null(sheet_numeric_columns)){
-        tryCatch({
-          
-          protocol_df[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-            mutate_at(sheet_numeric_columns, as.numeric)
-          
-          # Remove any row that is all NAs - possible due to the autocalculation values
-          # THIS NEEDS TO BE CHANGED IN THE FUTURE - only one column filtered on, will lead to problems
-          if("sample_collection_date" %in% colnames(protocol_df[[sheet_name]])){
-            protocol_df[[sheet_name]] <- filter(protocol_df[[sheet_name]], !is.na(sample_collection_date))
-          }
-          
-          QA_results$df[nrow(QA_results$df) + 1,] <- c("Test numeric variables", 
-                                                       output_metadata$filename_original[i], 
-                                                       current_protocol, 
-                                                       sheet_name, 
-                                                       output_metadata$site[i], 
-                                                       "Passed")
-        },
-        warning = function(w){
-          QA_results$df[nrow(QA_results$df) + 1,] <<- c("Test numeric variables", 
-                                                        output_metadata$filename_original[i], 
-                                                        current_protocol, 
-                                                        sheet_name, 
-                                                        output_metadata$site[i], 
-                                                        unlist(w[1]))
-        })
+      # Need to prevent empty sheets from getting uploaded
+      # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
+      # TO DO - Add entry to QA_results_table in else statement
+      if(nrow(df) > 0){
+        protocol_df[[sheet_name]] <- df
+      } else{
+        protocol_sheets_non_reactive <- protocol_sheets()
+        protocol_sheets(protocol_sheets_non_reactive[protocol_sheets_non_reactive != sheet_name])
       }
     }
+    
+    # Save protocol data to a reactive list object so QA tests can access within environment
+    stored_protocol$df <- protocol_df
+    
+    # Run  QA tests
+    QA_results$df <- QA_results$df %>%
+      bind_rows(checkSampleMetadata()) %>%
+      bind_rows(checkIDRelationships()) %>%
+      bind_rows(numericTests())
     
     # Add the protocol to the overall submission data list 
-    submission_data$all_data[[paste(current_protocol, 
-                                    output_metadata$filename_original[i], 
-                                    output_metadata$site[i], sep="_")]] <- protocol_df
+    submission_data$all_data[[paste(current_protocol(), 
+                                    submission_metadata$original_filename[i], 
+                                    submission_metadata$site[i], sep="_")]] <- protocol_df
     
-    # Set success of protocol submission 
-    current_results <- QA_results$df %>%
-      filter(filename == output_metadata$filename_original[i] & site == output_metadata$site[i])
-    
-    if(all(current_results$status == "Passed")){
-      output_metadata$status[i] <- TRUE
-      # Currently everything is saved to curated directory
-    } else output_metadata$status[i] <- TRUE
-
   }
   
-  QA_results$summary <- QA_results$df %>%
-    group_by(filename, site) %>%
-    summarize(protocol = first(protocol), 
-              result = ifelse(any(status != "Passed"), "Submission did not pass all tests", "Submission passed"))
-  
 }
+
 
 # Generate the QA report in markdown
 renderReport <- function(){
@@ -574,12 +531,10 @@ renderReport <- function(){
   setwd(original_wd)
   
   # Check if the submission failed any QA tests
-  if(all(QA_results$summary$result == "Submission passed")){
+  if(nrow(QA_results$df) == 0){
     report_status("Submission successful")
-  } else if(all(QA_results$summary$result == "Submission did not pass all tests")){
-    report_status("Submission did not pass all tests")
   } else{
-    report_status("Some files failed submission process")
+    report_status("Some files did not pass tests")
   }
 
   ## Write RMarkdown report #########
@@ -589,8 +544,8 @@ renderReport <- function(){
                     output_file = paste0("submission_report_", submission_time(), ".html"),
                     output_dir = "./www/")
   
-  
   report_path(paste0("submission_report_", submission_time(), ".html"))
+  
   
   if(!testing){
     # Send the report to the dropbox
