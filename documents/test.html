@@ -379,100 +379,25 @@ summary {
 <div id="summary" class="section level2">
 <h2>Summary</h2>
 <p>The table below summarizes our QA/QC tests for each file uploaded. If any file did not pass a test, additional information will be provided below detailing the nature of the failed test, and if it is necessary for the data to be updated, which excel sheet, column, and row should be modified.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">filename</th>
-<th align="left">failed tests</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">Invalid maximum value, Taxon ID value in sample data not defined, Invalid ID value in sample metadata</td>
-</tr>
-<tr class="even">
-<td align="left">seagrass_density_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">Invalid characters in numeric attribute, Invalid ID value in sample data</td>
-</tr>
-<tr class="odd">
-<td align="left">seagrass_epifauna_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">Taxon ID value in sample data not defined</td>
-</tr>
-<tr class="even">
-<td align="left">seagrass_shoots_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">Passed</td>
-</tr>
-</tbody>
-</table>
 <p><br /> <br /></p>
 </div>
 <div id="qa-test-details" class="section level2">
 <h2>QA Test Details</h2>
 <p>If any files failed a QA test, a description of the test and the next steps to take are located below.</p>
-<div id="invalid-id-value-in-sample-data" class="section level3">
-<h3>Invalid ID value in sample data</h3>
-<p>This protocol’s data sheets has one or more ID variables (such as site code, location name, and transect) that do not have matching entries on the “sample_metadata” sheet. The table below contains the invalid ID value and location within the data sheet. It is likely that either a typo occurred or a sampling location was not properly defined in the “sample_metadata” sheet.</p>
 <table>
 <thead>
 <tr class="header">
+<th align="left">test</th>
 <th align="left">filename</th>
 <th align="left">sheet_name</th>
 <th align="left">column_name</th>
 <th align="left">row_numbers</th>
-<th align="left">value</th>
+<th align="left">values</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">seagrass_density_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">cover_sample_data</td>
-<td align="left">transect</td>
-<td align="left">1</td>
-<td align="left">5</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="invalid-id-value-in-sample-metadata" class="section level3">
-<h3>Invalid ID value in sample metadata</h3>
-<p>The protocol’s sample metadata sheet has ID variables (such as site code, location name, and transect) that do not appear elsewhere on the data sheets. Check to make sure this does not reflect an error. If you received an alert for “ID relationships (1)”, it is likely that you entered an ID variable one way in the sample metadata sheet and another way on a data sheet. For example, writing “USA-MDA” on one sheet and “USA_MDA” on another. In other cases, this may merely represent that you didn’t collect data for that site/location/transect and this warning can be disregarded.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">filename</th>
-<th align="left">sheet_name</th>
-<th align="left">column_name</th>
-<th align="left">row_numbers</th>
-<th align="left">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">sample_data</td>
-<td align="left">transect</td>
-<td align="left">3</td>
-<td align="left">3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="taxon-id-value-in-sample-data-not-defined" class="section level3">
-<h3>Taxon ID value in sample data not defined</h3>
-<p>One or more taxon ID values in sample data sheets are not defined in the “taxa_list” sheet.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">filename</th>
-<th align="left">sheet_name</th>
-<th align="left">column_name</th>
-<th align="left">row_numbers</th>
-<th align="left">value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sample_data</td>
 <td align="left">taxon_id</td>
@@ -480,6 +405,7 @@ summary {
 <td align="left">Hippolyte sp.</td>
 </tr>
 <tr class="even">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sample_data</td>
 <td align="left">taxon_id</td>
@@ -487,6 +413,7 @@ summary {
 <td align="left">Palaemonetes sp.</td>
 </tr>
 <tr class="odd">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sample_data</td>
 <td align="left">taxon_id</td>
@@ -494,6 +421,39 @@ summary {
 <td align="left">Pipefish</td>
 </tr>
 <tr class="even">
+<td align="left">Invalid ID value in sample metadata</td>
+<td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
+<td align="left">sample_data</td>
+<td align="left">transect</td>
+<td align="left">3</td>
+<td align="left">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Invalid maximum value</td>
+<td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
+<td align="left">sample_metadata</td>
+<td align="left">depth_m</td>
+<td align="left">1</td>
+<td align="left">324</td>
+</tr>
+<tr class="even">
+<td align="left">Invalid ID value in sample data</td>
+<td align="left">seagrass_density_USA-VASB_2019-09-23.xlsx</td>
+<td align="left">cover_sample_data</td>
+<td align="left">transect</td>
+<td align="left">1</td>
+<td align="left">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Invalid characters in numeric attribute</td>
+<td align="left">seagrass_density_USA-VASB_2019-09-23.xlsx</td>
+<td align="left">cover_sample_data</td>
+<td align="left">quadrat</td>
+<td align="left">1</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">seagrass_epifauna_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sieve_data</td>
 <td align="left">taxon_id</td>
@@ -501,6 +461,7 @@ summary {
 <td align="left">Ampithoe valida</td>
 </tr>
 <tr class="odd">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">seagrass_epifauna_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sieve_data</td>
 <td align="left">taxon_id</td>
@@ -508,6 +469,7 @@ summary {
 <td align="left">Caprella equilibra</td>
 </tr>
 <tr class="even">
+<td align="left">Taxon ID value in sample data not defined</td>
 <td align="left">seagrass_epifauna_USA-VASB_2019-09-23.xlsx</td>
 <td align="left">sieve_data</td>
 <td align="left">taxon_id</td>
@@ -516,54 +478,25 @@ summary {
 </tr>
 </tbody>
 </table>
+<div id="invalid-id-value-in-sample-data" class="section level3">
+<h3>Invalid ID value in sample data</h3>
+<p>This protocol’s data sheets has one or more ID variables (such as site code, location name, and transect) that do not have matching entries on the “sample_metadata” sheet. The table below contains the invalid ID value and location within the data sheet. It is likely that either a typo occurred or a sampling location was not properly defined in the “sample_metadata” sheet.</p>
+</div>
+<div id="invalid-id-value-in-sample-metadata" class="section level3">
+<h3>Invalid ID value in sample metadata</h3>
+<p>The protocol’s sample metadata sheet has ID variables (such as site code, location name, and transect) that do not appear elsewhere on the data sheets. Check to make sure this does not reflect an error. If you received an alert for “ID relationships (1)”, it is likely that you entered an ID variable one way in the sample metadata sheet and another way on a data sheet. For example, writing “USA-MDA” on one sheet and “USA_MDA” on another. In other cases, this may merely represent that you didn’t collect data for that site/location/transect and this warning can be disregarded.</p>
 </div>
 <div id="invalid-characters-in-numeric-attribute" class="section level3">
 <h3>Invalid characters in numeric attribute</h3>
 <p>All data associated with numeric-type columns should either be a numeric value or “NA”. If a protocol fails this test, then a column within that sheet has a character value. Ensure all “NA” values are uppercase. The table below describes which sheet, column, and row has non-numeric data.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">filename</th>
-<th align="left">sheet_name</th>
-<th align="left">column_name</th>
-<th align="left">row_numbers</th>
-<th align="left">values</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">seagrass_density_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">cover_sample_data</td>
-<td align="left">quadrat</td>
-<td align="left">1</td>
-<td align="left">NA</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div id="invalid-maximum-value" class="section level3">
 <h3>Invalid maximum value</h3>
 <p>One or more numeric values is greater than the accepted maximum range for an attribute.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left">filename</th>
-<th align="left">sheet_name</th>
-<th align="left">column_name</th>
-<th align="left">row_numbers</th>
-<th align="left">values</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">fish_seines_USA-VASB_2019-09-23.xlsx</td>
-<td align="left">sample_metadata</td>
-<td align="left">depth_m</td>
-<td align="left">1</td>
-<td align="left">324</td>
-</tr>
-</tbody>
-</table>
+</div>
+<div id="taxon-id-value-in-sample-data-not-defined" class="section level3">
+<h3>Taxon ID value in sample data not defined</h3>
+<p>One or more taxon ID values in sample data sheets are not defined in the “taxa_list” sheet.</p>
 <p><br /> <br /></p>
 </div>
 </div>

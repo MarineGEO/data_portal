@@ -269,7 +269,7 @@ function(input, output, session) {
         }
         
         # upload the initial data submission to dropbox
-        drop_upload(submission_metadata$new[i],
+        drop_upload(submission_metadata$new_filename[i],
                     path = paste0("MarineGEO/Data/test_initial_directory/", date))
         
       }
@@ -391,8 +391,8 @@ generateSubmissionInfo <- function(){
   # Collapse all variables to fit into a row in the submission log. 
   # They can be split by ; later 
   protocols <- paste(unique(submission_metadata$protocol), collapse = "; ")
-  original_filenames <- paste(submission_metadata$original, collapse = "; ")  
-  standardized_filenames <- paste(submission_metadata$new, collapse="; ")
+  original_filenames <- paste(submission_metadata$original_filename, collapse = "; ")  
+  standardized_filenames <- paste(submission_metadata$new_filename, collapse="; ")
   emails <- tolower(input$email)
   wb_versions <- paste(submission_metadata$wb_version, collapse = "; ")  
   
@@ -435,11 +435,11 @@ determineOutputs <- function(){
   # C. Create list of output protocols
   index <- 1
 
-  for(i in 1:length(submission_metadata$new)){
+  for(i in 1:length(submission_metadata$new_filename)){
     if(submission_metadata$site[i] != "multiple"){
       output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-      output_metadata$filename_new[[index]] <- submission_metadata$new[i]
-      output_metadata$filename_original[[index]] <- submission_metadata$original[i]
+      output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+      output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
       output_metadata$year[[index]] <- submission_metadata$year[i]
       output_metadata$site[[index]] <- submission_metadata$site[i]
       output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
@@ -449,8 +449,8 @@ determineOutputs <- function(){
     } else {
       for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
         output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-        output_metadata$filename_new[[index]] <- submission_metadata$new[i]
-        output_metadata$filename_original[[index]] <- submission_metadata$original[i]
+        output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
+        output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
         output_metadata$year[[index]] <- submission_metadata$year[i]
         output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
         output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
@@ -459,7 +459,6 @@ determineOutputs <- function(){
       }
     }
   }
-  
 }
 
 testQA <- function(){

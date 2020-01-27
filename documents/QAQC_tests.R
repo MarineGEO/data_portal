@@ -80,8 +80,8 @@ checkIDRelationships <- function(){
                  protocol = current_protocol,
                  test = "Invalid ID value in sample data",
                  filename = filenames[i],
-                 value = as.character(value)) %>%
-          select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
+                 values = as.character(value)) %>%
+          select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
           bind_rows(protocol_id_results)
       }
       
@@ -100,8 +100,8 @@ checkIDRelationships <- function(){
                  protocol = current_protocol,
                  test = "Invalid ID value in sample metadata",
                  filename = filenames[i],
-                 value = as.character(value)) %>%
-          select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
+                 values = as.character(value)) %>%
+          select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
           bind_rows(protocol_id_results)
         
       }
@@ -139,8 +139,8 @@ checkIDRelationships <- function(){
                    test = "Taxon ID value in sample data not defined",
                    filename = filenames[i],
                    column_name = "taxon_id") %>%
-            rename(value = taxon_id) %>%
-            select(test, filename, protocol, sheet_name, column_name, value, row_numbers) %>%
+            rename(values = taxon_id) %>%
+            select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
             bind_rows(protocol_id_results)
         }
       }

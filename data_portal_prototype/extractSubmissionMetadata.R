@@ -44,7 +44,7 @@ extractProtocolMetadata <- function(){
     submission_metadata$new[i] <- paste0(submission_metadata$protocol[i], "_",
                                          submission_metadata$site[i], "_",
                                          submission_metadata$data_entry_date[i], ".xlsx")
-    submission_metadata$original[i] <- original_filename
+    submission_metadata$original_filename[i] <- original_filename
     
     file.rename(input$fileExcel$datapath[i], submission_metadata$new[i])
   }

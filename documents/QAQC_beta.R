@@ -26,10 +26,11 @@ numeric_plots <- list()
 
 # QA results stored in a list of dataframes
 # Each dataframe represents an overarching type of test (numeric, testing ID relationships, etc)
-QA_results <- list()
-QA_results$sample_metadata <- data.frame()
-QA_results$id_relationships <- data.frame()
-QA_results$numeric <- setNames(data.frame(matrix(ncol = 6, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers"))
+# QA_results <- list()
+# QA_results$sample_metadata <- data.frame()
+# QA_results$id_relationships <- data.frame()
+# QA_results$numeric <- setNames(data.frame(matrix(ncol = 6, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers"))
+QA_results <- setNames(data.frame(matrix(ncol = 7, nrow = 0)), c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"))
 
 source("./documents/QAQC_tests.R", local=TRUE)
 
@@ -63,9 +64,14 @@ for(i in 1:length(filenames)){
   }
   
   # Run QA tests
-  QA_results$sample_metadata <- bind_rows(QA_results$sample_metadata, checkSampleMetadata())
-  QA_results$id_relationships <- bind_rows(QA_results$id_relationships, checkIDRelationships())
-  QA_results$numeric <- bind_rows(QA_results$numeric , numericTests())
+  # QA_results$sample_metadata <- bind_rows(QA_results$sample_metadata, checkSampleMetadata())
+  # QA_results$id_relationships <- bind_rows(QA_results$id_relationships, checkIDRelationships())
+  # QA_results$numeric <- bind_rows(QA_results$numeric , numericTests())
+  
+  QA_results <- QA_results %>%
+    bind_rows(checkSampleMetadata()) %>%
+    bind_rows(checkIDRelationships()) %>%
+    bind_rows(numericTests())
   
   # Generate visualizations
   # numeric_plots[[current_protocol]] <- generateVisualizations()
@@ -75,22 +81,22 @@ for(i in 1:length(filenames)){
                   sites[i], sep="_")]] <- protocol_df
 }
 
-all_qa_results <- data.frame()
-for(table in QA_results){
-  if(nrow(table)>0){
-    all_qa_results <- table %>%
-      group_by(filename) %>%
-      summarize(failed_tests = paste(unique(test), collapse=", ")) %>%
-      bind_rows(all_qa_results)
-  }
-}
-
-QA_summary <- data.frame(filenames) %>%
-  rename(filename = filenames) %>%
-  left_join(all_qa_results, by="filename") %>%
-  mutate(failed_tests = ifelse(is.na(failed_tests), "Passed", failed_tests)) %>%
-  group_by(filename) %>%
-  summarize(failed_tests = paste(unique(failed_tests), collapse=", "))
+# all_qa_results <- data.frame()
+# for(table in QA_results){
+#   if(nrow(table)>0){
+#     all_qa_results <- table %>%
+#       group_by(filename) %>%
+#       summarize(failed_tests = paste(unique(test), collapse=", ")) %>%
+#       bind_rows(all_qa_results)
+#   }
+# }
+# 
+# QA_summary <- data.frame(filenames) %>%
+#   rename(filename = filenames) %>%
+#   left_join(all_qa_results, by="filename") %>%
+#   mutate(failed_tests = ifelse(is.na(failed_tests), "Passed", failed_tests)) %>%
+#   group_by(filename) %>%
+#   summarize(failed_tests = paste(unique(failed_tests), collapse=", "))
 
 rmarkdown::render(input = "./documents/test.Rmd",
                   output_format = "html_document",
