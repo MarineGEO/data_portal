@@ -6,7 +6,12 @@ function(input, output, session) {
   # Functions for extracting submission metadata
   source("extractSubmissionMetadata.R", local=TRUE)
   # QA functions
-  source("qaqcTests.R", local=TRUE)
+  #source("./qaqc_scripts/qaqcTests.R", local=TRUE)
+  source("./qaqc_scripts/id_relationship_test.R", local=TRUE)
+  source("./qaqc_scripts/min_max_test.R", local=TRUE)
+  source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
+  source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
+  source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -510,10 +515,13 @@ QAQC <- function(){
     stored_protocol$df <- protocol_df
     
     # Run  QA tests
+    # Each function is in its own script
     QA_results$df <- QA_results$df %>%
       bind_rows(checkSampleMetadata()) %>%
       bind_rows(checkIDRelationships()) %>%
-      bind_rows(numericTests())
+      bind_rows(checkTaxaRelationships()) %>%
+      bind_rows(testNumericType()) %>%
+      bind_rows(numericMinMaxTest())
     
     # Add the protocol to the overall submission data list 
     submission_data$all_data[[paste(current_protocol(), 

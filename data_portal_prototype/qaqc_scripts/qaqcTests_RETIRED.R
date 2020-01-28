@@ -5,12 +5,9 @@ checkSampleMetadata <- function(){
   testing_df <- stored_protocol$df$sample_metadata 
   
   ## ... Test that site codes are in roster ####
-  print("here 0")
-  
+
   ## ... Test sample collection date ####
   invalid_date_index <- which(is.na(anydate(testing_df$sample_collection_date)))
-  
-  print("here 1")
   
   if(length(invalid_date_index)>0){
     # Extract invalid value at each index
@@ -27,9 +24,6 @@ checkSampleMetadata <- function(){
       bind_rows(sample_metadata_results)
   }
   
-  print("here 2")
-  print(current_protocol())
-  
   ## ... Check existance of coordinates ####
   # ID value 2 represents coordinate attributes (lat and long)
   coordinate_attributes <- protocol_structure %>%
@@ -39,8 +33,6 @@ checkSampleMetadata <- function(){
   
   
   ## ... Convert DMS to DD #####
-  
-  print("End of sample metadata tests")
   
   return(sample_metadata_results)
 }
@@ -152,8 +144,7 @@ checkIDRelationships <- function(){
     }
   }
   
-  print("End of taxa tests")
-  
+
   return(protocol_id_results)
 }
 
