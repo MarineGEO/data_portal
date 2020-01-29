@@ -29,9 +29,14 @@ function(input, output, session) {
   
   # Create empty list to hold protocol data for QA testing and curation
   submission_data <- reactiveValues(all_data = list())
-  # Empty object to hold protocol metadata
-  # Similar to filenames object, but one object per protocol-site combination
-  output_metadata <- reactiveValues()
+  
+  # Empty object to hold output protocol data and metadata
+  # Output is one df per protocol-sheet-site-collection year combination
+  output_data <- reactiveValues()
+  output_filenames <- reactiveValues(filenames = list())
+  output_directories <- reactiveValues(sites = list(),
+                                       years = list(),
+                                       protocols = list())
   
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
@@ -125,11 +130,11 @@ function(input, output, session) {
       # If no errors are recorded continue with the submission 
       if(nrow(protocol_metadata_error$df)==0){
 
-        # Determine how many output CSVs will need to be created 
-        # Each protocol-site combination gets a collection of CSV files
-        determineOutputs()
         # Run beta QA process 
         QAQC()
+        # Determine how many output CSVs will need to be created 
+        # Each protocol-site-collection year combination gets a collection of CSV files
+        determineOutputs()
         # Render the report and save to MarineGEO dropbox
         renderReport()
         # Move user to the data report page
@@ -442,36 +447,37 @@ checkFileExtensions <- function(){
 }
 
 determineOutputs <- function(){
+  # Output is one df per protocol-sheet-site-collection year combination
+  # output_data <- reactiveValues()
+  # output_filenames <- reactiveValues(new_filenames = (),)
+  # output_directories <- reactiveValues(sites = list(),
+  #                                      years = list(),
+  #                                      protocols = list())
+  
   # Cycle through each uploaded file to:
-  # A. Get protocol name
-  # B. determine which has multiple sites
-  # C. Create list of output protocols
-  # index <- 1
-  # 
-  # for(i in 1:length(submission_metadata$new_filename)){
-  #   if(submission_metadata$site[i] != "multiple"){
-  #     output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-  #     output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
-  #     output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
-  #     output_metadata$year[[index]] <- submission_metadata$year[i]
-  #     output_metadata$site[[index]] <- submission_metadata$site[i]
-  #     output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
-  #     output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
-  #     index <- index + 1
-  #     
-  #   } else {
-  #     for(j in 1:length(unlist(submission_metadata$all_sites[i]))){
-  #       output_metadata$protocol[[index]] <- submission_metadata$protocol[i] 
-  #       output_metadata$filename_new[[index]] <- submission_metadata$new_filename[i]
-  #       output_metadata$filename_original[[index]] <- submission_metadata$original_filename[i]
-  #       output_metadata$year[[index]] <- submission_metadata$year[i]
-  #       output_metadata$site[[index]] <- unlist(submission_metadata$all_sites[i])[j]
-  #       output_metadata$data_entry_date[[index]] <- submission_metadata$data_entry_date[i]
-  #       output_metadata$protocol_df[[index]] <- submission_metadata$protocol_df[i][[1]]
-  #       index <- index + 1
-  #     }
-  #   }
-  # }
+  # A. determine which has multiple sites
+  # B. Determine which has multiple collection years
+  # C. Create list of output filenames
+  
+  for(i in 1:length(submission_data$all_data)){
+    print(submission_metadata$protocol[i]) # prints protocol name
+    #print(names(submission_data$all_data[[i]])) # prints vector of sheet names
+    #print(submission_data$all_data[[i]]) # prints dataframe, NULL if no data
+    
+    # Get current protocol name
+    protocol <- submission_metadata$protocol[i]
+    number_sites <- length(unique(submission_data$all_data[[i]]["sample_metadata"]$site_code))
+    print(number_sites)
+    
+    for(sheet in names(submission_data$all_data[[i]])){
+      print(submission_data$all_data[[i]][sheet])
+      # Sheets with no data are recorded as NULL in submission_data$all_data
+      if(!is.null(submission_data$all_data[[i]][sheet])){
+        
+      }
+    }
+  }
+  
 }
 
 QAQC <- function(){
