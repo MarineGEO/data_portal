@@ -33,7 +33,11 @@ function(input, output, session) {
   # Empty object to hold output protocol data and metadata
   # Output is one df per protocol-sheet-site-collection year combination
   output_data <- reactiveValues()
-  output_filenames <- reactiveValues(filenames = list())
+  output_metadata <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("filename",
+                                                                                            "protocol",
+                                                                                            "data_entry_date",
+                                                                                            "site_code",
+                                                                                            "year_collected")))
   output_directories <- reactiveValues(sites = list(),
                                        years = list(),
                                        protocols = list())
@@ -447,37 +451,64 @@ checkFileExtensions <- function(){
 }
 
 determineOutputs <- function(){
-  # Output is one df per protocol-sheet-site-collection year combination
-  # output_data <- reactiveValues()
-  # output_filenames <- reactiveValues(new_filenames = (),)
-  # output_directories <- reactiveValues(sites = list(),
-  #                                      years = list(),
-  #                                      protocols = list())
-  
   # Cycle through each uploaded file to:
   # A. determine which has multiple sites
   # B. Determine which has multiple collection years
   # C. Create list of output filenames
+  directory_sites <- c()
+  directory_years <- c()
+  directory_protocols <- c()
   
   for(i in 1:length(submission_data$all_data)){
     print(submission_metadata$protocol[i]) # prints protocol name
     #print(names(submission_data$all_data[[i]])) # prints vector of sheet names
     #print(submission_data$all_data[[i]]) # prints dataframe, NULL if no data
     
-    # Get current protocol name
+    # Get current protocol name and data entry date
     protocol <- submission_metadata$protocol[i]
-    number_sites <- length(unique(submission_data$all_data[[i]]["sample_metadata"]$site_code))
-    print(number_sites)
+    data_entry_date <- submission_metadata$data_entry_date[i]
+    
+    sample_metadata <- submission_data$all_data[[i]]$sample_metadata
+    # unique sites in the sample metadata file
+    sites <- unique(sample_metadata$site_code)
+    # unique data collection years in the sample metadata file
+    years <- unique(mutate(sample_metadata, 
+                           year_collected = year(anydate(sample_collection_date)))$year_collected)
     
     for(sheet in names(submission_data$all_data[[i]])){
-      print(submission_data$all_data[[i]][sheet])
       # Sheets with no data are recorded as NULL in submission_data$all_data
       if(!is.null(submission_data$all_data[[i]][sheet])){
         
+        if(length(sites) > 1 | length(years) > 1){
+          
+          
+        } else {
+          # Create new filename
+          new_filename <- paste(gsub("_", "-", protocol), 
+                                sites, data_entry_date, sheet, sep="_")
+          
+          # Save the file and metadata
+          output_data[[new_filename]] <- submission_data$all_data[[i]][sheet]
+          
+          output_metadata$df <- output_metadata$df %>%
+            bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, sites, years))), 
+                               c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
+            mutate_all(as.character)
+          
+        } 
       }
     }
+    
+    directory_sites <- c(directory_sites, sites)
+    directory_years <- c(directory_years, years)
+    directory_protocols <- c(directory_protocols, protocol)
   }
   
+  print(output_metadata$df)
+  
+  output_directories$sites <- unique(directory_sites)
+  output_directories$years <- unique(directory_years)
+  output_directories$protocols <- unique(directory_protocols)
 }
 
 QAQC <- function(){
