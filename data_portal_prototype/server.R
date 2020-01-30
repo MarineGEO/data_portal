@@ -451,6 +451,7 @@ checkFileExtensions <- function(){
 }
 
 determineOutputs <- function(){
+  # Each output CSV file represents a site-collection year-protocol-sheet
   # Cycle through each uploaded file to:
   # A. determine which has multiple sites
   # B. Determine which has multiple collection years
@@ -480,7 +481,33 @@ determineOutputs <- function(){
       if(!is.null(submission_data$all_data[[i]][sheet])){
         
         if(length(sites) > 1 | length(years) > 1){
+          # Get each unique combination of sample collection years and sites
+          unique_combinations <- crossing(sites,years)
           
+          for(j in nrow(unique_combinations)){
+            site <- as.character(unique_combinations[j,1])
+            year <- as.character(unique_combinations[j,2])
+            
+            new_filename <- paste(gsub("_", "-", protocol), 
+                                  site, data_entry_date, sheet, sep="_")
+            
+            filtered_df <- submission_data$all_data[[i]][sheet] %>%
+              mutate(year_collected = year(anydate(sample_collection_date))) %>%
+              filter(site_code == site & year_collected = year) %>%
+              select(-year_collected)
+            
+            if(nrow(filtered_df) > 0){
+              
+              list_object_name <- paste0(new_filename, i)
+              output_data[[list_object_name]] <- filtered_df
+              
+              
+            }
+            output_metadata$df <- output_metadata$df %>%
+              bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, site, year))), 
+                                 c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
+              mutate_all(as.character)
+          }
           
         } else {
           # Create new filename
@@ -509,6 +536,7 @@ determineOutputs <- function(){
   output_directories$sites <- unique(directory_sites)
   output_directories$years <- unique(directory_years)
   output_directories$protocols <- unique(directory_protocols)
+  
 }
 
 QAQC <- function(){
