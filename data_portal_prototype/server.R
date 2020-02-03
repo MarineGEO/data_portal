@@ -32,15 +32,15 @@ function(input, output, session) {
   
   # Empty object to hold output protocol data and metadata
   # Output is one df per protocol-sheet-site-collection year combination
-  output_data <- reactiveValues()
+  # List object that resembles Dropbox directory.. used to ensure all subdirectories exist and to organize outputs
+  outputs <- reactiveValues(data = list(),
+                            directory = list())  
+  
   output_metadata <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("filename",
                                                                                             "protocol",
                                                                                             "data_entry_date",
                                                                                             "site_code",
                                                                                             "year_collected")))
-  output_directories <- reactiveValues(sites = list(),
-                                       years = list(),
-                                       protocols = list())
   
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
@@ -390,7 +390,7 @@ function(input, output, session) {
     }
     setwd(original_wd)
   }
-  
+
 ## Helper functions ##########
 # Records any submission attempt
 # Allows MarineGEO to know someone is trying to submit data in case they are getting errors that crash the application
@@ -452,13 +452,19 @@ checkFileExtensions <- function(){
 
 determineOutputs <- function(){
   # Each output CSV file represents a site-collection year-protocol-sheet
+  # This function should ensure that no output will overwrite another 
+  # Ex: If two excel files are uploaded that share the same site - protocol - data entry year  - data collection year, 
+  # those uploads would be filed under the same directory - filename
+  
+  # This function will create a list object with a similar structure as the outputs (Site/Data collection year/protocol/file.csv)
+  # 
+  
   # Cycle through each uploaded file to:
   # A. determine which has multiple sites
   # B. Determine which has multiple collection years
   # C. Create list of output filenames
-  directory_sites <- c()
-  directory_years <- c()
-  directory_protocols <- c()
+  
+  list_index <- 1
   
   for(i in 1:length(submission_data$all_data)){
     print(submission_metadata$protocol[i]) # prints protocol name
@@ -483,30 +489,33 @@ determineOutputs <- function(){
         if(length(sites) > 1 | length(years) > 1){
           # Get each unique combination of sample collection years and sites
           unique_combinations <- crossing(sites,years)
-          
-          for(j in nrow(unique_combinations)){
-            site <- as.character(unique_combinations[j,1])
-            year <- as.character(unique_combinations[j,2])
+
+          for(j in 1:nrow(unique_combinations)){
+            current_site <- as.character(unique_combinations[j,1])
+            current_year <- as.character(unique_combinations[j,2])
             
             new_filename <- paste(gsub("_", "-", protocol), 
-                                  site, data_entry_date, sheet, sep="_")
+                                  current_site, data_entry_date, sheet, sep="_")
             
-            filtered_df <- submission_data$all_data[[i]][sheet] %>%
-              mutate(year_collected = year(anydate(sample_collection_date))) %>%
-              filter(site_code == site & year_collected = year) %>%
-              select(-year_collected)
+            if(sheet != "taxa_list"){
+              filtered_df <- submission_data$all_data[[i]][[sheet]] %>%
+                mutate(year_collected = year(anydate(sample_collection_date))) %>%
+                filter(site_code == current_site & year_collected == current_year) %>%
+                select(-year_collected)
+              
+            } else{
+              filtered_df <- submission_data$all_data[[i]][[sheet]]
+            }
             
             if(nrow(filtered_df) > 0){
+              outputs$data[[list_index]] <- filtered_df
+              list_index <- list_index + 1
               
-              list_object_name <- paste0(new_filename, i)
-              output_data[[list_object_name]] <- filtered_df
-              
-              
+              output_metadata$df <- output_metadata$df %>%
+                bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, current_site, current_year))), 
+                                   c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
+                mutate_all(as.character)
             }
-            output_metadata$df <- output_metadata$df %>%
-              bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, site, year))), 
-                                 c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
-              mutate_all(as.character)
           }
           
         } else {
@@ -515,7 +524,9 @@ determineOutputs <- function(){
                                 sites, data_entry_date, sheet, sep="_")
           
           # Save the file and metadata
-          output_data[[new_filename]] <- submission_data$all_data[[i]][sheet]
+          outputs$data[[list_index]] <- submission_data$all_data[[i]][[sheet]]
+
+          list_index <- list_index + 1
           
           output_metadata$df <- output_metadata$df %>%
             bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, sites, years))), 
@@ -525,18 +536,10 @@ determineOutputs <- function(){
         } 
       }
     }
-    
-    directory_sites <- c(directory_sites, sites)
-    directory_years <- c(directory_years, years)
-    directory_protocols <- c(directory_protocols, protocol)
   }
   
   print(output_metadata$df)
-  
-  output_directories$sites <- unique(directory_sites)
-  output_directories$years <- unique(directory_years)
-  output_directories$protocols <- unique(directory_protocols)
-  
+  print(outputs$data)
 }
 
 QAQC <- function(){
