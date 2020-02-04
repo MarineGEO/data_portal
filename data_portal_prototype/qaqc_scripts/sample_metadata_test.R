@@ -11,11 +11,11 @@ checkSampleMetadata <- function(){
   
   if(length(invalid_date_index)>0){
     # Extract invalid value at each index
-    invalid_values <- pull(testing_df$sample_collection_date[invalid_date_index])
+    invalid_values <- testing_df$sample_collection_date[invalid_date_index]
     
     sample_metadata_results <- setNames(as.data.frame(paste(invalid_date_index, collapse = ", ")), "row_numbers") %>%
-      mutate(column_name = column,
-             sheet_name = sheet_name,
+      mutate(column_name = "sample_collection_date",
+             sheet_name = "sample_metadata",
              protocol = current_protocol(),
              test = "Invalid sample collection date format",
              filename = original_filename_qa(),
