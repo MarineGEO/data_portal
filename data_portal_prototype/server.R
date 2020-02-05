@@ -314,85 +314,53 @@ function(input, output, session) {
   
   saveCuratedData <- function(){
     setwd(tempdir())
-
+    
     for(project in project_affiliation$vector){
       
       # Save each curated protocol to the proper dropbox repository
-      for(i in 1:length(submission_data$all_data)){
+      for(i in 1:length(outputs$data)){
         
-        # Only upload individual file submission if it passed all QA tests
-        if(output_metadata$status[i]){
-          
-
-          if(!drop_exists(path = paste0("MarineGEO/Data/test_curated_directory/",
-                                        project, "/",
-                                        output_metadata$year[i], "/",
-                                        output_metadata$site[i]))){
-            
-            # If it doesn't, create the site and protocol folders
-            drop_create(path = paste0("MarineGEO/Data/test_curated_directory/",
-                                      project, "/",
-                                      output_metadata$year[i], "/",
-                                      output_metadata$site[i]))
-          }
-          
-          # Make sure protocol folder exists
-          if(!drop_exists(path = paste0("MarineGEO/Data/test_curated_directory/",
-                                        project, "/",
-                                        output_metadata$year[i], "/",
-                                        output_metadata$site[i], "/",
-                                        output_metadata$protocol[i]))){
-            
-            drop_create(path = paste0("MarineGEO/Data/test_curated_directory/",
-                                      project, "/",
-                                      output_metadata$year[i], "/",
-                                      output_metadata$site[i], "/",
-                                      output_metadata$protocol[i]))
-            
-          }
-          # Write protocol metadata sheet
-          write_csv(output_metadata$protocol_df[[i]], 
-                    paste0(output_metadata$protocol[i], "_",
-                           output_metadata$site[i], "_",
-                           output_metadata$data_entry_date[i], "_", 
-                           "protocol_metadata", ".csv"))
-          
-          # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-          drop_upload(paste0(output_metadata$protocol[i], "_",
-                             output_metadata$site[i], "_",
-                             output_metadata$data_entry_date[i], "_", 
-                             "protocol_metadata", ".csv"),
-                      path = paste0("MarineGEO/Data/test_curated_directory/",
-                                    project, "/",
-                                    output_metadata$year[i], "/",
-                                    output_metadata$site[i], "/",
-                                    output_metadata$protocol[i]))
-          
-          for(sheet in names(submission_data$all_data[[i]])) {
-
-            # Write the curated set to the temporary directory and send to Dropbox
-            write_csv(submission_data$all_data[[i]][[sheet]], 
-                      paste0(output_metadata$protocol[i], "_",
-                             output_metadata$site[i], "_",
-                             output_metadata$data_entry_date[i], "_", 
-                             sheet, ".csv"))
-            
-            # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-            drop_upload(paste0(output_metadata$protocol[i], "_",
-                               output_metadata$site[i], "_",
-                               output_metadata$data_entry_date[i], "_", 
-                               sheet, ".csv"),
-                        path = paste0("MarineGEO/Data/test_curated_directory/",
-                                      project, "/",
-                                      output_metadata$year[i], "/",
-                                      output_metadata$site[i], "/",
-                                      output_metadata$protocol[i]))
-          }
-        }
+        # # Write protocol metadata sheet
+        # write_csv(output_metadata$protocol_df[[i]], 
+        #           paste0(output_metadata$protocol[i], "_",
+        #                  output_metadata$site[i], "_",
+        #                  output_metadata$data_entry_date[i], "_", 
+        #                  "protocol_metadata", ".csv"))
+        # 
+        # # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+        # drop_upload(paste0(output_metadata$protocol[i], "_",
+        #                    output_metadata$site[i], "_",
+        #                    output_metadata$data_entry_date[i], "_", 
+        #                    "protocol_metadata", ".csv"),
+        #             path = paste0("MarineGEO/Data/test_curated_directory/",
+        #                           project, "/",
+        #                           output_metadata$year[i], "/",
+        #                           output_metadata$site[i], "/",
+        #                           output_metadata$protocol[i]))
+        
+        # Subdirectory and filename are stored as a unique row in the output metadata dataframe
+        # Turn each row into a named vector to assist in writing out destination and filename
+        destination <- setNames(as.vector(as.character(output_metadata$df[i,])), 
+                                colnames(output_metadata$df))
+        
+        # Write the curated set to the directory and send to Dropbox
+        write_csv(outputs$data[[i]], 
+                  paste0(destination["filename"], ".csv"))
+        
+        # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
+        drop_upload(paste0(destination["filename"], ".csv"),
+                    path = paste0("MarineGEO/Data/curated_directory/",
+                                  project, "/",
+                                  destination["site_code"], "/",
+                                  destination["year_collected"], "/",
+                                  destination["protocol"]))
       }
     }
-    setwd(original_wd)
+    
+  setwd(original_wd)
+    
   }
+  
 
 ## Helper functions ##########
 # Records any submission attempt
@@ -443,14 +411,14 @@ generateSubmissionInfo <- function(){
 
 # Test each file extension and ensure it's an xslx file
 checkFileExtensions <- function(){
-
+  
   if(any(!grepl("xlsx", input$fileExcel$name))){
     # Update protocol error message with proper warning
     protocol_error_message(filter(warnings, title == "no_excel_files")$message)
     return(FALSE)
     
   } else return(TRUE)
-
+  
 }
 
 QAQC <- function(){
@@ -550,7 +518,7 @@ determineOutputs <- function(){
   # C. Create list of output filenames
   
   list_index <- 1
-  
+  print(submission_data$all_data)
   for(i in 1:length(submission_data$all_data)){
     
     # If the current upload generated an error during the QA process, skip it
@@ -559,6 +527,7 @@ determineOutputs <- function(){
     # Get current protocol name and data entry date
     original_filename_qa(submission_metadata$original_filename[i])
     current_protocol(submission_metadata$protocol[i])
+    data_entry_date <- submission_metadata$data_entry_date[i]
     
     tryCatch({
       print(submission_metadata$protocol[i]) # prints protocol name
@@ -573,8 +542,9 @@ determineOutputs <- function(){
                              year_collected = year(anydate(sample_collection_date)))$year_collected)
       
       for(sheet in names(submission_data$all_data[[i]])){
+        
         # Sheets with no data are recorded as NULL in submission_data$all_data
-        if(!is.null(submission_data$all_data[[i]][sheet])){
+        if(!is.null(submission_data$all_data[[i]][[sheet]])){
           
           if(length(sites) > 1 | length(years) > 1){
             # Get each unique combination of sample collection years and sites
@@ -584,7 +554,7 @@ determineOutputs <- function(){
               current_site <- as.character(unique_combinations[j,1])
               current_year <- as.character(unique_combinations[j,2])
               
-              new_filename <- paste(gsub("_", "-", protocol), 
+              new_filename <- paste(gsub("_", "-", current_protocol()), 
                                     current_site, data_entry_date, 
                                     gsub("_", "-", sheet), sep="_")
               
@@ -604,15 +574,15 @@ determineOutputs <- function(){
                 list_index <- list_index + 1
                 
                 output_metadata$df <- output_metadata$df %>%
-                  bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, current_site, current_year))), 
-                                     c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
+                  bind_rows(setNames(as.data.frame(t(c(new_filename, current_protocol(), data_entry_date, current_site, current_year))), 
+                                     c("filename", "protocol", "data_entry_date", "site_code", "year_collected"))) %>%
                   mutate_all(as.character)
               }
             }
             
           } else {
             # Create new filename
-            new_filename <- paste(gsub("_", "-", protocol), 
+            new_filename <- paste(gsub("_", "-", current_protocol()), 
                                   sites, data_entry_date, 
                                   gsub("_", "-", sheet), sep="_")
             
@@ -622,18 +592,18 @@ determineOutputs <- function(){
             list_index <- list_index + 1
             
             output_metadata$df <- output_metadata$df %>%
-              bind_rows(setNames(as.data.frame(t(c(new_filename, protocol, data_entry_date, sites, years))), 
-                                 c("filename","protocol","data_entry_date","site_code","year_collected"))) %>%
+              bind_rows(setNames(as.data.frame(t(c(new_filename, current_protocol(), data_entry_date, sites, years))), 
+                                 c("filename", "protocol", "data_entry_date", "site_code", "year_collected"))) %>%
               mutate_all(as.character)
             
           } 
         }
       }
-    }, 
+    },
     
     # Any error generated in this block is very likely caused by an error with sample collection date and the year function
     error = function(e){
-      # Create an error message in the QA result log 
+      # Create an error message in the QA result log
       QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
         mutate(column_name = NA,
                sheet_name = NA,
@@ -720,9 +690,8 @@ renderReport <- function(){
   } else{
     report_status("Some files did not pass tests")
   }
-
+  
   ## Write RMarkdown report #########
-
   rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
                     output_format = "html_document",
                     output_file = paste0("submission_report_", submission_time(), ".html"),
