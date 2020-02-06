@@ -6,7 +6,6 @@ function(input, output, session) {
   # Functions for extracting submission metadata
   source("extractSubmissionMetadata.R", local=TRUE)
   # QA functions
-  #source("./qaqc_scripts/qaqcTests.R", local=TRUE)
   source("./qaqc_scripts/id_relationship_test.R", local=TRUE)
   source("./qaqc_scripts/min_max_test.R", local=TRUE)
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
@@ -40,7 +39,8 @@ function(input, output, session) {
                                                                                             "protocol",
                                                                                             "data_entry_date",
                                                                                             "site_code",
-                                                                                            "year_collected")))
+                                                                                            "year_collected")),
+                                    protocol_df = data.frame()) # df to hold all protocol metadata of submissions
   
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
@@ -320,24 +320,6 @@ function(input, output, session) {
       # Save each curated protocol to the proper dropbox repository
       for(i in 1:length(outputs$data)){
         
-        # # Write protocol metadata sheet
-        # write_csv(output_metadata$protocol_df[[i]], 
-        #           paste0(output_metadata$protocol[i], "_",
-        #                  output_metadata$site[i], "_",
-        #                  output_metadata$data_entry_date[i], "_", 
-        #                  "protocol_metadata", ".csv"))
-        # 
-        # # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-        # drop_upload(paste0(output_metadata$protocol[i], "_",
-        #                    output_metadata$site[i], "_",
-        #                    output_metadata$data_entry_date[i], "_", 
-        #                    "protocol_metadata", ".csv"),
-        #             path = paste0("MarineGEO/Data/test_curated_directory/",
-        #                           project, "/",
-        #                           output_metadata$year[i], "/",
-        #                           output_metadata$site[i], "/",
-        #                           output_metadata$protocol[i]))
-        
         # Subdirectory and filename are stored as a unique row in the output metadata dataframe
         # Turn each row into a named vector to assist in writing out destination and filename
         destination <- setNames(as.vector(as.character(output_metadata$df[i,])), 
@@ -355,6 +337,18 @@ function(input, output, session) {
                                   destination["year_collected"], "/",
                                   destination["protocol"]))
       }
+    }
+    
+    if(project_affiliation$vector != "unaffiliated_submissions"){
+      # Write protocol metadata
+      if(nrow(output_metadata$protocol_df) > 0){
+        
+        write_csv(output_metadata$protocol_df,
+                  paste0("protocol_metadata", "_", submission_time(), ".csv"))
+        
+        drop_upload(paste0("protocol_metadata", "_", submission_time(), ".csv"),
+                    path = "MarineGEO/Data/resources/protocol_metadata")
+      }   
     }
     
   setwd(original_wd)
@@ -518,7 +512,6 @@ determineOutputs <- function(){
   # C. Create list of output filenames
   
   list_index <- 1
-  print(submission_data$all_data)
   for(i in 1:length(submission_data$all_data)){
     
     # If the current upload generated an error during the QA process, skip it
@@ -531,9 +524,7 @@ determineOutputs <- function(){
     
     tryCatch({
       print(submission_metadata$protocol[i]) # prints protocol name
-      #print(names(submission_data$all_data[[i]])) # prints vector of sheet names
-      #print(submission_data$all_data[[i]]) # prints dataframe, NULL if no data
-      
+
       sample_metadata <- submission_data$all_data[[i]]$sample_metadata
       # unique sites in the sample metadata file
       sites <- unique(sample_metadata$site_code)
@@ -599,6 +590,11 @@ determineOutputs <- function(){
           } 
         }
       }
+      # Upload the protocol metadata for the current protocol
+      output_metadata$protocol_df <- output_metadata$protocol_df %>%
+        bind_rows(submission_metadata$protocol_df[i][[1]]) %>%
+        mutate_all(as.character)
+      
     },
     
     # Any error generated in this block is very likely caused by an error with sample collection date and the year function
@@ -615,9 +611,6 @@ determineOutputs <- function(){
         bind_rows(QA_results$df)
     })
   }
-  
-  print(output_metadata$df)
-  print(outputs$data)
 }
 
 checkDirectories <- function(){

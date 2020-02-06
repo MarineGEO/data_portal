@@ -25,6 +25,11 @@ for(i in nrow(unique_combos)){
   
 }
 
+big_test <- data.frame() %>%
+  bind_rows(data.frame(test, test1)) %>%
+  bind_rows(data.frame(test3 = c(5, 3, 2)))
+
+data.frame()
 
 test <- c(1, 2, 3)
 test1 <- c(3, 4, 5)
