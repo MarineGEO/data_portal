@@ -1,25 +1,31 @@
 ---
-title: "MarineGEO Data Submission Report"
+title: ""
 output: 
   md_document: 
     variant: markdown
 ---
 
-#### Report date: `r submission_time()`
+  <br />
+  <br />
+
+<img src="www/Logomark_MarineGEO_Tennenbaum_RGB.png" width="319" height="100"/>
+
+  <br />
+  <br />
+
+## Data Submission Report
+#### Report date: `r as.character(Sys.Date())`
 #### Synthesis status: `r report_status()`
-#### Project affiliation: `r paste(project_affiliation$vector, collapse="; ")`
-#### Contact: MarineGEO (marinegeo@si.edu)  
 
 This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
 
 Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
 
   <br />
-  <br />
 
 ### QA/QC Test Results
 
-If any files failed a QA test, a description of the test and the next steps to take are located below. 
+If any files failed a QA test, the following table will describe which uploaded file, sheet, column, row, and value (if applicable) triggered the errors. You can read a description of each test in the section beneath the table. 
 
 ```{r echo=FALSE, results='asis'}
   
@@ -35,14 +41,34 @@ if(nrow(QA_results$df) > 0){
   
   cat("\n", "\n")
   
+}
+
+
+
+```
+
+  <br />
+
+```{r echo=FALSE, results='asis'}
+  
+# Provide definitions of any failed tests
+
+if(nrow(QA_results$df) > 0){
+  
+  cat("### Explanation of Test Results", 
+        "\n", "\n")
+  
+  report_warnings <- filter(warnings, title %in% QA_results$df$test)
+  
   for(i in 1:nrow(report_warnings)){
     warning <- report_warnings[i,]
     
-    cat("###", warning$title, 
+    cat("####", warning$title, 
         "\n",
         warning$message, "\n", "\n")
     
   }
+  
   
 }
 

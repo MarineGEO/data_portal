@@ -211,11 +211,9 @@ function(input, output, session) {
     if(file.exists(paste0("./www/", report_path()))){
       
       div(
-        tags$h4("Report date: ", submission_time()),
+        tags$h4("Report date: ", as.character(Sys.Date())),
         # tags$h4("Synthesis status:", report_status()),
-        tags$h4("Contact: MarineGEO (marinegeo@si.edu)"),
-        tags$h4("Project affiliation:", paste(project_affiliation$vector, collapse="; ")), tags$br(), 
-        
+
         "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
         tags$br(), tags$br(), 
         
