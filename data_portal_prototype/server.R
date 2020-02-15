@@ -205,48 +205,18 @@ function(input, output, session) {
   }) 
   
   ## Finalize data submission/View report ##################
-  # Return to data submission page 
-  
-  output$html_report_intro <- renderUI({
-    if(file.exists(paste0("./www/", report_path()))){
-      
-      div(
-        tags$h4("Report date: ", as.character(Sys.Date())),
-        # tags$h4("Synthesis status:", report_status()),
-
-        "This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu).",
-        tags$br(), tags$br(), 
-        
-        "Once you've addressed any issues(s), resubmit ONLY the file that did not pass the test", tags$br(), tags$br()
-        
-        )
-  
-    }
-  })
+  # Render RMarkdown generated report
     
-  output$html_report_qa <- renderUI({
+  output$html_report <- renderUI({
     if(file.exists(paste0("./www/", report_path()))){
       
       div(        
-        tags$h4("QA/QC Test Results"),
-        "Test numeric variables: All data associated with numeric-type columns should either be a numeric value or 'NA'. If a given sheet fails this test, then a column within that sheet has a character value. Ensure all 'NA' values are uppercase.",
-        tags$br(), tags$br()
+        includeHTML(paste0("./www/", report_path()))
       )
     }
   })
   
-  output$qa_table_results <- renderDataTable({
-    QA_results$df
-  })
 
-  output$qa_summary_results <- renderDataTable({
-    QA_results$summary
-  })
-  
-  observeEvent(input$return_to_upload, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
-  })
-  
   ## ... Download Report ##############
   # Note: It appears downloadHandler changes the wd to a temporary dir 
   # Have to set wd back to original in order to clear the HTML report when the app closes

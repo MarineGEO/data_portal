@@ -272,16 +272,13 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                   
                                   div(id = "file_uploads",
                                       
-                                      uiOutput("html_report_intro"),
-                                      dataTableOutput("qa_summary_results"),
-                                      uiOutput("html_report_qa"),
-                                      dataTableOutput("qa_table_results"),
+                                      uiOutput("html_report"),
 
                                       tags$br(), tags$br(),
                                       
                                       downloadButton("downloadReport", "Download report"),
 
-                                      actionButton("return_to_upload", "Return to the data upload page"), tags$br(), tags$br()
+                                      tags$br(), tags$br()
                                   )
                     ),
                     
