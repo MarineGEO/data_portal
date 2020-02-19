@@ -139,9 +139,13 @@ function(input, output, session) {
         # Determine how many output CSVs will need to be created 
         # Each protocol-site-collection year combination gets a collection of CSV files
         determineOutputs()
-        # Check if necessary subdirectories exist
-        # If not, create them
-        if(!testing) checkDirectories()
+        if(!testing) {
+          # Update submission log
+          generateSubmissionLog()
+          # Check if necessary subdirectories exist
+          # If not, create them
+          checkDirectories()
+        }
         # Render the report and save to MarineGEO dropbox
         renderReport()
         # Move user to the data report page
@@ -269,15 +273,6 @@ function(input, output, session) {
       
     } 
     
-    # Access the submission log from dropbox and append current emails/time/datafile name
-    submission_log <- generateSubmissionInfo()
-    
-    submission_log_path <- file.path("submission_log.csv")
-    write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
-    
-    # Overwrite the old submission log with the updated info
-    drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
-    
   }
   
   saveCuratedData <- function(){
@@ -339,6 +334,11 @@ initialReceipt <- function(){
   
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 generateSubmissionInfo <- function(){
+  setwd(tempdir())
+  
+  # Access the submission log from dropbox and append current emails/time/datafile name
+  # Overwrite the old submission log with the updated info
+  drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
   
   # Read in the submission log from Dropbox
   submission_log <- drop_read_csv("MarineGEO/Data/submission_log.csv")
@@ -361,14 +361,29 @@ generateSubmissionInfo <- function(){
     project_affiliation$vector <- project
   }
   
+  if("Error during QAQC tests" %in% QA_results$df$test | "Error determining outputs" %in% QA_results$df$test){
+    QAQC_errors <- T
+  } else QAQC_errors <- F
+  
   # Crate a new dataframe based on the number of emails provided 
+  # df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
+  #                           portal_version, wb_versions, QAQC_errors, NA),
+  #                c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
+  #                  "portal_version", "workbook_version", "qaqc_errors", "notes"))
+
   df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
                             portal_version, wb_versions, NA),
                  c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
                    "portal_version", "workbook_version", "notes"))
-
+  
   # Append the new data and send back to the dropbox upload function 
-  rbind(submission_log, df)
+  submission_log <- rbind(submission_log, df)
+  
+  submission_log_path <- file.path("submission_log.csv")
+  write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
+  
+  setwd(original_wd)
+  
 }
 
 # Test each file extension and ensure it's an xslx file
