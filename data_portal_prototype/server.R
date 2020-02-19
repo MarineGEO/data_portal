@@ -333,12 +333,10 @@ initialReceipt <- function(){
 }  
   
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
-generateSubmissionInfo <- function(){
+generateSubmissionLog <- function(){
   setwd(tempdir())
   
   # Access the submission log from dropbox and append current emails/time/datafile name
-  # Overwrite the old submission log with the updated info
-  drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
   
   # Read in the submission log from Dropbox
   submission_log <- drop_read_csv("MarineGEO/Data/submission_log.csv")
@@ -381,6 +379,8 @@ generateSubmissionInfo <- function(){
   
   submission_log_path <- file.path("submission_log.csv")
   write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
+  # Overwrite the old submission log with the updated info
+  drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
   
   setwd(original_wd)
   
