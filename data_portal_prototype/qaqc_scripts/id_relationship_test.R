@@ -54,7 +54,7 @@ checkIDRelationships <- function(){
           gather("column_name", "value", -row) %>%
           group_by(column_name, value) %>%
           summarize(row_numbers = paste(row, collapse=", ")) %>%
-          mutate(sheet_name = sheet_name,
+          mutate(sheet_name = "sample_metadata",
                  protocol = current_protocol(),
                  test = "Invalid ID value in sample metadata",
                  filename = original_filename_qa(),

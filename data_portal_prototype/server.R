@@ -259,15 +259,15 @@ function(input, output, session) {
       for(i in 1:nrow(input$fileExcel)){
         
         # Make sure date folder exists
-        if(!drop_exists(path = paste0("MarineGEO/Data/test_initial_directory/", date))){
+        if(!drop_exists(path = paste0("MarineGEO/Data/initial_directory/", date))){
           
           # If it doesn't, create 
-          drop_create(path = paste0("MarineGEO/Data/test_initial_directory/", date))
+          drop_create(path = paste0("MarineGEO/Data/initial_directory/", date))
         }
         
         # upload the initial data submission to dropbox
         drop_upload(submission_metadata$new_filename[i],
-                    path = paste0("MarineGEO/Data/test_initial_directory/", date))
+                    path = paste0("MarineGEO/Data/initial_directory/", date))
         
       }
       

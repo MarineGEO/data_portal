@@ -17,7 +17,7 @@ library(DT)
 library(anytime)
 
 # Portal version
-portal_version <- "v0.3.0"
+portal_version <- "v0.4.0"
 
 # Testing mode: 
 # FALSE = Objects saved to DB
