@@ -496,9 +496,14 @@ determineOutputs <- function(){
       sample_metadata <- submission_data$all_data[[i]]$sample_metadata
       # unique sites in the sample metadata file
       sites <- unique(sample_metadata$site_code)
-      # unique data collection years in the sample metadata file
-      years <- unique(mutate(sample_metadata, 
-                             year_collected = year(anydate(sample_collection_date)))$year_collected)
+      # unique data collection/deployment years in the sample metadata file
+      if("sample_collection_date" %in% colnames(sample_metadata)){
+        years <- unique(mutate(sample_metadata, 
+                               year_collected = year(anydate(sample_collection_date)))$year_collected)
+      } else {
+        years <- unique(mutate(sample_metadata, 
+                               year_collected = year(anydate(sample_deployment_date)))$year_collected)
+      }
       
       for(sheet in names(submission_data$all_data[[i]])){
         
