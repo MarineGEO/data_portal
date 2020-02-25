@@ -460,8 +460,8 @@ QAQC <- function(){
     error = function(e){
       current_protocol(submission_metadata$protocol[i])
       original_filename_qa(submission_metadata$original_filename[i])
-      
-      # Create an error message in the QA result log 
+
+      # Create an error message in the QA result log
       QA_results$df <- setNames(as.data.frame("Error during QAQC tests"), "test") %>%
         mutate(column_name = NA,
                sheet_name = NA,
@@ -471,12 +471,12 @@ QAQC <- function(){
                row_numbers = NA) %>%
         select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
         bind_rows(QA_results$df)
-      
+
       # Create an empty item in the submission data to stand in for the protocol's data
-      submission_data$all_data[[paste(current_protocol(), 
-                                      submission_metadata$original_filename[i], 
+      submission_data$all_data[[paste(current_protocol(),
+                                      submission_metadata$original_filename[i],
                                       submission_metadata$site[i], sep="_")]] <- NULL
-      
+
     })
     
   }
