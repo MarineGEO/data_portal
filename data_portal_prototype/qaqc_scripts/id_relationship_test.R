@@ -66,10 +66,12 @@ checkIDRelationships <- function(){
       }
     }
   }
+  return(protocol_id_results)
+  
   },
   error = function(e){
-    # Create an error message in the QA result log 
-    protocol_id_results <- setNames(as.data.frame("Error testing ID relationships"), "test") %>%
+    # Create and return error message in the QA result log 
+    setNames(as.data.frame("Error testing ID relationships"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
              protocol = current_protocol(),
@@ -80,6 +82,5 @@ checkIDRelationships <- function(){
     
   })
   
-  return(protocol_id_results)
-  
+
 }

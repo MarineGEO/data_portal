@@ -39,10 +39,13 @@ checkSampleMetadata <- function(){
     
     
     ## ... Convert DMS to DD #####
+    
+    return(sample_metadata_results)
+    
   },
   error = function(e){
-    # Create an error message in the QA result log 
-    sample_metadata_results <- setNames(as.data.frame("Error in sample metadata tests"), "test") %>%
+    # Create and return an error message in the QA result log 
+    setNames(as.data.frame("Error in sample metadata tests"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
              protocol = current_protocol(),
@@ -53,5 +56,4 @@ checkSampleMetadata <- function(){
     
   })
   
-  return(sample_metadata_results)
 }

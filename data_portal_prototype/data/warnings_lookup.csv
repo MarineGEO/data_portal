@@ -17,3 +17,8 @@ Invalid minimum value,qa warning,One or more numeric values is less than the acc
 Invalid maximum value,qa warning,One or more numeric values is greater than the accepted maximum range for an attribute. 
 Invalid sample collection date format,qa warning,One or more sample collection dates is not in the correct format.
 Taxon ID value in sample data not defined,qa warning,"One or more taxon ID values in sample data sheets are not defined in the ""taxa_list"" sheet. "
+Error checking taxa relationships,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
+Error in sample metadata tests,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
+Error in numeric data type test,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
+Error in min/max test,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
+Error testing ID relationships,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 

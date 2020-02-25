@@ -60,10 +60,12 @@ testNumericType <- function(){
         
       }
     }
+    return(numeric_results)
+    
   },
   error = function(e){
-    # Create an error message in the QA result log 
-    numeric_results <- setNames(as.data.frame("Error in numeric data type test"), "test") %>%
+    # Create and return error message in the QA result log 
+    setNames(as.data.frame("Error in numeric data type test"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
              protocol = current_protocol(),
@@ -74,6 +76,5 @@ testNumericType <- function(){
     
   })
   
-  return(numeric_results)
   
 }

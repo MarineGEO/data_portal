@@ -76,10 +76,12 @@ numericMinMaxTest <- function(){
         
       }
     }
+    return(numeric_results)
+    
   },
   error = function(e){
-    # Create an error message in the QA result log 
-    numeric_results <- setNames(as.data.frame("Error in min/max test"), "test") %>%
+    # Create and return an error message in the QA result log 
+    setNames(as.data.frame("Error in min/max test"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
              protocol = current_protocol(),
@@ -89,7 +91,5 @@ numericMinMaxTest <- function(){
       select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
     
   })
-  
-  return(numeric_results)
   
 }

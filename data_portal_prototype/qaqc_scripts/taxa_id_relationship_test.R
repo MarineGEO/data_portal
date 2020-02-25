@@ -44,13 +44,13 @@ checkTaxaRelationships <- function(){
         }
       }
     }
-    
+    return(protocol_id_results)
     
   },
   
   error = function(e){
-    # Create an error message in the QA result log 
-    protocol_id_results <- setNames(as.data.frame("Error checking taxa relationships"), "test") %>%
+    # Create and return an error message in the QA result log 
+    setNames(as.data.frame("Error checking taxa relationships"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
              protocol = current_protocol(),
@@ -61,6 +61,5 @@ checkTaxaRelationships <- function(){
     
   })
   
-  return(protocol_id_results)
   
 }
