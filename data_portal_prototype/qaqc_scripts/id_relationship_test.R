@@ -2,6 +2,7 @@
 checkIDRelationships <- function(){
   protocol_id_results <- data.frame()
   
+  tryCatch({
   ## Match IDs across sheets #####
   # Get unique ID variables in sample metadata sheet
   sample_metadata_ids <- protocol_structure %>%
@@ -65,6 +66,19 @@ checkIDRelationships <- function(){
       }
     }
   }
+  },
+  error = function(e){
+    # Create an error message in the QA result log 
+    protocol_id_results <- setNames(as.data.frame("Error testing ID relationships"), "test") %>%
+      mutate(column_name = NA,
+             sheet_name = NA,
+             protocol = current_protocol(),
+             filename = original_filename_qa(),
+             values = NA,
+             row_numbers = NA) %>%
+      select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
+    
+  })
   
   return(protocol_id_results)
   

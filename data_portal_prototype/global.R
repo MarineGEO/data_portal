@@ -22,7 +22,7 @@ portal_version <- "v0.4.0"
 # Testing mode: 
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-testing <- F
+testing <- T
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
@@ -53,6 +53,7 @@ data_policy_table <- read_csv("./data/data_policy_table.csv")
 
 # Record working directory to return to after moving to temporary directory
 original_wd <- getwd()
+
 
 roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv")
 
