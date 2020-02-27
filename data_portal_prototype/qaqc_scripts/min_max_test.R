@@ -80,6 +80,8 @@ numericMinMaxTest <- function(){
     
   },
   error = function(e){
+    print(e)
+    
     # Create and return an error message in the QA result log 
     setNames(as.data.frame("Error in min/max test"), "test") %>%
       mutate(column_name = NA,

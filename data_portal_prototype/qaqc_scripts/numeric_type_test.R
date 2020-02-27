@@ -64,6 +64,8 @@ testNumericType <- function(){
     
   },
   error = function(e){
+    print(e)
+    
     # Create and return error message in the QA result log 
     setNames(as.data.frame("Error in numeric data type test"), "test") %>%
       mutate(column_name = NA,

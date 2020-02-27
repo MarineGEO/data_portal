@@ -44,6 +44,8 @@ checkSampleMetadata <- function(){
     
   },
   error = function(e){
+    print(e)
+    
     # Create and return an error message in the QA result log 
     setNames(as.data.frame("Error in sample metadata tests"), "test") %>%
       mutate(column_name = NA,

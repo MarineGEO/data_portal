@@ -24,6 +24,7 @@ checkIDRelationships <- function(){
     # If there are rows, combine IDs for alert - represent metadata values that don't exist in the sample metadata page
     
     for(id in data_ids){
+      
       testing_df <- stored_protocol$df[[sheet_name]] %>%
         rowid_to_column("row")
       
@@ -70,7 +71,10 @@ checkIDRelationships <- function(){
   
   },
   error = function(e){
-    # Create and return error message in the QA result log 
+
+    print(e)
+
+    # Create and return error message in the QA result log
     setNames(as.data.frame("Error testing ID relationships"), "test") %>%
       mutate(column_name = NA,
              sheet_name = NA,
@@ -79,8 +83,8 @@ checkIDRelationships <- function(){
              values = NA,
              row_numbers = NA) %>%
       select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
-    
+
   })
-  
+
 
 }
