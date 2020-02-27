@@ -39,6 +39,7 @@ checkTaxaRelationships <- function(){
                      column_name = "taxon_id") %>%
               rename(values = taxon_id) %>%
               select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
+              filter(!is.na(values)) %>%
               bind_rows(protocol_id_results)
           }
         }
