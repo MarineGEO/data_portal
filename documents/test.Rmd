@@ -31,11 +31,11 @@ The table below summarizes our QA/QC tests for each file uploaded. If any file d
 
 ```{r echo=FALSE}
 
-colnames(QA_summary) <- gsub("_", " ", colnames(QA_summary))
-
-kable(
-  QA_summary
-)
+# colnames(QA_summary) <- gsub("_", " ", colnames(QA_summary))
+# 
+# kable(
+#   QA_summary
+# )
 
 ```
 
@@ -48,81 +48,29 @@ If any files failed a QA test, a description of the test and the next steps to t
 
 ```{r echo=FALSE, results='asis'}
   
-if(nrow(QA_results$sample_metadata)>0){
-  id_warnings <- filter(warnings, title %in% QA_results$sample_metadata$test)
+if(nrow(QA_results) > 0){
+  report_warnings <- filter(warnings, title %in% QA_results$test)
   
-  for(i in 1:nrow(id_warnings)){
-    warning <- id_warnings[i,]
-    result <- filter(QA_results$sample_metadata, test == warning$title)
+  print(   
+    kable(
+      QA_results %>%
+        select(test, filename, sheet_name, column_name, row_numbers, values)
+    )
+  )
+  
+  cat("\n", "\n")
+  
+  for(i in 1:nrow(report_warnings)){
+    warning <- report_warnings[i,]
     
     cat("###", warning$title, 
         "\n",
         warning$message, "\n", "\n")
-    
-    # cat("**", paste(result$filename, collapse=", "), "**", sep="")
-    
-    print(   
-      kable(
-        result %>%
-          select(filename, sheet_name, column_name, row_numbers, value)
-      )
-    )
-    
-    cat("\n", "\n")
     
   }
   
 }
 
-if(nrow(QA_results$id_relationships)>0){
-  id_warnings <- filter(warnings, title %in% QA_results$id_relationships$test)
-  
-  for(i in 1:nrow(id_warnings)){
-    warning <- id_warnings[i,]
-    result <- filter(QA_results$id_relationships, test == warning$title)
-    
-    cat("###", warning$title, 
-        "\n",
-        warning$message, "\n", "\n")
-    
-    # cat("**", paste(result$filename, collapse=", "), "**", sep="")
-    
-    print(   
-      kable(
-        result %>%
-          select(filename, sheet_name, column_name, row_numbers, value)
-      )
-    )
-    
-    cat("\n", "\n")
-    
-  }
-  
-}
- 
-if(nrow(QA_results$numeric)>0){
-  id_warnings <- filter(warnings, title %in% QA_results$numeric$test)
-  
-  for(i in 1:nrow(id_warnings)){
-    warning <- id_warnings[i,]
-    result <- filter(QA_results$numeric, test == warning$title)
-    
-    cat("###", warning$title, 
-        "\n",
-        warning$message, "\n", "\n")
-    
-    print(   
-      kable(
-        result %>%
-          select(filename, sheet_name, column_name, row_numbers, values)
-      )
-    )
-    
-    cat("\n", "\n")
-    
-  }
-  
-}
 
 
 ```

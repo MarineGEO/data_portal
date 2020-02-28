@@ -1,59 +1,52 @@
-# Script used to test QA/QC functions/workflows independent of Shiny
-
 library(tidyverse)
 library(readxl)
-library(purrr)
 
-df <- all_data$`fish_seines_fish_seines_USA-VASB_2019-09-23.xlsx_USA-VASB`$sample_metadata
+test <- read_excel("./documents/secrets/fish_seines_USA-VASB_2019-09-23.xlsx", sheet="sample_metadata")
 
-df_numeric <- select(df, depth_m, seine_mesh_size_mm, seine_width_m, seine_height_m, seine_distance_m)
+obs <- as.vector(test[1,], mode="list")
+obs <- setNames(as.vector(as.character(test[1,])), colnames(test))
 
+test$sample_collection_date[]
 
+invalid_index <- which(is.na(anydate(c(test$sample_collection_date, NA, "hello", 663))))
+c(test$sample_collection_date, NA, "hello", 663)[invalid_index]
 
-coords <- c("34  °32'1.3632''N", "98°36'47.8116''W")
-coords <- c(23423, 235235, 234234, 23434)
-coords <- c("43°46′50.5″N",
-            "79°24′53″W",
-            "43°46′06″N", 
-            "79°24′46″W")
+sites <- c("USA", "VASB")
 
-test <- as.data.frame(coords)
+years <- 2020
 
-# If coordinates is not numeric, assume its in dms and try to convert:
-if(
-!tryCatch({
-  as.numeric(test)
-  TRUE
-},
-warning = function(w){
-  FALSE
-},
-error = function(e){
-  FALSE
-})){
-  tryCatch({
-    # Remove whitespace and count the number of non-numeric characters  
-    coords_conversion <- mutate(test, coords = gsub(" ", "", coords)) %>%
-      mutate(chr_count = str_count(coords, "[^0-9.-]"))
-    
-    # If count >= 3, try to convert to dd 
-    if(all(coords_conversion$chr_count >= 3)){
-      coords_conversion <- coords_conversion %>%
-        separate(coords, into = c("d", "min", "sec"), sep="[^0-9.-]", extra="drop") %>%
-        mutate(dd = as.numeric(d) + (as.numeric(min)/60) + (as.numeric(sec)/3600))
-    # Convert to (-) based on site code
-    }
-    
-  },
-  warning = function(w){
-    
-  },
-  error = function(e){
-    
-  })
+unique_combos <- crossing(years, sites)
+
+remmem <- as.character(unique_combos[2,2])
+
+for(i in nrow(unique_combos)){
+  
+  
+  
 }
 
+big_test <- data.frame() %>%
+  bind_rows(data.frame(test, test1)) %>%
+  bind_rows(data.frame(test3 = c(5, 3, 2)))
 
-# First remove any whitespace
+data.frame()
 
-# Separate into component parts
+test <- c(1, 2, 3)
+test1 <- c(3, 4, 5)
+test2 <- NULL
+
+test_list <- 
+  list(test, 
+       test1, 
+       test2)
+
+i <- 3
+test_list[[1 + i]] <- c(1, 1, 1)
+
+test_list[[1 + 1]]
+
+test_list[[3]]
+
+test_list[[4]]
+
+names(test_list)

@@ -2,10 +2,10 @@
 
 checkSampleMetadata <- function(){
   sample_metadata_results <- data.frame()
-  testing_df <- protocol_df$sample_metadata 
-    
-  ## ... Test that site codes are in roster ####
+  testing_df <- stored_protocol$df$sample_metadata 
   
+  ## ... Test that site codes are in roster ####
+
   ## ... Test sample collection date ####
   invalid_date_index <- which(is.na(anydate(testing_df$sample_collection_date)))
   
@@ -16,9 +16,9 @@ checkSampleMetadata <- function(){
     sample_metadata_results <- setNames(as.data.frame(paste(invalid_date_index, collapse = ", ")), "row_numbers") %>%
       mutate(column_name = column,
              sheet_name = sheet_name,
-             protocol = current_protocol,
+             protocol = current_protocol(),
              test = "Invalid sample collection date format",
-             filename = filenames[i],
+             filename = original_filename_qa(),
              values = paste(invalid_values, collapse=", ")) %>%
       select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
       bind_rows(sample_metadata_results)
@@ -27,15 +27,12 @@ checkSampleMetadata <- function(){
   ## ... Check existance of coordinates ####
   # ID value 2 represents coordinate attributes (lat and long)
   coordinate_attributes <- protocol_structure %>%
-    filter(protocol == current_protocol & sheet == "sample_metadata") %>%
+    filter(protocol == current_protocol() & sheet == "sample_metadata") %>%
     filter(id_variable == 2) %$%
     unique(.$attribute_name)
   
   
-  
   ## ... Convert DMS to DD #####
-  
-  
   
   return(sample_metadata_results)
 }
@@ -47,16 +44,16 @@ checkIDRelationships <- function(){
   ## Match IDs across sheets #####
   # Get unique ID variables in sample metadata sheet
   sample_metadata_ids <- protocol_structure %>%
-    filter(protocol == current_protocol & sheet == "sample_metadata") %>%
+    filter(protocol == current_protocol() & sheet == "sample_metadata") %>%
     filter(id_variable == 1) %$%
     unique(.$attribute_name)
   
   # Check each data sheet to make sure unique combination of IDs are found in sample metadata page
-  for(sheet_name in protocol_sheets[!protocol_sheets %in% c("sample_metadata", "taxa_list")]){
+  for(sheet_name in protocol_sheets()[!protocol_sheets() %in% c("sample_metadata", "taxa_list")]){
     
     # Extract IDs in data sheet that can be found in sample metadata sheet
     data_ids <- protocol_structure %>%
-      filter(protocol == current_protocol & sheet == sheet_name) %>%
+      filter(protocol == current_protocol() & sheet == sheet_name) %>%
       filter(id_variable == 1) %>%
       filter(attribute_name %in% sample_metadata_ids) %$%
       unique(.$attribute_name)
@@ -65,10 +62,10 @@ checkIDRelationships <- function(){
     # If there are rows, combine IDs for alert - represent metadata values that don't exist in the sample metadata page
     
     for(id in data_ids){
-      testing_df <- protocol_df[[sheet_name]] %>%
+      testing_df <- stored_protocol$df[[sheet_name]] %>%
         rowid_to_column("row")
       
-      results1 <- anti_join(testing_df, protocol_df$sample_metadata, by=id) %>%
+      results1 <- anti_join(testing_df, stored_protocol$df$sample_metadata, by=id) %>%
         select(id, row)
       
       if(nrow(results1)>0){
@@ -77,18 +74,18 @@ checkIDRelationships <- function(){
           group_by(column_name, value) %>%
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
-                 protocol = current_protocol,
+                 protocol = current_protocol(),
                  test = "Invalid ID value in sample data",
-                 filename = filenames[i],
+                 filename = original_filename_qa(),
                  values = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
           bind_rows(protocol_id_results)
       }
       
-      testing_df <- protocol_df$sample_metadata %>%
+      testing_df <- stored_protocol$df$sample_metadata %>%
         rowid_to_column("row")
       
-      results2 <- anti_join(testing_df, protocol_df[[sheet_name]], by=id) %>%
+      results2 <- anti_join(testing_df, stored_protocol$df[[sheet_name]], by=id) %>%
         select(id, row)
       
       if(nrow(results2)>0){
@@ -97,9 +94,9 @@ checkIDRelationships <- function(){
           group_by(column_name, value) %>%
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
-                 protocol = current_protocol,
+                 protocol = current_protocol(),
                  test = "Invalid ID value in sample metadata",
-                 filename = filenames[i],
+                 filename = original_filename_qa(),
                  values = as.character(value)) %>%
           select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
           bind_rows(protocol_id_results)
@@ -109,20 +106,20 @@ checkIDRelationships <- function(){
   }
   
   ## Check Taxa List ID relationships ####
-  if("taxa_list" %in% protocol_sheets){
+  if("taxa_list" %in% protocol_sheets()){
     
     # Get unique ID variables in sample metadata sheet
-    taxa_list <- protocol_df$taxa_list
+    taxa_list <- stored_protocol$df$taxa_list
     
     # Check each data sheet to make sure unique combination of IDs are found in sample metadata page
-    for(sheet_name in protocol_sheets[!protocol_sheets %in% c("sample_metadata", "taxa_list")]){
+    for(sheet_name in protocol_sheets()[!protocol_sheets() %in% c("sample_metadata", "taxa_list")]){
       
-      if("taxon_id" %in% colnames(protocol_df[[sheet_name]])){
+      if("taxon_id" %in% colnames(stored_protocol$df[[sheet_name]])){
         
         # anti_join with data sheet on left side
         # If there are rows, combine IDs for alert - represent taxon id values that don't exist in the taxa list sheet
         
-        testing_df <- protocol_df[[sheet_name]] %>%
+        testing_df <- stored_protocol$df[[sheet_name]] %>%
           rowid_to_column("row")
         
         results1 <- anti_join(testing_df, taxa_list, by="taxon_id") %>%
@@ -135,9 +132,9 @@ checkIDRelationships <- function(){
             group_by(taxon_id) %>%
             summarize(row_numbers = paste(row, collapse=", ")) %>%
             mutate(sheet_name = sheet_name,
-                   protocol = current_protocol,
+                   protocol = current_protocol(),
                    test = "Taxon ID value in sample data not defined",
-                   filename = filenames[i],
+                   filename = original_filename_qa(),
                    column_name = "taxon_id") %>%
             rename(values = taxon_id) %>%
             select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
@@ -147,6 +144,7 @@ checkIDRelationships <- function(){
     }
   }
   
+
   return(protocol_id_results)
 }
 
@@ -156,22 +154,22 @@ numericTests <- function(){
   numeric_results <- data.frame()
   
   numeric_columns <- protocol_structure %>%
-    filter(protocol == current_protocol) %>%
+    filter(protocol == current_protocol()) %>%
     filter(type == "numeric" | type == "integer") %$%
     unique(.$attribute_name)
   
-  for(sheet_name in protocol_sheets){
+  for(sheet_name in protocol_sheets()){
     
     # Extract vector of numeric columns in sheet
-    sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]),
-                                    colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
+    sheet_numeric_columns <- subset(colnames(stored_protocol$df[[sheet_name]]),
+                                    colnames(stored_protocol$df[[sheet_name]]) %in% numeric_columns)
     
     ## ... Test for non-numeric values ####
     # If a sheet has numeric columns, attempt to convert them to numeric
     # If they have to coerce values to NA, the resulting warning will be logged
-    if(!is.null(sheet_numeric_columns) & nrow(protocol_df[[sheet_name]]) != 0){
+    if(!is.null(sheet_numeric_columns) & nrow(stored_protocol$df[[sheet_name]]) != 0){
       
-      testing_df <- protocol_df[[sheet_name]] %>%
+      testing_df <- stored_protocol$df[[sheet_name]] %>%
         select(sheet_numeric_columns)
       
       numeric_test <- as.data.frame(
@@ -193,27 +191,30 @@ numericTests <- function(){
           group_by(column_name) %>%
           summarize(row_numbers = paste(row, collapse=", ")) %>%
           mutate(sheet_name = sheet_name,
-                 protocol = current_protocol,
+                 protocol = current_protocol(),
                  test = "Invalid characters in numeric attribute",
-                 filename = filenames[i]) %>%
+                 filename = original_filename_qa()) %>%
           select(test, filename, protocol, sheet_name, column_name, row_numbers) %>%
           bind_rows(numeric_results)
       }
       
       numeric_results <- bind_rows(numeric_results,
-                                   numericMinMaxTest(numeric_results, current_protocol, sheet_name, testing_df))
+                                   numericMinMaxTest(numeric_results, current_protocol(), sheet_name, testing_df, 
+                                                     original_filename_qa(), protocol_structure))
     }
   }
+  
+  print("End of numeric tests")
   
   return(numeric_results)
   
 }
 
 ## ... Test for valid minimum and maximum values ####
-numericMinMaxTest <- function(numeric_results, current_protocol, sheet_name, testing_df){
+numericMinMaxTest <- function(numeric_results, protocol_name, sheet_name, testing_df, original_filename, protocol_structure){
   
   protocol_minmax <- protocol_structure %>%
-    filter(protocol == current_protocol & sheet == sheet_name & attribute_name %in% colnames(testing_df))
+    filter(protocol == protocol_name & sheet == sheet_name & attribute_name %in% colnames(testing_df))
   
   numeric_results <- data.frame()
   
@@ -231,9 +232,9 @@ numericMinMaxTest <- function(numeric_results, current_protocol, sheet_name, tes
       numeric_results <- setNames(as.data.frame(paste(min_invalid_row_index, collapse = ", ")), "row_numbers") %>%
         mutate(column_name = column,
                sheet_name = sheet_name,
-               protocol = current_protocol,
+               protocol = protocol_name,
                test = "Invalid minimum value",
-               filename = filenames[i],
+               filename = original_filename,
                values = paste(invalid_values, collapse=", ")) %>%
         select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
         bind_rows(numeric_results)
@@ -251,9 +252,9 @@ numericMinMaxTest <- function(numeric_results, current_protocol, sheet_name, tes
       numeric_results <- setNames(as.data.frame(paste(max_invalid_row_index, collapse = ", ")), "row_numbers") %>%
         mutate(column_name = column,
                sheet_name = sheet_name,
-               protocol = current_protocol,
+               protocol = protocol_name,
                test = "Invalid maximum value",
-               filename = filenames[i],
+               filename = original_filename,
                values = paste(invalid_values, collapse=", ")) %>%
         select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
         bind_rows(numeric_results)
@@ -262,37 +263,3 @@ numericMinMaxTest <- function(numeric_results, current_protocol, sheet_name, tes
   }
   return(numeric_results)
 }
-
-# Generate visualizations for RMarkdown document
-generateVisualizations <- function(){
-  # Histograms of each non-ID numeric column
-  visualizations <- list()
-  
-  numeric_columns <- protocol_structure %>%
-    filter(protocol == current_protocol) %>%
-    filter((type == "numeric" | type == "integer") & is.na(id_variable)) %$%
-    unique(.$attribute_name)
-  
-  for(sheet_name in protocol_sheets[!protocol_sheets %in% c("sample_metadata", "taxa_list")]){
-    
-    # Extract vector of numeric columns in sheet
-    sheet_numeric_columns <- subset(colnames(protocol_df[[sheet_name]]),
-                                    colnames(protocol_df[[sheet_name]]) %in% numeric_columns)
-    
-    # If a sheet has numeric columns, attempt to convert them to numeric
-    # If they have to coerce values to NA, the resulting warning will be logged
-    if(!is.null(sheet_numeric_columns) & nrow(protocol_df[[sheet_name]]) != 0){
-      
-      visualizations[[sheet_name]] <- protocol_df[[sheet_name]] %>%
-        select(sheet_numeric_columns) %>%
-        gather() %>% 
-        ggplot(aes(value)) +
-        facet_wrap(~ key, scales = "free") +
-        geom_histogram()
-    }
-  }
-  
-  return(visualizations)
-
-}
-
