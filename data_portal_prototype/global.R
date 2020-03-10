@@ -54,8 +54,12 @@ data_policy_table <- read_csv("./data/data_policy_table.csv")
 # Record working directory to return to after moving to temporary directory
 original_wd <- getwd()
 
+roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv", encoding = "UTF-8") %>%
+  mutate(email = as.character(email)) %>%
+  mutate(email = tolower(email))
 
-roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv")
+# roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv")
+
 warnings <- read_csv("./data/warnings_lookup.csv")
 
 
