@@ -19,7 +19,7 @@ library(anytime)
 # Portal version
 portal_version <- "v0.4.0"
 
-# Testing mode: 
+# Testing modes: 
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
 testing <- T
@@ -53,7 +53,6 @@ data_policy_table <- read_csv("./data/data_policy_table.csv")
 
 # Record working directory to return to after moving to temporary directory
 original_wd <- getwd()
-
 
 roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv")
 warnings <- read_csv("./data/warnings_lookup.csv")

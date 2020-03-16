@@ -22,3 +22,6 @@ Error in sample metadata tests,qa warning,An unknown error occurred during a qua
 Error in numeric data type test,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
 Error in min/max test,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
 Error testing ID relationships,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
+Loss of data in date conversion,curation warning,Data in date column was lost when converting to YYYY-MM-DD format.
+Unknown date format,curation warning,Data in data column is in unknown format and was unable to be converted to YYYY-MM-DD format.  
+Unknown error in date standardization,curation warning,An unknown error occurred while curating data. Please contact marineGEO (marinegeo@si.edu) for assistance. 
