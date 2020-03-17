@@ -15,7 +15,7 @@ Invalid ID value in sample metadata,qa warning,"The protocol's sample metadata s
 Invalid characters in numeric attribute,qa warning,"All data associated with numeric-type columns should either be a numeric value or ""NA"". If a protocol fails this test, then a column within that sheet has a character value. Ensure all ""NA"" values are uppercase. The table below describes which sheet, column, and row has non-numeric data. "
 Invalid minimum value,qa warning,One or more numeric values is less than the accepted minimum range for an attribute.
 Invalid maximum value,qa warning,One or more numeric values is greater than the accepted maximum range for an attribute. 
-Invalid sample collection date format,qa warning,One or more sample collection dates is not in the correct format.
+No sample collection date,qa warning,"One or more sample collection dates is not provided. Please provide the sample collection date (YYYY-MM-DD). If not possible, ensure that the ""sample_metadata_notes"" column indicates why the sample collection date is unknown and provide an estimation for the date. "
 Taxon ID value in sample data not defined,qa warning,"One or more taxon ID values in sample data sheets are not defined in the ""taxa_list"" sheet. "
 Error checking taxa relationships,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 
 Error in sample metadata tests,qa warning,An unknown error occurred during a quality assurance test. Please contact MarineGEO (marinegeo@si.edu) for assistance. 

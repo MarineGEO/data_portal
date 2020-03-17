@@ -9,9 +9,10 @@ checkSampleMetadata <- function(){
     ## ... Test that site codes are in roster ####
     
     ## ... Test sample collection date ####
-    
+    # This test ONLY indicates if there is an NA value for the collection date. 
+    # Date standardization occurs in the "standardize_dates_curation.R" script
     if("sample_collection_date" %in% colnames(testing_df)){
-      invalid_date_index <- which(is.na(anydate(testing_df$sample_collection_date)))
+      invalid_date_index <- which(is.na(testing_df$sample_collection_date))
       
       if(length(invalid_date_index)>0){
         # Extract invalid value at each index
@@ -21,7 +22,7 @@ checkSampleMetadata <- function(){
           mutate(column_name = "sample_collection_date",
                  sheet_name = "sample_metadata",
                  protocol = current_protocol(),
-                 test = "Invalid sample collection date format",
+                 test = "No sample collection date",
                  filename = original_filename_qa(),
                  values = paste(invalid_values, collapse=", ")) %>%
           select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%

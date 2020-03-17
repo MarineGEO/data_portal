@@ -5,6 +5,7 @@
 standardizeDates <- function(x){
   results <- data.frame()
   
+  print("Here")
   tryCatch({
     # Pull out any attribute names in protocol that are Date type
     date_columns <- protocol_structure %>%
@@ -14,6 +15,8 @@ standardizeDates <- function(x){
     
     for(sheet_name in protocol_sheets()){
       
+      print("sheet name")
+      print(sheet_name)
       # Extract vector of numeric columns in sheet
       sheet_date_columns <- subset(colnames(stored_protocol$df[[sheet_name]]),
                                    colnames(stored_protocol$df[[sheet_name]]) %in% date_columns)
@@ -26,7 +29,7 @@ standardizeDates <- function(x){
           
           # Save column as X for brevity
           x <- stored_protocol$df[[sheet_name]][[date_attribute]]
-          
+          print(x)
           # Check if the date is in the Excel date-number format and attempt to convert
           if(is.numeric(x) & 
              all(x < 47500, na.rm=T) & # Corresponds to any date < 2030
@@ -46,12 +49,12 @@ standardizeDates <- function(x){
               
               # Separate date into three columns based on delimiter
               # Rearrange to YYYY-MM-DD and convert using anydate()
-              results <- separate(as.data.frame(x), x, into=c("first", "second", "third"), sep =  "[^0-9.]") %>%
+              reformat <- separate(as.data.frame(x), x, into=c("first", "second", "third"), sep =  "[^0-9.]") %>%
                 mutate(new_date = paste(third, second, first, sep="-")) %>%
                 mutate(new_date = anydate(new_date)) 
               
-              if(sum(is.na(results$new_date) <= num_na_original)) {
-                stored_protocol$df[[sheet_name]][[date_attribute]] <- results$new_date
+              if(sum(is.na(reformat$new_date) <= num_na_original)) {
+                stored_protocol$df[[sheet_name]][[date_attribute]] <- reformat$new_date
               
               } else {
                 # record inability to convert without loss of information 
@@ -72,7 +75,7 @@ standardizeDates <- function(x){
             
           } else if (is.Date(x) | is.POSIXt(x)){
             
-            stored_protocol$df[[sheet_name]][[date_attribute]] <- anydate(x)
+            stored_protocol$df[[sheet_name]][[date_attribute]] <- as.Date(x)
             
           } else {
             # record inability to convert due to unknown typing
@@ -84,9 +87,13 @@ standardizeDates <- function(x){
               select(test, filename, protocol, sheet_name, column_name) %>%
               bind_rows(results)
           }
+          
+          print(stored_protocol$df[[sheet_name]][[date_attribute]])
+          
         }
       }
     }
+    print(results)
     return(results)
   },
   error = function(e){

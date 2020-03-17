@@ -11,6 +11,7 @@ function(input, output, session) {
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
+  source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -444,8 +445,10 @@ QAQC <- function(){
       stored_protocol$df <- protocol_df
       
       # Run  QA tests
-      # Each function is in its own script
+      # Each uploaded file is passed through QAQC functions
+      # Each function is located in its own script
       QA_results$df <- QA_results$df %>%
+        bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
         bind_rows(checkSampleMetadata()) %>%
         bind_rows(checkIDRelationships()) %>%
         bind_rows(checkTaxaRelationships()) %>%
