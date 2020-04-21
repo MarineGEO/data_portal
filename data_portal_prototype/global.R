@@ -2,6 +2,13 @@
 # This is the global script for three-file version of the prototype MarineGEO data portal
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
+# The Shiny captcha package currently disables all action buttons until it is validated
+# Therefore it is put in a uiOutput block and only rendered once the user gets to the right page
+# However, once a user reaches that page, they will need to validate it to continue using the application
+
+# This version of the application has also removed the sensitive information prompt and asks for only 1 email, 
+# In testing mode, it does not skip the data policy agreement and requires an email and excel file
+
 # Load packages
 library(shiny)
 library(shinyjs)
@@ -15,6 +22,7 @@ library(markdown)
 library(knitr)
 library(DT)
 library(anytime)
+library(shinyCAPTCHA)
 
 # Portal version
 portal_version <- "v0.4.0"
@@ -22,7 +30,7 @@ portal_version <- "v0.4.0"
 # Testing mode: 
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-testing <- F
+testing <- T
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
@@ -62,4 +70,36 @@ roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv", encodin
 
 warnings <- read_csv("./data/warnings_lookup.csv")
 
+recaptcha_credentials <- drop_read_csv("marinegeo_resources/credentials/recaptcha_credentials.csv")
 
+site_key <- as.character(recaptcha_credentials[1,1])
+secret_key <- as.character(first(recaptcha_credentials[1,2]))
+
+# recaptcha <- function (input, output, session, secret = Sys.getenv("recaptcha_secret")) 
+# {
+#   status <- reactive({
+#     if (isTruthy(input$recaptcha_response)) {
+#       url <- "https://www.google.com/recaptcha/api/siteverify"
+#       resp <- POST(url, body = list(secret = secret, response = input$recaptcha_response))
+#       fromJSON(content(resp, "text"))
+#     }
+#     else {
+#       list(success = FALSE)
+#     }
+#   })
+#   return(status)
+# }
+# 
+# recaptchaUI <- function (id, sitekey = Sys.getenv("recaptcha_sitekey"), ...) 
+# {
+#   ns <- NS(id)
+#   tagList(tags$div(shiny::tags$script(src = "https://www.google.com/recaptcha/api.js", 
+#                                       async = NA, defer = NA), tags$script(paste0("shinyCaptcha = function(response) {\n          Shiny.onInputChange('", 
+#                                                                                   ns("recaptcha_response"), "', response);\n      }")), 
+#                    tags$form(class = "shinyCAPTCHA-form", action = "?", 
+#                              method = "POST", tags$div(class = "g-recaptcha", 
+#                                                        `data-sitekey` = sitekey, `data-callback` = I("shinyCaptcha")), 
+#                              #tags$br())))
+#   tags$br(), tags$input(type = "submit", ...))))
+# 
+# }

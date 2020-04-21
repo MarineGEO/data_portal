@@ -224,21 +224,13 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$br(), 
                                       
-                                      "Please enter your email address (required to submit data). 
-                                      You can include multiple emails, each separated by a semicolon (;).", 
+                                      "Please enter your email address (required to submit data).", 
                                       
                                       tags$br(), tags$br(), 
                                       
                                       textInput("email", label = NULL, width = "80%"),
                                       hr(), 
                                       
-                                      "Does your data include sensitive information, such as the location of endangered animals or personally identifiable information?",
-                                      tags$br(), tags$br(),
-                                      
-                                      selectInput("sensitive_prompt", label = NULL, choices = c("Not specified", 
-                                                                                                "Yes, my data contains sensitive information", 
-                                                                                                "No, my data does not contain sensitive information")), 
-                                      hr(),
                                       "Upload one or more spreadsheets. Each spreadsheet should be an official MarineGEO data spreadsheet, which you can find on our",
                                       tags$a(href="https://marinegeo.github.io/modules.html", "website."), tags$br(), tags$br(),
                                       
@@ -249,8 +241,15 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$br(),
                                       
+                                      uiOutput("captcha"),
+                                      # recaptchaUI("submission_recaptcha", sitekey = site_key),
+                                      
+                                      hr(), 
+                                      
+                                      tags$br(),
+                                      
                                       # Submit button starts as disabled until the user provides an email address 
-                                      actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
+                                      # actionButton("submit", "Submit data", class = "btn-primary"), tags$br(), tags$br(), 
                                       
                                       actionButton("return_to_data_policy", "Return to the data policy page"), 
                                       
