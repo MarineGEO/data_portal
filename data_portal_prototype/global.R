@@ -22,7 +22,8 @@ library(markdown)
 library(knitr)
 library(DT)
 library(anytime)
-library(shinyCAPTCHA)
+library(httr) # for captcha
+library(jsonlite) # for captcha
 
 # Portal version
 portal_version <- "v0.4.0"
@@ -75,31 +76,3 @@ recaptcha_credentials <- drop_read_csv("marinegeo_resources/credentials/recaptch
 site_key <- as.character(recaptcha_credentials[1,1])
 secret_key <- as.character(first(recaptcha_credentials[1,2]))
 
-# recaptcha <- function (input, output, session, secret = Sys.getenv("recaptcha_secret")) 
-# {
-#   status <- reactive({
-#     if (isTruthy(input$recaptcha_response)) {
-#       url <- "https://www.google.com/recaptcha/api/siteverify"
-#       resp <- POST(url, body = list(secret = secret, response = input$recaptcha_response))
-#       fromJSON(content(resp, "text"))
-#     }
-#     else {
-#       list(success = FALSE)
-#     }
-#   })
-#   return(status)
-# }
-# 
-# recaptchaUI <- function (id, sitekey = Sys.getenv("recaptcha_sitekey"), ...) 
-# {
-#   ns <- NS(id)
-#   tagList(tags$div(shiny::tags$script(src = "https://www.google.com/recaptcha/api.js", 
-#                                       async = NA, defer = NA), tags$script(paste0("shinyCaptcha = function(response) {\n          Shiny.onInputChange('", 
-#                                                                                   ns("recaptcha_response"), "', response);\n      }")), 
-#                    tags$form(class = "shinyCAPTCHA-form", action = "?", 
-#                              method = "POST", tags$div(class = "g-recaptcha", 
-#                                                        `data-sitekey` = sitekey, `data-callback` = I("shinyCaptcha")), 
-#                              #tags$br())))
-#   tags$br(), tags$input(type = "submit", ...))))
-# 
-# }

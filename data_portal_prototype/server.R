@@ -12,6 +12,8 @@ function(input, output, session) {
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   
+  triggerSubmission <- reactiveVal(F)
+  
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
   
@@ -61,9 +63,6 @@ function(input, output, session) {
   # Store specific error message(s) if protocol metadata information extraction fails 
   protocol_error_message <- reactiveVal()
   
-  # Load recaptcha module
-  result <- callModule(recaptcha, "submission_recaptcha", secret = secret_key)
-
   ## Welcome and Data Policy action button logic ###############
   
   ## ... Intro/First page
@@ -87,18 +86,44 @@ function(input, output, session) {
   # Data policy table
   output$data_policy <- renderTable({data_policy_table})
   
+  # Return to data policy from submission page
+  observeEvent(input$return_to_data_policy, {
+    updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
+  })
+  
   ##  Data submission page button logic and observers ##############
   
   output$captcha <- renderUI({
     if(input$new_submission > 0){
-      recaptchaUI("submission_recaptcha", sitekey = site_key)
-        
+      tags$div(shiny::tags$script(src = "https://www.google.com/recaptcha/api.js",
+                                  async = NA,
+                                  defer = NA),
+               tags$script(paste0("shinyCaptcha = function(response) {\n          Shiny.onInputChange('",
+                                  "recaptcha_response", "', response);\n      }")),
+               tags$form(class = "shinyCAPTCHA-form",
+                         action = "?",
+                         method = "POST",
+                         tags$div(class = "g-recaptcha",
+                                  `data-sitekey` = site_key,
+                                  `data-callback` = I("shinyCaptcha")),
+                         tags$br(),
+                         tags$input(type = "submit", class="btn btn-primary")))
+      
     } 
   })
   
-  # Return to data policy from submission page
-  observeEvent(input$return_to_data_policy, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
+  status <- reactive({
+    
+    if (isTruthy(input$recaptcha_response)) {
+      url <- "https://www.google.com/recaptcha/api/siteverify"
+      resp <- POST(url, body = list(secret = secret_key, 
+                                    response = input$recaptcha_response))
+      fromJSON(content(resp, "text"))
+    }
+    else {
+      list(success = FALSE)
+    }
+    
   })
   
   ## ... submit data button - file save, QA, report display functions ##############
@@ -106,9 +131,15 @@ function(input, output, session) {
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
   #observeEvent(req(result()$success), {
-  observeEvent(input$submit,{ 
-    req(result()$success)
+  observeEvent(req(status()$success),{ 
     
+    triggerSubmission(T)
+    
+  })
+  
+  observeEvent(triggerSubmission(),{
+    
+    req(triggerSubmission() == T)
     # Get the current time
     submission_time(humanTime())
     
