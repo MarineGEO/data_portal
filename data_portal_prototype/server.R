@@ -354,11 +354,8 @@ generateSubmissionLog <- function(){
 
   original_filenames <- paste(submission_metadata$original_filename, collapse = "; ")  
   standardized_filenames <- paste(submission_metadata$new_filename, collapse="; ")
-  emails <- tolower(input$email)
+  emails <- tolower(trimws(unlist(strsplit(input$email, ";"))))
   wb_versions <- paste(submission_metadata$wb_version, collapse = "; ")  
-  
-  print(input$email)
-  print(emails)
   
   # check which projects the emails provided with the submission are affiliated with
   project <- unique(filter(roster, email %in% emails)$project_affiliation)
