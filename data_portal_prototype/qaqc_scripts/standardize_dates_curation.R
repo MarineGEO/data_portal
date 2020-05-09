@@ -88,17 +88,13 @@ standardizeDates <- function(x){
               bind_rows(results)
           }
           
-          print(stored_protocol$df[[sheet_name]][[date_attribute]])
-          
         }
       }
     }
-    print(results)
     return(results)
   },
+  
   error = function(e){
-    print(e)
-    
     # Create and return an error message in the QA result log 
     setNames(as.data.frame("Unknown error in date standardization"), "test") %>%
       mutate(column_name = NA,

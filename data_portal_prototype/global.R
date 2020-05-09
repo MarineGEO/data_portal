@@ -20,9 +20,20 @@ library(anytime)
 portal_version <- "v0.4.0"
 
 # Testing modes: 
+# No dropbox testing
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-testing <- T
+no_db_testing <- F
+# Dropbox testing
+# FALSE = Objects saved to official directory
+# TRUE = Objects saved to test directory
+dropbox_testing <- F
+
+if(dropbox_testing){
+  destination <- "marinegeo_resources/test_data_destination/"
+} else {
+  destination <- "MarineGEO/Data/"
+}
 
 # function to stamp files with the time of submission
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
