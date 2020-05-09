@@ -11,6 +11,7 @@ function(input, output, session) {
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
+  source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -70,7 +71,7 @@ function(input, output, session) {
   ## ... Intro/First page
   # Move to data policy page from introduction
   observeEvent(input$data_policy_intro, {
-    if(!testing){
+    if(!no_db_testing){
       updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
     } else updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
   })
@@ -107,7 +108,7 @@ function(input, output, session) {
     submission_time(humanTime())
     
     # Create inital submission receipt (save email and submission time)
-    if(!testing) initialReceipt() 
+    if(!no_db_testing) initialReceipt() 
     
     # Make sure each file is an excel (.xlsx) file
     # And data entry date - protocol - site information can all be extracted
@@ -129,7 +130,7 @@ function(input, output, session) {
       extractProtocolMetadata()
       
       # Upload initial files to dropbox and run QA checks
-      if(!testing) saveInitialData()
+      if(!no_db_testing) saveInitialData()
       
       # If no errors are recorded continue with the submission 
       if(nrow(protocol_metadata_error$df)==0){
@@ -139,7 +140,7 @@ function(input, output, session) {
         # Determine how many output CSVs will need to be created 
         # Each protocol-site-collection year combination gets a collection of CSV files
         determineOutputs()
-        if(!testing) {
+        if(!no_db_testing) {
           # Update submission log
           generateSubmissionLog()
           # Check if necessary subdirectories exist
@@ -152,7 +153,7 @@ function(input, output, session) {
         updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
         # If the QA QC checks were successful, save the curated data in the proper directory
         # if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
-          if(!testing) saveCuratedData()
+          if(!no_db_testing) saveCuratedData()
         # }
       } else {
         # If any elements of the protocol metadata failed
@@ -188,7 +189,7 @@ function(input, output, session) {
   # B. select if their data does or does not contain sensitive information 
   # C. upload an excel document 
   observe({
-    if(!testing){
+    if(!no_db_testing){
       if(input$email != "" & 
          grepl("@", input$email) &
          !is.null(input$fileExcel) &
@@ -259,15 +260,18 @@ function(input, output, session) {
       for(i in 1:nrow(input$fileExcel)){
         
         # Make sure date folder exists
-        if(!drop_exists(path = paste0("MarineGEO/Data/initial_directory/", date))){
+        if(!drop_exists(path = paste0(destination, 
+                                      "initial_directory/", date))){
           
           # If it doesn't, create 
-          drop_create(path = paste0("MarineGEO/Data/initial_directory/", date))
+          drop_create(path = paste0(destination, 
+                                    "initial_directory/", date))
         }
         
         # upload the initial data submission to dropbox
         drop_upload(submission_metadata$new_filename[i],
-                    path = paste0("MarineGEO/Data/initial_directory/", date))
+                    path = paste0(destination,
+                                  "initial_directory/", date))
         
       }
       
@@ -285,20 +289,21 @@ function(input, output, session) {
         
         # Subdirectory and filename are stored as a unique row in the output metadata dataframe
         # Turn each row into a named vector to assist in writing out destination and filename
-        destination <- setNames(as.vector(as.character(output_metadata$df[i,])), 
+        output_destination <- setNames(as.vector(as.character(output_metadata$df[i,])), 
                                 colnames(output_metadata$df))
         
         # Write the curated set to the directory and send to Dropbox
         write_csv(outputs$data[[i]], 
-                  paste0(destination["filename"], ".csv"))
+                  paste0(output_destination["filename"], ".csv"))
         
         # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]_[sheet]
-        drop_upload(paste0(destination["filename"], ".csv"),
-                    path = paste0("MarineGEO/Data/curated_directory/",
+        drop_upload(paste0(output_destination["filename"], ".csv"),
+                    path = paste0(destination,
+                                  "curated_directory/",
                                   project, "/",
-                                  destination["site_code"], "/",
-                                  destination["year_collected"], "/",
-                                  destination["protocol"]))
+                                  output_destination["site_code"], "/",
+                                  output_destination["year_collected"], "/",
+                                  output_destination["protocol"]))
       }
     }
     
@@ -310,7 +315,8 @@ function(input, output, session) {
                   paste0("protocol_metadata", "_", submission_time(), ".csv"))
         
         drop_upload(paste0("protocol_metadata", "_", submission_time(), ".csv"),
-                    path = "MarineGEO/Data/resources/protocol_metadata")
+                    path = paste0(destination,
+                                  "resources/protocol_metadata"))
       }   
     }
     
@@ -327,7 +333,8 @@ initialReceipt <- function(){
   
   writeLines(input$email, paste0(submission_time(), ".txt"))
   drop_upload(paste0(submission_time(), ".txt"), 
-                     path = "MarineGEO/Data/submission_reports/initial_submission_receipts", mode = "overwrite")
+                     path = paste0(destination,
+                                   "submission_reports/initial_submission_receipts"), mode = "overwrite")
   
   setwd(original_wd)
 }  
@@ -381,7 +388,7 @@ generateSubmissionLog <- function(){
   submission_log_path <- file.path("submission_log.csv")
   write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
   # Overwrite the old submission log with the updated info
-  drop_upload(submission_log_path, path = "MarineGEO/Data/", mode = "overwrite")
+  drop_upload(submission_log_path, path = destination, mode = "overwrite")
   
   setwd(original_wd)
   
@@ -441,8 +448,10 @@ QAQC <- function(){
       stored_protocol$df <- protocol_df
       
       # Run  QA tests
-      # Each function is in its own script
+      # Each uploaded file is passed through QAQC functions
+      # Each function is located in its own script
       QA_results$df <- QA_results$df %>%
+        bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
         bind_rows(checkSampleMetadata()) %>%
         bind_rows(checkIDRelationships()) %>%
         bind_rows(checkTaxaRelationships()) %>%
@@ -610,12 +619,14 @@ checkDirectories <- function(){
     sites <- unique(output_metadata$df$site_code)
     
     for(site in sites){
-      if(!drop_exists(path = paste0("MarineGEO/Data/curated_directory/",
+      if(!drop_exists(path = paste0(destination,
+                                    "curated_directory/",
                                     project, "/",
                                     site))){
         
         # If it doesn't, create the site and protocol folders
-        drop_create(path = paste0("MarineGEO/Data/curated_directory/",
+        drop_create(path = paste0(destination,
+                                  "curated_directory/",
                                   project, "/",
                                   site))
       }
@@ -625,13 +636,15 @@ checkDirectories <- function(){
         unique(.$year_collected)
       
       for(year in years){
-        if(!drop_exists(path = paste0("MarineGEO/Data/curated_directory/",
+        if(!drop_exists(path = paste0(destination,
+                                      "curated_directory/",
                                       project, "/",
                                       site, "/",
                                       year))){
           
           # If it doesn't, create the site and protocol folders
-          drop_create(path = paste0("MarineGEO/Data/curated_directory/",
+          drop_create(path = paste0(destination,
+                                    "curated_directory/",
                                     project, "/",
                                     site, "/",
                                     year))
@@ -642,14 +655,16 @@ checkDirectories <- function(){
           unique(.$protocol)
         
         for(protocol in protocols){
-          if(!drop_exists(path = paste0("MarineGEO/Data/curated_directory/",
+          if(!drop_exists(path = paste0(destination,
+                                        "curated_directory/",
                                         project, "/",
                                         site, "/",
                                         year, "/",
                                         protocol))){
             
             # If it doesn't, create the site and protocol folders
-            drop_create(path = paste0("MarineGEO/Data/curated_directory/",
+            drop_create(path = paste0(destination,
+                                      "curated_directory/",
                                       project, "/",
                                       site, "/",
                                       year, "/",
@@ -682,10 +697,10 @@ renderReport <- function(){
   report_path(paste0("submission_report_", submission_time(), ".html"))
   
   
-  if(!testing){
+  if(!no_db_testing){
     # Send the report to the dropbox
     drop_upload(paste0("./www/", report_path()),
-                path = paste0("MarineGEO/Data/submission_reports"))
+                path = paste0(destination, "submission_reports"))
   }
   
 }
