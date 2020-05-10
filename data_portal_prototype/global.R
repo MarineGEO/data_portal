@@ -20,11 +20,12 @@ library(anytime)
 portal_version <- "v0.4.0"
 
 # Testing modes: 
-# No dropbox testing
+# IF ANY VALUES ARE TRUE, THEN TESTING IS ACTIVE
+# No data transmission
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-
 no_db_testing <- F
+
 # Dropbox testing
 # FALSE = Objects saved to official directory
 # TRUE = Objects saved to test directory

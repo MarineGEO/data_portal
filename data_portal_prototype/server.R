@@ -104,6 +104,9 @@ function(input, output, session) {
   # The user will be moved to a page with the report and whether their submission was successful
   observeEvent(input$submit, {
     
+    # Put entire submission process inside a try catch 
+    # This should prevent any unexpected errors from crashing the submission portal
+    tryCatch({
     # Get the current time
     submission_time(humanTime())
     
@@ -158,10 +161,12 @@ function(input, output, session) {
       } else {
         # If any elements of the protocol metadata failed
         showModal(modalDialog(
-          title = "Failed Submission", 
+          title = "Missing essential metadata from submission", 
           size = "l",
           div("The application failed to obtain the necessary metadata from one or more of your uploaded files.",
-              "The following table lists which files produced an error. Contact 'marinegeo@si.edu' if you need further assistance.",
+              "The following table lists which files produced an error.",
+              "Please resubmit your data once you addressed each problem.",
+              "Contact 'marinegeo@si.edu' if you need further assistance.",
               tags$br(), 
               renderTable(protocol_metadata_error$df)),
           
@@ -181,6 +186,17 @@ function(input, output, session) {
       ))
     }
     
+    },
+    error = function(e){
+      showModal(modalDialog(
+        title = "An unexpected error occurred", 
+        div("An unexpected error occurred.", 
+            "Please email MarineGEO (marinegeo@si.edu) your Excel spreadsheets, and we will respond promptly.",
+            "We apologize for this inconvenience."),
+        
+        easyClose = TRUE
+      ))
+    })
   })
   
   ## ... data submission button lock conditions ###########
@@ -255,27 +271,30 @@ function(input, output, session) {
     setwd(tempdir())
     date <- as.character(submissionDate())
     
-    if(nrow(protocol_metadata_error$df)==0){
-      # For each file uploaded:
-      for(i in 1:nrow(input$fileExcel)){
-        
-        # Make sure date folder exists
-        if(!drop_exists(path = paste0(destination, 
-                                      "initial_directory/", date))){
-          
-          # If it doesn't, create 
-          drop_create(path = paste0(destination, 
-                                    "initial_directory/", date))
-        }
-        
-        # upload the initial data submission to dropbox
-        drop_upload(submission_metadata$new_filename[i],
-                    path = paste0(destination,
-                                  "initial_directory/", date))
-        
+    # Make sure date folder exists
+    if(!drop_exists(path = paste0(destination, 
+                                  "initial_directory/", date))){
+      
+      # If it doesn't, create 
+      drop_create(path = paste0(destination, 
+                                "initial_directory/", date))
+    }
+    
+    # For each file uploaded:
+    for(i in 1:nrow(input$fileExcel)){
+      
+      if(!(submission_metadata$original_filename[i] %in% protocol_metadata_error$df$filename)){
+        attribute <- submission_metadata$new_filename[i]
+      } else {
+        attribute <- input$fileExcel$datapath[i]
       }
       
-    } 
+      # upload the initial data submission to dropbox
+      drop_upload(attribute,
+                  path = paste0(destination,
+                                "initial_directory/", date))
+      
+    }
     
   }
   
@@ -516,8 +535,6 @@ determineOutputs <- function(){
     data_entry_date <- submission_metadata$data_entry_date[i]
     
     tryCatch({
-      print(submission_metadata$protocol[i]) # prints protocol name
-
       sample_metadata <- submission_data$all_data[[i]]$sample_metadata
       # unique sites in the sample metadata file
       sites <- unique(sample_metadata$site_code)
@@ -685,7 +702,7 @@ renderReport <- function(){
   if(nrow(QA_results$df) == 0){
     report_status("Submission successful")
   } else{
-    report_status("Some files did not pass tests")
+    report_status("Some files did not pass all tests")
   }
   
   ## Write RMarkdown report #########

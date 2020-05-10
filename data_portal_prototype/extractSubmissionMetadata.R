@@ -46,7 +46,10 @@ extractProtocolMetadata <- function(){
                                                   submission_metadata$data_entry_date[i], ".xlsx")
     submission_metadata$original_filename[i] <- original_filename
     
-    file.rename(input$fileExcel$datapath[i], submission_metadata$new_filename[i])
+    # Don't change filename if any error occurred during submission metadata scripts
+    if(!(original_filename %in% protocol_metadata_error$df$filename)){
+      file.rename(input$fileExcel$datapath[i], submission_metadata$new_filename[i])
+    }
   }
 }
 

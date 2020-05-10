@@ -5,7 +5,6 @@
 standardizeDates <- function(x){
   results <- data.frame()
   
-  print("Here")
   tryCatch({
     # Pull out any attribute names in protocol that are Date type
     date_columns <- protocol_structure %>%
@@ -15,8 +14,6 @@ standardizeDates <- function(x){
     
     for(sheet_name in protocol_sheets()){
       
-      print("sheet name")
-      print(sheet_name)
       # Extract vector of numeric columns in sheet
       sheet_date_columns <- subset(colnames(stored_protocol$df[[sheet_name]]),
                                    colnames(stored_protocol$df[[sheet_name]]) %in% date_columns)
@@ -29,7 +26,6 @@ standardizeDates <- function(x){
           
           # Save column as X for brevity
           x <- stored_protocol$df[[sheet_name]][[date_attribute]]
-          print(x)
           # Check if the date is in the Excel date-number format and attempt to convert
           if(is.numeric(x) & 
              all(x < 47500, na.rm=T) & # Corresponds to any date < 2030
