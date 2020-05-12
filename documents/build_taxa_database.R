@@ -7,7 +7,7 @@ library(tidyverse)
 library(plyr)
 library(data.table)
 library(taxize)
-library(worrms)
+# library(worrms)
 
 ## Creating a MarineGEO taxa database ----
 
@@ -131,21 +131,30 @@ unresolved <- as.character(taxa_resolved$original_name[which(is.na(taxa_resolved
 # check low scores
 # taxa_resolved %>% filter(match_score < 0.75)
 
-# Query WORMS for AphiaID ----
-
 # Create Database table ----
 
 filter_out <- c("Red", "Epiphyes")
 
-merge_taxa_resolved <- left_join(taxon_all, taxa_resolved, 
+database <- left_join(taxon_all, taxa_resolved, 
                                  by = c("scientific_name" = "original_name")) %>%
   filter(!(resolved_name %in% filter_out)) %>%
   filter(!is.na(resolved_name))
 
+# Query WORMS for AphiaID ----
+
+# Purpose: make sure that names aren't outdated
+# ex: Cymodocea filiiformis
+# taxa <- unique(database$resolved_name)
+# 
+# for (j in 1:length(taxa)){
+#   # retrieve the aphiaID for each taxa
+#   id <- get_wormsid_(taxa[j])
+#   
+# }
 
 # write all the data
 write.csv(taxon_all, "data/taxa-original.csv", row.names = FALSE)
-write.csv(merge_taxa_resolved, "data/taxa-resolved.csv", row.names = FALSE)
+write.csv(database, "data/taxa-resolved.csv", row.names = FALSE)
 write.csv(as.data.frame(unresolved), "data/taxa-unresolved.csv", row.names = FALSE)
 
 
