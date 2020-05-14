@@ -1,0 +1,517 @@
+taxon_id,scientific_name,resolved_name,data_source,match_score,valid_name,valid_AphiaID,name_match
+ASAX,Abdefduf saxatilis,Abudefduf saxatilis,World Register of Marine Species,0.75,Abudefduf saxatilis,159288,TRUE
+Acanthaluteres spilomelanurus,Acanthaluteres spilomelanurus,Acanthaluteres spilomelanurus,World Register of Marine Species,0.988,Acanthaluteres spilomelanurus,279463,TRUE
+Acanthaluteres vittiger,Acanthaluteres vittiger,Acanthaluteres vittiger,World Register of Marine Species,0.988,Acanthaluteres vittiger,279464,TRUE
+AASP,Acanthemblemaria aspera,Acanthemblemaria aspera,World Register of Marine Species,0.988,Acanthemblemaria aspera,279443,TRUE
+Acanthophora spicifera,Acanthophora spicifera,Acanthophora spicifera,NCBI,0.988,Acanthophora spicifera,211768,TRUE
+ACOE,Acanthurus coeruleus,Acanthurus coeruleus,World Register of Marine Species,0.988,Acanthurus coeruleus,159581,TRUE
+ATRA,Acanthurus tractus,Acanthurus tractus,World Register of Marine Species,0.988,Acanthurus tractus,301914,TRUE
+Acteocina canaliculata,Acteocina canaliculata,Acteocina canaliculata,World Register of Marine Species,0.988,Acteocina canaliculata,160065,TRUE
+Nereis sp.,Alitta succinea,Alitta succinea,World Register of Marine Species,0.988,Alitta succinea,234850,TRUE
+ALPH,Alpheus sp.,Alpheus,World Register of Marine Species,0.75,Alpheus,106978,TRUE
+AARM,Alpheus armatus,Alpheus armatus,World Register of Marine Species,0.988,Alpheus armatus,421729,TRUE
+Alpheus paracrinitus,Alpheus paracrinitus,Alpheus paracrinitus,World Register of Marine Species,0.988,Alpheus paracrinitus,210522,TRUE
+pacific sand lance,Ammodytes hexapterus,Ammodytes hexapterus,World Register of Marine Species,0.988,Ammodytes hexapterus,254510,TRUE
+Ampelisca sp.,Ampelisca sp.,Ampelisca,World Register of Marine Species,0.75,Ampelisca,101445,TRUE
+Ampelisca_abdita,Ampelisca_abdita,Ampelisca abdita,World Register of Marine Species,0.988,Ampelisca abdita,158020,TRUE
+Ampelisca verrilli,Ampelisca verrilli,Ampelisca verrilli,World Register of Marine Species,0.988,Ampelisca verrilli,158023,TRUE
+Ampharetidae,Ampharetidae,Ampharetidae,World Register of Marine Species,0.75,Ampharetidae,981,TRUE
+Amphilochid sp.,Amphilochid sp.,Amphilochida,World Register of Marine Species,0.5,Amphilochida,1055679,TRUE
+Amphipoda_Sp,Amphipoda_Sp,Amphipoda,World Register of Marine Species,0.75,Amphipoda,1135,TRUE
+Amphiroa,Amphiroa sp,Amphiroa,World Register of Marine Species,0.75,Abyla,135351,FALSE
+Ampithoe longimanna,Ampithoe longimanna,Ampithoe longimana,World Register of Marine Species,0.75,Ampithoe longimana,158026,TRUE
+Ampithoe longimana,Ampithoe longimana,Ampithoe longimana,World Register of Marine Species,0.988,Ampithoe longimana,158026,TRUE
+Ampithoe ramondi,Ampithoe ramondi,Ampithoe ramondi,World Register of Marine Species,0.988,Ampithoe ramondi,102000,TRUE
+Ampithoe valida,Ampithoe valida,Ampithoe valida,World Register of Marine Species,0.988,Ampithoe valida,102005,TRUE
+Amygdalum_papyrium,Amygdalum_papyrium,Amygdalum papyrium,World Register of Marine Species,0.988,Arcuatula papyria,505948,FALSE
+anch.deli,Anchoa delicatissima,Anchoa delicatissima,World Register of Marine Species,0.988,Anchoa delicatissima,275515,TRUE
+Anchoa_mitchilli,Anchoa mitchilli,Anchoa mitchilli,World Register of Marine Species,0.988,Anchoa mitchilli,158699,TRUE
+Bay anchovy,Anchoa mitchilli,Anchoa mitchilli,World Register of Marine Species,0.988,Anchoa mitchilli,158699,TRUE
+APED,Ancylomenes pedersoni,Ancylomenes pedersoni,World Register of Marine Species,0.988,Ancylomenes pedersoni,514493,TRUE
+AVIR,Anisotremus virginicus,Anisotremus virginicus,World Register of Marine Species,0.988,Anisotremus virginicus,279625,TRUE
+Aora hircosa,Aora hircosa,Aora hircosa,World Register of Marine Species,0.988,Aora hircosa,488672,TRUE
+penpoint gunnel,Apodichthys flavidus,Apodichthys flavidus,World Register of Marine Species,0.988,Apodichthys flavidus,279664,TRUE
+unknown amphipod A,Apolochus delacaya,Apolochus delacaya,World Register of Marine Species,0.988,Apolochus delacaya,421442,TRUE
+Apseudes sp.,Apseudes sp.,Apseudes,World Register of Marine Species,0.75,Apseudes,136185,TRUE
+Archosargus probatocephalus,Archosargus probatocephalus,Archosargus probatocephalus,World Register of Marine Species,0.988,Archosargus probatocephalus,159238,TRUE
+Archosargus_probatocephalus,Archosargus probatocephalus,Archosargus probatocephalus,World Register of Marine Species,0.988,Archosargus probatocephalus,159238,TRUE
+Bay scallop,Argopecten irradians,Argopecten irradians,World Register of Marine Species,0.988,Argopecten irradians,156817,TRUE
+Argopecten irradians,Argopecten irradians,Argopecten irradians,World Register of Marine Species,0.988,Argopecten irradians,156817,TRUE
+argo.vent,Argopecten ventricosus,Argopecten ventricosus,World Register of Marine Species,0.988,Argopecten ventricosus,394270,TRUE
+Ariopsis_felis,Ariopsis felis,Ariopsis felis,World Register of Marine Species,0.988,Ariopsis felis,158709,TRUE
+Ascidiacea,Ascidiacea,Ascidiacea,World Register of Marine Species,0.75,Ascidiacea,1839,TRUE
+Asterias rubens,Asterias rubens,Asterias rubens,World Register of Marine Species,0.988,Asterias rubens,123776,TRUE
+Astryis lunata,Astryis lunata,Astyris lunata,World Register of Marine Species,0.75,Astyris lunata,160102,TRUE
+Astyris_lunata,Astyris_lunata,Astyris lunata,World Register of Marine Species,0.988,Astyris lunata,160102,TRUE
+athe.affi,Atherinops affinis,Atherinops affinis,World Register of Marine Species,0.988,Atherinops affinis,279812,TRUE
+tube snout,Aulorhynchus flavidus,Aulorhynchus flavidus,World Register of Marine Species,0.988,Aulorhynchus flavidus,279839,TRUE
+Avrainvillea,Avrainvillea sp,Avrainvillea,World Register of Marine Species,0.75,Avrainvillea,143819,TRUE
+Bairdiella_chrysoura,Bairdiella chrysoura,Bairdiella chrysoura,World Register of Marine Species,0.988,Bairdiella chrysoura,159303,TRUE
+Silver perch,Bairdiella chrysoura,Bairdiella chrysoura,World Register of Marine Species,0.988,Bairdiella chrysoura,159303,TRUE
+BVET,Balistes vetula,Balistes vetula,World Register of Marine Species,0.988,Balistes vetula,127397,TRUE
+Batea catharinensis,Batea catharinensis,Batea catharinensis,World Register of Marine Species,0.988,Batea catharinensis,158032,TRUE
+Bathygobius_soporator,Bathygobius soporator,Bathygobius soporator,World Register of Marine Species,0.988,Bathygobius soporator,277638,TRUE
+Batillaria minima,Batillaria minima,Batillaria minima,World Register of Marine Species,0.988,Lampanella minima,446438,FALSE
+Batophora,Batophora sp,Batophora,World Register of Marine Species,0.75,Batophora,144056,TRUE
+Birubius sp.,Birubius sp.,Birubius,World Register of Marine Species,0.75,Birubius,468183,TRUE
+Bittiolum varium,Bittiolum varium,Bittiolum varium,World Register of Marine Species,0.988,Bittiolum varium,160174,TRUE
+Bittiolum_varium,Bittiolum_varium,Bittiolum varium,World Register of Marine Species,0.988,Bittiolum varium,160174,TRUE
+Bittium granarium,Bittium granarium,Bittium granarium,World Register of Marine Species,0.988,Cacozeliana granarium,473085,FALSE
+BRUF,Bodianus rufus,Bodianus rufus,World Register of Marine Species,0.988,Bodianus rufus,273541,TRUE
+Boonea impressa,Boonea impressa,Boonea impressa,World Register of Marine Species,0.988,Boonea impressa,420437,TRUE
+Brachiosyllis sp,Brachiosyllis sp,Brachiosyllis,ITIS,0.75,NA,NA,NA
+brachyura_megalopa,Brachyura sp.,Brachyura,World Register of Marine Species,0.75,Brachyura,106673,TRUE
+BRAC,Brachyura sp.,Brachyura,World Register of Marine Species,0.75,Brachyura,106673,TRUE
+bryozoans,Bryozoa,Bryozoa,World Register of Marine Species,0.75,Bryozoa,146142,TRUE
+BUCC,Buccinoidea sp.,Buccinoidea,World Register of Marine Species,0.75,Buccinoidea,382214,TRUE
+bull.goul,Bulla gouldiana,Bulla gouldiana,World Register of Marine Species,0.988,Bulla gouldiana,510427,TRUE
+Bulla striata,Bulla striata,Bulla striata,World Register of Marine Species,0.988,Bulla striata,138940,TRUE
+Caecum floridanum,Caecum floridanum,Caecum floridanum,World Register of Marine Species,0.988,Caecum floridanum,419588,TRUE
+gastropoda_1,Caenogastropoda sp.,Caenogastropoda,World Register of Marine Species,0.75,Caenogastropoda,224570,TRUE
+CCAL,Calamus calamus,Calamus calamus,World Register of Marine Species,0.988,Calamus calamus,159242,TRUE
+CL,Calcinas latens,Calcinus latens,World Register of Marine Species,0.75,Calcinus latens,208677,TRUE
+cali.cali,Californiconus californicus,Californiconus californicus,World Register of Marine Species,0.988,Californiconus californicus,581058,TRUE
+Callinectes_sapidus,Callinectes_sapidus,Callinectes sapidus,World Register of Marine Species,0.988,Callinectes sapidus,107379,TRUE
+NA,Calotomus carolinus,Calotomus carolinus,World Register of Marine Species,0.988,Calotomus carolinus,219076,TRUE
+Calyptraea centralis,Calyptraea centralis,Calyptraea centralis,World Register of Marine Species,0.988,Calyptraea centralis,419701,TRUE
+CPUL,Cantherhines pullus,Cantherhines pullus,World Register of Marine Species,0.988,Cantherhines pullus,159493,TRUE
+CROST,Canthigaster rostrata,Canthigaster rostrata,World Register of Marine Species,0.988,Canthigaster rostrata,127411,TRUE
+Capitella sp.,Capitella sp.,Capitella,World Register of Marine Species,0.75,Capitella,129211,TRUE
+Caprella sp.,Caprella sp.,Caprella,World Register of Marine Species,0.75,Caprella,101430,TRUE
+Caprella equilibra,Caprella equilibra,Caprella equilibra,World Register of Marine Species,0.988,Caprella equilibra,101830,TRUE
+Caprella penantis,Caprella penantis,Caprella penantis,World Register of Marine Species,0.988,Caprella penantis,101846,TRUE
+Caprellid sp.,Caprellid sp.,Caprellida,World Register of Marine Species,0.5,Caprellidira,719478,FALSE
+caprellidae_sp_1,Caprellidae sp.,Caprellidae,World Register of Marine Species,0.75,Caprellidae,101361,TRUE
+caprellidae_spiky,Caprellidae sp.,Caprellidae,World Register of Marine Species,0.75,Caprellidae,101361,TRUE
+CRUB,Carangoides ruber,Carangoides ruber,World Register of Marine Species,0.988,Caranx ruber,302432,FALSE
+NA,Carcharhinus melanopterus,Carcharhinus melanopterus,World Register of Marine Species,0.988,Carcharhinus melanopterus,105795,TRUE
+Cardiidae juv.,Cardiidae,Cardiidae,World Register of Marine Species,0.75,Cardiidae,229,TRUE
+CFRO,Cassiopea frondosa,Cassiopea frondosa,World Register of Marine Species,0.988,Cassiopea frondosa,287166,TRUE
+CXAM,Cassiopea xamachana,Cassiopea xamachana,World Register of Marine Species,0.988,Cassiopea xamachana,287172,TRUE
+CMAD,Cassis madagascariensis,Cassis madagascariensis,World Register of Marine Species,0.988,Cassis madagascariensis,419778,TRUE
+Caulerpa sertularioides,Caulerpa sertularioides,Caulerpa sertularioides,NCBI,0.988,Caulerpa sertularioides,144474,TRUE
+CCRU,Cephalophalus cruentata,Cephalopholis cruentata,World Register of Marine Species,0.75,Cephalopholis cruentata,279146,TRUE
+Cerapus cudjoe,Cerapus cudjoe,Cerapus cudjoe,World Register of Marine Species,0.988,Cerapus cudjoe,421589,TRUE
+Cerastoderma,Cerastoderma glaucum,Cerastoderma glaucum,World Register of Marine Species,0.988,Cerastoderma glaucum,138999,TRUE
+Ceratonereis mirabilis,Ceratonereis mirabilis,Ceratonereis mirabilis,World Register of Marine Species,0.988,Ceratonereis mirabilis,130372,TRUE
+Cerithium sp.,Cerithium sp.,Cerithium,World Register of Marine Species,0.75,Cerithium,137760,TRUE
+CERI,Cerithium sp.,Cerithium,World Register of Marine Species,0.75,Cerithium,137760,TRUE
+CATR,Cerithium atratum,Cerithium atratum,World Register of Marine Species,0.988,Cerithium atratum,224572,TRUE
+CLIT,Cerithium littorinum,Cerithium litteratum,World Register of Marine Species,0.75,Cerithium litteratum,216687,TRUE
+Cerithium lutosum,Cerithium lutosum,Cerithium lutosum,World Register of Marine Species,0.988,Cerithium lutosum,419522,TRUE
+Cerithium_lutosome,Cerithium_lutosome,Cerithium lutosum,World Register of Marine Species,0.75,Cerithium lutosum,419522,TRUE
+CCAP,Chaetodon capistrata,Chaetodon capistratus,World Register of Marine Species,0.75,Chaetodon capistratus,159661,TRUE
+COCE,Chaetodon ocellatus,Chaetodon ocellatus,World Register of Marine Species,0.988,Chaetodon ocellatus,159662,TRUE
+NA,Cheilio intermis,Cheilio inermis,World Register of Marine Species,0.75,Cheilio inermis,218948,TRUE
+Chione_elevata,Chione_elevata,Chione elevata,World Register of Marine Species,0.988,Chione elevata,420932,TRUE
+Chironomidae,Chironomidae,Chironomidae,World Register of Marine Species,0.75,Chironomidae,118100,TRUE
+CCYA,Chromis cyanea,Chromis cyanea,World Register of Marine Species,0.988,Chromis cyanea,273718,TRUE
+CMUL,Chromis multilineata,Chromis multilineata,World Register of Marine Species,0.988,Chromis multilineata,273743,TRUE
+Chthalamus fragilis,Chthalamus fragilis,Chthamalus fragilis,World Register of Marine Species,0.75,Chthamalus fragilis,157793,TRUE
+7,Citharichthys sordidus,Citharichthys sordidus,World Register of Marine Species,0.988,Citharichthys sordidus,275694,TRUE
+CPAR,Clepticus parrae,Clepticus parrae,World Register of Marine Species,0.988,Clepticus parrae,280214,TRUE
+CLUP,Clupeidae sp.,Clupeidae,World Register of Marine Species,0.75,Clupeidae,125464,TRUE
+Condyliactis sp.,Condyliactis sp.,Condylactis,World Register of Marine Species,0.5,Condylactis,100701,TRUE
+Copepoda,Copepoda,Copepoda,World Register of Marine Species,0.75,Copepoda,1080,TRUE
+Corophium sp.,Corophium sp.,Corophium,World Register of Marine Species,0.75,Corophium,101489,TRUE
+Corophium sp,Corophium sp.,Corophium,World Register of Marine Species,0.75,Corophium,101489,TRUE
+CBOL,Coryphopterus bol,Coryphopterus bol,World Register of Marine Species,0.988,Coryphopterus venezuelae,276436,FALSE
+CEID,Coryphopterus eidolon,Coryphopterus eidolon,World Register of Marine Species,0.988,Coryphopterus eidolon,276426,TRUE
+CGLA,Coryphopteris glaucofraenum,Coryphopterus glaucofraenum,World Register of Marine Species,0.75,Coryphopterus glaucofraenum,159736,TRUE
+CPER,Coryphopteris personatus,Coryphopterus personatus,World Register of Marine Species,0.75,Coryphopterus personatus,276432,TRUE
+Costoanachis avara,Costoanachis avara,Costoanachis avara,World Register of Marine Species,0.988,Costoanachis avara,160222,TRUE
+Crabyzos sp.,Crabyzos sp.,Crabyzos,World Register of Marine Species,0.75,Crabyzos,248643,TRUE
+9,Crangon sp.,Crangon,World Register of Marine Species,0.75,Crangon,107007,TRUE
+Crangon crangon,Crangon crangon,Crangon crangon,World Register of Marine Species,0.988,Crangon crangon,107552,TRUE
+Crepidula convexa,Crepidula convexa,Crepidula convexa,World Register of Marine Species,0.988,Crepidula convexa,160228,TRUE
+Crepidula_convexa,Crepidula_convexa,Crepidula convexa,World Register of Marine Species,0.988,Crepidula convexa,160228,TRUE
+Crepidula fornicata,Crepidula fornicata,Crepidula fornicata,World Register of Marine Species,0.988,Crepidula fornicata,138963,TRUE
+crustacean,crustacean sp,Crustacea,World Register of Marine Species,0.5,Crustacea,1066,TRUE
+CRAD,Cryptotomus radians,Cryptotomus,World Register of Marine Species,0.75,Cryptotomus,204245,TRUE
+CROSE,Cryptotomus roseus,Cryptotomus roseus,World Register of Marine Species,0.988,Cryptotomus roseus,277118,TRUE
+Ctenogobius_boleosoma,Ctenogobius boleosoma,Ctenogobius boleosoma,World Register of Marine Species,0.988,Ctenogobius boleosoma,159750,TRUE
+CSCA,Ctenoides scaber,Ctenoides scaber,World Register of Marine Species,0.988,Ctenoides scaber,420747,TRUE
+Cuminga_tellenoides,Cuminga_tellenoides,Cumingia tellinoides,World Register of Marine Species,0.75,Cumingia tellinoides,156823,TRUE
+cyanobacteria,cyanobacteria,Cyanobacteria,World Register of Marine Species,0.75,Cyanobacteria,146537,TRUE
+Cymadusa_Spp.,Cymadusa_Spp.,Cymadusa,World Register of Marine Species,0.75,Cymadusa,101460,TRUE
+Cymadusa sp. 1,Cymadusa sp. 1,Cymadusa,World Register of Marine Species,0.75,Cymadusa,101460,TRUE
+Cymadusa sp. 2,Cymadusa sp. 2,Cymadusa,World Register of Marine Species,0.75,Cymadusa,101460,TRUE
+Cymadusa cf compta,Cymadusa cf compta,Cymadusa compta,World Register of Marine Species,0.988,Cymadusa compta,158082,TRUE
+Cymadusa_compta,Cymadusa_compta,Cymadusa compta,World Register of Marine Species,0.988,Cymadusa compta,158082,TRUE
+Cymedusa_compta,Cymedusa_compta,Cymadusa compta,World Register of Marine Species,0.75,Cymadusa compta,158082,TRUE
+Cymadusa compta,Cymadusa compta,Cymadusa compta,World Register of Marine Species,0.988,Cymadusa compta,158082,TRUE
+shiner perch,Cymatogaster aggregata,Cymatogaster aggregata,World Register of Marine Species,0.988,Cymatogaster aggregata,280461,TRUE
+Cr,Cymodocea rotundata,Cymodocea rotundata,NCBI,0.988,Cymodocea rotundata,208921,TRUE
+Cr,Cymodocea roundata,Cymodocea rotundata,NCBI,0.75,Cymodocea rotundata,208921,TRUE
+Cynoscion_nebulosus,Cynoscion nebulosus,Cynoscion nebulosus,World Register of Marine Species,0.988,Cynoscion nebulosus,159312,TRUE
+Dardanus venosus,Dardanus venosus,Dardanus venosus,World Register of Marine Species,0.988,Dardanus venosus,367596,TRUE
+Dasyatis sp,Dasyatis sp,Dasyatis,World Register of Marine Species,0.75,Dasyatis,105751,TRUE
+Decapoda,Decapoda,Decapoda,World Register of Marine Species,0.75,Decapoda,1130,TRUE
+Deutella incerta,Deutella incerta,Deutella incerta,World Register of Marine Species,0.988,Deutella incerta,421581,TRUE
+DANT,Diadema antillarum,Diadema antillarum,World Register of Marine Species,0.988,Diadema antillarum,124332,TRUE
+Diala monile sp.,Diala monile sp.,Diala monile,World Register of Marine Species,0.988,Alaba monile,715680,FALSE
+Dictyota,Dictyota sp,Dictyota,World Register of Marine Species,0.75,Dictyota,144086,TRUE
+PrtAlg,Dictyota sp.,Dictyota,World Register of Marine Species,0.75,Dictyota,144086,TRUE
+Dulichiella appendiculata,Dulichiella appendiculata,Dulichiella appendiculata,World Register of Marine Species,0.988,Dulichiella appendiculata,421504,TRUE
+Dysidea etheria,Dysidea etheria,Dysidea etheria,World Register of Marine Species,0.988,Dysidea etheria,164941,TRUE
+Dyspanopeus_texanus,Dyspanopeus_texanus,Dyspanopeus texanus,World Register of Marine Species,0.988,Dyspanopeus texanus,443955,TRUE
+Eatoniellid sp.,Eatoniellid sp.,Eatoniellidae,World Register of Marine Species,0.5,Eatoniellidae,196894,TRUE
+ELUC,Echinometra lucunter,Echinometra lucunter,World Register of Marine Species,0.988,Echinometra lucunter,213380,TRUE
+EVIR,Echinometra viridis,Echinometra viridis,World Register of Marine Species,0.988,Echinometra viridis,422493,TRUE
+EPRO,Elacatinus prochilos,Elacatinus prochilos,World Register of Marine Species,0.988,Elacatinus prochilos,280619,TRUE
+Elasmopus_levis,Elasmopus_levis,Elasmopus levis,World Register of Marine Species,0.988,Maera vagans,534565,FALSE
+Elasmopus levis,Elasmopus levis,Elasmopus levis,World Register of Marine Species,0.988,Maera vagans,534565,FALSE
+ECRI,Elysia crispata,Elysia crispata,World Register of Marine Species,0.988,Elysia crispata,420572,TRUE
+EMBL,Emblemariopsis sp.,Emblemariopsis,World Register of Marine Species,0.75,Emblemariopsis,269061,TRUE
+buffalo sculpin,Enophrys bison,Enophrys bison,World Register of Marine Species,0.988,Enophrys bison,275355,TRUE
+EGUT,Epinephalus guttatus,Epinephelus guttatus,World Register of Marine Species,0.75,Epinephelus guttatus,159352,TRUE
+Erichsonella attenuata,Erichsonella attenuata,Erichsonella attenuata,World Register of Marine Species,0.988,Erichsonella attenuata,157887,TRUE
+Erichsonella_attenuata,Erichsonella_attenuata,Erichsonella attenuata,World Register of Marine Species,0.988,Erichsonella attenuata,157887,TRUE
+Erichthonius brasiliensis,Erichthonius brasiliensis,Erichthonius brasiliensis,World Register of Marine Species,0.988,Ericthonius brasiliensis,102401,FALSE
+polychaete_sp_1,Errantia sp.,Errantia,World Register of Marine Species,0.75,Errantia,754174,TRUE
+Eucidaris,Eucidaris tribuloides,Eucidaris tribuloides,World Register of Marine Species,0.988,Eucidaris tribuloides,396741,TRUE
+ETRI,Eucidaris tribuloides,Eucidaris tribuloides,World Register of Marine Species,0.988,Eucidaris tribuloides,396741,TRUE
+Eucinostomus sp,Eucinostomus sp,Eucinostomus,World Register of Marine Species,0.75,Eucinostomus,159731,TRUE
+Eunice sp.,Eunice sp.,Eunice,World Register of Marine Species,0.75,Eunice,129278,TRUE
+eupl.muri,Eupleura muriciformis,Eupleura muriciformis,World Register of Marine Species,0.988,Eupleura muriciformis,404143,TRUE
+Eurypanopeus depressus,Eurypanopeus depressus,Eurypanopeus depressus,World Register of Marine Species,0.988,Eurypanopeus depressus,158416,TRUE
+Eurypanopeus_depressus,Eurypanopeus_depressus,Eurypanopeus depressus,World Register of Marine Species,0.988,Eurypanopeus depressus,158416,TRUE
+Exogone dispar,Exogone dispar,Exogone dispar,World Register of Marine Species,0.988,Exogone dispar,333453,TRUE
+horse conch?,Fasciolariidae sp.,Fasciolariidae,World Register of Marine Species,0.75,Fasciolariidae,23038,TRUE
+Fucus serratus,Fucus serratus,Fucus serratus,NCBI,0.988,Fucus serratus,145546,TRUE
+Fundulis_grandis,Fundulis grandis,Fundulus grandis,World Register of Marine Species,0.75,Fundulus grandis,276030,TRUE
+6,Gammaridae,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+gammarid_sp_1,Gammaridae sp.,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+amphipod_fat,Gammaridae sp.,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+striped_amphipod,Gammaridae sp.,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+gammarid_2_uropod,Gammaridae sp.,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+big_eye,Gammaridae sp.,Gammaridae,World Register of Marine Species,0.75,Gammaridae,101383,TRUE
+Gammaropsis sp.,Gammaropsis sp.,Gammaropsis,World Register of Marine Species,0.75,Gammaropsis,101558,TRUE
+Gammarus spp.,Gammarus spp.,Gammarus,World Register of Marine Species,0.75,Gammarus,101537,TRUE
+Gammarus_lecroyae,Gammarus_lecroyae,Gammarus lecroyae,World Register of Marine Species,0.988,Gammarus lecroyae,490242,TRUE
+Gammarus_mucronatus,Gammarus_mucronatus,Gammarus mucronatus,World Register of Marine Species,0.988,Gammarus mucronatus,158094,TRUE
+Gasterosteus aculeatus,Gasterosteus aculeatus,Gasterosteus aculeatus,World Register of Marine Species,0.988,Gasterosteus aculeatus,126505,TRUE
+stickleback,Gasterosteus aculeatus,Gasterosteus aculeatus,World Register of Marine Species,0.988,Gasterosteus aculeatus,126505,TRUE
+GAST,Gastropoda sp.,Gastropoda,World Register of Marine Species,0.75,Gastropoda,101,TRUE
+Gastropoda juv.,Gastropoda,Gastropoda,World Register of Marine Species,0.75,Gastropoda,101,TRUE
+Genypterus tigerinus,Genypterus tigerinus,Genypterus tigerinus,World Register of Marine Species,0.988,Genypterus tigerinus,278706,TRUE
+GERR,Gerreidae sp.,Gerreidae,World Register of Marine Species,0.75,Gerreidae,151456,TRUE
+GCIN,Gerres cinereus,Gerres cinereus,World Register of Marine Species,0.988,Gerres cinereus,276954,TRUE
+Gitanopsis sp.,Gitanopsis sp.,Gitanopsis,World Register of Marine Species,0.75,Gitanopsis,101453,TRUE
+Gnathia sp.,Gnathia sp.,Gnathia,World Register of Marine Species,0.75,Gnathia,118437,TRUE
+GCAU,Gnatholepsis cauerensis,Gnatholepis cauerensis,World Register of Marine Species,0.75,Gnatholepis cauerensis,219476,TRUE
+Gobiosoma_bosc,Gobiosoma bosc,Gobiosoma bosc,World Register of Marine Species,0.988,Gobiosoma bosc,159767,TRUE
+Gracilaria,Gracilaria spp.,Gracilaria,World Register of Marine Species,0.75,Gracilaria,144188,TRUE
+Grandidierella bonneroides,Grandidierella bonneroides,Grandidierella bonnieroides,World Register of Marine Species,0.75,Grandidierella bonnieroides,211405,TRUE
+Granulina ovuliformis,Granulina ovuliformis,Granulina ovuliformis,World Register of Marine Species,0.988,Granulina ovuliformis,532891,TRUE
+Gymnapistes marmoratus,Gymnapistes marmoratus,Gymnapistes marmoratus,World Register of Marine Species,0.988,Gymnapistes marmoratus,280952,TRUE
+HAEM,Haemulon sp.,Haemulon,World Register of Marine Species,0.75,Haemulon,158806,TRUE
+HFLA,Haemulon flavolinatum,Haemulon flavolineatum,World Register of Marine Species,0.75,Haemulon flavolineatum,275727,TRUE
+Haemulon parra,Haemulon parra,Haemulon parra,World Register of Marine Species,0.988,Haemulon parra,275731,TRUE
+HPLU,Haemulon plumierii,Haemulon plumierii,World Register of Marine Species,0.988,Haemulon plumierii,158808,TRUE
+HSCI,Haemulon sciurus,Haemulon sciurus,World Register of Marine Species,0.988,Haemulon sciurus,275733,TRUE
+Haletta semifasciata,Haletta semifasciata,Haletta semifasciata,World Register of Marine Species,0.988,Haletta semifasciata,280979,TRUE
+Halicarcinus ovatus,Halicarcinus ovatus,Halicarcinus ovatus,World Register of Marine Species,0.988,Halicarcinus ovatus,441784,TRUE
+HBIV,Halichoeres bivittatus,Halichoeres bivittatus,World Register of Marine Species,0.988,Halichoeres bivittatus,158815,TRUE
+HGAR,Halichoeres garnoti,Halichoeres garnoti,World Register of Marine Species,0.988,Halichoeres garnoti,275764,TRUE
+HMAC,Halichoeres maculipinna,Halichoeres maculipinna,World Register of Marine Species,0.988,Halichoeres maculipinna,275772,TRUE
+HPIC,Halichoeres pictus,Halichoeres pictus,World Register of Marine Species,0.988,Halichoeres pictus,275788,TRUE
+HRAD,Halichoeres radiatus,Halichoeres radiatus,World Register of Marine Species,0.988,Halichoeres radiatus,275793,TRUE
+Halimeda,Halimeda sp,Halimeda,World Register of Marine Species,0.75,Halimeda,143820,TRUE
+Hp,Halodulae pinifolia,Halodule pinifolia,NCBI,0.75,Halodule pinifolia,626404,TRUE
+Hp,Halodulae Pinifolia,Halodule pinifolia,NCBI,0.75,Halodule pinifolia,626404,TRUE
+Halodule wrightii,Halodule wrightii,Halodule wrightii,NCBI,0.988,Halodule wrightii,208925,TRUE
+Halodule,Halodule wrightii,Halodule wrightii,NCBI,0.988,Halodule wrightii,208925,TRUE
+Halodule_wrightii,Halodule wrightii,Halodule wrightii,NCBI,0.988,Halodule wrightii,208925,TRUE
+Halophila,Halophila engelmannii,Halophila engelmannii,NCBI,0.988,Halophila engelmannii,374722,TRUE
+Halophila_above,Halophila stipulacea,Halophila stipulacea,NCBI,0.988,Halophila stipulacea,145714,TRUE
+Halophila_below,Halophila stipulacea,Halophila stipulacea,NCBI,0.988,Halophila stipulacea,145714,TRUE
+Halophila stipulacea,Halophila stipulacea,Halophila stipulacea,NCBI,0.988,Halophila stipulacea,145714,TRUE
+Haminoea antillarum,Haminoea antillarum,Haminoea antillarum,World Register of Marine Species,0.988,Haminoea antillarum,420524,TRUE
+Haminoea petitii,Haminoea petitii,Haminoea petitii,World Register of Marine Species,0.988,Haminoea petitii,532293,TRUE
+Harmothoe sp.,Harmothoe sp.,Harmothoe,World Register of Marine Species,0.75,Harmothoe,129491,TRUE
+Harrieta faxoni,Harrieta faxoni,Harrieta faxoni,World Register of Marine Species,0.988,Harrieta faxoni,260565,TRUE
+Harrieta_faxoni,Harrieta_faxoni,Harrieta faxoni,World Register of Marine Species,0.988,Harrieta faxoni,260565,TRUE
+NA,Hemicoris batuensis,Hemicoris batuensis,World Register of Marine Species,0.988,Coris batuensis,218956,FALSE
+hemi.oreg,Hemigrapsus oregonensis,Hemigrapsus oregonensis,World Register of Marine Species,0.988,Hemigrapsus oregonensis,444778,TRUE
+HCAR,Hermodice carunculata,Hermodice carunculata,World Register of Marine Species,0.988,Hermodice carunculata,129831,TRUE
+Heterodontus portusjacksoni,Heterodontus portusjacksoni,Heterodontus portusjacksoni,World Register of Marine Species,0.988,Heterodontus portusjacksoni,276699,TRUE
+Hiatella sp.,Hiatella sp.,Hiatella,World Register of Marine Species,0.75,Hiatella,138068,TRUE
+Sea horse,Hippocampus erectus,Hippocampus erectus,World Register of Marine Species,0.988,Hippocampus erectus,159445,TRUE
+Hippocampus_zosterae,Hippocampus zosterae,Hippocampus zosterae,World Register of Marine Species,0.988,Hippocampus zosterae,275213,TRUE
+Hippolyte sp.,Hippolyte sp.,Hippolyte,World Register of Marine Species,0.75,Hippolyte,106987,TRUE
+Hippolyte pleuracanthus,Hippolyte pleuracanthus,Hippolyte pleuracanthus,NCBI,0.988,Hippolyte pleuracantha,158360,FALSE
+Hippolytidae_juv,Hippolytidae sp.,Hippolytidae,World Register of Marine Species,0.75,Hippolytidae,106777,TRUE
+HCIL,Holacanthus ciliarus,Holacanthus ciliaris,World Register of Marine Species,0.75,Holacanthus ciliaris,276012,TRUE
+HTRI,Holacanthus tricolor,Holacanthus tricolor,World Register of Marine Species,0.988,Holacanthus tricolor,276017,TRUE
+HRUF,Holocentrus rufus,Holocentrus rufus,World Register of Marine Species,0.988,Holocentrus rufus,276189,TRUE
+HMEX,Holothuria mexicana,Holothuria mexicana,World Register of Marine Species,0.988,Holothuria mexicana,732363,TRUE
+Hourstonius laguna,Hourstonius laguna,Hourstonius laguna,World Register of Marine Species,0.988,Hourstonius laguna,421444,TRUE
+Hydrobia spp.,Hydrobia spp.,Hydrobia,World Register of Marine Species,0.75,Hydrobia,138081,TRUE
+Hydrobia ulvae,Hydrobia ulvae,Hydrobia ulvae,World Register of Marine Species,0.988,Peringia ulvae,151628,FALSE
+Hydrobia ventrosa,Hydrobia ventrosa,Hydrobia ventrosa,World Register of Marine Species,0.988,Ecrobia ventrosa,238104,FALSE
+Hydrobiidae juv.,Hydrobiidae,Hydrobiidae,World Register of Marine Species,0.75,Hydrobiidae,120,TRUE
+hydroids,Hydrozoa,Hydrozoa,World Register of Marine Species,0.75,Hydrozoa,1337,TRUE
+HIND,Hypoplectrus indigo,Hypoplectrus indigo,World Register of Marine Species,0.988,Hypoplectrus indigo,281117,TRUE
+HNIG,Hypoplectrus nigricans,Hypoplectrus nigricans,World Register of Marine Species,0.988,Hypoplectrus nigricans,281118,TRUE
+hyps.gent,Hypsoblennius gentilis,Hypsoblennius gentilis,World Register of Marine Species,0.988,Hypsoblennius gentilis,276323,TRUE
+hyps.jenk,Hypsoblennius jenkinsi,Hypsoblennius jenkinsi,World Register of Marine Species,0.988,Hypsoblennius jenkinsi,276328,TRUE
+isopod_juv_1,Idotea sp.,Idotea,World Register of Marine Species,0.75,Idotea,118454,TRUE
+Idobal,Idotea balthica,Idotea balthica,World Register of Marine Species,0.988,Idotea balthica,119039,TRUE
+Idotea baltica,Idotea baltica,Idotea baltica,World Register of Marine Species,0.988,Idotea balthica,119039,FALSE
+Idochel,Idotea chelipes,Idotea chelipes,World Register of Marine Species,0.988,Idotea chelipes,119042,TRUE
+Idotea chelipes,Idotea chelipes,Idotea chelipes,World Register of Marine Species,0.988,Idotea chelipes,119042,TRUE
+Idogra,Idotea granulosa,Idotea granulosa,World Register of Marine Species,0.988,Idotea granulosa,119044,TRUE
+Idotea_resecata,Idotea resecata,Idotea resecata,World Register of Marine Species,0.988,Pentidotea resecata,261978,FALSE
+ilyp.gilb,Ilypnus gilberti,Ilypnus gilberti,World Register of Marine Species,0.988,Ilypnus gilberti,281174,TRUE
+Isaeidae female,Isaeidae,Isaeidae,World Register of Marine Species,0.75,Isaeidae,101388,TRUE
+Isopoda,Isopoda,Isopoda,World Register of Marine Species,0.75,Isopoda,1131,TRUE
+IBAD,Isostichopus badionotus,Isostichopus badionotus,World Register of Marine Species,0.988,Isostichopus badionotus,367868,TRUE
+Jaera,Jaera albifrons,Jaera albifrons,World Register of Marine Species,0.988,Jaera albifrons,118715,TRUE
+Jaera albifrons,Jaera albifrons,Jaera albifrons,World Register of Marine Species,0.988,Jaera albifrons,118715,TRUE
+Jania,Jania sp,Jania,World Register of Marine Species,0.75,Jania,144012,TRUE
+Algal Balls,Jania spp.,Jania,World Register of Marine Species,0.75,Jania,144012,TRUE
+Jassa sp.,Jassa sp.,Jassa,World Register of Marine Species,0.75,Jassa,101571,TRUE
+4,Lacuna spp,Lacuna,World Register of Marine Species,0.75,Lacuna,138099,TRUE
+Lacuna vincta,Lacuna vincta,Lacuna vincta,World Register of Marine Species,0.988,Lacuna vincta,140170,TRUE
+Lagodon rhomboides,Lagodon rhomboides,Lagodon rhomboides,World Register of Marine Species,0.988,Lagodon rhomboides,159249,TRUE
+Lagodan_rhomboides,Lagodan rhomboides,Lagodon rhomboides,World Register of Marine Species,0.75,Lagodon rhomboides,159249,TRUE
+Laticorophium baconi,Laticorophium baconi,Laticorophium baconi,World Register of Marine Species,0.988,Laticorophium baconi,421577,TRUE
+Leistomus_xanthurus,Leistomus xanthurus,Leiostomus xanthurus,World Register of Marine Species,0.75,Leiostomus xanthurus,159322,TRUE
+Lembos sp.,Lembos sp.,Lembos,World Register of Marine Species,0.75,Lembos,101469,TRUE
+Lembos websteri,Lembos websteri,Lembos websteri,World Register of Marine Species,0.988,Lembos websteri,102033,TRUE
+rock sole,Lepidopsetta sp.,Lepidopsetta,World Register of Marine Species,0.75,Lepidopsetta,269638,TRUE
+2,Leptasterias hexactis,Leptasterias hexactis,World Register of Marine Species,0.988,Leptasterias hexactis,369177,TRUE
+8,Leptasterias hexactis,Leptasterias hexactis,World Register of Marine Species,0.988,Leptasterias hexactis,369177,TRUE
+Leptochelia sp.,Leptochelia sp.,Leptochelia,World Register of Marine Species,0.75,Leptochelia,136235,TRUE
+lept.arma,Leptocottus armatus,Leptocottus armatus,World Register of Marine Species,0.988,Leptocottus armatus,254345,TRUE
+8,Leptocottus armatus,Leptocottus armatus,World Register of Marine Species,0.988,Leptocottus armatus,254345,TRUE
+NA,Lethrinus harak,Lethrinus harak,World Register of Marine Species,0.988,Lethrinus harak,212063,TRUE
+Lecothoe spinicarpa,Lecothoe spinicarpa,Leucothoe spinicarpa,World Register of Marine Species,0.75,Leucothoe spinicarpa,102470,TRUE
+LTEC,Lithopoma tectum,Lithopoma tectum,World Register of Marine Species,0.988,Lithopoma tectum,419499,TRUE
+Litocheira bispinosa,Litocheira bispinosa,Litocheira bispinosa,World Register of Marine Species,0.988,Litocheira bispinosa,441005,TRUE
+3,Littorina spp,Littorina,World Register of Marine Species,0.75,Littorina,138135,TRUE
+Littorina littorea,Littorina littorea,Littorina littorea,World Register of Marine Species,0.988,Littorina littorea,140262,TRUE
+LCOS,Lobatus costatus,Lobatus costatus,World Register of Marine Species,0.988,Macrostrombus costatus,1429775,FALSE
+LGIG,Lobatus gigas,Lobatus gigas,World Register of Marine Species,0.988,Aliger gigas,1429769,FALSE
+Lucania_pasva,Lucania pasva,Lucania parva,World Register of Marine Species,0.75,Lucania parva,159310,TRUE
+NA,Lutjanus sp.,Lutjanus,World Register of Marine Species,0.75,Lutjanus,159791,TRUE
+LANA,Lutjanus analis,Lutjanus analis,World Register of Marine Species,0.988,Lutjanus analis,159792,TRUE
+LAPO,Lutjanus apodus,Lutjanus apodus,World Register of Marine Species,0.988,Lutjanus apodus,159793,TRUE
+Lutjanus griseus,Lutjanus griseus,Lutjanus griseus,World Register of Marine Species,0.988,Lutjanus griseus,159797,TRUE
+LGRI,Lutjanus griseus,Lutjanus griseus,World Register of Marine Species,0.988,Lutjanus griseus,159797,TRUE
+LMAH,Lutjanus mahogoni,Lutjanus mahogoni,World Register of Marine Species,0.988,Lutjanus mahogoni,159799,TRUE
+LSYN,Lutjanus synagris,Lutjanus synagris,World Register of Marine Species,0.988,Lutjanus synagris,159800,TRUE
+Lyngbya,Lyngbya sp,Lyngbya,World Register of Marine Species,0.75,Lyngbya,146538,TRUE
+Lynseia sp.,Lynseia sp.,Lynseia,World Register of Marine Species,0.75,Lynseia,248921,TRUE
+Lyssianassid sp.,Lyssianassid sp.,Lysianassida,World Register of Marine Species,0.5,Lysianassida,1055690,TRUE
+Lysianopsis alba,Lysianopsis alba,Lysianopsis alba,World Register of Marine Species,0.988,Lysianopsis alba,158036,TRUE
+LSCA,Lysiosquilla scabricauda,Lysiosquilla scabricauda,World Register of Marine Species,0.988,Lysiosquilla scabricauda,409037,TRUE
+Lytechinus,Lytechinus variegatus,Lytechinus variegatus,World Register of Marine Species,0.988,Lytechinus variegatus,367850,TRUE
+Lithechinus variegatus,Lithechinus variegatus,Lytechinus variegatus,World Register of Marine Species,0.75,Lytechinus variegatus,367850,TRUE
+NA,Lithechinus variegatus,Lytechinus variegatus,World Register of Marine Species,0.75,Lytechinus variegatus,367850,TRUE
+12,Macoma spp,Macoma,World Register of Marine Species,0.75,Macoma,138531,TRUE
+Macrobrachium intermedium,Macrobrachium intermedium,Macrobrachium intermedium,NCBI,0.988,NA,NA,NA
+MAJI,Majidae sp.,Majidae,World Register of Marine Species,0.75,Majidae,106760,TRUE
+MPLU,Malacanthus plumieri,Malacanthus plumieri,World Register of Marine Species,0.988,Malacanthus plumieri,277261,TRUE
+MTRI,Malacoctenus triangulatus,Malacoctenus triangulatus,World Register of Marine Species,0.988,Malacoctenus triangulatus,281503,TRUE
+Manicina areolata,Manicina areolata,Manicina areolata,World Register of Marine Species,0.988,Manicina areolata,290327,TRUE
+Mediomastus cali,Mediomastus cali,Mediomastus,World Register of Marine Species,0.75,Mediomastus,129218,TRUE
+Menidia_beryllina,Menidia beryllina,Menidia beryllina,World Register of Marine Species,0.988,Menidia beryllina,159227,TRUE
+MVEN,Meoma ventricosa,Meoma ventricosa,World Register of Marine Species,0.988,Meoma ventricosa,367846,TRUE
+1,Metacarcinus magister,Metacarcinus magister,World Register of Marine Species,0.988,Metacarcinus magister,440388,TRUE
+Metacarcinus magister,Metacarcinus magister,Metacarcinus magister,World Register of Marine Species,0.988,Metacarcinus magister,440388,TRUE
+Metassiminea sp.,Metassiminea sp.,Metassiminea,World Register of Marine Species,0.75,Metassiminea,818380,TRUE
+MCHR,Microspathodon chrysurus,Microspathodon chrysurus,World Register of Marine Species,0.988,Microspathodon chrysurus,281571,TRUE
+decorator crab,Mithracidae sp,Mithracidae,World Register of Marine Species,0.75,Mithracidae,439056,TRUE
+MITH,Mithracidae sp.,Mithracidae,World Register of Marine Species,0.75,Mithracidae,439056,TRUE
+MCIN,Mithraculus cinctimanus,Mithraculus cinctimanus,World Register of Marine Species,0.988,Mithraculus cinctimanus,421986,TRUE
+Mithrax hemphilli,Mithrax hemphilli,Mithrax hemphilli,World Register of Marine Species,0.988,Amphithrax hemphilli,1258715,FALSE
+Mitrella lunata,Mitrella lunata,Mitrella lunata,World Register of Marine Species,0.988,Astyris lunata,160102,FALSE
+Modiolus modiolus,Modiolus modiolus,Modiolus modiolus,World Register of Marine Species,0.988,Modiolus modiolus,140467,TRUE
+MONA,Monacanthidae sp.,Monacanthidae,World Register of Marine Species,0.75,Monacanthidae,125610,TRUE
+Musculus sp.,Musculus sp.,Musculus,World Register of Marine Species,0.75,Tellina,138533,FALSE
+Musculus discors,Musculus discors,Musculus discors,World Register of Marine Species,0.988,Musculus discors,140472,TRUE
+Mya juv.,Mya sp.,Mya,World Register of Marine Species,0.75,Mya,138211,TRUE
+great sculpin,Myoxocephalus polyacanthocephalus,Myoxocephalus polyacanthocephalus,World Register of Marine Species,0.988,Myoxocephalus polyacanthocephalus,254528,TRUE
+Myriophyllum,Myriophyllum spicatum,Myriophyllum spicatum,World Register of Marine Species,0.988,Myriophyllum spicatum,416205,TRUE
+Mysid sp.,Mysid sp.,Mysida,World Register of Marine Species,0.5,Mysida,149668,TRUE
+9,Mysida,Mysida,World Register of Marine Species,0.75,Mysida,149668,TRUE
+Mysidae,Mysidae,Mysidae,World Register of Marine Species,0.75,Mysidae,119822,TRUE
+Mytilidae juv.,Mytilidae,Mytilidae,World Register of Marine Species,0.75,Mytilidae,211,TRUE
+Mytilus sp.,Mytilus sp.,Mytilus,World Register of Marine Species,0.75,Mytilus,138228,TRUE
+Mytilus,Mytilus edulis/trossulus,Mytilus,World Register of Marine Species,0.75,Mytilus,138228,TRUE
+2,Mytilus trossulus,Mytilus trossulus,World Register of Marine Species,0.988,Mytilus trossulus,140482,TRUE
+Nannastacus inflatus,Nannastacus inflatus,Nannastacus inflatus,World Register of Marine Species,0.988,Nannastacus inflatus,182578,TRUE
+Nassarius acutus,Nassarius acutus,Nassarius acutus,World Register of Marine Species,0.988,Nassarius acutus,160395,TRUE
+nass.tegu,Nassarius tegula,Nassarius tegula,ITIS,0.988,NA,NA,NA
+Nassarius vibex,Nassarius vibex,Nassarius vibex,World Register of Marine Species,0.988,Phrontis vibex,877061,FALSE
+Nemertea,Nemertea,Nemertea,World Register of Marine Species,0.75,Nemertea,152391,TRUE
+Neoodax balteatus,Neoodax balteatus,Neoodax balteatus,World Register of Marine Species,0.988,Neoodax balteatus,281694,TRUE
+Nereid sp.,Nereid sp.,Nereida,World Register of Marine Species,0.5,Nereida ignava,396227,FALSE
+7,Nereididae,Nereididae,World Register of Marine Species,0.75,Nereididae,22496,TRUE
+nereid_sp_1,Nereididae sp.,Nereididae,World Register of Marine Species,0.75,Nereididae,22496,TRUE
+Nereis sp,Nereis sp,Nereis,World Register of Marine Species,0.75,Nereis,129379,TRUE
+Neritina virginea,Neritina virginea,Neritina virginea,World Register of Marine Species,0.988,Vitta virginea,865834,FALSE
+Notolabrus tetricus,Notolabrus tetricus,Notolabrus tetricus,World Register of Marine Species,0.988,Notolabrus tetricus,281792,TRUE
+Nototropis_urocarinatus,Nototropis_urocarinatus,Nototropis urocarinatus,World Register of Marine Species,0.988,Nototropis urocarinatus,421466,TRUE
+Nucella lapillus,Nucella lapillus,Nucella lapillus,World Register of Marine Species,0.988,Nucella lapillus,140403,TRUE
+OCHR,Ocyurus chrysurus,Ocyurus chrysurus,World Register of Marine Species,0.988,Ocyurus chrysurus,159803,TRUE
+Odostomia bisatunalis,Odostomia bisatunalis,Odostomia bisuturalis,World Register of Marine Species,0.75,Boonea bisuturalis,397024,FALSE
+Oligochaeta,Oligochaeta,Oligochaeta,World Register of Marine Species,0.75,Oligochaeta,2036,TRUE
+5,Oncorhynchus gorbuscha,Oncorhynchus gorbuscha,World Register of Marine Species,0.988,Oncorhynchus gorbuscha,127182,TRUE
+6,Oncorhynchus keta,Oncorhynchus keta,World Register of Marine Species,0.988,Oncorhynchus keta,127183,TRUE
+ORET,Oreaster reticulatus,Oreaster reticulatus,World Register of Marine Species,0.988,Oreaster reticulatus,178210,TRUE
+Orthopristis_chrysoura,Orthopristis chrysoura,Orthopristis chrysoptera,World Register of Marine Species,0.75,Orthopristis chrysoptera,158810,TRUE
+Pigfish,Orthopristis chrysoptera,Orthopristis chrysoptera,World Register of Marine Species,0.988,Orthopristis chrysoptera,158810,TRUE
+Ostrea angasis,Ostrea angasis,Ostraea angasi,World Register of Marine Species,0.75,Ostraea angasi,397159,TRUE
+Pagurapseudes sp.,Pagurapseudes sp.,Pagurapseudes,World Register of Marine Species,0.75,Pagurapseudes,246979,TRUE
+PAGU,Paguridae sp.,Paguridae,World Register of Marine Species,0.75,Paguridae,106738,TRUE
+Paguristes sp.,Paguristes sp.,Paguristes,World Register of Marine Species,0.75,Paguristes,106844,TRUE
+PCAD,Paguristes cadenati,Paguristes cadenati,World Register of Marine Species,0.988,Paguristes cadenati,368215,TRUE
+PPUN,Paguristes punticeps,Paguristes puncticeps,World Register of Marine Species,0.75,Paguristes puncticeps,368275,TRUE
+PAGUROSP,Paguroidea sp.,Paguroidea,World Register of Marine Species,0.75,Paguroidea,106687,TRUE
+Pagurus granosimanus,Pagurus granosimanus,Pagurus granosimanus,World Register of Marine Species,0.988,Pagurus granosimanus,366694,TRUE
+Palaemon_spp.,Palaemon_spp.,Palaemon,World Register of Marine Species,0.75,Palaemon,107032,TRUE
+Palaemon elegans,Palaemon elegans,Palaemon elegans,World Register of Marine Species,0.988,Palaemon elegans,107614,TRUE
+Palaemon_cf_pugio,Palaemon_cf_pugio,Palaemon pugio,World Register of Marine Species,0.988,Palaemon pugio,932401,TRUE
+Palaemon_pugio,Palaemon_pugio,Palaemon pugio,World Register of Marine Species,0.988,Palaemon pugio,932401,TRUE
+Palaemonetes sp.,Palaemonetes sp.,Palaemonetes,World Register of Marine Species,0.75,Palaemon,107032,FALSE
+Paleomonetes intermedius,Paleomonetes intermedius,Palaemonetes intermedius,World Register of Marine Species,0.75,Palaemon mundusnovus,932398,FALSE
+Paleomonetes pugio,Paleomonetes pugio,Palaemonetes pugio,World Register of Marine Species,0.75,Palaemon pugio,932401,FALSE
+Pandalus,Pandalus danae,Pandalus danae,World Register of Marine Species,0.988,Pandalus danae,515462,TRUE
+Panopeus herbsii,Panopeus herbsii,Panopeus herbstii,World Register of Marine Species,0.75,Panopeus herbstii,158436,TRUE
+PARG,Panulirus argus,Panulirus argus,World Register of Marine Species,0.988,Panulirus argus,382891,TRUE
+PMAR,Parablennius marmoreus,Parablennius marmoreus,World Register of Marine Species,0.988,Parablennius marmoreus,159609,TRUE
+Paracaprella tenuis,Paracaprella tenuis,Paracaprella tenuis,World Register of Marine Species,0.988,Paracaprella tenuis,160028,TRUE
+Paracerceis caudata,Paracerceis caudata,Paracerceis caudata,World Register of Marine Species,0.988,Paracerceis caudata,261817,TRUE
+Paradella diane,Paradella diane,Paradella dianae,World Register of Marine Species,0.75,Paradella dianae,261839,TRUE
+Paradexamine sp.,Paradexamine sp.,Paradexamine,World Register of Marine Species,0.75,Paradexamine,206577,TRUE
+Paradexamine churinga,Paradexamine churinga,Paradexamine churinga,World Register of Marine Species,0.988,Paradexamine churinga,489427,TRUE
+para.cali,Paralichthys californicus,Paralichthys californicus,World Register of Marine Species,0.988,Paralichthys californicus,275809,TRUE
+Parequula melbournensis,Parequula melbournensis,Parequula melbournensis,World Register of Marine Species,0.988,Parequula melbournensis,282145,TRUE
+NA,Parupeneus sp.,Parupeneus,World Register of Marine Species,0.75,Parupeneus,204915,TRUE
+NA,Parupeneus barberinus,Parupeneus barberinus,World Register of Marine Species,0.988,Parupeneus barberinus,218660,TRUE
+NA,Parupeneus macronema,Parupeneus macronema,World Register of Marine Species,0.988,Parupeneus macronemus,277817,FALSE
+Parvanachis obesa,Parvanachis obesa,Parvanachis obesa,World Register of Marine Species,0.988,Parvanachis obesa,160440,TRUE
+5,Pectinaria granulata,Pectinaria granulata,World Register of Marine Species,0.988,Pectinaria granulata,130593,TRUE
+Penaeus sp,Penaeus sp,Penaeus,World Register of Marine Species,0.75,Penaeus,106822,TRUE
+Penaeus_aztecus,Penaeus_aztecus,Penaeus aztecus,World Register of Marine Species,0.988,Penaeus aztecus,395176,TRUE
+Penicillus,Penicillus sp,Penicillus,World Register of Marine Species,0.75,Penicillus,143821,TRUE
+PPED,Periclimenes pedersoni,Periclimenes pedersoni,World Register of Marine Species,0.988,Periclimenes pedersoni,421710,TRUE
+PYUC,Periclimenes yucatanicus,Periclimenes yucatanicus,World Register of Marine Species,0.988,Periclimenes yucatanicus,421713,TRUE
+Phascolion sp,Phascolion sp,Phascolion,World Register of Marine Species,0.75,Phascolion,136025,TRUE
+PHOL,Phimochirus holthuisi,Phimochirus holthuisi,World Register of Marine Species,0.988,Phimochirus holthuisi,366818,TRUE
+crescent gunnel,Pholis laeta,Pholis laeta,World Register of Marine Species,0.988,Pholis laeta,273689,TRUE
+Photis sp,Photis sp,Photis,World Register of Marine Species,0.75,Photis,101563,TRUE
+Phoxocephalid sp.,Phoxocephalid sp.,Phoxocephalidae,World Register of Marine Species,0.5,Phoxocephalidae,101403,TRUE
+Phrontis_vibex,Phrontis_vibex,Phrontis vibex,World Register of Marine Species,0.988,Phrontis vibex,877061,TRUE
+pen shell,Pinnidae sp,Pinnidae,World Register of Marine Species,0.75,Pinnidae,1776,TRUE
+Plafle,Platichthys flesus,Platichthys flesus,World Register of Marine Species,0.988,Platichthys flesus,127141,TRUE
+3,Platichthys stellatus,Platichthys stellatus,World Register of Marine Species,0.988,Platichthys stellatus,154781,TRUE
+NA,Platyglossus sp.,Platyglossus,World Register of Marine Species,0.75,Halichoeres,158813,FALSE
+Pleuronectes platessa,Pleuronectes platessa,Pleuronectes platessa,World Register of Marine Species,0.988,Pleuronectes platessa,127143,TRUE
+PLEU,Pleuronectoidei sp.,Pleuronectoidei,NCBI,0.75,NA,NA,NA
+Polychaeta,Polychaeta,Polychaeta,World Register of Marine Species,0.75,Polychaeta,883,TRUE
+PARC,Pomacanthus arcuatus,Pomacanthus arcuatus,World Register of Marine Species,0.988,Pomacanthus arcuatus,159287,TRUE
+PPAR,Pomacanthus paru,Pomacanthus paru,World Register of Marine Species,0.988,Pomacanthus paru,276025,TRUE
+Pomsp,Pomatochistus sp.,Pomatochistus,World Register of Marine Species,0.75,Pomatoschistus,125999,FALSE
+Pomatoschistus minutus,Pomatoschistus minutus,Pomatoschistus minutus,World Register of Marine Species,0.988,Pomatoschistus minutus,126928,TRUE
+green sponge,Porifera sp,Porifera,World Register of Marine Species,0.75,Porifera,558,TRUE
+P. perfoliatus,Potamogeton perfoliatus,Potamogeton perfoliatus,World Register of Marine Species,0.988,Potamogeton perfoliatus,416212,TRUE
+Potamopyrgus,Potamopyrgus antipodarum,Potamopyrgus antipodarum,World Register of Marine Species,0.988,Potamopyrgus antipodarum,147123,TRUE
+Praunus flexuosus,Praunus flexuosus,Praunus flexuosus,World Register of Marine Species,0.988,Praunus flexuosus,120177,TRUE
+Proto sp.,Proto sp.,Proto,World Register of Marine Species,0.75,Phtisica,101436,FALSE
+Prunum apicinum,Prunum apicinum,Prunum apicinum,World Register of Marine Species,0.988,Prunum apicinum,420149,TRUE
+sand sole,Psettichthys melanostictus,Psettichthys melanostictus,World Register of Marine Species,0.988,Psettichthys melanostictus,282396,TRUE
+NA,Pseudojuloides kaleidos,Pseudojuloides kaleidos,World Register of Marine Species,0.988,Pseudojuloides kaleidos,276706,TRUE
+PCIL,Pseudosquilla ciliata,Pseudosquilla ciliata,World Register of Marine Species,0.988,Pseudosquilla ciliata,210232,TRUE
+Pugettia producta,Pugettia producta,Pugettia producta,World Register of Marine Species,0.988,Pugettia producta,240780,TRUE
+Pusillina inconspicua,Pusillina inconspicua,Pusillina inconspicua,World Register of Marine Species,0.988,Pusillina inconspicua,141334,TRUE
+Pusillina sarsii,Pusillina sarsii,Pusillina sarsii,World Register of Marine Species,0.988,Pusillina sarsii,141341,TRUE
+Pycnogonad,Pycnogonad,Pycnogonida,World Register of Marine Species,0.5,Pycnogonida,1302,TRUE
+Radix,Radix balthica,Radix balthica,World Register of Marine Species,0.988,Ampullaceana balthica,1288085,FALSE
+Rhipocephalus,Rhipocephalus sp,Rhipocephalus,World Register of Marine Species,0.75,Rhipocephalus,370153,TRUE
+Rhithropanopeus harrisii,Rhithropanopeus harrisii,Rhithropanopeus harrisii,World Register of Marine Species,0.988,Rhithropanopeus harrisii,107414,TRUE
+Rissoa membranacea,Rissoa membranacea,Rissoa membranacea,World Register of Marine Species,0.988,Rissoa membranacea,141359,TRUE
+Rissoa parva,Rissoa parva,Rissoa parva,World Register of Marine Species,0.988,Rissoa parva,141365,TRUE
+Rissoidae juv.,Rissoidae,Rissoidae,World Register of Marine Species,0.75,Rissoidae,123,TRUE
+SVEX,Sargocentron vexillarium,Sargocentron vexillarium,World Register of Marine Species,0.988,Sargocentron vexillarium,159401,TRUE
+NA,Scarus sp.,Scarus,World Register of Marine Species,0.75,Scarus,159299,TRUE
+SISE,Scarus iseri,Scarus iseri,World Register of Marine Species,0.988,Scarus iseri,276052,TRUE
+STAE,Scarus taeniopterus,Scarus taeniopterus,World Register of Marine Species,0.988,Scarus taeniopterus,276062,TRUE
+Scopalina ruetzleri,Scopalina ruetzleri,Scopalina ruetzleri,World Register of Marine Species,0.988,Scopalina ruetzleri,165702,TRUE
+NA,Scopalina ruetzleri,Scopalina ruetzleri,World Register of Marine Species,0.988,Scopalina ruetzleri,165702,TRUE
+STIG,Serranus tigricans,Serranus,World Register of Marine Species,0.75,Serranus,126070,TRUE
+STOR,Serranus tortugarum,Serranus tortugarum,World Register of Marine Species,0.988,Serranus tortugarum,273910,TRUE
+Sidera radians,Sidera radians,Sidera,World Register of Marine Species,0.75,Gymnothorax,125636,FALSE
+NA,Sidera radians,Sidera,World Register of Marine Species,0.75,Gymnothorax,125636,FALSE
+Siderastrea radians,Siderastrea radians,Siderastrea radians,World Register of Marine Species,0.988,Siderastrea radians,207517,TRUE
+NA,Siderastrea radians,Siderastrea radians,World Register of Marine Species,0.988,Siderastrea radians,207517,TRUE
+NA,Siganus sp.,Siganus,World Register of Marine Species,0.75,Siganus,126071,TRUE
+Sipunculan sp.,Sipunculan sp.,Sipuncula,World Register of Marine Species,0.5,Sipuncula,1268,TRUE
+Skenea sp.,Skenea sp.,Skenea,World Register of Marine Species,0.75,Skenea,138508,TRUE
+Skeneopsis planorbis,Skeneopsis planorbis,Skeneopsis planorbis,World Register of Marine Species,0.988,Skeneopsis planorbis,141539,TRUE
+Solenosteira_cancellaria,Solenosteira_cancellaria,Solenosteira cancellaria,World Register of Marine Species,0.988,Solenosteira cancellaria,419981,TRUE
+SAUR,Sparisoma aurofrenatum,Sparisoma aurofrenatum,World Register of Marine Species,0.988,Sparisoma aurofrenatum,273772,TRUE
+SRAD,Sparisoma radians,Sparisoma radians,World Register of Marine Species,0.988,Sparisoma radians,273777,TRUE
+SVIR,Sparisoma viride,Sparisoma viride,World Register of Marine Species,0.988,Sparisoma viride,273780,TRUE
+Spinachia spinachia,Spinachia spinachia,Spinachia spinachia,World Register of Marine Species,0.988,Spinachia spinachia,126508,TRUE
+spirobid_or_mollusc,Spirorbinae sp.,Spirorbinae,World Register of Marine Species,0.75,NA,322592,NA
+SDIE,Stegastes diencaeus,Stegastes diencaeus,World Register of Marine Species,0.988,Stegastes diencaeus,276666,TRUE
+SPAR,Stegastes partitus,Stegastes partitus,World Register of Marine Species,0.988,Stegastes partitus,276677,TRUE
+SPLA,Stegastes planifrons,Stegastes planifrons,World Register of Marine Species,0.988,Stegastes planifrons,276679,TRUE
+SVAR,Stegastes variabilis,Stegastes variabilis,World Register of Marine Species,0.988,Stegastes variabilis,276688,TRUE
+SHIS,Stenopus hispidis,Stenopus hispidus,World Register of Marine Species,0.75,Stenopus hispidus,210370,TRUE
+SSET,Stenorhynchus seticornis,Stenorhynchus seticornis,World Register of Marine Species,0.988,Stenorhynchus seticornis,421957,TRUE
+Stenothoe minuta,Stenothoe minuta,Stenothoe minuta,World Register of Marine Species,0.988,Stenothoe minuta,158149,TRUE
+SPUG,Strombus pugilis,Strombus pugilis,World Register of Marine Species,0.988,Strombus pugilis,419695,TRUE
+S. pectinata,Stuckenia pectinata,Stuckenia pectinata,World Register of Marine Species,0.988,Stuckenia pectinata,588573,TRUE
+Stylea plicata,Stylea plicata,Styela plicata,World Register of Marine Species,0.75,Styela plicata,103936,TRUE
+Symplegma rubra,Symplegma rubra,Symplegma rubra,World Register of Marine Species,0.988,Symplegma rubra,212500,TRUE
+SrAlg,Symploca sp.,Symploca,World Register of Marine Species,0.75,Symploca aeruginosa,616989,FALSE
+Pipefish (northern),Syngnathus fuscus,Syngnathus fuscus,World Register of Marine Species,0.988,Syngnathus fuscus,159451,TRUE
+syng.lept,Syngnathus leptorhynchus,Syngnathus leptorhynchus,World Register of Marine Species,0.988,Syngnathus leptorhynchus,275226,TRUE
+bay pipefish,Syngnathus leptorhynchus,Syngnathus leptorhynchus,World Register of Marine Species,0.988,Syngnathus leptorhynchus,275226,TRUE
+Syngnathus_scovelli,Syngnathus scovelli,Syngnathus scovelli,World Register of Marine Species,0.988,Syngnathus scovelli,275232,TRUE
+Syntyp,Syngnatus typhle,Syngnathus typhle,World Register of Marine Species,0.75,Syngnathus typhle,127393,TRUE
+Syringodium,Syringodium filiforme,Syringodium filiforme,NCBI,0.988,Syringodium filiforme,374715,TRUE
+Syringodium filiforme,Syringodium filiforme,Syringodium filiforme,NCBI,0.988,Syringodium filiforme,374715,TRUE
+Si,Syrongpdium isoetifolium,Syringodium isoetifolium,NCBI,0.75,Syringodium isoetifolium,374716,TRUE
+Si,Syringodium isoetifolium,Syringodium isoetifolium,NCBI,0.988,Syringodium isoetifolium,374716,TRUE
+Tectura juv.,Tectura sp.,Tectura,World Register of Marine Species,0.75,Tectura,138142,TRUE
+orange fire sponge,Tedania ignis,Tedania ignis,World Register of Marine Species,0.988,Tedania ignis,404078,TRUE
+tegu.aure,Tegula aureotincta,Tegula aureotincta,World Register of Marine Species,0.988,Tegula aureotincta,534186,TRUE
+4,Telmessus cheiragonus,Telmessus cheiragonus,World Register of Marine Species,0.988,Telmessus cheiragonus,254360,TRUE
+Tethygeneia sp.,Tethygeneia sp.,Tethygeneia,World Register of Marine Species,0.75,Tethygeneia,416054,TRUE
+Thalassia,Thalassia testudinum,Thalassia testudinum,NCBI,0.988,Thalassia testudinum,374720,TRUE
+Thalassia testudinum,Thalassia testudinum,Thalassia testudinum,NCBI,0.988,Thalassia testudinum,374720,TRUE
+Thallassia testudinum,Thallassia testudinum,Thalassia testudinum,NCBI,0.75,Thalassia testudinum,374720,TRUE
+Thallassia_testudinum,Thallassia testudinum,Thalassia testudinum,NCBI,0.75,Thalassia testudinum,374720,TRUE
+Thalassia_above,Thalassia testudinum,Thalassia testudinum,NCBI,0.988,Thalassia testudinum,374720,TRUE
+Thalassia_below,Thalassia testudinum,Thalassia testudinum,NCBI,0.988,Thalassia testudinum,374720,TRUE
+TBIF,Thalassoma bifasciatum,Thalassoma bifasciatum,World Register of Marine Species,0.988,Thalassoma bifasciatum,159786,TRUE
+Theodoxus,Theodoxus fluviatilis,Theodoxus fluviatilis,World Register of Marine Species,0.988,Theodoxus fluviatilis,153558,TRUE
+Tolypella,Tolypella nidifica,Tolypella nidifica,NCBI,0.988,Tolypella nidifica,416187,TRUE
+Tosia magnifica,Tosia magnifica,Tosia magnifica,World Register of Marine Species,0.988,Tosia magnifica,344749,TRUE
+Tozeuma carolinense,Tozeuma carolinense,Tozeuma carolinense,World Register of Marine Species,0.988,Tozeuma carolinense,421784,TRUE
+Arrow shrimp,Tozeuma carolinense,Tozeuma carolinense,World Register of Marine Species,0.988,Tozeuma carolinense,421784,TRUE
+Tripneustes ventricosus,Tripneustes ventricosus,Tripneustes ventricosus,World Register of Marine Species,0.988,Tripneustes ventricosus,422490,TRUE
+Turbonilla dalli,Turbonilla dalli,Turbonilla dalli,World Register of Marine Species,0.988,Turbonilla dalli,420483,TRUE
+Udotea,Udotea sp,Udotea,World Register of Marine Species,0.75,Udotea,204078,TRUE
+Ulva,Ulva sp.,Ulva,World Register of Marine Species,0.75,Ulva,144296,TRUE
+Upeneichthys vlamingii,Upeneichthys vlamingii,Upeneichthys vlamingii,World Register of Marine Species,0.988,Upeneichthys vlamingii,283083,TRUE
+UJAM,Urobatis jamaicensis,Urobatis jamaicensis,World Register of Marine Species,0.988,Urobatis jamaicensis,283086,TRUE
+Valonia,Valonia sp,Valonia,World Register of Marine Species,0.75,Valonia,144267,TRUE
+Ventricularia,Ventricularia sp,Ventricularia,NCBI,0.75,NA,NA,NA
+XMAR,Xyrichtys martinicensis,Xyrichtys martinicensis,World Register of Marine Species,0.988,Xyrichtys martinicensis,273602,TRUE
+Z. major,Zannichellia major,Zannichellia major,World Register of Marine Species,0.988,Zannichellia major,715997,TRUE
+Zeuxo sp.,Zeuxo sp.,Zeuxo,World Register of Marine Species,0.75,Zeuxo,136248,TRUE
+Z. marina,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+zost.mari,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+zost.repr,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+"zost,mari",Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+Zostera marina,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+1,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+Zostera,Zostera marina,Zostera marina,NCBI,0.988,Zostera marina,495077,TRUE
+Zostera nigricaulis,Zostera nigricaulis,Zostera nigricaulis,NCBI,0.988,Zostera nigricaulis,593702,TRUE

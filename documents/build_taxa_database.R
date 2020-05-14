@@ -140,17 +140,6 @@ database <- left_join(taxon_all, taxa_resolved,
   filter(!(resolved_name %in% filter_out)) %>%
   filter(!is.na(resolved_name))
 
-# Query WORMS for AphiaID ----
-
-# Purpose: make sure that names aren't outdated
-# ex: Cymodocea filiiformis
-# taxa <- unique(database$resolved_name)
-# 
-# for (j in 1:length(taxa)){
-#   # retrieve the aphiaID for each taxa
-#   id <- get_wormsid_(taxa[j])
-#   
-# }
 
 # write all the data
 write.csv(taxon_all, "data/taxa-original.csv", row.names = FALSE)
