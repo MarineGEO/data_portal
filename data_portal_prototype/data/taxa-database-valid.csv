@@ -1,4 +1,4 @@
-taxon_id,scientific_name,resolved_name,data_source,match_score,valid_name,valid_AphiaID,name_match
+taxon_id,scientific_name,resolved_name,data_source,gnr_score,valid_name,valid_AphiaID,name_match
 ASAX,Abdefduf saxatilis,Abudefduf saxatilis,World Register of Marine Species,0.75,Abudefduf saxatilis,159288,TRUE
 Acanthaluteres spilomelanurus,Acanthaluteres spilomelanurus,Acanthaluteres spilomelanurus,World Register of Marine Species,0.988,Acanthaluteres spilomelanurus,279463,TRUE
 Acanthaluteres vittiger,Acanthaluteres vittiger,Acanthaluteres vittiger,World Register of Marine Species,0.988,Acanthaluteres vittiger,279464,TRUE
@@ -457,7 +457,7 @@ SAUR,Sparisoma aurofrenatum,Sparisoma aurofrenatum,World Register of Marine Spec
 SRAD,Sparisoma radians,Sparisoma radians,World Register of Marine Species,0.988,Sparisoma radians,273777,TRUE
 SVIR,Sparisoma viride,Sparisoma viride,World Register of Marine Species,0.988,Sparisoma viride,273780,TRUE
 Spinachia spinachia,Spinachia spinachia,Spinachia spinachia,World Register of Marine Species,0.988,Spinachia spinachia,126508,TRUE
-spirobid_or_mollusc,Spirorbinae sp.,Spirorbinae,World Register of Marine Species,0.75,NA,322592,NA
+spirobid_or_mollusc,Spirorbinae sp.,Spirorbinae,World Register of Marine Species,0.75,Spirorbinae,989,TRUE
 SDIE,Stegastes diencaeus,Stegastes diencaeus,World Register of Marine Species,0.988,Stegastes diencaeus,276666,TRUE
 SPAR,Stegastes partitus,Stegastes partitus,World Register of Marine Species,0.988,Stegastes partitus,276677,TRUE
 SPLA,Stegastes planifrons,Stegastes planifrons,World Register of Marine Species,0.988,Stegastes planifrons,276679,TRUE

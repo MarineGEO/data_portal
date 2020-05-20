@@ -1,5 +1,7 @@
 ## MarineGEO Data Submission Portal
 
+## ARCHIVED SCRIPT
+
 ## Script to generate a database of taxa from previous data submissions
 ## contact: Jaxine Wolfe, wolfejax@si.edu
 

@@ -1,5 +1,8 @@
 ## MarineGEO Data Submission Portal
 
+## ARCHIVED SCRIPT
+## Please use updated validation function: validateTaxa()
+
 ## Script to validate taxa in marinegeo database
 ## contact: Jaxine Wolfe, wolfejax@si.edu
 

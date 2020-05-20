@@ -1,5 +1,7 @@
 ## MarineGEO Data Submission Portal
 
+## ARCHIVED SCRIPT
+
 ## Taxonomic validation script for the data portal
 ## contact: Jaxine Wolfe, wolfejax@si.edu
 
@@ -8,15 +10,7 @@ library(worrms)
 library(taxize)
 library(plyr)
 
-# read in test data
-df <- read_csv("documents/test_data/test_taxa.csv")
-
-# Cases to address:
-# taxa not in the database => resolve and add to database
-# taxa cannot be resolved => let the data provider know in the report
-# taxa scientific name is outdated (script doesn't currently use the worrms package)
-
-# Workflow:
+# Function Overview:
 # 1) Input list of taxa
 # 2) Check submitted taxa against database
 # 3) Resolve taxa names that aren't documented in the database
@@ -26,27 +20,11 @@ df <- read_csv("documents/test_data/test_taxa.csv")
 
 testTaxa <- function(df){
   
+  # source validateTaxa()
   source("documents/taxonomy_functions.R")
-  
-  results <- data.frame()
-  
-  ## Acquire taxa list from protocols ----
-  
-  # Pull out any scientific names in protocol sheets
-  taxa_columns <- protocol_structure %>%
-    filter(protocol == current_protocol()) %>%
-    # filter(type == "Date") %$%
-    unique(.$scientific_name)
   
   # create list from submitted scientific_name
   taxalist <- unique(df$scientific_name)
-  
-  # for(sheet_name in protocol_sheets()){  
-  # will need to harvest taxa from each sheet (protocol_structure?)
-  # notify data provider of unresolved taxa (and which sheet they're on?)
-  # Save column as X for brevity
-  # x <- stored_protocol$df[[sheet_name]][[date_attribute]]
-  # }
   
   ## Check submitted taxa against database ----
   
@@ -54,7 +32,6 @@ testTaxa <- function(df){
   database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv")
   
   # check for taxa in database, store undocumented taxa
-  # documented <- taxalist[which(taxalist %in% database$scientific_name)]
   undocumented <- taxalist[which(!(taxalist %in% database$scientific_name))]
   
   # Resolve taxa names that aren't documented in the database
@@ -110,24 +87,24 @@ testTaxa <- function(df){
     # check that the taxa resolved correctly
     print("Please review the following taxa before adding to the database:")
     print(resolved$matched_name2)
+    # return(resolved_validated)
   }
   
   if (length(unresolved) > 0) {
     print("The following taxa could not be resolved:")
     print(unresolved)
-    
-    # record inability to resolve taxa
-    # a table with the columns: protocol, protocol_sheet, unresolved_name
-    results <- setNames(as.data.frame("Taxonomic validation"), "test") %>%
-      mutate(filename = original_filename_qa(),
-             protocol = current_protocol(),
-             sheet_name = sheet_name,
-             unresolved_name = unresolved) %>%
-      select(test, filename, protocol, sheet_name, column_name) %>%
-      bind_rows(results)
-    
-    return(results)
   }
   
-  # return(resolved_validated)
+  return(resolved_validated)
 }
+
+
+# read in test data
+# df <- read_csv("documents/test_data/test_taxa.csv")
+
+# run function
+# the output could probably be bundled better
+# test <- testTaxa(df = df)
+
+
+ 
