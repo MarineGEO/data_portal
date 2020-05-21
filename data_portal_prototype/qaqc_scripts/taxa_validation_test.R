@@ -17,8 +17,9 @@ df <- read_csv("documents/test_data/test_taxa.csv")
 # taxa scientific name is outdated (script doesn't currently use the worrms package)
 
 # Workflow:
-# 1) Input list of taxa
-# 2) Check submitted taxa against database
+# 1) Input protocol
+# 2a) Extract list of taxa from each protocol sheet
+# 2b) Check submitted taxa against database
 # 3) Resolve taxa names that aren't documented in the database
 # 4) Query WORMS to validate undocumented, resolved taxa
 # 5) Notify user of undocumented taxa that are validated candidates for the database
@@ -93,6 +94,7 @@ testTaxa <- function(df){
     stop()
   }
   
+  # this output will be stored in a reactive value and saved to the data folder
   if (length(resolved) > 0) {
     # validate the resolved names
     validated <- validateTaxa(resolved$matched_name2)

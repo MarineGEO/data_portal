@@ -15,6 +15,10 @@
 #   
 # }
 
+# validateTaxaDatabase <- function(candidate_taxa) {
+#   
+# }
+
 # Query WORMS to validate undocumented, resolved taxa ####
 validateTaxa <- function(taxa) {
   
@@ -57,6 +61,7 @@ validateTaxa <- function(taxa) {
         next
         
         # Case: the taxa match record does not contain an exact name match
+        # inclusion of this statement makes the script more conservative & less presumptive
         # will wm_records_taxamatch() ever return >1 records with an exact name match? 
       } else if (!any(taxa[j] %in% as.data.frame(fuzzy_taxa)$scientificname)) {
         validated_taxa[j] <- NA
@@ -98,7 +103,7 @@ validateTaxa <- function(taxa) {
 }
 
 ## test validateTaxa ----
-# taxa_database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv") 
+# taxa_database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv")
 # Subset database to create a trial taxalist 
 # taxa_unresolved <- filter(taxa_database, is.na(valid_name))$resolved_name
 # taxa_fresh <- c("Odostomia bisuturalis", "Gammarus lecroyae",
@@ -111,3 +116,45 @@ validateTaxa <- function(taxa) {
 # taxa <- c(taxa_fresh, taxa_unresolved, taxa_invalid, taxa_valid)
 # # run function
 # test <- validateTaxa(taxa)
+
+# Classify database taxa ----
+classifyTaxa <- function() {
+  # read in taxa database
+  taxa_database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv") %>%
+    drop_na(valid_AphiaID)
+  
+  # isolate aphia ID
+  ids <- unique(taxa_database$valid_AphiaID)
+  
+  classify_taxa <- data.frame()
+  
+  for (i in 1:length(ids)){
+    # classify taxa
+    classify <- wm_classification(ids[i])
+    
+    # get taxa name 
+    # temp_taxa <- wm_id2name(ids[1])
+    temp_taxa <- classify$scientificname[nrow(classify)]
+    
+    # add original taxa information to classification
+    # for table reformatting and relation to the database
+    temp_classify <- classify %>% mutate(valid_name = temp_taxa,
+                                         valid_AphiaID = ids[i]) %>%
+      select(-AphiaID)
+    
+    # compile taxa classifications
+    classify_taxa <- bind_rows(classify_taxa, temp_classify)
+    
+  }
+
+  # convert classification table to wide format
+  classify_taxa_wide <- classify_taxa %>% 
+    # double superclass Gnathostomata and Pisces prevents wide format
+    filter(rank != "Superclass") %>%
+    pivot_wider(id_cols = c(valid_name, valid_AphiaID),
+                names_from = rank,
+                values_from = scientificname)
+  
+  return(classify_taxa_wide)
+}
+

@@ -1,0 +1,436 @@
+valid_name,valid_AphiaID,Kingdom,Phylum,Subphylum,Class,Order,Suborder,Family,Genus,Species,Subkingdom,Phylum (Division),Subphylum (Subdivision),Subclass,Tribe,Infraclass,Subterclass,Superfamily,Subfamily,Superorder,Infraorder,Parvorder,Section,Subsection,Infrakingdom,Infraphylum
+Abudefduf saxatilis,159288,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Abudefduf,Abudefduf saxatilis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthaluteres spilomelanurus,279463,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Monacanthidae,Acanthaluteres,Acanthaluteres spilomelanurus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthaluteres vittiger,279464,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Monacanthidae,Acanthaluteres,Acanthaluteres vittiger,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthemblemaria aspera,279443,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Chaenopsidae,Acanthemblemaria,Acanthemblemaria aspera,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthophora spicifera,211768,Plantae,NA,NA,Florideophyceae,Ceramiales,NA,Rhodomelaceae,Acanthophora,Acanthophora spicifera,Biliphyta,Rhodophyta,Eurhodophytina,Rhodymeniophycidae,Chondrieae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthurus coeruleus,159581,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Acanthuroidei,Acanthuridae,Acanthurus,Acanthurus coeruleus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acanthurus tractus,301914,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Acanthuroidei,Acanthuridae,Acanthurus,Acanthurus tractus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Acteocina canaliculata,160065,Animalia,Mollusca,NA,Gastropoda,Cephalaspidea,NA,Tornatinidae,Acteocina,Acteocina canaliculata,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Bulloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Alitta succinea,234850,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Nereidiformia,Nereididae,Alitta,Alitta succinea,NA,NA,NA,Errantia,NA,NA,NA,NA,Nereidinae,NA,NA,NA,NA,NA,NA,NA
+Alpheus,106978,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Alpheidae,Alpheus,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Alpheus armatus,421729,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Alpheidae,Alpheus,Alpheus armatus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Alpheus paracrinitus,210522,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Alpheidae,Alpheus,Alpheus paracrinitus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Ammodytes hexapterus,254510,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Trachinoidei,Ammodytidae,Ammodytes,Ammodytes hexapterus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ampelisca,101445,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Ampeliscidae,Ampelisca,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Synopioidea,NA,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Ampelisca abdita,158020,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Ampeliscidae,Ampelisca,Ampelisca abdita,NA,NA,NA,Eumalacostraca,NA,NA,NA,Synopioidea,NA,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Ampelisca verrilli,158023,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Ampeliscidae,Ampelisca,Ampelisca verrilli,NA,NA,NA,Eumalacostraca,NA,NA,NA,Synopioidea,NA,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Ampharetidae,981,Animalia,Annelida,NA,Polychaeta,Terebellida,Terebellomorpha,Ampharetidae,NA,NA,NA,NA,NA,Sedentaria,NA,Canalipalpata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Amphilochida,1055679,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,Amphilochida,NA,NA,NA,NA,NA
+Amphipoda,1135,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,NA,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Abyla,135351,Animalia,Cnidaria,NA,Hydrozoa,Siphonophorae,Calycophorae,Abylidae,Abyla,NA,NA,NA,NA,Hydroidolina,NA,NA,NA,NA,Abylinae,NA,NA,NA,NA,NA,NA,NA
+Ampithoe longimana,158026,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ampithoidae,Ampithoe,Ampithoe longimana,NA,NA,NA,Eumalacostraca,NA,NA,NA,Corophioidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Ampithoe ramondi,102000,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ampithoidae,Ampithoe,Ampithoe ramondi,NA,NA,NA,Eumalacostraca,NA,NA,NA,Corophioidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Ampithoe valida,102005,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ampithoidae,Ampithoe,Ampithoe valida,NA,NA,NA,Eumalacostraca,NA,NA,NA,Corophioidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Arcuatula papyria,505948,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,Arcuatula,Arcuatula papyria,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,Arcuatulinae,NA,NA,NA,NA,NA,NA,NA
+Anchoa delicatissima,275515,Animalia,Chordata,Vertebrata,Actinopterygii,Clupeiformes,NA,Engraulidae,Anchoa,Anchoa delicatissima,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Anchoa mitchilli,158699,Animalia,Chordata,Vertebrata,Actinopterygii,Clupeiformes,NA,Engraulidae,Anchoa,Anchoa mitchilli,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ancylomenes pedersoni,514493,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Ancylomenes,Ancylomenes pedersoni,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Anisotremus virginicus,279625,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Anisotremus,Anisotremus virginicus,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Aora hircosa,488672,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Aoridae,Aora,Aora hircosa,NA,NA,NA,Eumalacostraca,NA,NA,NA,Aoroidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Apodichthys flavidus,279664,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Zoarcoidei,Pholidae,Apodichthys,Apodichthys flavidus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Apolochus delacaya,421442,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Amphilochidae,Apolochus,Apolochus delacaya,NA,NA,NA,Eumalacostraca,NA,NA,NA,Amphilochoidea,NA,Peracarida,Amphilochida,Amphilochidira,NA,NA,NA,NA
+Apseudes,136185,Animalia,Arthropoda,Crustacea,Malacostraca,Tanaidacea,Apseudomorpha,Apseudidae,Apseudes,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Apseudoidea,Apseudinae,Peracarida,NA,NA,NA,NA,NA,NA
+Archosargus probatocephalus,159238,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sparidae,Archosargus,Archosargus probatocephalus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Argopecten irradians,156817,Animalia,Mollusca,NA,Bivalvia,Pectinida,NA,Pectinidae,Argopecten,Argopecten irradians,NA,NA,NA,Autobranchia,Aequipectinini,Pteriomorphia,NA,Pectinoidea,Pectininae,NA,NA,NA,NA,NA,NA,NA
+Argopecten ventricosus,394270,Animalia,Mollusca,NA,Bivalvia,Pectinida,NA,Pectinidae,Argopecten,Argopecten ventricosus,NA,NA,NA,Autobranchia,Aequipectinini,Pteriomorphia,NA,Pectinoidea,Pectininae,NA,NA,NA,NA,NA,NA,NA
+Ariopsis felis,158709,Animalia,Chordata,Vertebrata,Actinopterygii,Siluriformes,NA,Ariidae,Ariopsis,Ariopsis felis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ascidiacea,1839,Animalia,Chordata,Tunicata,Ascidiacea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Asterias rubens,123776,Animalia,Echinodermata,Asterozoa,Asteroidea,Forcipulatida,NA,Asteriidae,Asterias,Asterias rubens,NA,NA,NA,NA,NA,NA,NA,NA,NA,Forcipulatacea,NA,NA,NA,NA,NA,NA
+Astyris lunata,160102,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Columbellidae,Astyris,Astyris lunata,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Atherinops affinis,279812,Animalia,Chordata,Vertebrata,Actinopterygii,Atheriniformes,NA,Atherinidae,Atherinops,Atherinops affinis,NA,NA,NA,NA,NA,NA,NA,NA,Atherinopsinae,NA,NA,NA,NA,NA,NA,NA
+Aulorhynchus flavidus,279839,Animalia,Chordata,Vertebrata,Actinopterygii,Gasterosteiformes,NA,Aulorhynchidae,Aulorhynchus,Aulorhynchus flavidus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Avrainvillea,143819,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Dichotomosiphonaceae,Avrainvillea,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Bairdiella chrysoura,159303,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sciaenidae,Bairdiella,Bairdiella chrysoura,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Balistes vetula,127397,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Balistidae,Balistes,Balistes vetula,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Batea catharinensis,158032,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Bateidae,Batea,Batea catharinensis,NA,NA,NA,Eumalacostraca,NA,NA,NA,Eusiroidea,NA,Peracarida,Amphilochida,Eusiridira,NA,NA,NA,NA
+Bathygobius soporator,277638,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Bathygobius,Bathygobius soporator,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Lampanella minima,446438,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Batillariidae,Lampanella,Lampanella minima,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,NA,NA,NA,NA,NA,NA,NA,NA
+Batophora,144056,Plantae,NA,NA,Ulvophyceae,Dasycladales,NA,Dasycladaceae,Batophora,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Birubius,468183,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Phoxocephalidae,Birubius,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Haustorioidea,Birubiinae,Peracarida,Lysianassida,Haustoriidira,NA,NA,NA,NA
+Bittiolum varium,160174,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Bittiolum,Bittiolum varium,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Bittiinae,NA,NA,NA,NA,NA,NA,NA
+Cacozeliana granarium,473085,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Cacozeliana,Cacozeliana granarium,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Bittiinae,NA,NA,NA,NA,NA,NA,NA
+Bodianus rufus,273541,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Bodianus,Bodianus rufus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Boonea impressa,420437,Animalia,Mollusca,NA,Gastropoda,NA,NA,Pyramidellidae,Boonea,Boonea impressa,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Pyramidelloidea,NA,Pylopulmonata,NA,NA,NA,NA,NA,NA
+Brachyura,106673,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Eucarida,Brachyura,NA,NA,NA,NA,NA
+Bryozoa,146142,Animalia,Bryozoa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Buccinoidea,382214,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,NA,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Bulla gouldiana,510427,Animalia,Mollusca,NA,Gastropoda,Cephalaspidea,NA,Bullidae,Bulla,Bulla gouldiana,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Bulloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Bulla striata,138940,Animalia,Mollusca,NA,Gastropoda,Cephalaspidea,NA,Bullidae,Bulla,Bulla striata,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Bulloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Caecum floridanum,419588,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Caecidae,Caecum,Caecum floridanum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Caenogastropoda,224570,Animalia,Mollusca,NA,Gastropoda,NA,NA,NA,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Calamus calamus,159242,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sparidae,Calamus,Calamus calamus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Calcinus latens,208677,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Diogenidae,Calcinus,Calcinus latens,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Californiconus californicus,581058,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Conidae,Californiconus,Californiconus californicus,NA,NA,NA,Caenogastropoda,NA,NA,NA,Conoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Callinectes sapidus,107379,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Portunidae,Callinectes,Callinectes sapidus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Portunoidea,Portuninae,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Calotomus carolinus,219076,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Calotomus,Calotomus carolinus,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Calyptraea centralis,419701,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Calyptraeidae,Calyptraea,Calyptraea centralis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Calyptraeoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Cantherhines pullus,159493,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Monacanthidae,Cantherhines,Cantherhines pullus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Canthigaster rostrata,127411,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Tetraodontidae,Canthigaster,Canthigaster rostrata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Capitella,129211,Animalia,Annelida,NA,Polychaeta,NA,NA,Capitellidae,Capitella,NA,NA,NA,NA,Sedentaria,NA,Scolecida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Caprella,101430,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Caprella,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Caprellinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Caprella equilibra,101830,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Caprella,Caprella equilibra,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Caprellinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Caprella penantis,101846,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Caprella,Caprella penantis,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Caprellinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Caprellidira,719478,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Caprellidae,101361,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,NA,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Caranx ruber,302432,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Carangidae,Caranx,Caranx ruber,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Carcharhinus melanopterus,105795,Animalia,Chordata,Vertebrata,Elasmobranchii,Carcharhiniformes,NA,Carcharhinidae,Carcharhinus,Carcharhinus melanopterus,NA,NA,NA,Neoselachii,NA,Selachii,NA,NA,NA,Galeomorphi,NA,NA,NA,NA,NA,NA
+Cardiidae,229,Animalia,Mollusca,NA,Bivalvia,Cardiida,NA,Cardiidae,NA,NA,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Cardioidea,NA,Imparidentia,NA,NA,NA,NA,NA,NA
+Cassiopea frondosa,287166,Animalia,Cnidaria,NA,Scyphozoa,Rhizostomeae,Kolpophorae,Cassiopeidae,Cassiopea,Cassiopea frondosa,NA,NA,NA,Discomedusae,NA,NA,NA,NA,NA,NA,Kampylomyaria,NA,NA,NA,NA,NA
+Cassiopea xamachana,287172,Animalia,Cnidaria,NA,Scyphozoa,Rhizostomeae,Kolpophorae,Cassiopeidae,Cassiopea,Cassiopea xamachana,NA,NA,NA,Discomedusae,NA,NA,NA,NA,NA,NA,Kampylomyaria,NA,NA,NA,NA,NA
+Cassis madagascariensis,419778,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Cassidae,Cassis,Cassis madagascariensis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Tonnoidea,Cassinae,NA,NA,NA,NA,NA,NA,NA
+Caulerpa sertularioides,144474,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Caulerpaceae,Caulerpa,Caulerpa sertularioides,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cephalopholis cruentata,279146,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Cephalopholis,Cephalopholis cruentata,NA,NA,NA,NA,NA,NA,NA,NA,Epinephelinae,NA,NA,NA,NA,NA,NA,NA
+Cerapus cudjoe,421589,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ischyroceridae,Cerapus,Cerapus cudjoe,NA,NA,NA,Eumalacostraca,Cerapodini,NA,NA,Photoidea,Ischyrocerinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Cerastoderma glaucum,138999,Animalia,Mollusca,NA,Bivalvia,Cardiida,NA,Cardiidae,Cerastoderma,Cerastoderma glaucum,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Cardioidea,Lymnocardiinae,Imparidentia,NA,NA,NA,NA,NA,NA
+Ceratonereis mirabilis,130372,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Nereidiformia,Nereididae,Ceratonereis,Ceratonereis mirabilis,NA,NA,NA,Errantia,NA,NA,NA,NA,Nereidinae,NA,NA,NA,NA,NA,NA,NA
+Cerithium,137760,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Cerithium,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Cerithiinae,NA,NA,NA,NA,NA,NA,NA
+Cerithium atratum,224572,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Cerithium,Cerithium atratum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Cerithiinae,NA,NA,NA,NA,NA,NA,NA
+Cerithium litteratum,216687,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Cerithium,Cerithium litteratum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Cerithiinae,NA,NA,NA,NA,NA,NA,NA
+Cerithium lutosum,419522,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Cerithiidae,Cerithium,Cerithium lutosum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,Cerithiinae,NA,NA,NA,NA,NA,NA,NA
+Chaetodon capistratus,159661,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Chaetodontidae,Chaetodon,Chaetodon capistratus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Chaetodon ocellatus,159662,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Chaetodontidae,Chaetodon,Chaetodon ocellatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cheilio inermis,218948,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Cheilio,Cheilio inermis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Chione elevata,420932,Animalia,Mollusca,NA,Bivalvia,Venerida,NA,Veneridae,Chione,Chione elevata,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Veneroidea,NA,Imparidentia,NA,NA,NA,NA,NA,NA
+Chironomidae,118100,Animalia,Arthropoda,Hexapoda,Insecta,Diptera,Nematocera,Chironomidae,NA,NA,NA,NA,NA,Pterygota,NA,NA,NA,NA,NA,NA,Culicomorpha,NA,NA,NA,NA,NA
+Chromis cyanea,273718,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Chromis,Chromis cyanea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Chromis multilineata,273743,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Chromis,Chromis multilineata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Chthamalus fragilis,157793,Animalia,Arthropoda,Crustacea,Hexanauplia,Sessilia,Balanomorpha,Chthamalidae,Chthamalus,Chthamalus fragilis,NA,NA,NA,Thecostraca,NA,Cirripedia,NA,Chthamaloidea,Chthamalinae,Thoracica,NA,NA,NA,NA,NA,NA
+Citharichthys sordidus,275694,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Paralichthyidae,Citharichthys,Citharichthys sordidus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Clepticus parrae,280214,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Clepticus,Clepticus parrae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Clupeidae,125464,Animalia,Chordata,Vertebrata,Actinopterygii,Clupeiformes,NA,Clupeidae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Condylactis,100701,Animalia,Cnidaria,NA,Anthozoa,Actiniaria,Enthemonae,Actiniidae,Condylactis,NA,NA,NA,NA,Hexacorallia,NA,NA,NA,Actinioidea,NA,NA,NA,NA,NA,NA,NA,NA
+Copepoda,1080,Animalia,Arthropoda,Crustacea,Hexanauplia,NA,NA,NA,NA,NA,NA,NA,NA,Copepoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Corophium,101489,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Corophiidae,Corophium,NA,NA,NA,NA,Eumalacostraca,Corophiini,NA,NA,Corophioidea,Corophiinae,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Coryphopterus venezuelae,276436,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Coryphopterus,Coryphopterus venezuelae,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Coryphopterus eidolon,276426,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Coryphopterus,Coryphopterus eidolon,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Coryphopterus glaucofraenum,159736,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Coryphopterus,Coryphopterus glaucofraenum,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Coryphopterus personatus,276432,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Coryphopterus,Coryphopterus personatus,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Costoanachis avara,160222,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Columbellidae,Costoanachis,Costoanachis avara,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Crabyzos,248643,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Crabyzos,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Crangon,107007,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Crangonidae,Crangon,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Crangonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Crangon crangon,107552,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Crangonidae,Crangon,Crangon crangon,NA,NA,NA,Eumalacostraca,NA,NA,NA,Crangonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Crepidula convexa,160228,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Calyptraeidae,Crepidula,Crepidula convexa,NA,NA,NA,Caenogastropoda,NA,NA,NA,Calyptraeoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Crepidula fornicata,138963,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Calyptraeidae,Crepidula,Crepidula fornicata,NA,NA,NA,Caenogastropoda,NA,NA,NA,Calyptraeoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Crustacea,1066,Animalia,Arthropoda,Crustacea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cryptotomus,204245,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Cryptotomus,NA,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Cryptotomus roseus,277118,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Cryptotomus,Cryptotomus roseus,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Ctenogobius boleosoma,159750,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Ctenogobius,Ctenogobius boleosoma,NA,NA,NA,NA,NA,NA,NA,NA,Gobionellinae,NA,NA,NA,NA,NA,NA,NA
+Ctenoides scaber,420747,Animalia,Mollusca,NA,Bivalvia,Limida,NA,Limidae,Ctenoides,Ctenoides scaber,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Limoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Cumingia tellinoides,156823,Animalia,Mollusca,NA,Bivalvia,Cardiida,NA,Semelidae,Cumingia,Cumingia tellinoides,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Tellinoidea,NA,Imparidentia,NA,NA,NA,NA,NA,NA
+Cyanobacteria,146537,Bacteria,Cyanobacteria,NA,NA,NA,NA,NA,NA,NA,Gracilicutes,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cymadusa,101460,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ampithoidae,Cymadusa,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Corophioidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Cymadusa compta,158082,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ampithoidae,Cymadusa,Cymadusa compta,NA,NA,NA,Eumalacostraca,NA,NA,NA,Corophioidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Cymatogaster aggregata,280461,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Embiotocidae,Cymatogaster,Cymatogaster aggregata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cymodocea rotundata,208921,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Cymodoceaceae,Cymodocea,Cymodocea rotundata,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Cynoscion nebulosus,159312,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sciaenidae,Cynoscion,Cynoscion nebulosus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Dardanus venosus,367596,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Diogenidae,Dardanus,Dardanus venosus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Dasyatis,105751,Animalia,Chordata,Vertebrata,Elasmobranchii,Myliobatiformes,NA,Dasyatidae,Dasyatis,NA,NA,NA,NA,Neoselachii,NA,Batoidea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Decapoda,1130,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,NA,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Eucarida,NA,NA,NA,NA,NA,NA
+Deutella incerta,421581,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Deutella,Deutella incerta,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Caprellinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Diadema antillarum,124332,Animalia,Echinodermata,Echinozoa,Echinoidea,Diadematoida,NA,Diadematidae,Diadema,Diadema antillarum,NA,NA,NA,Euechinoidea,NA,Acroechinoidea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Alaba monile,715680,Animalia,Mollusca,NA,Gastropoda,[unassigned] Caenogastropoda,NA,Litiopidae,Alaba,Alaba monile,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cerithioidea,NA,NA,NA,NA,NA,NA,NA,NA
+Dictyota,144086,Chromista,Ochrophyta,Phaeista,Phaeophyceae,Dictyotales,NA,Dictyotaceae,Dictyota,NA,Harosa,NA,NA,Dictyotophycidae,Dictyoteae,NA,NA,NA,NA,NA,NA,NA,NA,NA,Heterokonta,Limnista
+Dulichiella appendiculata,421504,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Melitidae,Dulichiella,Dulichiella appendiculata,NA,NA,NA,Eumalacostraca,NA,NA,NA,Hadzioidea,NA,Peracarida,Hadziida,Hadziidira,NA,NA,NA,NA
+Dysidea etheria,164941,Animalia,Porifera,NA,Demospongiae,Dictyoceratida,NA,Dysideidae,Dysidea,Dysidea etheria,NA,NA,NA,Keratosa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Dyspanopeus texanus,443955,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Panopeidae,Dyspanopeus,Dyspanopeus texanus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Xanthoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Eatoniellidae,196894,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Eatoniellidae,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Cingulopsoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Echinometra lucunter,213380,Animalia,Echinodermata,Echinozoa,Echinoidea,Camarodonta,NA,Echinometridae,Echinometra,Echinometra lucunter,NA,NA,NA,Euechinoidea,NA,Carinacea,NA,Odontophora,NA,Echinacea,Echinidea,NA,NA,NA,NA,NA
+Echinometra viridis,422493,Animalia,Echinodermata,Echinozoa,Echinoidea,Camarodonta,NA,Echinometridae,Echinometra,Echinometra viridis,NA,NA,NA,Euechinoidea,NA,Carinacea,NA,Odontophora,NA,Echinacea,Echinidea,NA,NA,NA,NA,NA
+Elacatinus prochilos,280619,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Elacatinus,Elacatinus prochilos,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Maera vagans,534565,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Maeridae,Maera,Maera vagans,NA,NA,NA,Eumalacostraca,NA,NA,NA,Hadzioidea,NA,Peracarida,Hadziida,Hadziidira,NA,NA,NA,NA
+Elysia crispata,420572,Animalia,Mollusca,NA,Gastropoda,NA,NA,Plakobranchidae,Elysia,Elysia crispata,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Plakobranchoidea,NA,Sacoglossa,NA,NA,NA,NA,NA,NA
+Emblemariopsis,269061,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Chaenopsidae,Emblemariopsis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Enophrys bison,275355,Animalia,Chordata,Vertebrata,Actinopterygii,Scorpaeniformes,Cottoidei,Cottidae,Enophrys,Enophrys bison,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Epinephelus guttatus,159352,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Epinephelus,Epinephelus guttatus,NA,NA,NA,NA,NA,NA,NA,NA,Epinephelinae,NA,NA,NA,NA,NA,NA,NA
+Erichsonella attenuata,157887,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Erichsonella,Erichsonella attenuata,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Ericthonius brasiliensis,102401,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ischyroceridae,Ericthonius,Ericthonius brasiliensis,NA,NA,NA,Eumalacostraca,Ericthonini,NA,NA,Photoidea,Ischyrocerinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Errantia,754174,Animalia,Annelida,NA,Polychaeta,NA,NA,NA,NA,NA,NA,NA,NA,Errantia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Eucidaris tribuloides,396741,Animalia,Echinodermata,Echinozoa,Echinoidea,Cidaroida,NA,Cidaridae,Eucidaris,Eucidaris tribuloides,NA,NA,NA,Cidaroidea,NA,NA,NA,Cidaroidea,Cidarinae,NA,NA,NA,NA,NA,NA,NA
+Eucinostomus,159731,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Gerreidae,Eucinostomus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Eunice,129278,Animalia,Annelida,NA,Polychaeta,Eunicida,NA,Eunicidae,Eunice,NA,NA,NA,NA,Errantia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Eupleura muriciformis,404143,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Muricidae,Eupleura,Eupleura muriciformis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Muricoidea,Ocenebrinae,NA,NA,NA,NA,NA,NA,NA
+Eurypanopeus depressus,158416,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Panopeidae,Eurypanopeus,Eurypanopeus depressus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Xanthoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Exogone dispar,333453,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Nereidiformia,Syllidae,Exogone,Exogone dispar,NA,NA,NA,Errantia,NA,NA,NA,NA,Exogoninae,NA,NA,NA,NA,NA,NA,NA
+Fasciolariidae,23038,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Fasciolariidae,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Fucus serratus,145546,Chromista,Ochrophyta,Phaeista,Phaeophyceae,Fucales,NA,Fucaceae,Fucus,Fucus serratus,Harosa,NA,NA,Fucophycidae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Heterokonta,Limnista
+Fundulus grandis,276030,Animalia,Chordata,Vertebrata,Actinopterygii,Cyprinodontiformes,NA,Fundulidae,Fundulus,Fundulus grandis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Gammaridae,101383,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Gammaridae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Gammaroidea,NA,Peracarida,Gammarida,Gammaridira,NA,NA,NA,NA
+Gammaropsis,101558,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Photidae,Gammaropsis,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Photoidea,NA,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Gammarus,101537,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Gammaridae,Gammarus,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Gammaroidea,NA,Peracarida,Gammarida,Gammaridira,NA,NA,NA,NA
+Gammarus lecroyae,490242,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Gammaridae,Gammarus,Gammarus lecroyae,NA,NA,NA,Eumalacostraca,NA,NA,NA,Gammaroidea,NA,Peracarida,Gammarida,Gammaridira,NA,NA,NA,NA
+Gammarus mucronatus,158094,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Gammaridae,Gammarus,Gammarus mucronatus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Gammaroidea,NA,Peracarida,Gammarida,Gammaridira,NA,NA,NA,NA
+Gasterosteus aculeatus,126505,Animalia,Chordata,Vertebrata,Actinopterygii,Gasterosteiformes,NA,Gasterosteidae,Gasterosteus,Gasterosteus aculeatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Gastropoda,101,Animalia,Mollusca,NA,Gastropoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Genypterus tigerinus,278706,Animalia,Chordata,Vertebrata,Actinopterygii,Ophidiiformes,NA,Ophidiidae,Genypterus,Genypterus tigerinus,NA,NA,NA,NA,NA,NA,NA,NA,Ophidiinae,NA,NA,NA,NA,NA,NA,NA
+Gerreidae,151456,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Gerreidae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Gerres cinereus,276954,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Gerreidae,Gerres,Gerres cinereus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Gitanopsis,101453,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Amphilochidae,Gitanopsis,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Amphilochoidea,NA,Peracarida,Amphilochida,Amphilochidira,NA,NA,NA,NA
+Gnathia,118437,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Cymothoida,Gnathiidae,Gnathia,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Cymothooidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Gnatholepis cauerensis,219476,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Gnatholepis,Gnatholepis cauerensis,NA,NA,NA,NA,NA,NA,NA,NA,Gobionellinae,NA,NA,NA,NA,NA,NA,NA
+Gobiosoma bosc,159767,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Gobiosoma,Gobiosoma bosc,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Gracilaria,144188,Plantae,NA,NA,Florideophyceae,Gracilariales,NA,Gracilariaceae,Gracilaria,NA,Biliphyta,Rhodophyta,Eurhodophytina,Rhodymeniophycidae,Gracilarieae,NA,NA,NA,Gracilarioideae,NA,NA,NA,NA,NA,NA,NA
+Grandidierella bonnieroides,211405,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Aoridae,Grandidierella,Grandidierella bonnieroides,NA,NA,NA,Eumalacostraca,NA,NA,NA,Aoroidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Granulina ovuliformis,532891,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Granulinidae,Granulina,Granulina ovuliformis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Volutoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Gymnapistes marmoratus,280952,Animalia,Chordata,Vertebrata,Actinopterygii,Scorpaeniformes,Scorpaenoidei,Tetrarogidae,Gymnapistes,Gymnapistes marmoratus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Haemulon,158806,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Haemulon,NA,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Haemulon flavolineatum,275727,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Haemulon,Haemulon flavolineatum,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Haemulon parra,275731,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Haemulon,Haemulon parra,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Haemulon plumierii,158808,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Haemulon,Haemulon plumierii,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Haemulon sciurus,275733,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Haemulon,Haemulon sciurus,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Haletta semifasciata,280979,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Odacidae,Haletta,Haletta semifasciata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halicarcinus ovatus,441784,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Hymenosomatidae,Halicarcinus,Halicarcinus ovatus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Hymenosomatoidea,Hymenosomatinae,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Halichoeres bivittatus,158815,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,Halichoeres bivittatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halichoeres garnoti,275764,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,Halichoeres garnoti,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halichoeres maculipinna,275772,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,Halichoeres maculipinna,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halichoeres pictus,275788,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,Halichoeres pictus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halichoeres radiatus,275793,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,Halichoeres radiatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halimeda,143820,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Halimedaceae,Halimeda,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Halodule pinifolia,626404,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Cymodoceaceae,Halodule,Halodule pinifolia,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Halodule wrightii,208925,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Cymodoceaceae,Halodule,Halodule wrightii,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Halophila engelmannii,374722,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Hydrocharitaceae,Halophila,Halophila engelmannii,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Halophila stipulacea,145714,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Hydrocharitaceae,Halophila,Halophila stipulacea,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Haminoea antillarum,420524,Animalia,Mollusca,NA,Gastropoda,Cephalaspidea,NA,Haminoeidae,Haminoea,Haminoea antillarum,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Haminoeoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Haminoea petitii,532293,Animalia,Mollusca,NA,Gastropoda,Cephalaspidea,NA,Haminoeidae,Haminoea,Haminoea petitii,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Haminoeoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Harmothoe,129491,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Aphroditiformia,Polynoidae,Harmothoe,NA,NA,NA,NA,Errantia,NA,NA,NA,NA,Polynoinae,NA,NA,NA,NA,NA,NA,NA
+Harrieta faxoni,260565,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Sphaeromatidea,Sphaeromatidae,Harrieta,Harrieta faxoni,NA,NA,NA,Eumalacostraca,NA,NA,NA,Sphaeromatoidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Coris batuensis,218956,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Coris,Coris batuensis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Hemigrapsus oregonensis,444778,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Varunidae,Hemigrapsus,Hemigrapsus oregonensis,NA,NA,NA,Eumalacostraca,NA,NA,NA,Grapsoidea,Varuninae,Eucarida,Brachyura,NA,Eubrachyura,Thoracotremata,NA,NA
+Hermodice carunculata,129831,Animalia,Annelida,NA,Polychaeta,Amphinomida,NA,Amphinomidae,Hermodice,Hermodice carunculata,NA,NA,NA,Errantia,NA,NA,NA,NA,Amphinominae,NA,NA,NA,NA,NA,NA,NA
+Heterodontus portusjacksoni,276699,Animalia,Chordata,Vertebrata,Elasmobranchii,Heterodontiformes,NA,Heterodontidae,Heterodontus,Heterodontus portusjacksoni,NA,NA,NA,Neoselachii,NA,Selachii,NA,NA,NA,Galeomorphi,NA,NA,NA,NA,NA,NA
+Hiatella,138068,Animalia,Mollusca,NA,Bivalvia,Adapedonta,NA,Hiatellidae,Hiatella,NA,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Hiatelloidea,NA,Imparidentia,NA,NA,NA,NA,NA,NA
+Hippocampus erectus,159445,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Hippocampus,Hippocampus erectus,NA,NA,NA,NA,NA,NA,NA,NA,Hippocampinae,NA,NA,NA,NA,NA,NA,NA
+Hippocampus zosterae,275213,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Hippocampus,Hippocampus zosterae,NA,NA,NA,NA,NA,NA,NA,NA,Hippocampinae,NA,NA,NA,NA,NA,NA,NA
+Hippolyte,106987,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Hippolytidae,Hippolyte,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Hippolyte pleuracantha,158360,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Hippolytidae,Hippolyte,Hippolyte pleuracantha,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Hippolytidae,106777,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Hippolytidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Holacanthus ciliaris,276012,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Pomacanthidae,Holacanthus,Holacanthus ciliaris,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Holacanthus tricolor,276017,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Pomacanthidae,Holacanthus,Holacanthus tricolor,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Holocentrus rufus,276189,Animalia,Chordata,Vertebrata,Actinopterygii,Beryciformes,NA,Holocentridae,Holocentrus,Holocentrus rufus,NA,NA,NA,NA,NA,NA,NA,NA,Holocentrinae,NA,NA,NA,NA,NA,NA,NA
+Holothuria mexicana,732363,Animalia,Echinodermata,Echinozoa,Holothuroidea,Holothuriida,NA,Holothuriidae,Holothuria,Holothuria mexicana,NA,NA,NA,Actinopoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Hourstonius laguna,421444,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Amphilochidae,Hourstonius,Hourstonius laguna,NA,NA,NA,Eumalacostraca,NA,NA,NA,Amphilochoidea,NA,Peracarida,Amphilochida,Amphilochidira,NA,NA,NA,NA
+Hydrobia,138081,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Hydrobiidae,Hydrobia,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,Hydrobiinae,NA,NA,NA,NA,NA,NA,NA
+Peringia ulvae,151628,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Hydrobiidae,Peringia,Peringia ulvae,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,Hydrobiinae,NA,NA,NA,NA,NA,NA,NA
+Ecrobia ventrosa,238104,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Hydrobiidae,Ecrobia,Ecrobia ventrosa,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,Hydrobiinae,NA,NA,NA,NA,NA,NA,NA
+Hydrobiidae,120,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Hydrobiidae,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Hydrozoa,1337,Animalia,Cnidaria,NA,Hydrozoa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Hypoplectrus indigo,281117,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Hypoplectrus,Hypoplectrus indigo,NA,NA,NA,NA,NA,NA,NA,NA,Serraninae,NA,NA,NA,NA,NA,NA,NA
+Hypoplectrus nigricans,281118,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Hypoplectrus,Hypoplectrus nigricans,NA,NA,NA,NA,NA,NA,NA,NA,Serraninae,NA,NA,NA,NA,NA,NA,NA
+Hypsoblennius gentilis,276323,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Blenniidae,Hypsoblennius,Hypsoblennius gentilis,NA,NA,NA,NA,NA,NA,NA,NA,Salariinae,NA,NA,NA,NA,NA,NA,NA
+Hypsoblennius jenkinsi,276328,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Blenniidae,Hypsoblennius,Hypsoblennius jenkinsi,NA,NA,NA,NA,NA,NA,NA,NA,Salariinae,NA,NA,NA,NA,NA,NA,NA
+Idotea,118454,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Idotea,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Idotea balthica,119039,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Idotea,Idotea balthica,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Idotea chelipes,119042,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Idotea,Idotea chelipes,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Idotea granulosa,119044,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Idotea,Idotea granulosa,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Pentidotea resecata,261978,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Valvifera,Idoteidae,Pentidotea,Pentidotea resecata,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Ilypnus gilberti,281174,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Ilypnus,Ilypnus gilberti,NA,NA,NA,NA,NA,NA,NA,NA,Gobionellinae,NA,NA,NA,NA,NA,NA,NA
+Isaeidae,101388,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Isaeidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Isaeoidea,NA,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Isopoda,1131,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,NA,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Isostichopus badionotus,367868,Animalia,Echinodermata,Echinozoa,Holothuroidea,Synallactida,NA,Stichopodidae,Isostichopus,Isostichopus badionotus,NA,NA,NA,Actinopoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Jaera albifrons,118715,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Asellota,Janiridae,Jaera,Jaera albifrons,NA,NA,NA,Eumalacostraca,NA,NA,NA,Janiroidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Jania,144012,Plantae,NA,NA,Florideophyceae,Corallinales,NA,Corallinaceae,Jania,NA,Biliphyta,Rhodophyta,Eurhodophytina,Corallinophycidae,Janieae,NA,NA,NA,Corallinoideae,NA,NA,NA,NA,NA,NA,NA
+Jassa,101571,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Ischyroceridae,Jassa,NA,NA,NA,NA,Eumalacostraca,Ischyrocerini,NA,NA,Photoidea,Ischyrocerinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Lacuna,138099,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Littorinidae,Lacuna,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Littorinoidea,Lacuninae,NA,NA,NA,NA,NA,NA,NA
+Lacuna vincta,140170,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Littorinidae,Lacuna,Lacuna vincta,NA,NA,NA,Caenogastropoda,NA,NA,NA,Littorinoidea,Lacuninae,NA,NA,NA,NA,NA,NA,NA
+Lagodon rhomboides,159249,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sparidae,Lagodon,Lagodon rhomboides,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Laticorophium baconi,421577,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Corophiidae,Laticorophium,Laticorophium baconi,NA,NA,NA,Eumalacostraca,Corophiini,NA,NA,Corophioidea,Corophiinae,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Leiostomus xanthurus,159322,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Sciaenidae,Leiostomus,Leiostomus xanthurus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lembos,101469,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Aoridae,Lembos,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Aoroidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Lembos websteri,102033,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Aoridae,Lembos,Lembos websteri,NA,NA,NA,Eumalacostraca,NA,NA,NA,Aoroidea,NA,Peracarida,Corophiida,Corophiidira,NA,NA,NA,NA
+Lepidopsetta,269638,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Pleuronectidae,Lepidopsetta,NA,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectinae,NA,NA,NA,NA,NA,NA,NA
+Leptasterias hexactis,369177,Animalia,Echinodermata,Asterozoa,Asteroidea,Forcipulatida,NA,Asteriidae,Leptasterias,Leptasterias hexactis,NA,NA,NA,NA,NA,NA,NA,NA,NA,Forcipulatacea,NA,NA,NA,NA,NA,NA
+Leptochelia,136235,Animalia,Arthropoda,Crustacea,Malacostraca,Tanaidacea,Tanaidomorpha,Leptocheliidae,Leptochelia,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paratanaoidea,Leptocheliinae,Peracarida,NA,NA,NA,NA,NA,NA
+Leptocottus armatus,254345,Animalia,Chordata,Vertebrata,Actinopterygii,Scorpaeniformes,Cottoidei,Cottidae,Leptocottus,Leptocottus armatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lethrinus harak,212063,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lethrinidae,Lethrinus,Lethrinus harak,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Leucothoe spinicarpa,102470,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Leucothoidae,Leucothoe,Leucothoe spinicarpa,NA,NA,NA,Eumalacostraca,NA,NA,NA,Leucothoidea,NA,Peracarida,Amphilochida,Amphilochidira,NA,NA,NA,NA
+Lithopoma tectum,419499,Animalia,Mollusca,NA,Gastropoda,Trochida,NA,Turbinidae,Lithopoma,Lithopoma tectum,NA,NA,NA,Vetigastropoda,NA,NA,NA,Trochoidea,Turbininae,NA,NA,NA,NA,NA,NA,NA
+Litocheira bispinosa,441005,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Litocheiridae,Litocheira,Litocheira bispinosa,NA,NA,NA,Eumalacostraca,NA,NA,NA,Goneplacoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Littorina,138135,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Littorinidae,Littorina,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Littorinoidea,Littorininae,NA,NA,NA,NA,NA,NA,NA
+Littorina littorea,140262,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Littorinidae,Littorina,Littorina littorea,NA,NA,NA,Caenogastropoda,NA,NA,NA,Littorinoidea,Littorininae,NA,NA,NA,NA,NA,NA,NA
+Macrostrombus costatus,1429775,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Strombidae,Macrostrombus,Macrostrombus costatus,NA,NA,NA,Caenogastropoda,NA,NA,NA,Stromboidea,NA,NA,NA,NA,NA,NA,NA,NA
+Aliger gigas,1429769,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Strombidae,Aliger,Aliger gigas,NA,NA,NA,Caenogastropoda,NA,NA,NA,Stromboidea,NA,NA,NA,NA,NA,NA,NA,NA
+Lucania parva,159310,Animalia,Chordata,Vertebrata,Actinopterygii,Cyprinodontiformes,NA,Fundulidae,Lucania,Lucania parva,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus,159791,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus analis,159792,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,Lutjanus analis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus apodus,159793,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,Lutjanus apodus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus griseus,159797,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,Lutjanus griseus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus mahogoni,159799,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,Lutjanus mahogoni,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lutjanus synagris,159800,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Lutjanus,Lutjanus synagris,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lyngbya,146538,Bacteria,Cyanobacteria,NA,Cyanophyceae,Oscillatoriales,NA,Oscillatoriaceae,Lyngbya,NA,Gracilicutes,NA,NA,Oscillatoriophycideae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Lynseia,248921,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Limnoriidea,Limnoriidae,Lynseia,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Limnorioidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Lysianassida,1055690,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,Lysianassida,NA,NA,NA,NA,NA
+Lysianopsis alba,158036,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Lysianassidae,Lysianopsis,Lysianopsis alba,NA,NA,NA,Eumalacostraca,NA,NA,NA,Lysianassoidea,Lysianassinae,Peracarida,Lysianassida,Lysianassidira,NA,NA,NA,NA
+Lysiosquilla scabricauda,409037,Animalia,Arthropoda,Crustacea,Malacostraca,Stomatopoda,Unipeltata,Lysiosquillidae,Lysiosquilla,Lysiosquilla scabricauda,NA,NA,NA,Hoplocarida,NA,NA,NA,Lysiosquilloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Lytechinus variegatus,367850,Animalia,Echinodermata,Echinozoa,Echinoidea,Camarodonta,NA,Toxopneustidae,Lytechinus,Lytechinus variegatus,NA,NA,NA,Euechinoidea,NA,Carinacea,NA,Odontophora,NA,Echinacea,Echinidea,NA,NA,NA,NA,NA
+Macoma,138531,Animalia,Mollusca,NA,Bivalvia,Cardiida,NA,Tellinidae,Macoma,NA,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Tellinoidea,Macominae,Imparidentia,NA,NA,NA,NA,NA,NA
+Majidae,106760,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Majidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Malacanthus plumieri,277261,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Malacanthidae,Malacanthus,Malacanthus plumieri,NA,NA,NA,NA,NA,NA,NA,NA,Malacanthinae,NA,NA,NA,NA,NA,NA,NA
+Malacoctenus triangulatus,281503,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Labrisomidae,Malacoctenus,Malacoctenus triangulatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Manicina areolata,290327,Animalia,Cnidaria,NA,Anthozoa,Scleractinia,NA,Faviidae,Manicina,Manicina areolata,NA,NA,NA,Hexacorallia,NA,NA,NA,NA,Faviinae,NA,NA,NA,NA,NA,NA,NA
+Mediomastus,129218,Animalia,Annelida,NA,Polychaeta,NA,NA,Capitellidae,Mediomastus,NA,NA,NA,NA,Sedentaria,NA,Scolecida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Menidia beryllina,159227,Animalia,Chordata,Vertebrata,Actinopterygii,Atheriniformes,NA,Atherinopsidae,Menidia,Menidia beryllina,NA,NA,NA,NA,NA,NA,NA,NA,Menidiinae,NA,NA,NA,NA,NA,NA,NA
+Meoma ventricosa,367846,Animalia,Echinodermata,Echinozoa,Echinoidea,Spatangoida,Brissidina,Brissidae,Meoma,Meoma ventricosa,NA,NA,NA,Euechinoidea,NA,Irregularia,NA,NA,NA,Atelostomata,NA,NA,NA,NA,NA,NA
+Metacarcinus magister,440388,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Cancridae,Metacarcinus,Metacarcinus magister,NA,NA,NA,Eumalacostraca,NA,NA,NA,Cancroidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Metassiminea,818380,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Assimineidae,Metassiminea,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,Ekadantinae,NA,NA,NA,NA,NA,NA,NA
+Microspathodon chrysurus,281571,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Microspathodon,Microspathodon chrysurus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Mithracidae,439056,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Mithracidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Mithraculus cinctimanus,421986,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Mithracidae,Mithraculus,Mithraculus cinctimanus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Amphithrax hemphilli,1258715,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Mithracidae,Amphithrax,Amphithrax hemphilli,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Modiolus modiolus,140467,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,Modiolus,Modiolus modiolus,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,Modiolinae,NA,NA,NA,NA,NA,NA,NA
+Monacanthidae,125610,Animalia,Chordata,Vertebrata,Actinopterygii,Tetraodontiformes,NA,Monacanthidae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Tellina,138533,Animalia,Mollusca,NA,Bivalvia,Cardiida,NA,Tellinidae,Tellina,NA,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Tellinoidea,Tellininae,Imparidentia,NA,NA,NA,NA,NA,NA
+Musculus discors,140472,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,Musculus,Musculus discors,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,Musculinae,NA,NA,NA,NA,NA,NA,NA
+Mya,138211,Animalia,Mollusca,NA,Bivalvia,Myida,NA,Myidae,Mya,NA,NA,NA,NA,Autobranchia,NA,Heteroconchia,Euheterodonta,Myoidea,NA,Imparidentia,NA,NA,NA,NA,NA,NA
+Myoxocephalus polyacanthocephalus,254528,Animalia,Chordata,Vertebrata,Actinopterygii,Scorpaeniformes,Cottoidei,Cottidae,Myoxocephalus,Myoxocephalus polyacanthocephalus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Myriophyllum spicatum,416205,Plantae,NA,NA,Magnoliopsida,Saxifragales,NA,Haloragaceae,Myriophyllum,Myriophyllum spicatum,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Saxifraganae,NA,NA,NA,NA,Streptophyta,NA
+Mysida,149668,Animalia,Arthropoda,Crustacea,Malacostraca,Mysida,NA,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Mysidae,119822,Animalia,Arthropoda,Crustacea,Malacostraca,Mysida,NA,Mysidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Mytilidae,211,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,NA,NA,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Mytilus,138228,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,Mytilus,NA,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,Mytilinae,NA,NA,NA,NA,NA,NA,NA
+Mytilus trossulus,140482,Animalia,Mollusca,NA,Bivalvia,Mytilida,NA,Mytilidae,Mytilus,Mytilus trossulus,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Mytiloidea,Mytilinae,NA,NA,NA,NA,NA,NA,NA
+Nannastacus inflatus,182578,Animalia,Arthropoda,Crustacea,Malacostraca,Cumacea,NA,Nannastacidae,Nannastacus,Nannastacus inflatus,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Nassarius acutus,160395,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Nassariidae,Nassarius,Nassarius acutus,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,Nassariinae,NA,NA,NA,NA,NA,NA,NA
+Phrontis vibex,877061,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Nassariidae,Phrontis,Phrontis vibex,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,Nassariinae,NA,NA,NA,NA,NA,NA,NA
+Nemertea,152391,Animalia,Nemertea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Neoodax balteatus,281694,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Odacidae,Neoodax,Neoodax balteatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Nereida ignava,396227,Bacteria,Proteobacteria,NA,Alphaproteobacteria,Rhodobacterales,NA,Rhodobacteraceae,Nereida,Nereida ignava,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Nereididae,22496,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Nereidiformia,Nereididae,NA,NA,NA,NA,NA,Errantia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Nereis,129379,Animalia,Annelida,NA,Polychaeta,Phyllodocida,Nereidiformia,Nereididae,Nereis,NA,NA,NA,NA,Errantia,NA,NA,NA,NA,Nereidinae,NA,NA,NA,NA,NA,NA,NA
+Vitta virginea,865834,Animalia,Mollusca,NA,Gastropoda,Cycloneritida,NA,Neritidae,Vitta,Vitta virginea,NA,NA,NA,Neritimorpha,NA,NA,NA,Neritoidea,Neritininae,NA,NA,NA,NA,NA,NA,NA
+Notolabrus tetricus,281792,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Notolabrus,Notolabrus tetricus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Nototropis urocarinatus,421466,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Atylidae,Nototropis,Nototropis urocarinatus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Dexaminoidea,Nototropiinae,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Nucella lapillus,140403,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Muricidae,Nucella,Nucella lapillus,NA,NA,NA,Caenogastropoda,NA,NA,NA,Muricoidea,Ocenebrinae,NA,NA,NA,NA,NA,NA,NA
+Ocyurus chrysurus,159803,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Lutjanidae,Ocyurus,Ocyurus chrysurus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Boonea bisuturalis,397024,Animalia,Mollusca,NA,Gastropoda,NA,NA,Pyramidellidae,Boonea,Boonea bisuturalis,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Pyramidelloidea,NA,Pylopulmonata,NA,NA,NA,NA,NA,NA
+Oligochaeta,2036,Animalia,Annelida,NA,Clitellata,NA,NA,NA,NA,NA,NA,NA,NA,Oligochaeta,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oncorhynchus gorbuscha,127182,Animalia,Chordata,Vertebrata,Actinopterygii,Salmoniformes,NA,Salmonidae,Oncorhynchus,Oncorhynchus gorbuscha,NA,NA,NA,NA,NA,NA,NA,NA,Salmoninae,NA,NA,NA,NA,NA,NA,NA
+Oncorhynchus keta,127183,Animalia,Chordata,Vertebrata,Actinopterygii,Salmoniformes,NA,Salmonidae,Oncorhynchus,Oncorhynchus keta,NA,NA,NA,NA,NA,NA,NA,NA,Salmoninae,NA,NA,NA,NA,NA,NA,NA
+Oreaster reticulatus,178210,Animalia,Echinodermata,Asterozoa,Asteroidea,Valvatida,NA,Oreasteridae,Oreaster,Oreaster reticulatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,Valvatacea,NA,NA,NA,NA,NA,NA
+Orthopristis chrysoptera,158810,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Haemulidae,Orthopristis,Orthopristis chrysoptera,NA,NA,NA,NA,NA,NA,NA,NA,Haemulinae,NA,NA,NA,NA,NA,NA,NA
+Ostraea angasi,397159,Animalia,Mollusca,NA,Bivalvia,Ostreida,NA,Ostreidae,Ostraea,Ostraea angasi,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Ostreoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Pagurapseudes,246979,Animalia,Arthropoda,Crustacea,Malacostraca,Tanaidacea,Apseudomorpha,Pagurapseudidae,Pagurapseudes,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Apseudoidea,Pagurapseudinae,Peracarida,NA,NA,NA,NA,NA,NA
+Paguridae,106738,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Paguridae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Paguristes,106844,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Diogenidae,Paguristes,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Paguristes cadenati,368215,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Diogenidae,Paguristes,Paguristes cadenati,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Paguristes puncticeps,368275,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Diogenidae,Paguristes,Paguristes puncticeps,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Paguroidea,106687,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,NA,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Pagurus granosimanus,366694,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Paguridae,Pagurus,Pagurus granosimanus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Palaemon,107032,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Palaemon,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Palaemon elegans,107614,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Palaemon,Palaemon elegans,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Palaemon pugio,932401,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Palaemon,Palaemon pugio,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Palaemon mundusnovus,932398,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Palaemon,Palaemon mundusnovus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Pandalus danae,515462,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Pandalidae,Pandalus,Pandalus danae,NA,NA,NA,Eumalacostraca,NA,NA,NA,Pandaloidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Panopeus herbstii,158436,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Panopeidae,Panopeus,Panopeus herbstii,NA,NA,NA,Eumalacostraca,NA,NA,NA,Xanthoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Panulirus argus,382891,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palinuridae,Panulirus,Panulirus argus,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Eucarida,Achelata,NA,NA,NA,NA,NA
+Parablennius marmoreus,159609,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Blennioidei,Blenniidae,Parablennius,Parablennius marmoreus,NA,NA,NA,NA,NA,NA,NA,NA,Salariinae,NA,NA,NA,NA,NA,NA,NA
+Paracaprella tenuis,160028,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Paracaprella,Paracaprella tenuis,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Caprellinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Paracerceis caudata,261817,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Sphaeromatidea,Sphaeromatidae,Paracerceis,Paracerceis caudata,NA,NA,NA,Eumalacostraca,NA,NA,NA,Sphaeromatoidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Paradella dianae,261839,Animalia,Arthropoda,Crustacea,Malacostraca,Isopoda,Sphaeromatidea,Sphaeromatidae,Paradella,Paradella dianae,NA,NA,NA,Eumalacostraca,NA,NA,NA,Sphaeromatoidea,NA,Peracarida,NA,NA,NA,NA,NA,NA
+Paradexamine,206577,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Dexaminidae,Paradexamine,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Dexaminoidea,Dexamininae,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Paradexamine churinga,489427,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Dexaminidae,Paradexamine,Paradexamine churinga,NA,NA,NA,Eumalacostraca,NA,NA,NA,Dexaminoidea,Dexamininae,Peracarida,Lysianassida,Synopiidira,NA,NA,NA,NA
+Paralichthys californicus,275809,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Paralichthyidae,Paralichthys,Paralichthys californicus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Parequula melbournensis,282145,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Gerreidae,Parequula,Parequula melbournensis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Parupeneus,204915,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Mullidae,Parupeneus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Parupeneus barberinus,218660,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Mullidae,Parupeneus,Parupeneus barberinus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Parupeneus macronemus,277817,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Mullidae,Parupeneus,Parupeneus macronemus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Parvanachis obesa,160440,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Columbellidae,Parvanachis,Parvanachis obesa,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Pectinaria granulata,130593,Animalia,Annelida,NA,Polychaeta,Terebellida,Terebellomorpha,Pectinariidae,Pectinaria,Pectinaria granulata,NA,NA,NA,Sedentaria,NA,Canalipalpata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Penaeus,106822,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Dendrobranchiata,Penaeidae,Penaeus,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Penaeoidea,NA,Eucarida,NA,NA,NA,NA,NA,NA
+Penaeus aztecus,395176,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Dendrobranchiata,Penaeidae,Penaeus,Penaeus aztecus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Penaeoidea,NA,Eucarida,NA,NA,NA,NA,NA,NA
+Penicillus,143821,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Udoteaceae,Penicillus,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Periclimenes pedersoni,421710,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Periclimenes,Periclimenes pedersoni,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Periclimenes yucatanicus,421713,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Palaemonidae,Periclimenes,Periclimenes yucatanicus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Palaemonoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Phascolion,136025,Animalia,Sipuncula,NA,Sipunculidea,Golfingiida,NA,Phascolionidae,Phascolion,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Phimochirus holthuisi,366818,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Paguridae,Phimochirus,Phimochirus holthuisi,NA,NA,NA,Eumalacostraca,NA,NA,NA,Paguroidea,NA,Eucarida,Anomura,NA,NA,NA,NA,NA
+Pholis laeta,273689,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Zoarcoidei,Pholidae,Pholis,Pholis laeta,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Photis,101563,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Photidae,Photis,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Photoidea,NA,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Phoxocephalidae,101403,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Phoxocephalidae,NA,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Haustorioidea,NA,Peracarida,Lysianassida,Haustoriidira,NA,NA,NA,NA
+Pinnidae,1776,Animalia,Mollusca,NA,Bivalvia,Ostreida,NA,Pinnidae,NA,NA,NA,NA,NA,Autobranchia,NA,Pteriomorphia,NA,Pinnoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Platichthys flesus,127141,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Pleuronectidae,Platichthys,Platichthys flesus,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectinae,NA,NA,NA,NA,NA,NA,NA
+Platichthys stellatus,154781,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Pleuronectidae,Platichthys,Platichthys stellatus,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectinae,NA,NA,NA,NA,NA,NA,NA
+Halichoeres,158813,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Halichoeres,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pleuronectes platessa,127143,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Pleuronectidae,Pleuronectes,Pleuronectes platessa,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectinae,NA,NA,NA,NA,NA,NA,NA
+Polychaeta,883,Animalia,Annelida,NA,Polychaeta,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pomacanthus arcuatus,159287,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Pomacanthidae,Pomacanthus,Pomacanthus arcuatus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pomacanthus paru,276025,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Pomacanthidae,Pomacanthus,Pomacanthus paru,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pomatoschistus,125999,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Pomatoschistus,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Pomatoschistus minutus,126928,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Gobioidei,Gobiidae,Pomatoschistus,Pomatoschistus minutus,NA,NA,NA,NA,NA,NA,NA,NA,Gobiinae,NA,NA,NA,NA,NA,NA,NA
+Porifera,558,Animalia,Porifera,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Potamogeton perfoliatus,416212,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Potamogetonaceae,Potamogeton,Potamogeton perfoliatus,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Potamopyrgus antipodarum,147123,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Tateidae,Potamopyrgus,Potamopyrgus antipodarum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Truncatelloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Praunus flexuosus,120177,Animalia,Arthropoda,Crustacea,Malacostraca,Mysida,NA,Mysidae,Praunus,Praunus flexuosus,NA,NA,NA,Eumalacostraca,Paramysini,NA,NA,NA,Mysinae,Peracarida,NA,NA,NA,NA,NA,NA
+Phtisica,101436,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Caprellidae,Phtisica,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Caprelloidea,Phtisicinae,Peracarida,Corophiida,Caprellidira,NA,NA,NA,NA
+Prunum apicinum,420149,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Marginellidae,Prunum,Prunum apicinum,NA,NA,NA,Caenogastropoda,NA,NA,NA,Volutoidea,Pruninae,NA,NA,NA,NA,NA,NA,NA
+Psettichthys melanostictus,282396,Animalia,Chordata,Vertebrata,Actinopterygii,Pleuronectiformes,NA,Pleuronectidae,Psettichthys,Psettichthys melanostictus,NA,NA,NA,NA,NA,NA,NA,NA,Pleuronectinae,NA,NA,NA,NA,NA,NA,NA
+Pseudojuloides kaleidos,276706,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Pseudojuloides,Pseudojuloides kaleidos,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pseudosquilla ciliata,210232,Animalia,Arthropoda,Crustacea,Malacostraca,Stomatopoda,Unipeltata,Pseudosquillidae,Pseudosquilla,Pseudosquilla ciliata,NA,NA,NA,Hoplocarida,NA,NA,NA,Gonodactyloidea,NA,NA,NA,NA,NA,NA,NA,NA
+Pugettia producta,240780,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Epialtidae,Pugettia,Pugettia producta,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,Epialtinae,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Pusillina inconspicua,141334,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Rissoidae,Pusillina,Pusillina inconspicua,NA,NA,NA,Caenogastropoda,NA,NA,NA,Rissooidea,NA,NA,NA,NA,NA,NA,NA,NA
+Pusillina sarsii,141341,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Rissoidae,Pusillina,Pusillina sarsii,NA,NA,NA,Caenogastropoda,NA,NA,NA,Rissooidea,NA,NA,NA,NA,NA,NA,NA,NA
+Pycnogonida,1302,Animalia,Arthropoda,Chelicerata,Pycnogonida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ampullaceana balthica,1288085,Animalia,Mollusca,NA,Gastropoda,NA,NA,Lymnaeidae,Ampullaceana,Ampullaceana balthica,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Lymnaeoidea,Amphipepleinae,Hygrophila,NA,NA,NA,NA,NA,NA
+Rhipocephalus,370153,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Udoteaceae,Rhipocephalus,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Rhithropanopeus harrisii,107414,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Panopeidae,Rhithropanopeus,Rhithropanopeus harrisii,NA,NA,NA,Eumalacostraca,NA,NA,NA,Xanthoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Rissoa membranacea,141359,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Rissoidae,Rissoa,Rissoa membranacea,NA,NA,NA,Caenogastropoda,NA,NA,NA,Rissooidea,NA,NA,NA,NA,NA,NA,NA,NA
+Rissoa parva,141365,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Rissoidae,Rissoa,Rissoa parva,NA,NA,NA,Caenogastropoda,NA,NA,NA,Rissooidea,NA,NA,NA,NA,NA,NA,NA,NA
+Rissoidae,123,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Rissoidae,NA,NA,NA,NA,NA,Caenogastropoda,NA,NA,NA,Rissooidea,NA,NA,NA,NA,NA,NA,NA,NA
+Sargocentron vexillarium,159401,Animalia,Chordata,Vertebrata,Actinopterygii,Beryciformes,NA,Holocentridae,Sargocentron,Sargocentron vexillarium,NA,NA,NA,NA,NA,NA,NA,NA,Holocentrinae,NA,NA,NA,NA,NA,NA,NA
+Scarus,159299,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Scarus,NA,NA,NA,NA,NA,NA,NA,NA,NA,Scarinae,NA,NA,NA,NA,NA,NA,NA
+Scarus iseri,276052,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Scarus,Scarus iseri,NA,NA,NA,NA,NA,NA,NA,NA,Scarinae,NA,NA,NA,NA,NA,NA,NA
+Scarus taeniopterus,276062,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Scarus,Scarus taeniopterus,NA,NA,NA,NA,NA,NA,NA,NA,Scarinae,NA,NA,NA,NA,NA,NA,NA
+Scopalina ruetzleri,165702,Animalia,Porifera,NA,Demospongiae,Scopalinida,NA,Scopalinidae,Scopalina,Scopalina ruetzleri,NA,NA,NA,Heteroscleromorpha,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Serranus,126070,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Serranus,NA,NA,NA,NA,NA,NA,NA,NA,NA,Serraninae,NA,NA,NA,NA,NA,NA,NA
+Serranus tortugarum,273910,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Serranidae,Serranus,Serranus tortugarum,NA,NA,NA,NA,NA,NA,NA,NA,Serraninae,NA,NA,NA,NA,NA,NA,NA
+Gymnothorax,125636,Animalia,Chordata,Vertebrata,Actinopterygii,Anguilliformes,NA,Muraenidae,Gymnothorax,NA,NA,NA,NA,NA,NA,Teleostei,NA,NA,Muraeninae,Elopomorpha,NA,NA,NA,NA,NA,NA
+Siderastrea radians,207517,Animalia,Cnidaria,NA,Anthozoa,Scleractinia,NA,Siderastreidae,Siderastrea,Siderastrea radians,NA,NA,NA,Hexacorallia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Siganus,126071,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Acanthuroidei,Siganidae,Siganus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Sipuncula,1268,Animalia,Sipuncula,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Skenea,138508,Animalia,Mollusca,NA,Gastropoda,Trochida,NA,Skeneidae,Skenea,NA,NA,NA,NA,Vetigastropoda,NA,NA,NA,Trochoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Skeneopsis planorbis,141539,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Skeneopsidae,Skeneopsis,Skeneopsis planorbis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Littorinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Solenosteira cancellaria,419981,Animalia,Mollusca,NA,Gastropoda,Neogastropoda,NA,Pisaniidae,Solenosteira,Solenosteira cancellaria,NA,NA,NA,Caenogastropoda,NA,NA,NA,Buccinoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Sparisoma aurofrenatum,273772,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Sparisoma,Sparisoma aurofrenatum,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Sparisoma radians,273777,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Sparisoma,Sparisoma radians,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Sparisoma viride,273780,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Scaridae,Sparisoma,Sparisoma viride,NA,NA,NA,NA,NA,NA,NA,NA,Sparisomatinae,NA,NA,NA,NA,NA,NA,NA
+Spinachia spinachia,126508,Animalia,Chordata,Vertebrata,Actinopterygii,Gasterosteiformes,NA,Gasterosteidae,Spinachia,Spinachia spinachia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Spirorbinae,989,Animalia,Annelida,NA,Polychaeta,Sabellida,NA,Serpulidae,NA,NA,NA,NA,NA,Sedentaria,NA,Canalipalpata,NA,NA,Spirorbinae,NA,NA,NA,NA,NA,NA,NA
+Stegastes diencaeus,276666,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Stegastes,Stegastes diencaeus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Stegastes partitus,276677,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Stegastes,Stegastes partitus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Stegastes planifrons,276679,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Stegastes,Stegastes planifrons,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Stegastes variabilis,276688,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Pomacentridae,Stegastes,Stegastes variabilis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Stenopus hispidus,210370,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Stenopodidae,Stenopus,Stenopus hispidus,NA,NA,NA,Eumalacostraca,NA,NA,NA,NA,NA,Eucarida,Stenopodidea,NA,NA,NA,NA,NA
+Stenorhynchus seticornis,421957,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Inachoididae,Stenorhynchus,Stenorhynchus seticornis,NA,NA,NA,Eumalacostraca,NA,NA,NA,Majoidea,Stenorhynchinae,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Stenothoe minuta,158149,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Amphilochidea,Stenothoidae,Stenothoe,Stenothoe minuta,NA,NA,NA,Eumalacostraca,NA,NA,NA,Amphilochoidea,Stenothoinae,Peracarida,Amphilochida,Amphilochidira,NA,NA,NA,NA
+Strombus pugilis,419695,Animalia,Mollusca,NA,Gastropoda,Littorinimorpha,NA,Strombidae,Strombus,Strombus pugilis,NA,NA,NA,Caenogastropoda,NA,NA,NA,Stromboidea,NA,NA,NA,NA,NA,NA,NA,NA
+Stuckenia pectinata,588573,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Potamogetonaceae,Stuckenia,Stuckenia pectinata,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Styela plicata,103936,Animalia,Chordata,Tunicata,Ascidiacea,Stolidobranchia,NA,Styelidae,Styela,Styela plicata,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Symplegma rubra,212500,Animalia,Chordata,Tunicata,Ascidiacea,Stolidobranchia,NA,Styelidae,Symplegma,Symplegma rubra,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Symploca aeruginosa,616989,Bacteria,Cyanobacteria,NA,Cyanophyceae,Oscillatoriales,NA,Phormidiaceae,Symploca,Symploca aeruginosa,Gracilicutes,NA,NA,Oscillatoriophycideae,NA,NA,NA,NA,Phormidioideae,NA,NA,NA,NA,NA,NA,NA
+Syngnathus fuscus,159451,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Syngnathus,Syngnathus fuscus,NA,NA,NA,NA,NA,NA,NA,NA,Syngnathinae,NA,NA,NA,NA,NA,NA,NA
+Syngnathus leptorhynchus,275226,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Syngnathus,Syngnathus leptorhynchus,NA,NA,NA,NA,NA,NA,NA,NA,Syngnathinae,NA,NA,NA,NA,NA,NA,NA
+Syngnathus scovelli,275232,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Syngnathus,Syngnathus scovelli,NA,NA,NA,NA,NA,NA,NA,NA,Syngnathinae,NA,NA,NA,NA,NA,NA,NA
+Syngnathus typhle,127393,Animalia,Chordata,Vertebrata,Actinopterygii,Syngnathiformes,NA,Syngnathidae,Syngnathus,Syngnathus typhle,NA,NA,NA,NA,NA,NA,NA,NA,Syngnathinae,NA,NA,NA,NA,NA,NA,NA
+Syringodium filiforme,374715,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Cymodoceaceae,Syringodium,Syringodium filiforme,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Syringodium isoetifolium,374716,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Cymodoceaceae,Syringodium,Syringodium isoetifolium,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Tectura,138142,Animalia,Mollusca,NA,Gastropoda,NA,NA,Lottiidae,Tectura,NA,NA,NA,NA,Patellogastropoda,NA,NA,NA,Lottioidea,Tecturinae,NA,NA,NA,NA,NA,NA,NA
+Tedania ignis,404078,Animalia,Porifera,NA,Demospongiae,Poecilosclerida,NA,Tedaniidae,Tedania,Tedania ignis,NA,NA,NA,Heteroscleromorpha,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Tegula aureotincta,534186,Animalia,Mollusca,NA,Gastropoda,Trochida,NA,Tegulidae,Tegula,Tegula aureotincta,NA,NA,NA,Vetigastropoda,NA,NA,NA,Trochoidea,NA,NA,NA,NA,NA,NA,NA,NA
+Telmessus cheiragonus,254360,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Cheiragonidae,Telmessus,Telmessus cheiragonus,NA,NA,NA,Eumalacostraca,NA,NA,NA,Cheiragonoidea,NA,Eucarida,Brachyura,NA,Eubrachyura,Heterotremata,NA,NA
+Tethygeneia,416054,Animalia,Arthropoda,Crustacea,Malacostraca,Amphipoda,Senticaudata,Pontogeneiidae,Tethygeneia,NA,NA,NA,NA,Eumalacostraca,NA,NA,NA,Calliopioidea,NA,Peracarida,Hadziida,Hadziidira,NA,NA,NA,NA
+Thalassia testudinum,374720,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Hydrocharitaceae,Thalassia,Thalassia testudinum,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Thalassoma bifasciatum,159786,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Thalassoma,Thalassoma bifasciatum,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Theodoxus fluviatilis,153558,Animalia,Mollusca,NA,Gastropoda,Cycloneritida,NA,Neritidae,Theodoxus,Theodoxus fluviatilis,NA,NA,NA,Neritimorpha,NA,NA,NA,Neritoidea,Neritininae,NA,NA,NA,NA,NA,NA,NA
+Tolypella nidifica,416187,Plantae,NA,NA,Charophyceae,Charales,NA,Characeae,Tolypella,Tolypella nidifica,Viridiplantae,Charophyta,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Streptophyta,NA
+Tosia magnifica,344749,Animalia,Echinodermata,Asterozoa,Asteroidea,Valvatida,NA,Goniasteridae,Tosia,Tosia magnifica,NA,NA,NA,NA,NA,NA,NA,NA,Pentagonasterinae,Valvatacea,NA,NA,NA,NA,NA,NA
+Tozeuma carolinense,421784,Animalia,Arthropoda,Crustacea,Malacostraca,Decapoda,Pleocyemata,Hippolytidae,Tozeuma,Tozeuma carolinense,NA,NA,NA,Eumalacostraca,NA,NA,NA,Alpheoidea,NA,Eucarida,Caridea,NA,NA,NA,NA,NA
+Tripneustes ventricosus,422490,Animalia,Echinodermata,Echinozoa,Echinoidea,Camarodonta,NA,Toxopneustidae,Tripneustes,Tripneustes ventricosus,NA,NA,NA,Euechinoidea,NA,Carinacea,NA,Odontophora,NA,Echinacea,Echinidea,NA,NA,NA,NA,NA
+Turbonilla dalli,420483,Animalia,Mollusca,NA,Gastropoda,NA,NA,Pyramidellidae,Turbonilla,Turbonilla dalli,NA,NA,NA,Heterobranchia,NA,Euthyneura,Tectipleura,Pyramidelloidea,Turbonillinae,Pylopulmonata,NA,NA,NA,NA,NA,NA
+Udotea,204078,Plantae,NA,NA,Ulvophyceae,Bryopsidales,NA,Udoteaceae,Udotea,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Ulva,144296,Plantae,NA,NA,Ulvophyceae,Ulvales,NA,Ulvaceae,Ulva,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Upeneichthys vlamingii,283083,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Percoidei,Mullidae,Upeneichthys,Upeneichthys vlamingii,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Urobatis jamaicensis,283086,Animalia,Chordata,Vertebrata,Elasmobranchii,Myliobatiformes,NA,Urotrygonidae,Urobatis,Urobatis jamaicensis,NA,NA,NA,Neoselachii,NA,Batoidea,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Valonia,144267,Plantae,NA,NA,Ulvophyceae,Cladophorales,NA,Valoniaceae,Valonia,NA,Viridiplantae,Chlorophyta,Chlorophytina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Xyrichtys martinicensis,273602,Animalia,Chordata,Vertebrata,Actinopterygii,Perciformes,Labroidei,Labridae,Xyrichtys,Xyrichtys martinicensis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Zannichellia major,715997,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Potamogetonaceae,Zannichellia,Zannichellia major,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Zeuxo,136248,Animalia,Arthropoda,Crustacea,Malacostraca,Tanaidacea,Tanaidomorpha,Tanaididae,Zeuxo,NA,NA,NA,NA,Eumalacostraca,Anatanaini,NA,NA,Tanaidoidea,Pancolinae,Peracarida,NA,NA,NA,NA,NA,NA
+Zostera marina,495077,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Zosteraceae,Zostera,Zostera marina,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
+Zostera nigricaulis,593702,Plantae,NA,NA,Magnoliopsida,Alismatales,NA,Zosteraceae,Zostera,Zostera nigricaulis,Viridiplantae,Tracheophyta,Spermatophytina,NA,NA,NA,NA,NA,NA,Lilianae,NA,NA,NA,NA,Streptophyta,NA
