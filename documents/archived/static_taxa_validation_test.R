@@ -30,9 +30,11 @@ testTaxa <- function(df){
   
   # read in taxa database
   database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv")
+  # isolate all user-submitted and resolved taxa
+  database_taxa <- unique(c(database$scientific_name, database$resolved_name))
   
   # check for taxa in database, store undocumented taxa
-  undocumented <- taxalist[which(!(taxalist %in% database$scientific_name))]
+  undocumented <- taxalist[which(!(taxalist %in% database_taxa))]
   
   # Resolve taxa names that aren't documented in the database
   if (length(undocumented) > 0){
@@ -71,17 +73,17 @@ testTaxa <- function(df){
   }
   
   if (length(resolved) > 0) {
-    # validate the resolved names
-    validated <- validateTaxa(resolved$matched_name2)
-    
-    # merge resolved and validated data frames
-    resolved_validated <- resolved %>%
-      rename(scientific_name = user_supplied_name,
-             resolved_name = matched_name2,
-             data_source = data_source_title,
-             gnr_score = score) %>%
-      left_join(., validated, by = "resolved_name") %>%
-      select(-submitted_name)
+    # # validate the resolved names
+    # validated <- validateTaxa(resolved$matched_name2)
+    # 
+    # # merge resolved and validated data frames
+    # resolved_validated <- resolved %>%
+    #   rename(scientific_name = user_supplied_name,
+    #          resolved_name = matched_name2,
+    #          data_source = data_source_title,
+    #          gnr_score = score) %>%
+    #   left_join(., validated, by = "resolved_name") %>%
+    #   select(-submitted_name)
       
     # write updated database to documents folder?
     # check that the taxa resolved correctly

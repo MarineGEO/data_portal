@@ -1,4 +1,4 @@
-user_submitted_name,resolved_name
+original_name,manually_resolved_name
 Amphithoe sp.,Ampithoe
 ascidian sp,Ascidiacea
 Bivalve sp.,Bivalvia
@@ -30,3 +30,8 @@ Branchiosyllis,Branchiosyllis
 Ventricularia,
 Ventricolaria,Globivenus
 Ventricaria,Valonia
+Panilurus argus,Panulirus argus
+Acanthurus bahanius,Acanthurus bahianus
+Haliochoeres ciliaris,Halichoeres ciliaris
+Lutjanus mahogani,Lutjanus mahogoni
+barred hamlet,Hypoplectrus puella

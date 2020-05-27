@@ -53,10 +53,11 @@ testTaxa <- function(df){
   
   # read in taxa database
   database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv")
+  # isolate all user-submitted and resolved taxa
+  database_taxa <- unique(c(database$scientific_name, database$resolved_name))
   
   # check for taxa in database, store undocumented taxa
-  # documented <- taxalist[which(taxalist %in% database$scientific_name)]
-  undocumented <- taxalist[which(!(taxalist %in% database$scientific_name))]
+  undocumented <- taxalist[which(!(taxalist %in% database_taxa))]
   
   # Resolve taxa names that aren't documented in the database
   if (length(undocumented) > 0){
@@ -96,25 +97,41 @@ testTaxa <- function(df){
   
   # this output will be stored in a reactive value and saved to the data folder
   if (length(resolved) > 0) {
-    # validate the resolved names
-    validated <- validateTaxa(resolved$matched_name2)
     
-    # merge resolved and validated data frames
-    resolved_validated <- resolved %>%
-      rename(scientific_name = user_supplied_name,
-             resolved_name = matched_name2,
-             data_source = data_source_title,
-             gnr_score = score) %>%
-      left_join(., validated, by = "resolved_name") %>%
-      select(-submitted_name)
+    # Save to data folder
+    if(file.exists("taxa-resolved.csv")){
+      # update existing taxa-resolved file
+      existing_resolved <- read_csv("data_portal_prototype/data/taxa-resolved.csv")
+      updated_resolved <- row_bind(existing_resolved, resolve)
+      # write updated taxa for review
+      write_csv(updated_resolved, "data_portal_prototype/data/taxa-resolved.csv")
+    } else {
+      # write taxa for review
+      write_csv(resolved, "data_portal_prototype/data/taxa-resolved.csv")
+    }
       
     # write updated database to documents folder?
     # check that the taxa resolved correctly
-    print("Please review the following taxa before adding to the database:")
-    print(resolved$matched_name2)
+    # print("Please review the following taxa before adding to the database:")
+    # print(resolved$matched_name2)
   }
   
+  # this output will be stored in a reactive value and saved to the data folder
   if (length(unresolved) > 0) {
+
+    # Save to data folder
+    if(file.exists("taxa-unresolved.csv")){
+      # update existing taxa-unresolved file
+      existing_unresolved <- read_csv("data_portal_prototype/data/taxa-unresolved.csv")
+      updated_unresolved <- row_bind(existing_unresolved, unresolved)
+      # write updated taxa for review
+      write_csv(updated_unresolved, "data_portal_prototype/data/taxa-unresolved.csv")
+    } else {
+      # write taxa for review
+      write_csv(unresolved, "data_portal_prototype/data/taxa-unresolved.csv")
+    }
+    
+    # QAQC results
     print("The following taxa could not be resolved:")
     print(unresolved)
     
@@ -130,6 +147,4 @@ testTaxa <- function(df){
     
     return(results)
   }
-  
-  # return(resolved_validated)
 }

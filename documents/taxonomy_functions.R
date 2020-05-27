@@ -7,17 +7,43 @@
 # library(worrms)
 # library(taxize)
 
-# resolveTaxa <- function(taxa) {
-# 
-# }
+resolveTaxa <- function(taxa) {
+  
+  resolved <- data.frame()
+  unresolved <- vector()
+  
+  for (i in 1:length(taxa)){
+    # store resolved results
+    gnr_result <- gnr_resolve(names = as.vector(taxa[i]), 
+                              canonical = TRUE,
+                              # gnr_datasources()
+                              preferred_data_sources = c(9, 4, 3)) %>%
+      # pick the first result
+      slice(1)
+    
+    if (!plyr::empty(gnr_result)) {
+      # compile list of resolved taxa
+      resolved <- rbind(resolved, gnr_result)
 
-# updateTaxaDatabase <- function(candidate_taxa) {
-#   
-# }
+    } else {
+      # save unresolved taxa
+      unresolved <- rbind(unresolved, taxa[i])
+      # skip unresolved taxa
+      i <- i + 1
+      next
+    }
+  }
+  
+  if (length(unresolved) > 0) {
+    print("The following taxa could not be resolved:")
+    print(unresolved)
+  }
+  
+  return(resolved)
+}
 
-# validateTaxaDatabase <- function(candidate_taxa) {
-#   
-# }
+# taxa <- read_csv("documents/test_data/test_update_taxa.csv")$Species
+# test_taxa <- resolveTaxa(taxa)
 
 # Query WORMS to validate undocumented, resolved taxa ####
 validateTaxa <- function(taxa) {
@@ -95,12 +121,14 @@ validateTaxa <- function(taxa) {
                            valid_name = validated_taxa,
                            valid_AphiaID = valid_taxa_id,
                            stringsAsFactors = FALSE) %>%
-    mutate(name_match = ifelse(resolved_name == valid_name, 
-                               yes = TRUE,
-                               no = FALSE))
+    mutate(name_updated = ifelse(resolved_name == valid_name, 
+                               yes = FALSE,
+                               no = TRUE))
   # return validation df
   return(validation)
 }
+
+
 
 ## test validateTaxa ----
 # taxa_database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv")
@@ -118,7 +146,7 @@ validateTaxa <- function(taxa) {
 # test <- validateTaxa(taxa)
 
 # Classify database taxa ----
-classifyTaxa <- function() {
+classifyTaxaDatabase <- function() {
   # read in taxa database
   taxa_database <- read_csv("data_portal_prototype/data/taxa-database-valid.csv") %>%
     drop_na(valid_AphiaID)
@@ -158,3 +186,32 @@ classifyTaxa <- function() {
   return(classify_taxa_wide)
 }
 
+# update taxa database with candidate taxa from taxa-resolved.csv
+updateTaxaDatabase <- function(){
+  
+  # if taxa-resolved exists, validate and update 
+  if (file.exists("taxa-resolved.csv")){
+    
+    taxa <- read_csv("data_portal_prototype/data/taxa-resolved.csv")
+    
+    # validate the resolved names
+    validated <- validateTaxa(taxa$matched_name2)
+    
+    # merge resolved and validated data frames
+    resolved_validated <- taxa %>%
+      rename(scientific_name = user_supplied_name,
+             resolved_name = matched_name2,
+             data_source = data_source_title,
+             gnr_score = score) %>%
+      left_join(., validated, by = "resolved_name") %>%
+      select(-submitted_name)
+    
+  } else {
+    print("Already up to date.")
+  }
+}
+
+# Run once and a while to make sure the database is up to date on valid taxa
+# validateTaxaDatabase <- function(candidate_taxa) {
+#   
+# }
