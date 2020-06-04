@@ -29,6 +29,7 @@ testTaxa <- function(df){
   
   source("documents/taxonomy_functions.R")
   
+  # taxalist <- vector()
   results <- data.frame()
   resolved <- data.frame()
   unresolved <- vector()
@@ -50,6 +51,8 @@ testTaxa <- function(df){
         taxalist <- stored_protocol$df[[sheet_name]] %$%
           unique(.$scientific_name)
 
+        
+        
       ## Check submitted taxa against database and previous protocol sheets ----
       
       # read in taxa database
