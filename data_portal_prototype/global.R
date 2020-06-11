@@ -17,7 +17,7 @@ library(DT)
 library(anytime)
 
 # Portal version
-portal_version <- "v0.4.0"
+portal_version <- "v0.5.0"
 
 # Testing modes: 
 # IF ANY VALUES ARE TRUE, THEN TESTING IS ACTIVE

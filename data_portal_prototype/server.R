@@ -7,10 +7,10 @@ function(input, output, session) {
   source("extractSubmissionMetadata.R", local=TRUE)
   # QA functions
   source("./qaqc_scripts/id_relationship_test.R", local=TRUE)
-  source("./qaqc_scripts/min_max_test.R", local=TRUE)
+  #source("./qaqc_scripts/min_max_test.R", local=TRUE)
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
-  source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
+  #source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
@@ -473,9 +473,9 @@ QAQC <- function(){
         bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
         bind_rows(checkSampleMetadata()) %>%
         bind_rows(checkIDRelationships()) %>%
-        bind_rows(checkTaxaRelationships()) %>%
-        bind_rows(testNumericType()) %>%
-        bind_rows(numericMinMaxTest())
+        #bind_rows(checkTaxaRelationships()) %>%
+        bind_rows(testNumericType()) # %>%
+        #bind_rows(numericMinMaxTest())
       
       # Add the protocol to the overall submission data list 
       submission_data$all_data[[paste(current_protocol(), 

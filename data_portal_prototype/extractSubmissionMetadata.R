@@ -94,14 +94,14 @@ extractWorkbookVersions <- function(original_filename, protocol_metadata){
     # If $workbook_version doesn't exist, will only generate a warning rather than an error
     version <- protocol_metadata$workbook_version
     
-    if(version == "v0.3.0" | version == "v0.4.0"){
+    #if(version == "v0.3.0" | version == "v0.4.0"){
       return(version)
     # If an older spread is submitted, record the error  
-    } else {
-      protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
-                                                                              filter(warnings, title == "invalid_workbook_version")$message)
-      return("invalid")
-    }
+    # } else {
+    #   protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
+    #                                                                           filter(warnings, title == "invalid_workbook_version")$message)
+    #   return("invalid")
+    # }
   },
   warning = function(w){
     # Track which file triggered the error and the cause (no workbook version column present)
