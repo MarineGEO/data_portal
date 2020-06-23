@@ -40,12 +40,14 @@ function(input, output, session) {
                                                                                             "protocol",
                                                                                             "data_entry_date",
                                                                                             "site_code",
-                                                                                            "year_collected")),
+                                                                                            "year_collected")) %>%
+                                      mutate_all(as.character),
                                     protocol_df = data.frame()) # df to hold all protocol metadata of submissions
   
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
-                                             c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"))) 
+                                             c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values")) %>%
+                                 mutate_all(as.character)) 
   
   # Objects hold each protocol and related metadata as they undergo QA in called functions
   current_protocol <- reactiveVal()
@@ -106,7 +108,7 @@ function(input, output, session) {
     
     # Put entire submission process inside a try catch 
     # This should prevent any unexpected errors from crashing the submission portal
-    tryCatch({
+    # tryCatch({
     # Get the current time
     submission_time(humanTime())
     
@@ -116,7 +118,7 @@ function(input, output, session) {
     # Make sure each file is an excel (.xlsx) file
     # And data entry date - protocol - site information can all be extracted
     file_test <- checkFileExtensions()
-    
+
     # Only upload data if all files are .xlsx
     if(file_test){
       showModal(modalDialog(
@@ -131,15 +133,15 @@ function(input, output, session) {
       # Save filnames and create standardized filenames based on protocol-site-data entry date
       # updateFileNames()
       extractProtocolMetadata()
-      
+
       # Upload initial files to dropbox and run QA checks
       if(!no_db_testing) saveInitialData()
-      
+
       # If no errors are recorded continue with the submission 
       if(nrow(protocol_metadata_error$df)==0){
-
         # Run beta QA process 
         QAQC()
+
         # Determine how many output CSVs will need to be created 
         # Each protocol-site-collection year combination gets a collection of CSV files
         determineOutputs()
@@ -152,6 +154,7 @@ function(input, output, session) {
         }
         # Render the report and save to MarineGEO dropbox
         renderReport()
+        
         # Move user to the data report page
         updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
         # If the QA QC checks were successful, save the curated data in the proper directory
@@ -185,18 +188,18 @@ function(input, output, session) {
         easyClose = TRUE
       ))
     }
-    
-    },
-    error = function(e){
-      showModal(modalDialog(
-        title = "An unexpected error occurred", 
-        div("An unexpected error occurred.", 
-            "Please email MarineGEO (marinegeo@si.edu) your Excel spreadsheets, and we will respond promptly.",
-            "We apologize for this inconvenience."),
-        
-        easyClose = TRUE
-      ))
-    })
+    # 
+    # },
+    # error = function(e){
+    #   showModal(modalDialog(
+    #     title = "An unexpected error occurred", 
+    #     div("An unexpected error occurred.", 
+    #         "Please email MarineGEO (marinegeo@si.edu) your Excel spreadsheets, and we will respond promptly.",
+    #         "We apologize for this inconvenience."),
+    #     
+    #     easyClose = TRUE
+    #   ))
+    # })
   })
   
   ## ... data submission button lock conditions ###########
@@ -434,38 +437,48 @@ QAQC <- function(){
   for(i in 1:length(submission_metadata$original_filename)){
     
     tryCatch({
+
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
       
+      # Get names of sheets present in the file
+      # If any sheets are missing, causes an error that causes app to fail (not caught by tryCatch)
+      available_sheets <- excel_sheets(submission_metadata$new_filename[i])
+      
       # Get names of sheets for given protocol
       protocol_sheets(protocol_structure %>%
-                        filter(protocol == current_protocol()) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
+                        filter(protocol == current_protocol()) %>%
+                        filter(sheet %in% available_sheets) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
                         unique(.$sheet))
+
+      print(protocol_sheets())
       
       # Create an empty list, each object will be a sheet for the protocol
       protocol_df <- vector("list", length(protocol_sheets()))
       names(protocol_df) <- protocol_sheets()
-      
+
       # Read in each sheet for the protocol, assign to respective list object 
       for(sheet_name in protocol_sheets()) {
-        df <- read_excel(submission_metadata$new_filename[i], 
-                         sheet = sheet_name, 
-                         na = c("NA", "This cell will autocalculate", "N/A"))
-        
-        # Need to prevent empty sheets from getting uploaded
-        # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
-        # TO DO - Add entry to QA_results_table in else statement
-        if(nrow(df) > 0){
-          protocol_df[[sheet_name]] <- df
-        } else{
-          protocol_sheets_non_reactive <- protocol_sheets()
-          protocol_sheets(protocol_sheets_non_reactive[protocol_sheets_non_reactive != sheet_name])
-        }
+        print(sheet_name)
+          df <- read_excel(submission_metadata$new_filename[i], 
+                           sheet = sheet_name, 
+                           na = c("NA", "This cell will autocalculate", "N/A"))
+          
+          # Need to prevent empty sheets from getting uploaded
+          # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
+          # TO DO - Add entry to QA_results_table in else statement
+          if(nrow(df) > 0){
+            protocol_df[[sheet_name]] <- df
+          } else{
+            protocol_sheets_non_reactive <- protocol_sheets()
+            protocol_sheets(protocol_sheets_non_reactive[protocol_sheets_non_reactive != sheet_name])
+          }
       }
       
       # Save protocol data to a reactive list object so QA tests can access within environment
       stored_protocol$df <- protocol_df
       
+
       # Run  QA tests
       # Each uploaded file is passed through QAQC functions
       # Each function is located in its own script
@@ -476,6 +489,8 @@ QAQC <- function(){
         #bind_rows(checkTaxaRelationships()) %>%
         bind_rows(testNumericType()) # %>%
         #bind_rows(numericMinMaxTest())
+    
+      
       
       # Add the protocol to the overall submission data list 
       submission_data$all_data[[paste(current_protocol(), 
@@ -484,8 +499,6 @@ QAQC <- function(){
       
     },
     
-    # If any error is generated during the QA process, record an error for the current protocol and move on to the next protocol
-    # Data submission process will not stop for an error, only upload that generated error will not be passed on to next steps
     error = function(e){
       current_protocol(submission_metadata$protocol[i])
       original_filename_qa(submission_metadata$original_filename[i])
@@ -526,6 +539,7 @@ determineOutputs <- function(){
   list_index <- 1
   for(i in 1:length(submission_data$all_data)){
     
+    
     # If the current upload generated an error during the QA process, skip it
     if(is.null(submission_data$all_data[[i]])) next
     
@@ -534,7 +548,10 @@ determineOutputs <- function(){
     current_protocol(submission_metadata$protocol[i])
     data_entry_date <- submission_metadata$data_entry_date[i]
     
+    
+    
     tryCatch({
+      
       sample_metadata <- submission_data$all_data[[i]]$sample_metadata
       # unique sites in the sample metadata file
       sites <- unique(sample_metadata$site_code)
@@ -547,15 +564,16 @@ determineOutputs <- function(){
                                year_collected = year(anydate(sample_deployment_date)))$year_collected)
       }
       
+      print("here")
       for(sheet in names(submission_data$all_data[[i]])){
         
         # Sheets with no data are recorded as NULL in submission_data$all_data
         if(!is.null(submission_data$all_data[[i]][[sheet]])){
-          
+
           if(length(sites) > 1 | length(years) > 1){
             # Get each unique combination of sample collection years and sites
             unique_combinations <- crossing(sites,years)
-            
+
             for(j in 1:nrow(unique_combinations)){
               current_site <- as.character(unique_combinations[j,1])
               current_year <- as.character(unique_combinations[j,2])
@@ -580,9 +598,11 @@ determineOutputs <- function(){
                 list_index <- list_index + 1
                 
                 output_metadata$df <- output_metadata$df %>%
-                  bind_rows(setNames(as.data.frame(t(c(new_filename, current_protocol(), data_entry_date, current_site, current_year))), 
-                                     c("filename", "protocol", "data_entry_date", "site_code", "year_collected"))) %>%
-                  mutate_all(as.character)
+                  add_row(filename = as.character(new_filename), 
+                          protocol = as.character(current_protocol()),
+                          data_entry_date = as.character(data_entry_date),
+                          site_code = as.character(sites), 
+                          year_collected = as.character(years))
               }
             }
             
@@ -591,24 +611,28 @@ determineOutputs <- function(){
             new_filename <- paste(gsub("_", "-", current_protocol()), 
                                   sites, data_entry_date, 
                                   gsub("_", "-", sheet), sep="_")
-            
+
             # Save the file and metadata
             outputs$data[[list_index]] <- submission_data$all_data[[i]][[sheet]]
             
             list_index <- list_index + 1
-            
+
             output_metadata$df <- output_metadata$df %>%
-              bind_rows(setNames(as.data.frame(t(c(new_filename, current_protocol(), data_entry_date, sites, years))), 
-                                 c("filename", "protocol", "data_entry_date", "site_code", "year_collected"))) %>%
-              mutate_all(as.character)
+              add_row(filename = as.character(new_filename), 
+                      protocol = as.character(current_protocol()),
+                      data_entry_date = as.character(data_entry_date),
+                      site_code = as.character(sites), 
+                      year_collected = as.character(years))
             
           } 
         }
       }
+      
       # Upload the protocol metadata for the current protocol
       output_metadata$protocol_df <- output_metadata$protocol_df %>%
         bind_rows(submission_metadata$protocol_df[i][[1]]) %>%
         mutate_all(as.character)
+      
       
     },
     

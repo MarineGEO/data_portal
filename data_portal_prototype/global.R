@@ -71,8 +71,6 @@ roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv", encodin
   mutate(email = as.character(email)) %>%
   mutate(email = tolower(email))
 
-# roster <- drop_read_csv("MarineGEO/Data/resources/marinegeo_roster.csv")
-
 warnings <- read_csv("./data/warnings_lookup.csv")
 
 

@@ -42,7 +42,7 @@ if(nrow(QA_results$df) > 0){
   )
   
   cat("\n", "\n")
-  
+
 }
 
 
