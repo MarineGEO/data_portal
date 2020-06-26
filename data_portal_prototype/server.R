@@ -742,7 +742,6 @@ renderReport <- function(){
   
   report_path(paste0("submission_report_", submission_time(), ".html"))
   
-  
   if(!no_db_testing){
     # Send the report to the dropbox
     drop_upload(paste0("./www/", report_path()),

@@ -98,7 +98,6 @@ schemaColumnNames <- function(x){
     }
   }
   
-  print("here")
   if(nrow(column_results) > 0){
     column_results <- column_results %>%
       mutate(row_numbers = NA,
