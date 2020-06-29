@@ -24,7 +24,7 @@ portal_version <- "v0.5.0"
 # No data transmission
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-no_db_testing <- F
+no_db_testing <- T
 
 # Dropbox testing
 # FALSE = Objects saved to official directory

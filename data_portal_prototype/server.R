@@ -12,6 +12,7 @@ function(input, output, session) {
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   #source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
+  source("./qaqc_scripts/schema_evaluation.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -151,6 +152,7 @@ function(input, output, session) {
           # If not, create them
           checkDirectories()
         }
+        
         # Render the report and save to MarineGEO dropbox
         renderReport()
         
@@ -435,7 +437,7 @@ QAQC <- function(){
   # Loop through each uploaded protocol
   for(i in 1:length(submission_metadata$original_filename)){
     
-    tryCatch({
+    # tryCatch({
 
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
@@ -461,7 +463,6 @@ QAQC <- function(){
 
       # Read in each sheet for the protocol, assign to respective list object 
       for(sheet_name in protocol_sheets()) {
-        print(sheet_name)
           df <- read_excel(submission_metadata$new_filename[i], 
                            sheet = sheet_name, 
                            na = c("NA", "This cell will autocalculate", "N/A"))
@@ -480,17 +481,23 @@ QAQC <- function(){
       # Save protocol data to a reactive list object so QA tests can access within environment
       stored_protocol$df <- protocol_df
       
-
+      print("here")
+      
+      # Schema QA tests
+      QA_results$df <- QA_results$df %>%
+        bind_rows(schemaTableNames()) %>%
+        bind_rows(schemaColumnNames())
+      
       # Run  QA tests
       # Each uploaded file is passed through QAQC functions
       # Each function is located in its own script
-      QA_results$df <- QA_results$df %>%
-        bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
-        bind_rows(checkSampleMetadata()) %>%
-        bind_rows(checkIDRelationships()) %>%
-        #bind_rows(checkTaxaRelationships()) %>%
-        bind_rows(testNumericType()) # %>%
-        #bind_rows(numericMinMaxTest())
+      # QA_results$df <- QA_results$df %>%
+      #   bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
+      #   bind_rows(checkSampleMetadata()) %>%
+      #   bind_rows(checkIDRelationships()) %>%
+      #   #bind_rows(checkTaxaRelationships()) %>%
+      #   bind_rows(testNumericType()) # %>%
+      #   #bind_rows(numericMinMaxTest())
     
       
       
@@ -499,29 +506,29 @@ QAQC <- function(){
                                       submission_metadata$original_filename[i], 
                                       submission_metadata$site[i], sep="_")]] <- protocol_df
       
-    },
+    # },
     
-    error = function(e){
-      current_protocol(submission_metadata$protocol[i])
-      original_filename_qa(submission_metadata$original_filename[i])
-
-      # Create an error message in the QA result log
-      QA_results$df <- setNames(as.data.frame("Error during QAQC tests"), "test") %>%
-        mutate(column_name = NA,
-               sheet_name = NA,
-               protocol = current_protocol(),
-               filename = original_filename_qa(),
-               values = NA,
-               row_numbers = NA) %>%
-        select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
-        bind_rows(QA_results$df)
-
-      # Create an empty item in the submission data to stand in for the protocol's data
-      submission_data$all_data[[paste(current_protocol(),
-                                      submission_metadata$original_filename[i],
-                                      submission_metadata$site[i], sep="_")]] <- NULL
-
-    })
+    # error = function(e){
+    #   current_protocol(submission_metadata$protocol[i])
+    #   original_filename_qa(submission_metadata$original_filename[i])
+    # 
+    #   # Create an error message in the QA result log
+    #   QA_results$df <- setNames(as.data.frame("Error during QAQC tests"), "test") %>%
+    #     mutate(column_name = NA,
+    #            sheet_name = NA,
+    #            protocol = current_protocol(),
+    #            filename = original_filename_qa(),
+    #            values = NA,
+    #            row_numbers = NA) %>%
+    #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
+    #     bind_rows(QA_results$df)
+    # 
+    #   # Create an empty item in the submission data to stand in for the protocol's data
+    #   submission_data$all_data[[paste(current_protocol(),
+    #                                   submission_metadata$original_filename[i],
+    #                                   submission_metadata$site[i], sep="_")]] <- NULL
+    # 
+    # })
     
   }
   
@@ -568,7 +575,6 @@ determineOutputs <- function(){
                                year_collected = year(anydate(sample_deployment_date)))$year_collected)
       }
       
-      print("here")
       for(sheet in names(submission_data$all_data[[i]])){
         
         # Sheets with no data are recorded as NULL in submission_data$all_data
@@ -740,7 +746,6 @@ renderReport <- function(){
                     output_dir = "./www/")
   
   report_path(paste0("submission_report_", submission_time(), ".html"))
-  
   
   if(!no_db_testing){
     # Send the report to the dropbox
