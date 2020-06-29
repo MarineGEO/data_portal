@@ -131,8 +131,7 @@ function(input, output, session) {
         easyClose = TRUE
       ))
       
-      # Save filnames and create standardized filenames based on protocol-site-data entry date
-      # updateFileNames()
+      # Extract essential metadata needed to classify that submission represents a MarineGEO protocol
       extractProtocolMetadata()
 
       # Upload initial files to dropbox and run QA checks
@@ -447,12 +446,16 @@ QAQC <- function(){
       # If any sheets are missing, causes an error that causes app to fail (not caught by tryCatch)
       available_sheets <- excel_sheets(submission_metadata$new_filename[i])
       
+      # Change 'seagrass_organic_matter' to 'sediment_organic_matter' for old submissions
+      if(current_protocol() == "seagrass_organic_matter"){
+        current_protocol("sediment_organic_matter")
+      }
+      
       # Get names of sheets for given protocol
       protocol_sheets(protocol_structure %>%
                         filter(protocol == current_protocol()) %>%
                         filter(sheet %in% available_sheets) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
                         unique(.$sheet))
-
 
       # Create an empty list, each object will be a sheet for the protocol
       protocol_df <- vector("list", length(protocol_sheets()))
@@ -556,9 +559,11 @@ determineOutputs <- function(){
     
     
     
-    tryCatch({
+    
+   # tryCatch({
       
       sample_metadata <- submission_data$all_data[[i]]$sample_metadata
+      print(sample_metadata)
       # unique sites in the sample metadata file
       sites <- unique(sample_metadata$site_code)
       # unique data collection/deployment years in the sample metadata file
@@ -639,21 +644,21 @@ determineOutputs <- function(){
         mutate_all(as.character)
       
       
-    },
-    
-    # Any error generated in this block is very likely caused by an error with sample collection date and the year function
-    error = function(e){
-      # Create an error message in the QA result log
-      QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
-        mutate(column_name = NA,
-               sheet_name = NA,
-               protocol = current_protocol(),
-               filename = original_filename_qa(),
-               values = NA,
-               row_numbers = NA) %>%
-        select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
-        bind_rows(QA_results$df)
-    })
+    # },
+    # 
+    # # Any error generated in this block is very likely caused by an error with sample collection date and the year function
+    # error = function(e){
+    #   # Create an error message in the QA result log
+    #   QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
+    #     mutate(column_name = NA,
+    #            sheet_name = NA,
+    #            protocol = current_protocol(),
+    #            filename = original_filename_qa(),
+    #            values = NA,
+    #            row_numbers = NA) %>%
+    #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
+    #     bind_rows(QA_results$df)
+    # })
   }
 }
 
