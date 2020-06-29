@@ -130,8 +130,7 @@ function(input, output, session) {
         easyClose = TRUE
       ))
       
-      # Save filnames and create standardized filenames based on protocol-site-data entry date
-      # updateFileNames()
+      # Extract essential metadata needed to classify that submission represents a MarineGEO protocol
       extractProtocolMetadata()
 
       # Upload initial files to dropbox and run QA checks
