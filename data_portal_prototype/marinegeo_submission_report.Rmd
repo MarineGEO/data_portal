@@ -24,6 +24,48 @@ Once you've addressed any issues(s), resubmit ONLY the data associated with the 
 
   <br />
 
+### Data Visualization
+
+```{r echo=FALSE, results='asis'}
+# Plot all coords in protocol submission ##########
+
+print("This is the part where the map will go.")
+
+# if(nrow(submission_coords$all_coords) > 0){
+  print(kable(submission_coords$all_coords))
+  
+# Experiment with leaflet
+# library(leaflet)
+# 
+#   # define palette 
+#   pal <- colorFactor(palette = "Set3", 
+#                      coords$protocol)
+#   
+#   # plot coordinates
+#   leaflet(coords) %>% 
+#     addProviderTiles(providers$CartoDB) %>%
+#     # addTiles() %>%
+#     addCircleMarkers(lng = ~longitude_1, lat = ~latitude_1, radius = 5, color = ~pal(protocol)) %>%
+#     addLegend(pal = pal, values = ~protocol)
+#   
+#   # # plot transects
+#   # transect_df <- with(transect_coords,
+#   #               data.frame(group = c("A", "B"),
+#   #                          protocol = protocol,
+#   #                          lat = c(latitude_1, latitude_2),
+#   #                          long = c(longitude_1, longitude_2))
+#   # )
+#   # 
+#   # leaflet()%>%
+#   #   addProviderTiles(providers$CartoDB) %>%
+#   #   # problem: Polylines will connect the transects
+#   #   addPolylines(data = transect_df, lng = ~long, lat = ~lat, group = ~group, 
+#   #                color = ~pal(protocol), weight = 1)
+  # }
+```
+
+  <br />
+
 ### QA/QC Test Results
 
 If any files failed a QA test, the following table will describe which uploaded file, sheet, column, row, and value (if applicable) triggered the errors. You can read a description of each test in the section beneath the table. 

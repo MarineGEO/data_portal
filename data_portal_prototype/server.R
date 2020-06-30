@@ -12,7 +12,7 @@ function(input, output, session) {
   source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
-  source("./qaqc_scripts/taxa_validation_test.R", local=TRUE)
+  # source("./qaqc_scripts/map_submitted_data.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
@@ -47,6 +47,17 @@ function(input, output, session) {
   # Create object to save errors to 
   QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
                                              c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"))) 
+  
+  # create object to save the coordinates provided in the submission
+  submission_coords <- reactiveValues(all_coords = tibble(protocol = as.character(NA),
+                                             sheet = as.character(NA),
+                                             site_code = as.character(NA),
+                                             transect = as.character(NA),
+                                             latitude_1 = as.numeric(NA),
+                                             longitude_1 = as.numeric(NA),
+                                             latitude_2 = as.numeric(NA),
+                                             longitude_2 = as.numeric(NA),
+                                             .rows = 0))
   
   # Objects hold each protocol and related metadata as they undergo QA in called functions
   current_protocol <- reactiveVal()
@@ -476,8 +487,7 @@ QAQC <- function(){
         bind_rows(checkIDRelationships()) %>%
         bind_rows(checkTaxaRelationships()) %>%
         bind_rows(testNumericType()) %>%
-        bind_rows(numericMinMaxTest()) %>%
-        bind_rows(testTaxa())
+        bind_rows(numericMinMaxTest())
       
       # Add the protocol to the overall submission data list 
       submission_data$all_data[[paste(current_protocol(), 
@@ -512,6 +522,91 @@ QAQC <- function(){
     
   }
   
+}
+
+# store protocol coords
+getProtocolCoords <- function(){
+  
+  coords <- data.frame()
+  
+  # use tryCatch here
+  tryCatch({
+    
+    # isolate the coordinate-containing columns
+    coord_cols <- protocol_structure %>% 
+      select(attribute_name, id_variable) %>%
+      filter(id_variable == 3) %>%
+      distinct() %>%
+      pull(attribute_name)
+    
+    # cycle through submitted protocols and collect coordinates
+    for (i in 1:length(submission_data$all_data)){
+      # save protocol name
+      # protocol_name <- names(submission_data$all_data[i])
+      # original_filename_qa(submission_metadata$original_filename[i])
+      # protocol_name <- current_protocol(submission_metadata$protocol[i])
+      protocol_name <- "test_protocol"
+      
+      for (j in 1:length(names(submission_data$all_data[[i]]))){
+        # save protocol sheet name
+        # sheet_name <- names(submission_data$all_data[[i]][j])
+        sheet_name <- "test_sheet"
+        
+        if (any(names(submission_data$all_data[[i]][[j]]) %in% coord_cols)){
+          # save coordinate-containing sheet to object 
+          temp_sheet <- submission_data$all_data[[i]][[j]]
+          # isolate coordinate cols from the sheet
+          temp_cols <- temp_sheet[, which(names(temp_sheet) %in% coord_cols)]
+          
+          if (ncol(temp_cols) == 4){
+            # assuming that the order of the columns is correct...
+            # generalize the col names
+            names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
+            
+            # bind lat/lon pairs with site and transect info
+            temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+              bind_cols(., temp_cols) %>%
+              mutate(protocol = protocol_name,
+                     sheet = sheet_name)
+            
+          } else if (ncol(temp_cols) == 2){
+            # generalize the column names (same assumption about col order)
+            names(temp_cols) <- c("latitude_1", "longitude_1")
+            
+            # bind lat/lon pairs with site and transect info
+            temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+              bind_cols(., temp_cols) %>%
+              mutate(protocol = protocol_name,
+                     sheet = sheet_name)
+            
+          } else {
+            print(str_c("Unidentified lat/long columns in the", protocol_name, 
+                        "protocol and", sheet_name, "sheet", sep = " "))
+          }
+          # compile all lat/lon pairs in submission 
+          coords <- bind_rows(coords, temp_coords) %>%
+            select(protocol, sheet, site_code, transect, everything()) %>%
+            drop_na(latitude_1)
+        }
+      }
+    }
+    submission_coords$all_coords <- coords
+  },
+  error = function(e){
+    
+    print(e)
+    
+    # # Create and return error message in the QA result log
+    # setNames(as.data.frame("Error locating lat/lon data"), "test") %>%
+    #   mutate(column_name = NA,
+    #          sheet_name = NA,
+    #          protocol = current_protocol(),
+    #          filename = original_filename_qa(),
+    #          values = NA,
+    #          row_numbers = NA) %>%
+    #   select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
+    
+  })
 }
 
 determineOutputs <- function(){

@@ -24,12 +24,12 @@ portal_version <- "v0.4.0"
 # No data transmission
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-no_db_testing <- F
+no_db_testing <- T
 
 # Dropbox testing
 # FALSE = Objects saved to official directory
 # TRUE = Objects saved to test directory
-dropbox_testing <- F
+dropbox_testing <- T
 
 if(dropbox_testing){
   destination <- "marinegeo_resources/test_data_destination/"

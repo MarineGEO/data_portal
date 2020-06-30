@@ -51,54 +51,59 @@ coord_cols <- protocol_structure %>%
 
 ## Compile latitude/longitude from protocols ##########
 
-coords <- data.frame()
-
-for (i in 1:length(all_protocols)){
-  # save protocol name
-  protocol_name <- names(all_protocols[i])
+getProtocolCoords <- function(){
   
-  for (j in 1:length(names(all_protocols[[i]]))){
-    # save protocol sheet name
-    sheet_name <- names(all_protocols[[i]][j])
+  coords <- data.frame()
+  
+  # use tryCatch here
+  for (i in 1:length(all_protocols)){
+    # save protocol name
+    protocol_name <- names(all_protocols[i])
     
-    if (any(names(all_protocols[[i]][[j]]) %in% coord_cols)){
-      # save coordinate-containing sheet to object 
-      temp_sheet <- all_protocols[[i]][[j]]
-      # isolate coordinate cols from the sheet
-      temp_cols <- temp_sheet[, which(names(temp_sheet) %in% coord_cols)]
-
-      if (ncol(temp_cols) == 4){
-        # assuming that the order of the columns is correct...
-        # generalize the col names
-        names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
+    for (j in 1:length(names(all_protocols[[i]]))){
+      # save protocol sheet name
+      sheet_name <- names(all_protocols[[i]][j])
+      
+      if (any(names(all_protocols[[i]][[j]]) %in% coord_cols)){
+        # save coordinate-containing sheet to object 
+        temp_sheet <- all_protocols[[i]][[j]]
+        # isolate coordinate cols from the sheet
+        temp_cols <- temp_sheet[, which(names(temp_sheet) %in% coord_cols)]
         
-        # bind lat/lon pairs with site and transect info
-        temp_coords <- temp_sheet %>% select(site_code, transect) %>%
-          bind_cols(., temp_cols) %>%
-          mutate(protocol = protocol_name,
-                 sheet = sheet_name)
-        
-      } else if (ncol(temp_cols) == 2){
-        # generalize the column names (same assumption about col order)
-        names(temp_cols) <- c("latitude_1", "longitude_1")
-        
-        # bind lat/lon pairs with site and transect info
-        temp_coords <- temp_sheet %>% select(site_code, transect) %>%
-          bind_cols(., temp_cols) %>%
-          mutate(protocol = protocol_name,
-                 sheet = sheet_name)
-        
-      } else {
-        print(str_c("Unidentified lat/long columns in the", protocol_name, 
-                    "protocol and", sheet_name, "sheet", sep = " "))
+        if (ncol(temp_cols) == 4){
+          # assuming that the order of the columns is correct...
+          # generalize the col names
+          names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
+          
+          # bind lat/lon pairs with site and transect info
+          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+            bind_cols(., temp_cols) %>%
+            mutate(protocol = protocol_name,
+                   sheet = sheet_name)
+          
+        } else if (ncol(temp_cols) == 2){
+          # generalize the column names (same assumption about col order)
+          names(temp_cols) <- c("latitude_1", "longitude_1")
+          
+          # bind lat/lon pairs with site and transect info
+          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+            bind_cols(., temp_cols) %>%
+            mutate(protocol = protocol_name,
+                   sheet = sheet_name)
+          
+        } else {
+          print(str_c("Unidentified lat/long columns in the", protocol_name, 
+                      "protocol and", sheet_name, "sheet", sep = " "))
+        }
+        # compile all lat/lon pairs in submission 
+        coords <- bind_rows(coords, temp_coords) %>%
+          select(protocol, sheet, site_code, transect, everything()) %>%
+          drop_na(latitude_1)
       }
-      # compile all lat/lon pairs in submission 
-      coords <- bind_rows(coords, temp_coords) %>%
-        select(protocol, sheet, site_code, transect, everything()) %>%
-        drop_na(latitude_1)
     }
   }
 }
+
 
 # Plot all coords in protocol submission ##########
 
@@ -186,5 +191,12 @@ library(leaflet)
     addProviderTiles(providers$CartoDB) %>%
     # problem: Polylines will connect the transects
     addPolylines(data = transect_df, lng = ~long, lat = ~lat, group = ~group, 
-                 color = ~pal(protocol), weight = 1)
+                 weight = 1)
+  
+  
+  leaflet(coords) %>% 
+    addProviderTiles(providers$CartoDB) %>%
+    # addTiles() %>%
+    addCircleMarkers(lng = ~longitude_2, lat = ~latitude_2, radius = 5, color = ~pal(protocol)) %>%
+    addLegend(pal = pal, values = ~protocol)
       
