@@ -19,7 +19,7 @@ schemaTableNames <- function(){
   
   # Find invalid tables (tables that aren't in the current schema)
   invalid_tables <- protocol_sheets()[!(protocol_sheets() %in% schema_tables$table)]
-  print("here")
+  
   # Construct results 
   if(length(absent_tables) >= 1){
     table_results <- table_results %>%

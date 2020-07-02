@@ -9,9 +9,8 @@ function(input, output, session) {
   source("./qaqc_scripts/id_relationship_test.R", local=TRUE)
   #source("./qaqc_scripts/min_max_test.R", local=TRUE)
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
-  source("./qaqc_scripts/sample_metadata_test.R", local=TRUE)
   #source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
-  source("./qaqc_scripts/standardize_dates_curation.R", local=TRUE)
+  source("./qaqc_scripts/date_format_test.R", local=TRUE)
   source("./qaqc_scripts/schema_evaluation.R", local=TRUE)
   
   # Submission time will store the time a user initially submits data using the humanTime function
@@ -422,7 +421,7 @@ QAQC <- function(){
   # Loop through each uploaded protocol
   for(i in 1:length(submission_metadata$original_filename)){
     
-    tryCatch({
+    # tryCatch({
 
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
@@ -474,11 +473,10 @@ QAQC <- function(){
         # # Each uploaded file is passed through QAQC functions
         # # Each function is located in its own script
         QA_results$df <- QA_results$df %>%
-          # bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
-          bind_rows(checkSampleMetadata()) %>%
-          bind_rows(checkIDRelationships()) %>%
+          bind_rows(evaluateDates()) # %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
+          #bind_rows(checkIDRelationships()) %>%
           #bind_rows(checkTaxaRelationships()) %>%
-          bind_rows(testNumericType()) # %>%
+          #bind_rows(testNumericType()) # %>%
           #bind_rows(numericMinMaxTest())
   
         # Add the protocol to the overall submission data list 
@@ -496,15 +494,15 @@ QAQC <- function(){
       }
       
       
-    },
-    
-    error = function(e){
-      # Create an error message in the QA result log
-      QA_results$df <- QA_results$df %>%
-        add_row(test = "Error during QAQC tests",
-               protocol = submission_metadata$protocol[i],
-               filename = submission_metadata$original_filename[i])
-    })
+    # },
+    # 
+    # error = function(e){
+    #   # Create an error message in the QA result log
+    #   QA_results$df <- QA_results$df %>%
+    #     add_row(test = "Error during QAQC tests",
+    #            protocol = submission_metadata$protocol[i],
+    #            filename = submission_metadata$original_filename[i])
+    # })
     
   }
   

@@ -9,8 +9,8 @@ standardizeDates <- function(x){
     # Pull out any attribute names in protocol that are Date type
     date_columns <- protocol_structure %>%
       filter(protocol == current_protocol()) %>%
-      filter(type == "Date") %$%
-      unique(.$attribute_name)
+      filter(type == "date") %$%
+      unique(.$attribute)
     
     for(sheet_name in protocol_sheets()){
       
@@ -18,8 +18,8 @@ standardizeDates <- function(x){
       sheet_date_columns <- subset(colnames(stored_protocol$df[[sheet_name]]),
                                    colnames(stored_protocol$df[[sheet_name]]) %in% date_columns)
       
-      # If the sheet has date columns and rows with date, proceed with test
-      if(!is.null(sheet_date_columns) & nrow(stored_protocol$df[[sheet_name]]) != 0){
+      # If the sheet has date columns proceed with test
+      if(!is.null(sheet_date_columns)){
         
         # For each date column, standardize dates
         for(date_attribute in sheet_date_columns){
