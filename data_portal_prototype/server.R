@@ -24,6 +24,8 @@ function(input, output, session) {
   # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
   submission_metadata <- reactiveValues()
+  # Dataframe to hold protocol metadata
+  protocol_metadata <- reactiveValues(df = data.frame())
   
   # Project affiliation of submission
   project_affiliation <- reactiveValues(vector = c())
@@ -137,46 +139,29 @@ function(input, output, session) {
       # Upload initial files to dropbox and run QA checks
       if(!no_db_testing) saveInitialData()
 
-      # If no errors are recorded continue with the submission 
-      if(nrow(protocol_metadata_error$df)==0){
-        # Run beta QA process 
-        QAQC()
-
-        # Determine how many output CSVs will need to be created 
-        # Each protocol-site-collection year combination gets a collection of CSV files
-        determineOutputs()
-        if(!no_db_testing) {
-          # Update submission log
-          generateSubmissionLog()
-          # Check if necessary subdirectories exist
-          # If not, create them
-          checkDirectories()
-        }
-        
-        # Render the report and save to MarineGEO dropbox
-        renderReport()
-        
-        # Move user to the data report page
-        updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
-        # If the QA QC checks were successful, save the curated data in the proper directory
-        # if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
-          if(!no_db_testing) saveCuratedData()
-        # }
-      } else {
-        # If any elements of the protocol metadata failed
-        showModal(modalDialog(
-          title = "Missing essential metadata from submission", 
-          size = "l",
-          div("The application failed to obtain the necessary metadata from one or more of your uploaded files.",
-              "The following table lists which files produced an error.",
-              "Please resubmit your data once you addressed each problem.",
-              "Contact 'marinegeo@si.edu' if you need further assistance.",
-              tags$br(), 
-              renderTable(protocol_metadata_error$df)),
-          
-          easyClose = TRUE
-        ))
+      # Run beta QA process 
+      QAQC()
+      
+      # Determine how many output CSVs will need to be created 
+      # Each protocol-site-collection year combination gets a collection of CSV files
+      determineOutputs()
+      if(!no_db_testing) {
+        # Update submission log
+        generateSubmissionLog()
+        # Check if necessary subdirectories exist
+        # If not, create them
+        checkDirectories()
       }
+      
+      # Render the report and save to MarineGEO dropbox
+      renderReport()
+      
+      # Move user to the data report page
+      updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+      # If the QA QC checks were successful, save the curated data in the proper directory
+      # if(report_status() == "Submission successful" | report_status() == "Some files failed submission process") {
+      if(!no_db_testing) saveCuratedData()
+      # }
       
     } else {
       # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
@@ -437,98 +422,89 @@ QAQC <- function(){
   # Loop through each uploaded protocol
   for(i in 1:length(submission_metadata$original_filename)){
     
-    # tryCatch({
+    tryCatch({
 
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
       
-      # Get names of sheets present in the file
-      # If any sheets are missing, causes an error that causes app to fail (not caught by tryCatch)
-      available_sheets <- excel_sheets(submission_metadata$new_filename[i])
-      
-      # Change 'seagrass_organic_matter' to 'sediment_organic_matter' for old submissions
-      if(current_protocol() == "seagrass_organic_matter"){
-        current_protocol("sediment_organic_matter")
-      }
-      
-      # Get names of sheets for given protocol
-      protocol_sheets(protocol_structure %>%
-                        filter(protocol == current_protocol()) %>%
-                        filter(sheet %in% available_sheets) %$% # Note use of %$% rather than %>%, allows you to use $ in unique and get results as a vector
-                        unique(.$sheet))
-
-      # Create an empty list, each object will be a sheet for the protocol
-      protocol_df <- vector("list", length(protocol_sheets()))
-      names(protocol_df) <- protocol_sheets()
-
-      # Read in each sheet for the protocol, assign to respective list object 
-      for(sheet_name in protocol_sheets()) {
+      # Only submissions with a valid protocol name will go through the QAQC process and be saved as CSVs
+      # This includes deprecated protocol names (water quality, fish seines, seagrass_organic_matter, etc.)
+      if(current_protocol() %in% protocol_structure$protocol){
+        
+        # Get names of sheets present in the file
+        available_sheets <- excel_sheets(submission_metadata$new_filename[i])
+        
+        # Remove unnecessary sheets (protocol_metadata and glossary)
+        protocol_sheets(available_sheets[!(available_sheets %in% c("protocol_metadata", "glossary"))])
+        
+        # Create an empty list, each object will be a sheet for the protocol
+        protocol_df <- vector("list", length(protocol_sheets()))
+        names(protocol_df) <- protocol_sheets()
+        
+        # Read in each sheet for the protocol, assign to respective list object 
+        for(sheet_name in protocol_sheets()) {
           df <- read_excel(submission_metadata$new_filename[i], 
                            sheet = sheet_name, 
                            na = c("NA", "This cell will autocalculate", "N/A"))
           
           # Need to prevent empty sheets from getting uploaded
           # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
-          # TO DO - Add entry to QA_results_table in else statement
           if(nrow(df) > 0){
-            protocol_df[[sheet_name]] <- df
-          } else{
+            protocol_df[[sheet_name]] <- df %>%
+              mutate(submission_id = submission_time(),
+                     protocol = current_protocol(),
+                     table = sheet_name)
+          
+            } else{
+              # Remove the 0 row table from the protocol sheets object
             protocol_sheets_non_reactive <- protocol_sheets()
             protocol_sheets(protocol_sheets_non_reactive[protocol_sheets_non_reactive != sheet_name])
           }
+        }
+        
+        # Save protocol data to a reactive list object so QA tests can access within environment
+        stored_protocol$df <- protocol_df
+        
+        # Schema QA tests
+        QA_results$df <- QA_results$df %>%
+          bind_rows(schemaTableNames()) %>%
+          bind_rows(schemaColumnNames())
+        
+        # # Run  QA tests
+        # # Each uploaded file is passed through QAQC functions
+        # # Each function is located in its own script
+        QA_results$df <- QA_results$df %>%
+          # bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
+          bind_rows(checkSampleMetadata()) %>%
+          bind_rows(checkIDRelationships()) %>%
+          #bind_rows(checkTaxaRelationships()) %>%
+          bind_rows(testNumericType()) # %>%
+          #bind_rows(numericMinMaxTest())
+  
+        # Add the protocol to the overall submission data list 
+        submission_data$all_data[[paste(current_protocol(), 
+                                        submission_metadata$original_filename[i], 
+                                        submission_metadata$site[i], sep="_")]] <- protocol_df
+        
+        
+      # Create a warning if an invalid or missing protocol name was provided
+      } else {
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "Invalid or missing protocol name",
+                  protocol = current_protocol(),
+                  filename = original_filename_qa()) 
       }
       
-      # Save protocol data to a reactive list object so QA tests can access within environment
-      stored_protocol$df <- protocol_df
       
-      print("here")
-      
-      # Schema QA tests
+    },
+    
+    error = function(e){
+      # Create an error message in the QA result log
       QA_results$df <- QA_results$df %>%
-        bind_rows(schemaTableNames()) %>%
-        bind_rows(schemaColumnNames())
-      
-      # Run  QA tests
-      # Each uploaded file is passed through QAQC functions
-      # Each function is located in its own script
-      # QA_results$df <- QA_results$df %>%
-      #   bind_rows(standardizeDates()) %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
-      #   bind_rows(checkSampleMetadata()) %>%
-      #   bind_rows(checkIDRelationships()) %>%
-      #   #bind_rows(checkTaxaRelationships()) %>%
-      #   bind_rows(testNumericType()) # %>%
-      #   #bind_rows(numericMinMaxTest())
-    
-      
-      
-      # Add the protocol to the overall submission data list 
-      submission_data$all_data[[paste(current_protocol(), 
-                                      submission_metadata$original_filename[i], 
-                                      submission_metadata$site[i], sep="_")]] <- protocol_df
-      
-    # },
-    
-    # error = function(e){
-    #   current_protocol(submission_metadata$protocol[i])
-    #   original_filename_qa(submission_metadata$original_filename[i])
-    # 
-    #   # Create an error message in the QA result log
-    #   QA_results$df <- setNames(as.data.frame("Error during QAQC tests"), "test") %>%
-    #     mutate(column_name = NA,
-    #            sheet_name = NA,
-    #            protocol = current_protocol(),
-    #            filename = original_filename_qa(),
-    #            values = NA,
-    #            row_numbers = NA) %>%
-    #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
-    #     bind_rows(QA_results$df)
-    # 
-    #   # Create an empty item in the submission data to stand in for the protocol's data
-    #   submission_data$all_data[[paste(current_protocol(),
-    #                                   submission_metadata$original_filename[i],
-    #                                   submission_metadata$site[i], sep="_")]] <- NULL
-    # 
-    # })
+        add_row(test = "Error during QAQC tests",
+               protocol = submission_metadata$protocol[i],
+               filename = submission_metadata$original_filename[i])
+    })
     
   }
   
@@ -545,186 +521,186 @@ determineOutputs <- function(){
   # B. Determine which has multiple collection years
   # C. Create list of output filenames
   
-  list_index <- 1
-  for(i in 1:length(submission_data$all_data)){
-    
-    
-    # If the current upload generated an error during the QA process, skip it
-    if(is.null(submission_data$all_data[[i]])) next
-    
-    # Get current protocol name and data entry date
-    original_filename_qa(submission_metadata$original_filename[i])
-    current_protocol(submission_metadata$protocol[i])
-    data_entry_date <- submission_metadata$data_entry_date[i]
-    
-    
-    
-    
-   # tryCatch({
-      
-      sample_metadata <- submission_data$all_data[[i]]$sample_metadata
-      print(sample_metadata)
-      # unique sites in the sample metadata file
-      sites <- unique(sample_metadata$site_code)
-      # unique data collection/deployment years in the sample metadata file
-      if("sample_collection_date" %in% colnames(sample_metadata)){
-        years <- unique(mutate(sample_metadata, 
-                               year_collected = year(anydate(sample_collection_date)))$year_collected)
-      } else {
-        years <- unique(mutate(sample_metadata, 
-                               year_collected = year(anydate(sample_deployment_date)))$year_collected)
-      }
-      
-      for(sheet in names(submission_data$all_data[[i]])){
-        
-        # Sheets with no data are recorded as NULL in submission_data$all_data
-        if(!is.null(submission_data$all_data[[i]][[sheet]])){
-
-          if(length(sites) > 1 | length(years) > 1){
-            # Get each unique combination of sample collection years and sites
-            unique_combinations <- crossing(sites,years)
-
-            for(j in 1:nrow(unique_combinations)){
-              current_site <- as.character(unique_combinations[j,1])
-              current_year <- as.character(unique_combinations[j,2])
-              
-              new_filename <- paste(gsub("_", "-", current_protocol()), 
-                                    current_site, data_entry_date, 
-                                    gsub("_", "-", sheet), sep="_")
-              
-              if(sheet != "taxa_list"){
-                filtered_df <- submission_data$all_data[[i]][[sheet]] %>%
-                  mutate(year_collected = year(anydate(sample_collection_date))) %>%
-                  filter(site_code == current_site & year_collected == current_year) %>%
-                  select(-year_collected)
-                
-              } else{
-                # Right now taxa list is saved even if it's the only output for a given combination of site and year
-                filtered_df <- submission_data$all_data[[i]][[sheet]]
-              }
-              
-              if(nrow(filtered_df) > 0){
-                outputs$data[[list_index]] <- filtered_df
-                list_index <- list_index + 1
-                
-                output_metadata$df <- output_metadata$df %>%
-                  add_row(filename = as.character(new_filename), 
-                          protocol = as.character(current_protocol()),
-                          data_entry_date = as.character(data_entry_date),
-                          site_code = as.character(sites), 
-                          year_collected = as.character(years))
-              }
-            }
-            
-          } else {
-            # Create new filename
-            new_filename <- paste(gsub("_", "-", current_protocol()), 
-                                  sites, data_entry_date, 
-                                  gsub("_", "-", sheet), sep="_")
-
-            # Save the file and metadata
-            outputs$data[[list_index]] <- submission_data$all_data[[i]][[sheet]]
-            
-            list_index <- list_index + 1
-
-            output_metadata$df <- output_metadata$df %>%
-              add_row(filename = as.character(new_filename), 
-                      protocol = as.character(current_protocol()),
-                      data_entry_date = as.character(data_entry_date),
-                      site_code = as.character(sites), 
-                      year_collected = as.character(years))
-            
-          } 
-        }
-      }
-      
-      # Upload the protocol metadata for the current protocol
-      output_metadata$protocol_df <- output_metadata$protocol_df %>%
-        bind_rows(submission_metadata$protocol_df[i][[1]]) %>%
-        mutate_all(as.character)
-      
-      
-    # },
-    # 
-    # # Any error generated in this block is very likely caused by an error with sample collection date and the year function
-    # error = function(e){
-    #   # Create an error message in the QA result log
-    #   QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
-    #     mutate(column_name = NA,
-    #            sheet_name = NA,
-    #            protocol = current_protocol(),
-    #            filename = original_filename_qa(),
-    #            values = NA,
-    #            row_numbers = NA) %>%
-    #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
-    #     bind_rows(QA_results$df)
-    # })
-  }
+  # list_index <- 1
+  # for(i in 1:length(submission_data$all_data)){
+  #   
+  #   
+  #   # If the current upload generated an error during the QA process, skip it
+  #   if(is.null(submission_data$all_data[[i]])) next
+  #   
+  #   # Get current protocol name and data entry date
+  #   original_filename_qa(submission_metadata$original_filename[i])
+  #   current_protocol(submission_metadata$protocol[i])
+  #   data_entry_date <- submission_metadata$data_entry_date[i]
+  #   
+  #   
+  #   
+  #   
+  #  # tryCatch({
+  #     
+  #     sample_metadata <- submission_data$all_data[[i]]$sample_metadata
+  #     print(sample_metadata)
+  #     # unique sites in the sample metadata file
+  #     sites <- unique(sample_metadata$site_code)
+  #     # unique data collection/deployment years in the sample metadata file
+  #     if("sample_collection_date" %in% colnames(sample_metadata)){
+  #       years <- unique(mutate(sample_metadata, 
+  #                              year_collected = year(anydate(sample_collection_date)))$year_collected)
+  #     } else {
+  #       years <- unique(mutate(sample_metadata, 
+  #                              year_collected = year(anydate(sample_deployment_date)))$year_collected)
+  #     }
+  #     
+  #     for(sheet in names(submission_data$all_data[[i]])){
+  #       
+  #       # Sheets with no data are recorded as NULL in submission_data$all_data
+  #       if(!is.null(submission_data$all_data[[i]][[sheet]])){
+  # 
+  #         if(length(sites) > 1 | length(years) > 1){
+  #           # Get each unique combination of sample collection years and sites
+  #           unique_combinations <- crossing(sites,years)
+  # 
+  #           for(j in 1:nrow(unique_combinations)){
+  #             current_site <- as.character(unique_combinations[j,1])
+  #             current_year <- as.character(unique_combinations[j,2])
+  #             
+  #             new_filename <- paste(gsub("_", "-", current_protocol()), 
+  #                                   current_site, data_entry_date, 
+  #                                   gsub("_", "-", sheet), sep="_")
+  #             
+  #             if(sheet != "taxa_list"){
+  #               filtered_df <- submission_data$all_data[[i]][[sheet]] %>%
+  #                 mutate(year_collected = year(anydate(sample_collection_date))) %>%
+  #                 filter(site_code == current_site & year_collected == current_year) %>%
+  #                 select(-year_collected)
+  #               
+  #             } else{
+  #               # Right now taxa list is saved even if it's the only output for a given combination of site and year
+  #               filtered_df <- submission_data$all_data[[i]][[sheet]]
+  #             }
+  #             
+  #             if(nrow(filtered_df) > 0){
+  #               outputs$data[[list_index]] <- filtered_df
+  #               list_index <- list_index + 1
+  #               
+  #               output_metadata$df <- output_metadata$df %>%
+  #                 add_row(filename = as.character(new_filename), 
+  #                         protocol = as.character(current_protocol()),
+  #                         data_entry_date = as.character(data_entry_date),
+  #                         site_code = as.character(sites), 
+  #                         year_collected = as.character(years))
+  #             }
+  #           }
+  #           
+  #         } else {
+  #           # Create new filename
+  #           new_filename <- paste(gsub("_", "-", current_protocol()), 
+  #                                 sites, data_entry_date, 
+  #                                 gsub("_", "-", sheet), sep="_")
+  # 
+  #           # Save the file and metadata
+  #           outputs$data[[list_index]] <- submission_data$all_data[[i]][[sheet]]
+  #           
+  #           list_index <- list_index + 1
+  # 
+  #           output_metadata$df <- output_metadata$df %>%
+  #             add_row(filename = as.character(new_filename), 
+  #                     protocol = as.character(current_protocol()),
+  #                     data_entry_date = as.character(data_entry_date),
+  #                     site_code = as.character(sites), 
+  #                     year_collected = as.character(years))
+  #           
+  #         } 
+  #       }
+  #     }
+  #     
+  #     # Upload the protocol metadata for the current protocol
+  #     output_metadata$protocol_df <- output_metadata$protocol_df %>%
+  #       bind_rows(submission_metadata$protocol_df[i][[1]]) %>%
+  #       mutate_all(as.character)
+  #     
+  #     
+  #   # },
+  #   # 
+  #   # # Any error generated in this block is very likely caused by an error with sample collection date and the year function
+  #   # error = function(e){
+  #   #   # Create an error message in the QA result log
+  #   #   QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
+  #   #     mutate(column_name = NA,
+  #   #            sheet_name = NA,
+  #   #            protocol = current_protocol(),
+  #   #            filename = original_filename_qa(),
+  #   #            values = NA,
+  #   #            row_numbers = NA) %>%
+  #   #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
+  #   #     bind_rows(QA_results$df)
+  #   # })
+  # }
 }
 
 checkDirectories <- function(){
   
-  # Function ensures each subdirectory exists
-  for(project in project_affiliation$vector){
-    
-    sites <- unique(output_metadata$df$site_code)
-    
-    for(site in sites){
-      if(!drop_exists(path = paste0(destination,
-                                    "curated_directory/",
-                                    project, "/",
-                                    site))){
-        
-        # If it doesn't, create the site and protocol folders
-        drop_create(path = paste0(destination,
-                                  "curated_directory/",
-                                  project, "/",
-                                  site))
-      }
-      
-      years <- output_metadata$df %>%
-        filter(site_code == site) %$%
-        unique(.$year_collected)
-      
-      for(year in years){
-        if(!drop_exists(path = paste0(destination,
-                                      "curated_directory/",
-                                      project, "/",
-                                      site, "/",
-                                      year))){
-          
-          # If it doesn't, create the site and protocol folders
-          drop_create(path = paste0(destination,
-                                    "curated_directory/",
-                                    project, "/",
-                                    site, "/",
-                                    year))
-        }
-        
-        protocols <- output_metadata$df %>%
-          filter(site_code == site & year_collected == year) %$%
-          unique(.$protocol)
-        
-        for(protocol in protocols){
-          if(!drop_exists(path = paste0(destination,
-                                        "curated_directory/",
-                                        project, "/",
-                                        site, "/",
-                                        year, "/",
-                                        protocol))){
-            
-            # If it doesn't, create the site and protocol folders
-            drop_create(path = paste0(destination,
-                                      "curated_directory/",
-                                      project, "/",
-                                      site, "/",
-                                      year, "/",
-                                      protocol))
-          }
-        }
-      }
-    }
-  }
+  # # Function ensures each subdirectory exists
+  # for(project in project_affiliation$vector){
+  #   
+  #   sites <- unique(output_metadata$df$site_code)
+  #   
+  #   for(site in sites){
+  #     if(!drop_exists(path = paste0(destination,
+  #                                   "curated_directory/",
+  #                                   project, "/",
+  #                                   site))){
+  #       
+  #       # If it doesn't, create the site and protocol folders
+  #       drop_create(path = paste0(destination,
+  #                                 "curated_directory/",
+  #                                 project, "/",
+  #                                 site))
+  #     }
+  #     
+  #     years <- output_metadata$df %>%
+  #       filter(site_code == site) %$%
+  #       unique(.$year_collected)
+  #     
+  #     for(year in years){
+  #       if(!drop_exists(path = paste0(destination,
+  #                                     "curated_directory/",
+  #                                     project, "/",
+  #                                     site, "/",
+  #                                     year))){
+  #         
+  #         # If it doesn't, create the site and protocol folders
+  #         drop_create(path = paste0(destination,
+  #                                   "curated_directory/",
+  #                                   project, "/",
+  #                                   site, "/",
+  #                                   year))
+  #       }
+  #       
+  #       protocols <- output_metadata$df %>%
+  #         filter(site_code == site & year_collected == year) %$%
+  #         unique(.$protocol)
+  #       
+  #       for(protocol in protocols){
+  #         if(!drop_exists(path = paste0(destination,
+  #                                       "curated_directory/",
+  #                                       project, "/",
+  #                                       site, "/",
+  #                                       year, "/",
+  #                                       protocol))){
+  #           
+  #           # If it doesn't, create the site and protocol folders
+  #           drop_create(path = paste0(destination,
+  #                                     "curated_directory/",
+  #                                     project, "/",
+  #                                     site, "/",
+  #                                     year, "/",
+  #                                     protocol))
+  #         }
+  #       }
+  #     }
+  #   }
+  # }
 }
 
 # Generate the QA report in markdown

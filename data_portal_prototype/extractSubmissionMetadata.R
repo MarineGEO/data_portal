@@ -10,6 +10,8 @@ extractProtocolMetadata <- function(){
   
   # For each file uploaded: 
   for(i in 1:nrow(input$fileExcel)){
+    print(i)
+    print(input$fileExcel$name[i])
     
     # Name of the file as the user uploaded it
     original_filename <- input$fileExcel$name[i]
@@ -17,7 +19,12 @@ extractProtocolMetadata <- function(){
     ## Each sub-function has a unique error catcher ##
     # Read in protocol and sample metadata sheets, save protocol metadata
     protocol_metadata <- readProtocolMetadata(input$fileExcel$datapath[i], original_filename)
-    submission_metadata$protocol_df[i][[1]] <- protocol_metadata
+    print(protocol_metadata)
+    
+    if(!is.na(protocol_metadata)){
+      protocol_metadata$df <- protocol_metadata$df %>%
+        bind_rows(protocol_metadata)
+    }
 
     sample_metadata <- readSampleMetadata(input$fileExcel$datapath[i], original_filename)
 
@@ -61,7 +68,8 @@ readProtocolMetadata <- function(filepath, original_filename){
     read_xlsx(filepath, 
               sheet = "protocol_metadata", 
               col_names = c("category", "response"), skip=1) %>%
-      spread(category, response) 
+      spread(category, response) %>%
+      mutate(submission_id = submission_time())
   },
   error = function(e){
     # Track which file triggered the error and the cause (no protocol metadata sheet)
