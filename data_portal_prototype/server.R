@@ -7,9 +7,7 @@ function(input, output, session) {
   source("extractSubmissionMetadata.R", local=TRUE)
   # QA functions
   source("./qaqc_scripts/id_relationship_test.R", local=TRUE)
-  #source("./qaqc_scripts/min_max_test.R", local=TRUE)
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
-  #source("./qaqc_scripts/taxa_id_relationship_test.R", local=TRUE)
   source("./qaqc_scripts/date_format_test.R", local=TRUE)
   source("./qaqc_scripts/schema_evaluation.R", local=TRUE)
   
@@ -26,27 +24,10 @@ function(input, output, session) {
   # Dataframe to hold protocol metadata
   protocol_metadata <- reactiveValues(df = data.frame())
   
-  # Project affiliation of submission
-  project_affiliation <- reactiveValues(vector = c())
-  
   # Create empty list to hold protocol data for QA testing and curation
   submission_data <- reactiveValues(all_data = list())
   
-  # Empty object to hold output protocol data and metadata
-  # Output is one df per protocol-sheet-site-collection year combination
-  # List object that resembles Dropbox directory.. used to ensure all subdirectories exist and to organize outputs
-  # outputs <- reactiveValues(data = list(),
-  #                           directory = list())  
-  # 
-  # output_metadata <- reactiveValues(df = setNames(data.frame(matrix(ncol = 5, nrow = 0)), c("filename",
-  #                                                                                           "protocol",
-  #                                                                                           "data_entry_date",
-  #                                                                                           "site_code",
-  #                                                                                           "year_collected")) %>%
-  #                                     mutate_all(as.character),
-  #                                   protocol_df = data.frame()) # df to hold all protocol metadata of submissions
-  # 
-
+  # Dataframe holds all output from QAQC tests
   QA_results <- reactiveValues(df = tibble(test = NA_character_,
                                            filename = NA_character_,
                                            protocol = NA_character_,
@@ -56,10 +37,17 @@ function(input, output, session) {
                                            values = NA_character_,
                                            .rows=0))
   
-  output_metadata <- reactiveValues(df = tibble(protocol = NA_character_,
+  # Dataframes holds all metadata required to create output filenames and save data
+  output_metadata <- reactiveValues(protocol = tibble(protocol = NA_character_,
                                                 filename = NA_character_,
                                                 site = NA_character_,
-                                                .rows = 0))
+                                                .rows = 0),
+                                    
+                                    table = tibble(protocol = NA_character_,
+                                                   table = NA_character_,
+                                                   filename = NA_character_,
+                                                   valid_destination = NA,
+                                                   .rows = 0))
                                     
   # Objects hold each protocol and related metadata as they undergo QAQC in called functions
   current_protocol <- reactiveVal()
@@ -154,8 +142,9 @@ function(input, output, session) {
       if(!no_db_testing) {
         saveCuratedData()
         # Update submission log
-        # generateSubmissionLog()
+        generateSubmissionLog()
       }
+
       
       # Render the report and save to MarineGEO dropbox
       renderReport()
@@ -289,10 +278,10 @@ function(input, output, session) {
   
   saveCuratedData <- function(){
     setwd(tempdir())
-
-    for(row in 1:nrow(output_metadata$df)){
-      target_protocol <- pull(output_metadata$df[row,], protocol)
-      target_site <- pull(output_metadata$df[row,], site)
+    
+    for(row in 1:nrow(output_metadata$protocol)){
+      target_protocol <- pull(output_metadata$protocol[row,], protocol)
+      target_site <- pull(output_metadata$protocol[row,], site)
       
       for(target_table in names(submission_data$all_data[[row]])){
         target_filename <- paste(target_site,
@@ -317,16 +306,30 @@ function(input, output, session) {
                                     "curated_directory/",
                                     target_protocol, "/",
                                     target_table))
+
+          output_metadata$table <- output_metadata$table %>%
+            add_row(protocol = target_protocol,
+                    table = target_table,
+                    filename = paste0(target_filename, ".csv"),
+                    valid_destination = TRUE)
+
         } else {
           drop_upload(paste0(target_filename, ".csv"),
                       path = paste0(destination,
                                     "curated_directory/invalid_table"))
-          
+
+          output_metadata$table <- output_metadata$table %>%
+            add_row(protocol = target_protocol,
+                    table = target_table,
+                    filename = paste0(target_filename, ".csv"),
+                    valid_destination = FALSE)
         }
+      
       }
       
     }
     
+  print(output_metadata$table)
   setwd(original_wd)
     
   }
@@ -346,61 +349,6 @@ initialReceipt <- function(){
   setwd(original_wd)
 }  
   
-# Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
-generateSubmissionLog <- function(){
-  setwd(tempdir())
-  
-  # Access the submission log from dropbox and append current emails/time/datafile name
-  
-  # Read in the submission log from Dropbox
-  submission_log <- drop_read_csv("MarineGEO/Data/submission_log.csv")
-
-  # Collapse all variables to fit into a row in the submission log. 
-  # They can be split by ; later 
-  protocols <- paste(unique(submission_metadata$protocol), collapse = "; ")
-
-  original_filenames <- paste(submission_metadata$original_filename, collapse = "; ")  
-  standardized_filenames <- paste(submission_metadata$new_filename, collapse="; ")
-  emails <- tolower(trimws(unlist(strsplit(input$email, ";"))))
-  wb_versions <- paste(submission_metadata$wb_version, collapse = "; ")  
-  
-  # check which projects the emails provided with the submission are affiliated with
-  project <- unique(filter(roster, email %in% emails)$project_affiliation)
-  
-  # If they're not affiliated, the curated submission will be sent to the unaffiliated submissions directory
-  if(length(project)==0){
-    project_affiliation$vector <- "unaffiliated_submissions"
-  } else {
-    project_affiliation$vector <- project
-  }
-  
-  if("Error during QAQC tests" %in% QA_results$df$test | "Error determining outputs" %in% QA_results$df$test){
-    QAQC_errors <- T
-  } else QAQC_errors <- F
-  
-  # Crate a new dataframe based on the number of emails provided 
-  # df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
-  #                           portal_version, wb_versions, QAQC_errors, NA),
-  #                c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
-  #                  "portal_version", "workbook_version", "qaqc_errors", "notes"))
-
-  df <- setNames(data.frame(submission_time(), input$email, protocols, standardized_filenames, original_filenames, paste(project_affiliation$vector, collapse="; "),
-                            portal_version, wb_versions, NA),
-                 c("submission_time", "email", "protocols", "standardized_filenames", "original_filenames", "project", 
-                   "portal_version", "workbook_version", "notes"))
-  
-  # Append the new data and send back to the dropbox upload function 
-  submission_log <- rbind(submission_log, df)
-  
-  submission_log_path <- file.path("submission_log.csv")
-  write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
-  # Overwrite the old submission log with the updated info
-  drop_upload(submission_log_path, path = destination, mode = "overwrite")
-  
-  setwd(original_wd)
-  
-}
-
 # Test each file extension and ensure it's an xslx file
 checkFileExtensions <- function(){
   
@@ -483,7 +431,7 @@ QAQC <- function(){
                                         submission_metadata$site[i], sep="_")]] <- protocol_df
         
         # Save required metadata to create output and filename
-        output_metadata$df <- output_metadata$df %>%
+        output_metadata$protocol <- output_metadata$protocol %>%
           add_row(protocol = current_protocol(),
                   filename = submission_metadata$original_filename[i],
                   site = submission_metadata$site[i])
@@ -514,6 +462,48 @@ QAQC <- function(){
   
 }
 
+# Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
+generateSubmissionLog <- function(){
+  setwd(tempdir())
+  
+  # Access the submission log from dropbox and append current emails/time/datafile name
+  submission_log <- drop_read_csv(paste0(destination, "submission_log.csv"))
+  
+  submission_log <- submission_log %>%
+    mutate_all(as.character) %>%
+    add_row(  
+      original_filenames = paste(submission_metadata$original_filename, collapse = "; "),  
+      protocols = paste(unique(output_metadata$protocol$protocol), collapse = ";"),
+      standardized_filenames = paste(output_metadata$table$filename, collapse="; "),
+      email = tolower(trimws(unlist(strsplit(input$email, ";")))),
+      submission_time = submission_time(),
+      valid_destination = as.character(all(output_metadata$table$valid_destination)),
+      qaqc_errors = as.character(nrow(QA_results$df) > 0)
+    )
+
+  submission_log_path <- file.path("submission_log.csv")
+  write.csv(submission_log, submission_log_path, row.names = FALSE, quote = TRUE)
+  drop_upload(submission_log_path, path = destination, mode = "overwrite")
+  
+  # Deposit QA results and protocol metadata tables
+  QA_results$df <- mutate(QA_results$df, submission_time = submission_time())
+  output_metadata$table <- mutate(output_metadata$table, submission_time = submission_time())
+  
+  write_csv(QA_results$df, paste0("qc_", submission_time(), ".csv"))
+  write_csv(output_metadata$table, paste0("table_metadata_", submission_time(), ".csv"))
+
+  drop_upload(paste0("qc_", submission_time(), ".csv"),
+              path = paste0(destination,
+                            "resources/quality_control_results"))
+  
+  drop_upload(paste0("table_metadata_", submission_time(), ".csv"),
+              path = paste0(destination,
+                            "resources/output_metadata"))
+  
+  setwd(original_wd)
+  
+}
+
 # Generate the QA report in markdown
 renderReport <- function(){
   
@@ -536,8 +526,8 @@ renderReport <- function(){
   
   if(!no_db_testing){
     # Send the report to the dropbox
-    # drop_upload(paste0("./www/", report_path()),
-    #             path = paste0(destination, "submission_reports"))
+    drop_upload(paste0("./www/", report_path()),
+                path = paste0(destination, "submission_reports"))
   }
   
 }
