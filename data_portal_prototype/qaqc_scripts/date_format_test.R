@@ -4,13 +4,6 @@
 # Use of anydate() function automatically converts to correct format (YYYY-MM-DD) when possible 
 
 evaluateDates <- function(x){
-  results <- tibble(test = NA_character_,
-                    column_name = NA_character_,
-                    sheet_name = NA_character_,
-                    protocol = NA_character_,
-                    filename = NA_character_,
-                    row_numbers = NA_character_,
-                    .rows = 0)
   
   tryCatch({
     # Pull out any attribute names in protocol that are Date type
@@ -40,10 +33,10 @@ evaluateDates <- function(x){
              all(x < 47500, na.rm=T) & # Corresponds to any date < 2030
              all(x > 36500, na.rm=T)){ # Corresponds to any date > 2000
             
-            results <- results %>%
+            QA_results$df <- QA_results$df %>%
               add_row(test = "Date is in numeric format",
-                      column_name = date_attribute,
-                      sheet_name = sheet_name,
+                      column = date_attribute,
+                      sheet = sheet_name,
                       protocol = current_protocol(),
                       filename = original_filename_qa())
                       
@@ -66,10 +59,10 @@ evaluateDates <- function(x){
               if(sum(is.na(reformat$new_date) > num_na_original)) {
                 
                 # record inability to convert without loss of information 
-                results <- results %>%
+                QA_results$df <- QA_results$df %>%
                   add_row(test = "Loss of data in data conversion (character)",
-                          column_name = date_attribute,
-                          sheet_name = sheet_name,
+                          column = date_attribute,
+                          sheet = sheet_name,
                           protocol = current_protocol(),
                           filename = original_filename_qa())
               }
@@ -80,10 +73,10 @@ evaluateDates <- function(x){
 
           } else {
             # record inability to convert due to unknown typing
-            results <- results %>%
+            QA_results$df <- QA_results$df %>%
               add_row(test = "Unknown date format",
-                      column_name = date_attribute,
-                      sheet_name = sheet_name,
+                      column = date_attribute,
+                      sheet = sheet_name,
                       protocol = current_protocol(),
                       filename = original_filename_qa())
           }
@@ -100,13 +93,13 @@ evaluateDates <- function(x){
               # (row 2 in Excel is the same as row 1 in R dataframe)
               invalid_date_index <- invalid_date_index + 1
 
-              results <- results %>%
+              QA_results$df <- QA_results$df %>%
                 add_row(test = "Missing date information",
-                        column_name = date_attribute,
-                        sheet_name = sheet_name,
+                        column = date_attribute,
+                        sheet = sheet_name,
                         protocol = current_protocol(),
                         filename = original_filename_qa(),
-                        row_numbers = paste(invalid_date_index, collapse = ", "))
+                        rows = paste(invalid_date_index, collapse = ", "))
             }
 
           }
@@ -114,15 +107,14 @@ evaluateDates <- function(x){
         
       }
     }
-    return(results)
   },
   
   error = function(e){
+    print(e)
+    
     # Create and return an error message in the QA result log 
-    results <- results %>%
+    QA_results$df <- QA_results$df %>%
       add_row(test = "Unknown error in date format test",
-              column_name = date_attribute,
-              sheet_name = sheet_name,
               protocol = current_protocol(),
               filename = original_filename_qa())
   })

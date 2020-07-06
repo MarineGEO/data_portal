@@ -10,17 +10,13 @@ extractProtocolMetadata <- function(){
   
   # For each file uploaded: 
   for(i in 1:nrow(input$fileExcel)){
-    print(i)
-    print(input$fileExcel$name[i])
-    
     # Name of the file as the user uploaded it
     original_filename <- input$fileExcel$name[i]
     
     ## Each sub-function has a unique error catcher ##
     # Read in protocol and sample metadata sheets, save protocol metadata
     protocol_metadata <- readProtocolMetadata(input$fileExcel$datapath[i], original_filename)
-    print(protocol_metadata)
-    
+
     if(!is.na(protocol_metadata)){
       protocol_metadata$df <- protocol_metadata$df %>%
         bind_rows(protocol_metadata)

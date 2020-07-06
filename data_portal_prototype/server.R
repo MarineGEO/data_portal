@@ -47,9 +47,18 @@ function(input, output, session) {
                                     protocol_df = data.frame()) # df to hold all protocol metadata of submissions
   
   # Create object to save errors to 
-  QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
-                                             c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values")) %>%
-                                 mutate_all(as.character)) 
+  # QA_results <- reactiveValues(df = setNames(data.frame(matrix(ncol = 7, nrow = 0)), 
+  #                                            c("test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values")) %>%
+  #                                mutate_all(as.character)) 
+  
+  QA_results <- reactiveValues(df = tibble(test = NA_character_,
+                                           filename = NA_character_,
+                                           protocol = NA_character_,
+                                           sheet = NA_character_,
+                                           column = NA_character_,
+                                           rows = NA_character_,
+                                           values = NA_character_,
+                                           .rows=0))
   
   # Objects hold each protocol and related metadata as they undergo QA in called functions
   current_protocol <- reactiveVal()
@@ -421,7 +430,7 @@ QAQC <- function(){
   # Loop through each uploaded protocol
   for(i in 1:length(submission_metadata$original_filename)){
     
-    # tryCatch({
+    tryCatch({
 
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
@@ -464,21 +473,19 @@ QAQC <- function(){
         # Save protocol data to a reactive list object so QA tests can access within environment
         stored_protocol$df <- protocol_df
         
-        # Schema QA tests
-        QA_results$df <- QA_results$df %>%
-          bind_rows(schemaTableNames()) %>%
-          bind_rows(schemaColumnNames())
+        # QC test results are added to the QA_results$df object
+        # Schema QC tests
+        schemaTableNames()
+        schemaColumnNames()        
         
-        # # Run  QA tests
-        # # Each uploaded file is passed through QAQC functions
-        # # Each function is located in its own script
-        QA_results$df <- QA_results$df %>%
-          bind_rows(evaluateDates()) # %>% # Standardizing dates occurs first so that ID checking won't flag two different date formats that are actually the same
-          #bind_rows(checkIDRelationships()) %>%
-          #bind_rows(checkTaxaRelationships()) %>%
-          #bind_rows(testNumericType()) # %>%
-          #bind_rows(numericMinMaxTest())
-  
+        # Data type tests
+        evaluateDates()
+        testNumericType()
+        # numericMinMaxTest()
+        
+        # Check relationships between tables
+        checkIDRelationships()
+
         # Add the protocol to the overall submission data list 
         submission_data$all_data[[paste(current_protocol(), 
                                         submission_metadata$original_filename[i], 
@@ -494,15 +501,18 @@ QAQC <- function(){
       }
       
       
-    # },
-    # 
-    # error = function(e){
-    #   # Create an error message in the QA result log
-    #   QA_results$df <- QA_results$df %>%
-    #     add_row(test = "Error during QAQC tests",
-    #            protocol = submission_metadata$protocol[i],
-    #            filename = submission_metadata$original_filename[i])
-    # })
+    },
+
+    error = function(e){
+      
+      print(e)
+
+      # Create an error message in the QA result log
+      QA_results$df <- QA_results$df %>%
+        add_row(test = "Error during QAQC tests",
+               protocol = submission_metadata$protocol[i],
+               filename = submission_metadata$original_filename[i])
+    })
     
   }
   
@@ -624,12 +634,12 @@ determineOutputs <- function(){
   #   # error = function(e){
   #   #   # Create an error message in the QA result log
   #   #   QA_results$df <- setNames(as.data.frame("Error determining outputs"), "test") %>%
-  #   #     mutate(column_name = NA,
-  #   #            sheet_name = NA,
+  #   #     mutate(column
+  #   #            sheet = NA,
   #   #            protocol = current_protocol(),
   #   #            filename = original_filename_qa(),
   #   #            values = NA,
-  #   #            row_numbers = NA) %>%
+  #   #            rows = NA) %>%
   #   #     select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
   #   #     bind_rows(QA_results$df)
   #   # })

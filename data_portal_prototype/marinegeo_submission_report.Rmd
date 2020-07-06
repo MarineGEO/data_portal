@@ -36,7 +36,7 @@ if(nrow(QA_results$df) > 0){
   print(   
     kable(
       QA_results$df %>%
-        select(test, filename, sheet_name, column_name, row_numbers, values) %>%
+        select(test, filename, sheet, column, rows, values) %>%
         distinct()
     )
   )
