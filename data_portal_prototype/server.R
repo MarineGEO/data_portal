@@ -152,6 +152,7 @@ function(input, output, session) {
 
         # Run beta QA process 
         QAQC()
+        getProtocolCoords()
         # Determine how many output CSVs will need to be created 
         # Each protocol-site-collection year combination gets a collection of CSV files
         determineOutputs()
@@ -529,9 +530,7 @@ getProtocolCoords <- function(){
   
   coords <- data.frame()
   
-  # use tryCatch here
-  tryCatch({
-    
+  # tryCatch({
     # isolate the coordinate-containing columns
     coord_cols <- protocol_structure %>% 
       select(attribute_name, id_variable) %>%
@@ -539,75 +538,74 @@ getProtocolCoords <- function(){
       distinct() %>%
       pull(attribute_name)
     
+    line_cols <- coord_cols[grep("begin|end", coord_cols)]
+    point_cols <- coord_cols[which(!(coord_cols %in% line_cols))]
+    
     # cycle through submitted protocols and collect coordinates
     for (i in 1:length(submission_data$all_data)){
-      # save protocol name
-      # protocol_name <- names(submission_data$all_data[i])
-      # original_filename_qa(submission_metadata$original_filename[i])
-      # protocol_name <- current_protocol(submission_metadata$protocol[i])
-      protocol_name <- "test_protocol"
       
-      for (j in 1:length(names(submission_data$all_data[[i]]))){
-        # save protocol sheet name
-        # sheet_name <- names(submission_data$all_data[[i]][j])
-        sheet_name <- "test_sheet"
+      # save protocol name
+      current_protocol(submission_metadata$protocol[i])
+      # lat/long data will be on the sample metadata sheet
+      sheet_name <- "sample_metadata"
+      
+      if (any(names(submission_data$all_data[[i]][[sheet_name]]) %in% coord_cols)){
+        # save coordinate-containing sheet to object
+        temp_sheet <- submission_data$all_data[[i]][[sheet_name]]
+        # isolate coordinate cols from the sheet
+        temp_cols <- temp_sheet[, which(names(temp_sheet) %in% coord_cols)]
         
-        if (any(names(submission_data$all_data[[i]][[j]]) %in% coord_cols)){
-          # save coordinate-containing sheet to object 
-          temp_sheet <- submission_data$all_data[[i]][[j]]
-          # isolate coordinate cols from the sheet
-          temp_cols <- temp_sheet[, which(names(temp_sheet) %in% coord_cols)]
+        if (any(names(temp_cols) %in% line_cols)){
+          # assuming that the order of the cols is correct and nothing is deleted...
+          # generalize the col names
+          names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
           
-          if (ncol(temp_cols) == 4){
-            # assuming that the order of the columns is correct...
-            # generalize the col names
-            names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
-            
-            # bind lat/lon pairs with site and transect info
-            temp_coords <- temp_sheet %>% select(site_code, transect) %>%
-              bind_cols(., temp_cols) %>%
-              mutate(protocol = protocol_name,
-                     sheet = sheet_name)
-            
-          } else if (ncol(temp_cols) == 2){
-            # generalize the column names (same assumption about col order)
-            names(temp_cols) <- c("latitude_1", "longitude_1")
-            
-            # bind lat/lon pairs with site and transect info
-            temp_coords <- temp_sheet %>% select(site_code, transect) %>%
-              bind_cols(., temp_cols) %>%
-              mutate(protocol = protocol_name,
-                     sheet = sheet_name)
-            
-          } else {
-            print(str_c("Unidentified lat/long columns in the", protocol_name, 
-                        "protocol and", sheet_name, "sheet", sep = " "))
-          }
-          # compile all lat/lon pairs in submission 
-          coords <- bind_rows(coords, temp_coords) %>%
-            select(protocol, sheet, site_code, transect, everything()) %>%
-            drop_na(latitude_1)
+          # bind lat/lon pairs with site and transect info
+          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+            bind_cols(., temp_cols) %>%
+            mutate(protocol = current_protocol(),
+                   sheet = sheet_name)
+          
+        } else if (any(names(temp_cols) %in% point_cols)){
+          # generalize the column names (same assumption about col order)
+          names(temp_cols) <- c("latitude_1", "longitude_1")
+          
+          # bind lat/lon pairs with site and transect info
+          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+            bind_cols(., temp_cols) %>%
+            mutate(protocol = current_protocol(),
+                   sheet = sheet_name)
+          
+        } else {
+          print(str_c("Unidentified lat/long columns in the", current_protocol(),
+                      "protocol and", sheet_name, "sheet", sep = " "))
         }
+        # compile all lat/lon pairs in submission
+        coords <- bind_rows(coords, temp_coords) %>%
+          select(protocol, sheet, site_code, transect, everything()) %>%
+          drop_na(latitude_1)
       }
     }
     submission_coords$all_coords <- coords
-  },
-  error = function(e){
-    
-    print(e)
-    
-    # # Create and return error message in the QA result log
-    # setNames(as.data.frame("Error locating lat/lon data"), "test") %>%
-    #   mutate(column_name = NA,
-    #          sheet_name = NA,
-    #          protocol = current_protocol(),
-    #          filename = original_filename_qa(),
-    #          values = NA,
-    #          row_numbers = NA) %>%
-    #   select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
-    
-  })
-}
+    }
+  # },
+  # error = function(e){
+  # 
+  #   print(e)
+  # 
+  # # Create and return error message in the QA result log
+  # setNames(as.data.frame("Error locating lat/lon data"), "test") %>%
+  #   mutate(column_name = NA,
+  #          sheet_name = NA,
+  #          protocol = current_protocol(),
+  #          filename = original_filename_qa(),
+  #          values = NA,
+  #          row_numbers = NA) %>%
+  #   select(test, filename, protocol, sheet_name, column_name, row_numbers, values)  %>%
+  #   bind_rows(QA_results$df)
+  # 
+  # })
+# }
 
 determineOutputs <- function(){
   # Each output CSV file represents a site-collection year-protocol-sheet

@@ -1,0 +1,6 @@
+protocol,sheet,site_code,transect,latitude_1,longitude_1,latitude_2,longitude_2
+seagrass_shoots,sample_metadata,FIN-GOF,1,59.82907,23.17997,59.82943,23.17983
+seagrass_shoots,sample_metadata,FIN-GOF,2,59.82903,23.18,59.82883,23.17947
+seagrass_shoots,sample_metadata,FIN-GOF,3,59.82905,23.18003,59.829,23.18095
+visual_census,sample_metadata,FIN-GOF,1,59.82907,23.17997,NA,NA
+visual_census,sample_metadata,FIN-GOF,2,59.82903,23.18,NA,NA
