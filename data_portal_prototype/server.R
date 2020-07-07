@@ -530,7 +530,7 @@ getProtocolCoords <- function(){
   
   coords <- data.frame()
   
-  # tryCatch({
+  tryCatch({
     # isolate the coordinate-containing columns
     coord_cols <- protocol_structure %>% 
       select(attribute_name, id_variable) %>%
@@ -586,26 +586,44 @@ getProtocolCoords <- function(){
           drop_na(latitude_1)
       }
     }
-    submission_coords$all_coords <- coords
-    }
-  # },
-  # error = function(e){
-  # 
-  #   print(e)
-  # 
-  # # Create and return error message in the QA result log
-  # setNames(as.data.frame("Error locating lat/lon data"), "test") %>%
-  #   mutate(column_name = NA,
-  #          sheet_name = NA,
-  #          protocol = current_protocol(),
-  #          filename = original_filename_qa(),
-  #          values = NA,
-  #          row_numbers = NA) %>%
-  #   select(test, filename, protocol, sheet_name, column_name, row_numbers, values)  %>%
-  #   bind_rows(QA_results$df)
-  # 
-  # })
-# }
+    
+    # assign segment IDs 
+    coords$segment_id <- seq(from = 1, to = nrow(coords))
+    
+    # split the coordinate pairs and rename the lat/lon
+    df1 <- coords %>% select(protocol, site_code, segment_id, latitude_1, longitude_1) %>%
+      rename(lat = latitude_1, lon = longitude_1)
+    df2 <- coords %>% select(protocol, site_code, segment_id, latitude_2, longitude_2) %>%
+      rename(lat = latitude_2, lon = longitude_2)
+    
+    # bind the rows of coordinate pairs
+    reshape_coords <- rbind(df1, df2) %>%
+      arrange(segment_id) %>%
+      mutate(lat = as.numeric(lat),
+             lon = as.numeric(lon))
+    
+    print(reshape_coords)
+    print(str(reshape_coords))
+    
+    submission_coords$all_coords <- reshape_coords
+  },
+  error = function(e){
+
+    print(e)
+
+  # Create and return error message in the QA result log
+  setNames(as.data.frame("Error extracting lat/lon data"), "test") %>%
+    mutate(column_name = NA,
+           sheet_name = NA,
+           protocol = current_protocol(),
+           filename = original_filename_qa(),
+           values = NA,
+           row_numbers = NA) %>%
+    select(test, filename, protocol, sheet_name, column_name, row_numbers, values)  %>%
+    bind_rows(QA_results$df)
+
+  })
+}
 
 determineOutputs <- function(){
   # Each output CSV file represents a site-collection year-protocol-sheet

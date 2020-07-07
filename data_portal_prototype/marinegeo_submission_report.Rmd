@@ -29,25 +29,28 @@ Once you've addressed any issues(s), resubmit ONLY the data associated with the 
 ```{r echo=FALSE, results='asis', warning=FALSE, message=FALSE}
 # Plot all coords in protocol submission ##########
 
+tryCatch({
+  
 if(nrow(submission_coords$all_coords) > 0){
   
-  df <- submission_coords$all_coords
+  reshape_coords <- submission_coords$all_coords
   
-  # assign segment IDs 
-  df$segment_id <- seq(from = 1, to = nrow(df))
-
-  # split the coordinate pairs and rename the lat/lon
-  df1 <- df %>% select(protocol, site_code, segment_id, latitude_1, longitude_1) %>%
-    rename(lat = latitude_1, lon = longitude_1)
+  # # assign segment IDs 
+  # df$segment_id <- seq(from = 1, to = nrow(df))
+  # 
+  # # split the coordinate pairs and rename the lat/lon
+  # df1 <- df %>% select(protocol, site_code, segment_id, latitude_1, longitude_1) %>%
+  #   rename(lat = latitude_1, lon = longitude_1)
+  # 
+  # df2 <- df %>% select(protocol, site_code, segment_id, latitude_2, longitude_2) %>%
+  #   rename(lat = latitude_2, lon = longitude_2)
+  # 
+  # # bind the rows of coordinate pairs
+  # reshape_coords <- rbind(df1, df2) %>%
+  #   arrange(segment_id)
   
-  df2 <- df %>% select(protocol, site_code, segment_id, latitude_2, longitude_2) %>%
-    rename(lat = latitude_2, lon = longitude_2)
-  
-  # bind the rows of coordinate pairs
-  reshape_coords <- rbind(df1, df2) %>%
-    arrange(segment_id)
-  
-  ## Plot Coordinates ---------
+  if(is.numeric(reshape_coords$lat) | is.numeric(reshape_coords$lon)){
+      ## Plot Coordinates ---------
   
   # load leaflet library
   library(leaflet)
@@ -70,7 +73,26 @@ if(nrow(submission_coords$all_coords) > 0){
   }
 # print map to report
 map
+  } else {
+    print("ERROR: Coordinate data is not in decimal degree format.")
+  }
 }
+  },
+    error = function(e){
+      # current_protocol(submission_metadata$protocol[i])
+      # original_filename_qa(submission_metadata$original_filename[i])
+
+      # Create an error message in the QA result log
+      QA_results$df <- setNames(as.data.frame("Error plotting sample coordinates."), "test") %>%
+        mutate(column_name = NA,
+               sheet_name = "sample_metadata",
+               protocol = NA,
+               filename = NA,
+               values = NA,
+               row_numbers = NA) %>%
+        select(test, filename, protocol, sheet_name, column_name, row_numbers, values) %>%
+        bind_rows(QA_results$df)
+    })
 
 ```
   
