@@ -141,11 +141,9 @@ function(input, output, session) {
       
       if(!no_db_testing) {
         saveCuratedData()
-        # Update submission log
-        generateSubmissionLog()
+        saveSubmissionMetadata()
       }
 
-      
       # Render the report and save to MarineGEO dropbox
       renderReport()
       
@@ -329,7 +327,6 @@ function(input, output, session) {
       
     }
     
-  print(output_metadata$table)
   setwd(original_wd)
     
   }
@@ -398,7 +395,7 @@ QAQC <- function(){
           # For a sheet with no rows, no data frame will be associated at that branch of the list and the sheet name won't be in the testing list
           if(nrow(df) > 0){
             protocol_df[[sheet_name]] <- df %>%
-              mutate(submission_id = submission_time(),
+              mutate(submission_id = paste(submission_time(), i, sep = "_"),
                      protocol = current_protocol(),
                      table = sheet_name)
           
@@ -408,6 +405,12 @@ QAQC <- function(){
             protocol_sheets(protocol_sheets_non_reactive[protocol_sheets_non_reactive != sheet_name])
           }
         }
+        
+        # Remove any NULL items from the list that are the result of an empty data frame
+        protocol_df <- compact(protocol_df)
+        
+        # If an empty dataframe has been uploaded, skip to the next submitted object 
+        if(length(protocol_df) == 0){next}
         
         # Save protocol data to a reactive list object so QA tests can access within environment
         stored_protocol$df <- protocol_df
@@ -463,7 +466,7 @@ QAQC <- function(){
 }
 
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
-generateSubmissionLog <- function(){
+saveSubmissionMetadata <- function(){
   setwd(tempdir())
   
   # Access the submission log from dropbox and append current emails/time/datafile name
@@ -489,16 +492,26 @@ generateSubmissionLog <- function(){
   QA_results$df <- mutate(QA_results$df, submission_time = submission_time())
   output_metadata$table <- mutate(output_metadata$table, submission_time = submission_time())
   
-  write_csv(QA_results$df, paste0("qc_", submission_time(), ".csv"))
-  write_csv(output_metadata$table, paste0("table_metadata_", submission_time(), ".csv"))
-
-  drop_upload(paste0("qc_", submission_time(), ".csv"),
-              path = paste0(destination,
-                            "resources/quality_control_results"))
+  if(nrow(QA_results$df) > 0){
+    write_csv(QA_results$df, paste0("qc_", submission_time(), ".csv"))
+    drop_upload(paste0("qc_", submission_time(), ".csv"),
+                path = paste0(destination,
+                              "resources/quality_control_results"))
+  }
   
-  drop_upload(paste0("table_metadata_", submission_time(), ".csv"),
-              path = paste0(destination,
-                            "resources/output_metadata"))
+  if(nrow(output_metadata$table) > 0){
+    write_csv(output_metadata$table, paste0("table_metadata_", submission_time(), ".csv"))
+    drop_upload(paste0("table_metadata_", submission_time(), ".csv"),
+                path = paste0(destination,
+                              "resources/output_metadata"))
+  }
+  
+  if(nrow(protocol_metadata$df) > 0){
+    write_csv(protocol_metadata$df, paste0("protocol_metadata", "_", submission_time(), ".csv"))
+    drop_upload(paste0("protocol_metadata", "_", submission_time(), ".csv"),
+                path = paste0(destination,
+                              "resources/protocol_metadata"))
+  }   
   
   setwd(original_wd)
   

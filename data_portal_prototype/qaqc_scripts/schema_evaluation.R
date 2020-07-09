@@ -40,7 +40,7 @@ schemaColumnNames <- function(x){
   
   # Get the list of table names that should be present in the current protocol
   schema_tables <- protocol_structure %>%
-    filter(protocol == current_protocol() & status == "active") 
+    filter(protocol == current_protocol()) 
   
   for(current_table in protocol_sheets()){
     
