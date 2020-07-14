@@ -3,6 +3,24 @@
 # Contact: Michael Lonneman, lonnemanM@si.edu
 
 function(input, output, session) {
+  
+  current_file <- reactiveVal()
+  
+  output$uploaded <- renderTable({
+    req(input$fileExcel)
+    
+    current_file(input$fileExcel$name)
+    # print(current_file())
+
+    # for(i in 1:nrow(input$fileExcel)){
+      files <- data.frame(uploaded_files = current_file())
+      print(files)
+    # append(uploaded, current_file())
+    # data.frame(uploaded_files = input$fileExcel$name)
+    # }
+    as.data.frame(files)
+  })
+  
   # Functions for extracting submission metadata
   source("extractSubmissionMetadata.R", local=TRUE)
   # QA functions
@@ -561,7 +579,7 @@ getProtocolCoords <- function(){
           names(temp_cols) <- c("latitude_1", "longitude_1", "latitude_2", "longitude_2")
           
           # bind lat/lon pairs with site and transect info
-          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+          temp_coords <- temp_sheet %>% select(site_code, location_name, transect) %>%
             bind_cols(., temp_cols) %>%
             mutate(protocol = current_protocol(),
                    sheet = sheet_name)
@@ -571,7 +589,7 @@ getProtocolCoords <- function(){
           names(temp_cols) <- c("latitude_1", "longitude_1")
           
           # bind lat/lon pairs with site and transect info
-          temp_coords <- temp_sheet %>% select(site_code, transect) %>%
+          temp_coords <- temp_sheet %>% select(site_code, location_name, transect) %>%
             bind_cols(., temp_cols) %>%
             mutate(protocol = current_protocol(),
                    sheet = sheet_name)
@@ -582,7 +600,7 @@ getProtocolCoords <- function(){
         }
         # compile all lat/lon pairs in submission
         coords <- bind_rows(coords, temp_coords) %>%
-          select(protocol, sheet, site_code, transect, everything()) %>%
+          select(protocol, sheet, site_code, location_name, transect, everything()) %>%
           drop_na(latitude_1)
       }
     }
@@ -590,17 +608,11 @@ getProtocolCoords <- function(){
     # assign segment IDs 
     coords$segment_id <- seq(from = 1, to = nrow(coords))
     
-    # split the coordinate pairs and rename the lat/lon
-    df1 <- coords %>% select(protocol, site_code, segment_id, latitude_1, longitude_1) %>%
-      rename(lat = latitude_1, lon = longitude_1)
-    df2 <- coords %>% select(protocol, site_code, segment_id, latitude_2, longitude_2) %>%
-      rename(lat = latitude_2, lon = longitude_2)
-    
-    # bind the rows of coordinate pairs
-    reshape_coords <- rbind(df1, df2) %>%
-      arrange(segment_id) %>%
-      mutate(lat = as.numeric(lat),
-             lon = as.numeric(lon))
+    # gather coordinates into long-form
+    reshape_coords <- coords %>%
+      pivot_longer(cols = c(latitude_1, longitude_1, latitude_2, longitude_2), 
+                   names_to = c(".value", "coord_order"), names_sep = "_") %>%
+      select(-coord_order)
     
     print(reshape_coords)
     print(str(reshape_coords))

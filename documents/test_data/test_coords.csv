@@ -1,6 +1,8 @@
-protocol,sheet,site_code,transect,latitude_1,longitude_1,latitude_2,longitude_2
-seagrass_shoots,sample_metadata,FIN-GOF,1,59.82907,23.17997,59.82943,23.17983
-seagrass_shoots,sample_metadata,FIN-GOF,2,59.82903,23.18,59.82883,23.17947
-seagrass_shoots,sample_metadata,FIN-GOF,3,59.82905,23.18003,59.829,23.18095
-visual_census,sample_metadata,FIN-GOF,1,59.82907,23.17997,NA,NA
-visual_census,sample_metadata,FIN-GOF,2,59.82903,23.18,NA,NA
+protocol,sheet,site_code,location_name,transect,latitude_1,longitude_1,latitude_2,longitude_2
+seagrass_shoots,sample_metadata,ABC-DEF,Narnia,1,59.82907,23.17997,59.82943,23.17983
+seagrass_shoots,sample_metadata,ABC-DEF,Narnia,2,59.82903,23.18,59.82883,23.17947
+seagrass_shoots,sample_metadata,ABC-DEF,Narnia,3,59.82905,23.18003,59.829,23.18095
+visual_census,sample_metadata,GHI-JKL,Wonderland,1,59.82907,23.17997,NA,NA
+visual_census,sample_metadata,GHI-JKL,Wonderland,2,59.82903,23.18,NA,NA
+seagrass_density,sample_metadata,MNO-PQR,Twin Peaks,1,147.905695,-42.547936,147.90525,-42.547673
+seagrass_macroalgae,sample_metadata,STU-VWX,Gotham,1,N73¡24.173,E73¡24.116,N73¡24.214,E73¡24.297

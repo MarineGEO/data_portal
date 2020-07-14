@@ -247,6 +247,8 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                                 accept = c(".xlsx")),
                                       hr(), 
                                       
+                                      tableOutput('uploaded'),
+                                      
                                       tags$br(),
                                       
                                       # Submit button starts as disabled until the user provides an email address 

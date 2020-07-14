@@ -33,43 +33,40 @@ tryCatch({
   
 if(nrow(submission_coords$all_coords) > 0){
   
-  reshape_coords <- submission_coords$all_coords
-  
-  # # assign segment IDs 
-  # df$segment_id <- seq(from = 1, to = nrow(df))
-  # 
-  # # split the coordinate pairs and rename the lat/lon
-  # df1 <- df %>% select(protocol, site_code, segment_id, latitude_1, longitude_1) %>%
-  #   rename(lat = latitude_1, lon = longitude_1)
-  # 
-  # df2 <- df %>% select(protocol, site_code, segment_id, latitude_2, longitude_2) %>%
-  #   rename(lat = latitude_2, lon = longitude_2)
-  # 
-  # # bind the rows of coordinate pairs
-  # reshape_coords <- rbind(df1, df2) %>%
-  #   arrange(segment_id)
-  
-  if(is.numeric(reshape_coords$lat) | is.numeric(reshape_coords$lon)){
+  coords_to_map <- submission_coords$all_coords
+
+  if(is.numeric(coords_to_map$latitude) & is.numeric(coords_to_map$longitude)){
       ## Plot Coordinates ---------
   
   # load leaflet library
   library(leaflet)
+  library(leaflet.extras)
   
   # define palette
   pal <- colorFactor(palette = "Set1",
-                     reshape_coords$protocol)
+                     coords_to_map$location_name)
   
+  # Map edits: add buffers or number bubbles and a drag zoom box
   # base map of sampling points
-  map <- leaflet(data = reshape_coords) %>%
-    # addProviderTiles(providers$CartoDB) %>%
-    addTiles() %>%
-    addCircles(color = ~pal(protocol)) %>%
-    addLegend(pal = pal, values = ~protocol)
+  map <- leaflet(data = coords_to_map) %>%
+    addProviderTiles(providers$CartoDB) %>%
+    # addTiles() %>%
+    addResetMapButton() %>%
+    # setView(lng = -102.85, lat = 37.45, zoom = 4) %>%
+    # addMeasure(position = "topleft", primaryLengthUnit = "kilometers", 
+    #              primaryAreaUnit = "hectares") %>%
+    addCircles(color = ~pal(location_name)) %>%
+    addLegend(pal = pal, values = ~location_name) %>%
+    addMarkers(data = coords_to_map, ~longitude, ~latitude,
+                   layerId=~location_name, label = ~as.character(paste("Location: ", location_name)),
+                   # Cluster locations when zoomed out
+                   clusterOptions = markerClusterOptions()
+        )
   
   # add transect/trawl lines
-  for(i in unique(reshape_coords$segment_id)){
-    map <- addPolylines(map, data = reshape_coords[reshape_coords$segment_id == i,], 
-                        lat = ~lat, lng = ~lon, group = ~segment_id)
+  for(i in unique(coords_to_map$segment_id)){
+    map <- addPolylines(map, data = coords_to_map[coords_to_map$segment_id == i,], 
+                        lat = ~latitude, lng = ~longitude, group = ~segment_id)
   }
 # print map to report
 map
