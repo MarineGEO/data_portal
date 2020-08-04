@@ -1,24 +1,24 @@
 ## Test validity of ID variables ####
 checkIDRelationships <- function(){
-  protocol_id_results <- data.frame()
+  # protocol_id_results <- data.frame()
   
   tryCatch({
   ## Match IDs across sheets #####
   # Get unique ID variables in sample metadata sheet
   sample_metadata_ids <- protocol_structure %>%
-    filter(protocol == current_protocol() & sheet == "sample_metadata") %>%
+    filter(protocol == current_protocol() & table == "sample_metadata") %>%
     filter(id_variable == 1) %$%
-    unique(.$attribute_name)
+    unique(.$attribute)
   
   # Check each data sheet to make sure unique combination of IDs are found in sample metadata page
   for(sheet_name in protocol_sheets()[!protocol_sheets() %in% c("sample_metadata", "taxa_list")]){
     
     # Extract IDs in data sheet that can be found in sample metadata sheet
     data_ids <- protocol_structure %>%
-      filter(protocol == current_protocol() & sheet == sheet_name) %>%
+      filter(protocol == current_protocol() & table == sheet_name) %>%
       filter(id_variable == 1) %>%
-      filter(attribute_name %in% sample_metadata_ids) %$%
-      unique(.$attribute_name)
+      filter(attribute %in% sample_metadata_ids) %$%
+      unique(.$attribute)
     
     # anti_join with data sheet on left side
     # If there are rows, combine IDs for alert - represent metadata values that don't exist in the sample metadata page
@@ -29,61 +29,59 @@ checkIDRelationships <- function(){
         rowid_to_column("row")
       
       results1 <- anti_join(testing_df, stored_protocol$df$sample_metadata, by=id) %>%
-        select(id, row)
+        select(id, row) %>%
+        mutate(row = row + 1) # Update row numbers to reflect Excel row numbers
       
       if(nrow(results1)>0){
-        protocol_id_results <- results1 %>%
-          gather("column_name", "value", -row) %>%
-          group_by(column_name, value) %>%
-          summarize(row_numbers = paste(row, collapse=", ")) %>%
-          mutate(sheet_name = sheet_name,
+        results1_formatted <- results1 %>%
+          gather("column", "value", -row) %>%
+          group_by(column, value) %>%
+          summarize(rows = paste(row, collapse=", ")) %>%
+          mutate(sheet = sheet_name,
                  protocol = current_protocol(),
                  test = "Invalid ID value in sample data",
                  filename = original_filename_qa(),
                  values = as.character(value)) %>%
-          select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
-          bind_rows(protocol_id_results)
+          select(-value)
+        
+        QA_results$df <- QA_results$df %>%
+          bind_rows(results1_formatted)
       }
       
       testing_df <- stored_protocol$df$sample_metadata %>%
         rowid_to_column("row")
       
       results2 <- anti_join(testing_df, stored_protocol$df[[sheet_name]], by=id) %>%
-        select(id, row)
+        select(id, row) %>%
+        mutate(row = row + 1) # Update row numbers to reflect Excel row numbers
       
       if(nrow(results2)>0){
-        protocol_id_results <- results2 %>%
-          gather("column_name", "value", -row) %>%
-          group_by(column_name, value) %>%
-          summarize(row_numbers = paste(row, collapse=", ")) %>%
-          mutate(sheet_name = "sample_metadata",
+        results2_formatted <- results2 %>%
+          gather("column", "value", -row) %>%
+          group_by(column, value) %>%
+          summarize(rows = paste(row, collapse=", ")) %>%
+          mutate(sheet = "sample_metadata",
                  protocol = current_protocol(),
                  test = "Invalid ID value in sample metadata",
                  filename = original_filename_qa(),
                  values = as.character(value)) %>%
-          select(test, filename, protocol, sheet_name, column_name, values, row_numbers) %>%
-          bind_rows(protocol_id_results)
+          select(-value)
         
+        QA_results$df <- QA_results$df %>%
+          bind_rows(results2_formatted)
       }
     }
   }
-  return(protocol_id_results)
-  
   },
   error = function(e){
-
     print(e)
-
-    # Create and return error message in the QA result log
-    setNames(as.data.frame("Error testing ID relationships"), "test") %>%
-      mutate(column_name = NA,
-             sheet_name = NA,
-             protocol = current_protocol(),
-             filename = original_filename_qa(),
-             values = NA,
-             row_numbers = NA) %>%
-      select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
-
+    
+    # Create and return an error message in the QA result log 
+    QA_results$df <- QA_results$df %>%
+      add_row(test = "Error testing ID relationships",
+              protocol = current_protocol(),
+              filename = original_filename_qa())
+    
   })
 
 

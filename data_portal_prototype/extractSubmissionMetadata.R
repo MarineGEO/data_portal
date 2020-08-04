@@ -10,20 +10,23 @@ extractProtocolMetadata <- function(){
   
   # For each file uploaded: 
   for(i in 1:nrow(input$fileExcel)){
-    
     # Name of the file as the user uploaded it
     original_filename <- input$fileExcel$name[i]
     
     ## Each sub-function has a unique error catcher ##
     # Read in protocol and sample metadata sheets, save protocol metadata
-    protocol_metadata <- readProtocolMetadata(input$fileExcel$datapath[i], original_filename)
-    submission_metadata$protocol_df[i][[1]] <- protocol_metadata
+    current_protocol_metadata <- readProtocolMetadata(input$fileExcel$datapath[i], original_filename)
+
+    if(!is.na(current_protocol_metadata)){
+      protocol_metadata$df <- protocol_metadata$df %>%
+        bind_rows(current_protocol_metadata)
+    }
 
     sample_metadata <- readSampleMetadata(input$fileExcel$datapath[i], original_filename)
 
     ## Extract each piece of metadata needed to store submission ##
-    submission_metadata$wb_version[i] <- extractWorkbookVersions(original_filename, protocol_metadata) 
-    submission_metadata$protocol[i] <- extractProtocolName(original_filename, protocol_metadata) 
+    submission_metadata$wb_version[i] <- extractWorkbookVersions(original_filename, current_protocol_metadata) 
+    submission_metadata$protocol[i] <- extractProtocolName(original_filename, current_protocol_metadata) 
     
     # Check the number of sites - if more than one, data for each site will be filed separately. 
     submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
@@ -34,7 +37,7 @@ extractProtocolMetadata <- function(){
     } else submission_metadata$all_sites[i] <- submission_metadata$site[i]
     
     # Extract data entry date - method will depend on workbook version
-    submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, protocol_metadata, submission_metadata$wb_version[i])
+    submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, current_protocol_metadata, submission_metadata$wb_version[i])
 
     # Extract year from date string - year will be first four characters or simply a substring of "invalid" and submission will fail. 
     submission_metadata$year[i] <- substr(as.character(submission_metadata$data_entry_date[i]), 1, 4)
@@ -49,6 +52,8 @@ extractProtocolMetadata <- function(){
     # Don't change filename if any error occurred during submission metadata scripts
     if(!(original_filename %in% protocol_metadata_error$df$filename)){
       file.rename(input$fileExcel$datapath[i], submission_metadata$new_filename[i])
+    } else {
+      file.rename(input$fileExcel$datapath[i], input$fileExcel$name[i])
     }
   }
 }
@@ -61,7 +66,8 @@ readProtocolMetadata <- function(filepath, original_filename){
     read_xlsx(filepath, 
               sheet = "protocol_metadata", 
               col_names = c("category", "response"), skip=1) %>%
-      spread(category, response) 
+      spread(category, response) %>%
+      mutate(submission_id = submission_time())
   },
   error = function(e){
     # Track which file triggered the error and the cause (no protocol metadata sheet)

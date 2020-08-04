@@ -10,13 +10,12 @@
 # ... ... "test", "filename", "protocol", "sheet_name", "column_name", "row_numbers", "values"
 
 testNumericType <- function(){
-  numeric_results <- data.frame()
-  
+
   tryCatch({
     numeric_columns <- protocol_structure %>%
       filter(protocol == current_protocol()) %>%
       filter(type == "numeric" | type == "integer") %$%
-      unique(.$attribute_name)
+      unique(.$attribute)
     
     for(sheet_name in protocol_sheets()){
       
@@ -47,34 +46,31 @@ testNumericType <- function(){
         
         if(nrow(results)>0){
           numeric_results <- results %>%
-            mutate(column_name = colnames(testing_df[col])) %>%
-            group_by(column_name) %>%
-            summarize(row_numbers = paste(row, collapse=", ")) %>%
-            mutate(sheet_name = sheet_name,
+            mutate(column = colnames(testing_df[col]),
+                   row = row + 1) %>%
+            group_by(column) %>%
+            summarize(rows = paste(row, collapse=", ")) %>%
+            mutate(sheet = sheet_name,
                    protocol = current_protocol(),
                    test = "Invalid characters in numeric attribute",
-                   filename = original_filename_qa()) %>%
-            select(test, filename, protocol, sheet_name, column_name, row_numbers) %>%
+                   filename = original_filename_qa())
+          
+          QA_results$df <- QA_results$df %>%
             bind_rows(numeric_results)
         }
         
       }
     }
-    return(numeric_results)
-    
+
   },
   error = function(e){
     print(e)
     
-    # Create and return error message in the QA result log 
-    setNames(as.data.frame("Error in numeric data type test"), "test") %>%
-      mutate(column_name = NA,
-             sheet_name = NA,
-             protocol = current_protocol(),
-             filename = original_filename_qa(),
-             values = NA,
-             row_numbers = NA) %>%
-      select(test, filename, protocol, sheet_name, column_name, row_numbers, values)
+    # Create and return an error message in the QA result log 
+    QA_results$df <- QA_results$df %>%
+      add_row(test = "Error in numeric data type test",
+              protocol = current_protocol(),
+              filename = original_filename_qa())
     
   })
   

@@ -239,13 +239,21 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                                                                                 "Yes, my data contains sensitive information", 
                                                                                                 "No, my data does not contain sensitive information")), 
                                       hr(),
-                                      "Upload one or more spreadsheets. Each spreadsheet should be an official MarineGEO data spreadsheet, which you can find on our",
+                                      
+                                      "Upload official MarineGEO data spreadsheets below. You can find these spreadsheets on our",
                                       tags$a(href="https://marinegeo.github.io/modules.html", "website."), tags$br(), tags$br(),
                                       
-                                      fileInput("fileExcel", "Upload Excel files",
+                                      "You can upload multiple spreadsheets by either clicking \"Browse\" once and selecting multiple files or",
+                                      " by dragging multiple files simultaneously into the box below. If you browse to select or drag files more than once,",
+                                      " previous files will be overwritten. Check the list of \"Uploaded Files\" to ensure that each file",
+                                      " has been uploaded before clicking \"Submit\"",
+                                      
+                                      fileInput("fileExcel", "",
                                                 multiple = TRUE,
                                                 accept = c(".xlsx")),
                                       hr(), 
+                                      
+                                      tableOutput('uploaded'),
                                       
                                       tags$br(),
                                       
