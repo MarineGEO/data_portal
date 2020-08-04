@@ -7,9 +7,9 @@ beach_seines,abundance_data,active,scientific_name,"Scientific name using standa
 beach_seines,abundance_data,active,identification_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
 beach_seines,abundance_data,active,abundance,Total abundance of each fish taxon.,NA,NA,NA,NA
 beach_seines,abundance_data,active,abundance_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
+beach_seines,abundance_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+beach_seines,abundance_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 beach_seines,abundance_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-beach_seines,abundance_data,active,table,The observation's table of origin.,text,NA,NA,NA
-beach_seines,abundance_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 beach_seines,length_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 beach_seines,length_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
 beach_seines,length_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
@@ -18,9 +18,23 @@ beach_seines,length_data,active,scientific_name,"Scientific name using standard 
 beach_seines,length_data,active,identification_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
 beach_seines,length_data,active,length_mm,"Length, in millimeters, of the first 20 individuals per taxon. Each cell should contain only one length measurement.",NA,NA,Millimeters,NA
 beach_seines,length_data,active,length_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
+beach_seines,length_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+beach_seines,length_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 beach_seines,length_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-beach_seines,length_data,active,table,The observation's table of origin.,text,NA,NA,NA
-beach_seines,length_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+beach_seines,sample_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
+beach_seines,sample_data,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+beach_seines,sample_data,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+beach_seines,sample_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+beach_seines,sample_data,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
+beach_seines,sample_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
+beach_seines,sample_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
+beach_seines,sample_data,retired,abundance,"Abundance of each fish taxon. 
+
+For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",NA,NA,NA,NA
+beach_seines,sample_data,retired,length_mm,"Length, in millimeters, of the first 20 individuals per taxon.
+
+Each cell should contain only one length measurement.",NA,NA,NA,NA
+beach_seines,sample_data,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
 beach_seines,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 beach_seines,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 beach_seines,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -38,9 +52,14 @@ beach_seines,sample_metadata,active,seine_distance_m,"The distance towed along t
 beach_seines,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 beach_seines,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 beach_seines,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-beach_seines,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
+beach_seines,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+beach_seines,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 beach_seines,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-beach_seines,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+beach_seines,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+beach_seines,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+beach_seines,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
+beach_seines,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+beach_seines,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
 environmental_monitoring,environmental_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 environmental_monitoring,environmental_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 environmental_monitoring,environmental_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -49,9 +68,9 @@ environmental_monitoring,environmental_data,active,temperature_c,"Temperature, m
 environmental_monitoring,environmental_data,active,salinity_ppt,"Salinity, measured with a probe, sonde, or refractometer, in parts per thousand",numeric,xx,ppt,NA
 environmental_monitoring,environmental_data,active,secchi_depth_m,"Turbidity, measured as Secchi depth in meters (to the nearest 0.1 m)",numeric,xx.x,meters,NA
 environmental_monitoring,environmental_data,active,environmental_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
+environmental_monitoring,environmental_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+environmental_monitoring,environmental_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 environmental_monitoring,environmental_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-environmental_monitoring,environmental_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-environmental_monitoring,environmental_data,active,table,The observation's table of origin.,text,NA,NA,NA
 environmental_monitoring,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 environmental_monitoring,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 environmental_monitoring,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -65,46 +84,9 @@ environmental_monitoring,sample_metadata,active,turbidity_method,"Method used to
 environmental_monitoring,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 environmental_monitoring,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 environmental_monitoring,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
+environmental_monitoring,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+environmental_monitoring,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 environmental_monitoring,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-environmental_monitoring,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-environmental_monitoring,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
-fish_seines,sample_data,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
-fish_seines,sample_data,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-fish_seines,sample_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-fish_seines,sample_data,retired,table,The observation's table of origin.,text,NA,NA,NA
-fish_seines,sample_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_seines,sample_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-fish_seines,sample_data,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-fish_seines,sample_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-fish_seines,sample_data,retired,abundance,"Abundance of each fish taxon. 
-
-For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",NA,NA,NA,NA
-fish_seines,sample_data,retired,length_mm,"Length, in millimeters, of the first 20 individuals per taxon.
-
-Each cell should contain only one length measurement.",NA,NA,NA,NA
-fish_seines,sample_metadata,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-fish_seines,sample_metadata,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-fish_seines,sample_metadata,retired,sample_processing_date,The date the sample was processed in the lab,Date,NA,NA,NA
-fish_seines,sample_metadata,retired,transect_end_decimal_longitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,seine_mesh_size_mm,"The mesh size on the beach seine, in millimeters",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-fish_seines,sample_metadata,retired,seine_distance_m,"The distance towed along the transect, in meters (may or may not be 50 m)",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-fish_seines,sample_metadata,retired,transect_end_decimal_latitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,transect_begin_decimal_longitude,"Longitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_seines,sample_metadata,retired,transect_begin_decimal_latitude,"Latitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,table,The observation's table of origin.,text,NA,NA,NA
-fish_seines,sample_metadata,retired,seine_width_m,"The width of the beach seine, in meters",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,depth_m,"Site depth in meters. For sites spanning a depth range, please provide a single average depth.",numeric,NA,NA,NA
-fish_seines,sample_metadata,retired,location_comments,Any additional comments regarding the sampling location,character,NA,NA,NA
-fish_seines,sample_metadata,retired,seine_height_m,"The height of the beach seine, in meters",numeric,NA,NA,NA
-fish_seines,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
-fish_seines,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_seines,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
-fish_seines,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
-fish_seines,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 fish_trawls,abundance_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 fish_trawls,abundance_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
 fish_trawls,abundance_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
@@ -113,9 +95,9 @@ fish_trawls,abundance_data,active,scientific_name,"Scientific name using standar
 fish_trawls,abundance_data,active,identification_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
 fish_trawls,abundance_data,active,abundance,Total abundance of each fish taxon.,NA,NA,NA,NA
 fish_trawls,abundance_data,active,abundance_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-fish_trawls,abundance_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+fish_trawls,abundance_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+fish_trawls,abundance_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 fish_trawls,abundance_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_trawls,abundance_data,active,table,The observation's table of origin.,text,NA,NA,NA
 fish_trawls,length_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 fish_trawls,length_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
 fish_trawls,length_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
@@ -126,9 +108,9 @@ fish_trawls,length_data,active,length_mm,"Length in millimeters.
 
 Each cell should contain only one length measurement.",NA,NA,millimeters,NA
 fish_trawls,length_data,active,length_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-fish_trawls,length_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+fish_trawls,length_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+fish_trawls,length_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 fish_trawls,length_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_trawls,length_data,active,table,The observation's table of origin.,text,NA,NA,NA
 fish_trawls,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 fish_trawls,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 fish_trawls,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -145,28 +127,28 @@ fish_trawls,sample_metadata,active,trawl_opening_width_m,"The width of the trawl
 fish_trawls,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 fish_trawls,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 fish_trawls,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-fish_trawls,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+fish_trawls,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+fish_trawls,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 fish_trawls,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_trawls,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
-fish_trawls,SampleData,retired,trawl,"The trawl at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-fish_trawls,SampleData,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-fish_trawls,SampleData,retired,table,The observation's table of origin.,text,NA,NA,NA
-fish_trawls,SampleData,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-fish_trawls,SampleData,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
 fish_trawls,SampleData,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-fish_trawls,SampleData,retired,length_mm,"Length, in millimeters, of the first 20 individuals per taxon.
-
-Each cell should contain only one length measurement.",NA,NA,NA,NA
-fish_trawls,SampleData,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
-fish_trawls,SampleData,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
+fish_trawls,SampleData,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+fish_trawls,SampleData,retired,table_id,The observation's table of origin.,text,NA,NA,NA
 fish_trawls,SampleData,retired,abundance,"Abundance of each fish taxon. 
 
 For taxa with abundance >1, record a value of 1 for all but the final entry. For the final entry, enter a Value = Total Abundance - Sum of 1's from above.",NA,NA,NA,NA
-fish_trawls,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
-fish_trawls,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
+fish_trawls,SampleData,retired,length_mm,"Length, in millimeters, of the first 20 individuals per taxon.
+
+Each cell should contain only one length measurement.",NA,NA,NA,NA
+fish_trawls,SampleData,retired,trawl,"The trawl at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
+fish_trawls,SampleData,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
+fish_trawls,SampleData,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
+fish_trawls,SampleData,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
+fish_trawls,SampleData,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
+fish_trawls,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 fish_trawls,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+fish_trawls,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+fish_trawls,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
 fish_trawls,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
-fish_trawls,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 predation_assay,sample_data,active,sample_deployment_date,The date the sample was deployed in the field,date,YYYY-MM-DD,NA,1
 predation_assay,sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 predation_assay,sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -178,9 +160,9 @@ predation_assay,sample_data,active,stakes_remaining_1_hr,Number of stakes remain
 predation_assay,sample_data,active,bait_missing_24_hr,Number of bait missing after 24 hours,integer,XX,NA,NA
 predation_assay,sample_data,active,stakes_remaining_24_hr,Number of stakes remaining after 24 hours,integer,XX,NA,NA
 predation_assay,sample_data,active,sample_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-predation_assay,sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+predation_assay,sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+predation_assay,sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 predation_assay,sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-predation_assay,sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
 predation_assay,sample_metadata,active,sample_deployment_date,The date the sample was deployed in the field,date,YYYY-MM-DD,NA,1
 predation_assay,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 predation_assay,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -194,9 +176,9 @@ predation_assay,sample_metadata,active,depth_m,"Site depth in meters. For sites 
 predation_assay,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 predation_assay,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 predation_assay,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-predation_assay,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+predation_assay,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+predation_assay,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 predation_assay,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-predation_assay,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
 seagrass_biomass,sample_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_biomass,sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_biomass,sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -208,9 +190,9 @@ seagrass_biomass,sample_data,active,sample_processing_person,The full name of th
 seagrass_biomass,sample_data,active,tin_mass_g,The mass in grams of an empty measring tin,decimal,xx.xx,grams,NA
 seagrass_biomass,sample_data,active,tin_sample_dry_mass_g,"The mass in grams of a measring tin containing a seagrass sample, after it has been dried to a consistant dryweight",decimal,xx.xx,grams,NA
 seagrass_biomass,sample_data,active,sample_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_biomass,sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_biomass,sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_biomass,sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_biomass,sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_biomass,sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
 seagrass_biomass,sample_metadata,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_biomass,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_biomass,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -226,14 +208,14 @@ seagrass_biomass,sample_metadata,active,depth_m,"Site depth in meters. For sites
 seagrass_biomass,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 seagrass_biomass,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 seagrass_biomass,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_biomass,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_biomass,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_biomass,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_biomass,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_biomass,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_biomass,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_biomass,taxa_list,retired,taxon_id,NA,character,NA,NA,NA
-seagrass_biomass,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_biomass,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_biomass,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
 seagrass_biomass,taxa_list,retired,scientific_name,NA,character,NA,NA,NA
+seagrass_biomass,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+seagrass_biomass,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
 seagrass_density,cover_sample_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_density,cover_sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_density,cover_sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -241,12 +223,12 @@ seagrass_density,cover_sample_data,active,transect,"The transect at the location
 seagrass_density,cover_sample_data,active,quadrat,The distance along the transect that the sample was collected (from 1-50 m),numeric,NA,meters,2
 seagrass_density,cover_sample_data,active,scientific_name,"Scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher.",text,NA,NA,NA
 seagrass_density,cover_sample_data,active,identification_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_density,cover_sample_data,active,cover_code,"Cover code format will depend on the method used: Braun-Blanquet uses a letter scale (A, B, C, D, E) and % bins and point count methods use numeric scale. Refer to the protocol document for more information.",NA,NA,NA,NA
+seagrass_density,cover_sample_data,active,cover_code,"Cover code format will depend on the method used: Braun-Blanquet uses a letter scale (A, B, C, D, E) and % bins and point count methods use numeric scale. Refer to the protocol document for more information. If reporting cover for substrate, leave scientific name blank for that row.",NA,NA,NA,NA
 seagrass_density,cover_sample_data,active,sediment_type,"Type of bare substratum where sample was collected (ex. Sand, mud, mixed)",text,NA,NA,NA
 seagrass_density,cover_sample_data,active,cover_sample_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_density,cover_sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_density,cover_sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_density,cover_sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_density,cover_sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_density,cover_sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
 seagrass_density,macro_invert_sample_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_density,macro_invert_sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_density,macro_invert_sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -256,9 +238,9 @@ seagrass_density,macro_invert_sample_data,active,scientific_name,"Scientific nam
 seagrass_density,macro_invert_sample_data,active,identification_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
 seagrass_density,macro_invert_sample_data,active,size_mm,"The size of any mobile inverts to the nearest millimeter. If more than one individual of a given taxon is present in a single quadrat, enter a single row for each individual.",integer,XXX,millimeters,NA
 seagrass_density,macro_invert_sample_data,active,macro_invert_sample_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_density,macro_invert_sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_density,macro_invert_sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_density,macro_invert_sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_density,macro_invert_sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_density,macro_invert_sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
 seagrass_density,sample_metadata,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_density,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_density,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -268,14 +250,15 @@ seagrass_density,sample_metadata,active,transect_begin_decimal_longitude,"Longit
 seagrass_density,sample_metadata,active,transect_end_decimal_latitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,xx.xxxxx,NA,NA
 seagrass_density,sample_metadata,active,transect_end_decimal_longitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,xxx.xxxxx,NA,NA
 seagrass_density,sample_metadata,active,depth_m,"Site depth in meters. For sites spanning a depth range, please provide a single average depth.",numeric,NA,meters,NA
-seagrass_density,sample_metadata,active,cover_method,"The method used to estimate cover: Braun-Blanquet, % bins, or point count.",text,NA,NA,NA
+seagrass_density,sample_metadata,active,cover_method,"The method used to estimate cover: Braun-Blanquet, percent bins, or point count.",text,NA,NA,NA
+seagrass_density,sample_metadata,active,quadrat_dimensions,Dimensions of the quadrat used during sampling (WxH),text,NA,NA,NA
 seagrass_density,sample_metadata,active,points_in_quadrat,"The total number of points counted in a quadrat to estimate cover. A value is only necessary if using the point count method, please leave this blank if using a different method.",numeric,NA,NA,NA
 seagrass_density,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 seagrass_density,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 seagrass_density,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_density,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_density,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_density,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_density,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_density,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
 seagrass_density,shoot_count_sample_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_density,shoot_count_sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_density,shoot_count_sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -293,14 +276,14 @@ seagrass_density,shoot_count_sample_data,active,fruits_count,"The count of seagr
 
 Remember - Zeros are data! Please enter 0 if no seagrass fruits were present.",integer,XX,NA,NA
 seagrass_density,shoot_count_sample_data,active,shoot_count_sample_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_density,shoot_count_sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_density,shoot_count_sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_density,shoot_count_sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_density,shoot_count_sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_density,shoot_count_sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_density,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_density,taxa_list,retired,taxon_id,NA,character,NA,NA,NA
-seagrass_density,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
 seagrass_density,taxa_list,retired,scientific_name,NA,character,NA,NA,NA
-seagrass_density,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_density,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_density,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+seagrass_density,taxa_list,retired,taxon_id,NA,character,NA,NA,NA
+seagrass_density,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
 seagrass_epifauna,epifauna_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_epifauna,epifauna_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_epifauna,epifauna_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -320,9 +303,9 @@ seagrass_epifauna,epifauna_data,active,0.71mm,"Count of individuals between Xmm 
 seagrass_epifauna,epifauna_data,active,0.5mm,"Count of individuals between Xmm and Ymm, where Y = the current sieve mesh size and X = the next largest sieve mesh size",integer,XXX,count,NA
 seagrass_epifauna,epifauna_data,active,individuals_not_sieved,Count of individuals that were not sieved,integer,XXX,count,NA
 seagrass_epifauna,epifauna_data,active,epifauna_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_epifauna,epifauna_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_epifauna,epifauna_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_epifauna,epifauna_data,active,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,epifauna_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,epifauna_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_epifauna,macrophyte_mass_data,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_epifauna,macrophyte_mass_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_epifauna,macrophyte_mass_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -334,9 +317,9 @@ seagrass_epifauna,macrophyte_mass_data,active,sample_processing_person,The full 
 seagrass_epifauna,macrophyte_mass_data,active,tin_mass_g,The mass in grams of an empty measring tin,decimal,xx.xx,grams,NA
 seagrass_epifauna,macrophyte_mass_data,active,tin_sample_dry_mass_g,"The mass in grams of a measring tin containing a seagrass sample, after it has been dried to a consistant dryweight",decimal,xx.xx,grams,NA
 seagrass_epifauna,macrophyte_mass_data,active,macrophyte_mass_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_epifauna,macrophyte_mass_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_epifauna,macrophyte_mass_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_epifauna,macrophyte_mass_data,active,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,macrophyte_mass_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,macrophyte_mass_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_epifauna,sample_metadata,active,sample_collection_date,The date the sample was collected in the field (YYYY-MM-DD),date,YYYY-MM-DD,NA,1
 seagrass_epifauna,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_epifauna,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -351,31 +334,31 @@ seagrass_epifauna,sample_metadata,active,data_collector,Name(s) of data collecto
 seagrass_epifauna,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 seagrass_epifauna,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
 seagrass_epifauna,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_epifauna,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_epifauna,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,sample_collection_date,NA,Date,NA,NA,NA
+seagrass_epifauna,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_epifauna,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,quadrat,NA,numeric,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,1.4mm,NA,integer,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,sample_collection_date,NA,Date,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,5.6mm,NA,integer,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,transect,NA,numeric,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,0.71mm,NA,integer,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,2.8mm,NA,integer,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,0.5mm,NA,integer,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,1.0mm,NA,integer,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,site_code,NA,character,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,8.0mm,NA,integer,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,location_name,NA,character,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,site_code,NA,character,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,taxon_id,NA,character,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,quadrat,NA,numeric,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,2.0mm,NA,integer,NA,NA,NA
 seagrass_epifauna,sieve_data,retired,4.0mm,NA,integer,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,0.5mm,NA,integer,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,5.6mm,NA,integer,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,1.0mm,NA,integer,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,0.71mm,NA,integer,NA,NA,NA
-seagrass_epifauna,sieve_data,retired,transect,NA,numeric,NA,NA,NA
-seagrass_epifauna,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,taxon_id,NA,character,NA,NA,NA
+seagrass_epifauna,sieve_data,retired,1.4mm,NA,integer,NA,NA,NA
 seagrass_epifauna,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_epifauna,taxa_list,retired,taxon_id,NA,character,NA,NA,NA
-seagrass_epifauna,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_epifauna,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_epifauna,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
 seagrass_epifauna,taxa_list,retired,scientific_name,NA,character,NA,NA,NA
+seagrass_epifauna,taxa_list,retired,taxon_id,NA,character,NA,NA,NA
 seagrass_macroalgae,sample_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 seagrass_macroalgae,sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_macroalgae,sample_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -386,9 +369,9 @@ seagrass_macroalgae,sample_data,active,sample_processing_person,The full name of
 seagrass_macroalgae,sample_data,active,tin_mass_macroalgae_g,"Mass of the empty tin to hold the macroalgae, in grams",integer,XX.XX,grams,NA
 seagrass_macroalgae,sample_data,active,tin_and_macroalgae_dry_mass_g,"Mass of the empty tin and macroalgae that have been dried to a constant weight, in grams",integer,XX.XX,grams,NA
 seagrass_macroalgae,sample_data,active,sample_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_macroalgae,sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_macroalgae,sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_macroalgae,sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_macroalgae,sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_macroalgae,sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_macroalgae,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 seagrass_macroalgae,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_macroalgae,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -402,43 +385,9 @@ seagrass_macroalgae,sample_metadata,active,depth_m,"Site depth in meters. For si
 seagrass_macroalgae,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 seagrass_macroalgae,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 seagrass_macroalgae,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_macroalgae,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_macroalgae,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_macroalgae,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,tin_and_sediment_ash_free_dry_mass_g,Mass of the tin and ass free sediment after placing in a muffle furnace.,decimal,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,tin_and_sediment_dry_mass_g,Mass of the tin and sediment after drying to a constant weight.,decimal,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,tin_mass_g,"Empty tin mass, in grams.",decimal,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,sediment_ash_free_dry_mass_g,This cell will autocalculate to: 'tin_and_sediment_ash_free_dry_mass_g' - 'tin_mass_g',decimal,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,quadrat,The distance along the transect that the sample was collected (from 1-50 m),numeric,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,sediment_volume_ml,"Sediment volume, in milliliters.",decimal,NA,NA,NA
-seagrass_organic_matter,sample_data,retired,sediment_dry_mass_g,This cell will autocalculate to: 'tin_and_sediment_dry_mass_g' - 'tin_mass_g',decimal,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,location_comments,Any additional comments regarding the sampling location,character,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,transect_begin_decimal_latitude,"Latitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,transect_end_decimal_latitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,depth_m,"Site depth in meters. For sites spanning a depth range, please provide a single average depth.",numeric,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,transect_end_decimal_longitude,"Latitude of the transect ending, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,sample_processing_date,The date the sample was processed in the lab,Date,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-seagrass_organic_matter,sample_metadata,retired,transect_begin_decimal_longitude,"Longitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-seagrass_organic_matter,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_organic_matter,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
-seagrass_organic_matter,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
-seagrass_organic_matter,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_organic_matter,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+seagrass_macroalgae,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_macroalgae,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_shoots,blade_measurement_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 seagrass_shoots,blade_measurement_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_shoots,blade_measurement_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -451,28 +400,28 @@ seagrass_shoots,blade_measurement_data,active,blade_rank,"Rank of the blade from
 seagrass_shoots,blade_measurement_data,active,blade_length_mm,Blade length in millimeters,integer,XX,millimeters,NA
 seagrass_shoots,blade_measurement_data,active,blade_width_mm,Blade width in millimeters,integer,XX,millimeters,NA
 seagrass_shoots,blade_measurement_data,active,blade_measurement_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_shoots,blade_measurement_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_shoots,blade_measurement_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_shoots,blade_measurement_data,active,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_shoots,sample_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-seagrass_shoots,sample_data,retired,epibiont_dry_mass_g,This cell will autocalculate to: 'tin_and_blades_dry_mass_g' - 'tin_mass_epibiont_g',integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,sheath_length_mm,Sheath length in millimeters,integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,tin_mass_blades_g,"Mass of the empty tin to hold the blades, in grams",integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,blades_dry_mass_g,This cell will autocalculate to: 'tin_and_epibiont_dry_mass_g' - 'tin_mass_blades_g',integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,tin_mass_epibiont_g,"Mass of the empty tin to hold the epibionts, in grams",integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,quadrat,The distance along the transect that the sample was collected (from 1-50 m),numeric,NA,NA,NA
-seagrass_shoots,sample_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-seagrass_shoots,sample_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-seagrass_shoots,sample_data,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-seagrass_shoots,sample_data,retired,blade_length_mm,Blade length in millimeters,integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+seagrass_shoots,blade_measurement_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_shoots,blade_measurement_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
 seagrass_shoots,sample_data,retired,taxon_id,"A unique string used to identify a single taxon. Does not have to be a full scientific name (e.g., ""BC"" or ""blue crab"") but it MUST be linked in the TaxaList sheet with the full scientific name (e.g., ""Callinectes sapidus"")",character,NA,NA,NA
+seagrass_shoots,sample_data,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_shoots,sample_data,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
 seagrass_shoots,sample_data,retired,blade_width_mm,Blade width in millimeters,integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,tin_and_epibiont_dry_mass_g,"Mass of the empty tin and epibionts that have been dried to a constant weight, in grams",integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,tin_and_blades_dry_mass_g,"Mass of the empty tin and blades that have been dried to a constant weight, in grams",integer,NA,NA,NA
-seagrass_shoots,sample_data,retired,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_shoots,sample_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+seagrass_shoots,sample_data,retired,blade_length_mm,Blade length in millimeters,integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
+seagrass_shoots,sample_data,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_shoots,sample_data,retired,tin_mass_blades_g,"Mass of the empty tin to hold the blades, in grams",integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
 seagrass_shoots,sample_data,retired,number_grazing_scars,Number of grazing scars on seagrass blades,integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,blades_dry_mass_g,This cell will autocalculate to: 'tin_and_epibiont_dry_mass_g' - 'tin_mass_blades_g',integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
+seagrass_shoots,sample_data,retired,sheath_length_mm,Sheath length in millimeters,integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,tin_and_blades_dry_mass_g,"Mass of the empty tin and blades that have been dried to a constant weight, in grams",integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,tin_mass_epibiont_g,"Mass of the empty tin to hold the epibionts, in grams",integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,tin_and_epibiont_dry_mass_g,"Mass of the empty tin and epibionts that have been dried to a constant weight, in grams",integer,NA,NA,NA
+seagrass_shoots,sample_data,retired,quadrat,The distance along the transect that the sample was collected (from 1-50 m),numeric,NA,NA,NA
+seagrass_shoots,sample_data,retired,epibiont_dry_mass_g,This cell will autocalculate to: 'tin_and_blades_dry_mass_g' - 'tin_mass_epibiont_g',integer,NA,NA,NA
 seagrass_shoots,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 seagrass_shoots,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_shoots,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -486,9 +435,9 @@ seagrass_shoots,sample_metadata,active,depth_m,"Site depth in meters. For sites 
 seagrass_shoots,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 seagrass_shoots,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 seagrass_shoots,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_shoots,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_shoots,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_shoots,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
+seagrass_shoots,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_shoots,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 seagrass_shoots,sheath_and_epibiont_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 seagrass_shoots,sheath_and_epibiont_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 seagrass_shoots,sheath_and_epibiont_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -506,13 +455,13 @@ seagrass_shoots,sheath_and_epibiont_data,active,tin_and_epibiont_dry_mass_g,"Mas
 seagrass_shoots,sheath_and_epibiont_data,active,tin_mass_blades_g,"Mass of the empty tin to hold the blades, in grams",integer,XX.XX,grams,NA
 seagrass_shoots,sheath_and_epibiont_data,active,tin_and_blades_dry_mass_g,"Mass of the empty tin and blades that have been dried to a constant weight, in grams",integer,XX.XX,grams,NA
 seagrass_shoots,sheath_and_epibiont_data,active,sheath_and_epibiont_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-seagrass_shoots,sheath_and_epibiont_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 seagrass_shoots,sheath_and_epibiont_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_shoots,sheath_and_epibiont_data,active,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_shoots,taxa_list,retired,table,The observation's table of origin.,text,NA,NA,NA
-seagrass_shoots,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
+seagrass_shoots,sheath_and_epibiont_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_shoots,sheath_and_epibiont_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
 seagrass_shoots,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-seagrass_shoots,taxa_list,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+seagrass_shoots,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+seagrass_shoots,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+seagrass_shoots,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
 seagrass_shoots,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
 sediment_organic_matter,sample_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 sediment_organic_matter,sample_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
@@ -527,9 +476,9 @@ sediment_organic_matter,sample_data,active,sediment_volume_ml,"Sediment volume, 
 sediment_organic_matter,sample_data,active,tin_and_sediment_dry_mass_g,Mass of the tin and sediment after drying to a constant weight.,decimal,XX.XX,grams,NA
 sediment_organic_matter,sample_data,active,tin_and_sediment_ash_free_dry_mass_g,Mass of the tin and ass free sediment after placing in a muffle furnace.,decimal,XX.XX,grams,NA
 sediment_organic_matter,sample_data,active,sample_data_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-sediment_organic_matter,sample_data,active,table,The observation's table of origin.,text,NA,NA,NA
 sediment_organic_matter,sample_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-sediment_organic_matter,sample_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
+sediment_organic_matter,sample_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+sediment_organic_matter,sample_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 sediment_organic_matter,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 sediment_organic_matter,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 sediment_organic_matter,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
@@ -543,9 +492,14 @@ sediment_organic_matter,sample_metadata,active,depth_m,"Site depth in meters. Fo
 sediment_organic_matter,sample_metadata,active,data_collector,Name(s) of data collector(s),text,NA,NA,NA
 sediment_organic_matter,sample_metadata,active,data_entry_person,Full name of data entry person,text,NA,NA,NA
 sediment_organic_matter,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-sediment_organic_matter,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 sediment_organic_matter,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-sediment_organic_matter,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
+sediment_organic_matter,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+sediment_organic_matter,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+sediment_organic_matter,taxa_list,retired,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
+sediment_organic_matter,taxa_list,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+sediment_organic_matter,taxa_list,retired,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",character,NA,NA,NA
+sediment_organic_matter,taxa_list,retired,table_id,The observation's table of origin.,text,NA,NA,NA
+sediment_organic_matter,taxa_list,retired,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,character,NA,NA,NA
 visual_census,fish_survey_data,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 visual_census,fish_survey_data,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
 visual_census,fish_survey_data,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
@@ -586,15 +540,15 @@ visual_census,fish_survey_data,active,300,Count of fish 250-300cm,numeric,XXX,co
 visual_census,fish_survey_data,active,350,Count of fish 300-350 cm,numeric,XXX,count,NA
 visual_census,fish_survey_data,active,400,Count of fish >350 cm,numeric,XXX,count,NA
 visual_census,fish_survey_data,active,fish_survey_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-visual_census,fish_survey_data,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 visual_census,fish_survey_data,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-visual_census,fish_survey_data,active,table,The observation's table of origin.,text,NA,NA,NA
+visual_census,fish_survey_data,active,table_id,The observation's table of origin.,text,NA,NA,NA
+visual_census,fish_survey_data,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 visual_census,sample_metadata,active,sample_collection_date,The date the sample was collected in the field,date,YYYY-MM-DD,NA,1
 visual_census,sample_metadata,active,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,text,XXX-YYY,NA,1
 visual_census,sample_metadata,active,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",text,NA,NA,1
 visual_census,sample_metadata,active,transect,The transect at the location the sample came from: 1 or 2,numeric,NA,NA,1
-visual_census,sample_metadata,active,transect_decimal_latitude,"Latitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,xx.xxxxx,NA,NA
-visual_census,sample_metadata,active,transect_decimal_longitude,"Longitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,xxx.xxxxx,NA,NA
+visual_census,sample_metadata,active,transect_begin_decimal_latitude,"Latitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,xx.xxxxx,NA,NA
+visual_census,sample_metadata,active,transect_begin_decimal_longitude,"Longitude of the transect beginning, in decimal degrees (to five decimal places)",numeric,xxx.xxxxx,NA,NA
 visual_census,sample_metadata,active,sample_collection_time,The time of day the sample was collected in the field in 24 hour format,time,HH:MM,NA,NA
 visual_census,sample_metadata,active,diver,The diver's name,text,NA,NA,NA
 visual_census,sample_metadata,active,buddy,The buddy's name,text,NA,NA,NA
@@ -603,36 +557,12 @@ visual_census,sample_metadata,active,depth_m,"Site depth in meters. For sites sp
 visual_census,sample_metadata,active,visibility_m,Site visibility in meters,numeric,XX,meters,NA
 visual_census,sample_metadata,active,direction,Transect direction,numeric,XXX,0-360 degrees,NA
 visual_census,sample_metadata,active,sample_metadata_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-visual_census,sample_metadata,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 visual_census,sample_metadata,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-visual_census,sample_metadata,active,table,The observation's table of origin.,text,NA,NA,NA
+visual_census,sample_metadata,active,table_id,The observation's table of origin.,text,NA,NA,NA
+visual_census,sample_metadata,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA
 visual_census,taxa_list,active,taxon_id,The unique identifier for a single taxon. This column should include ALL uniquie TaxonID entries from the 'SampleData' sheet,text,NA,NA,NA
 visual_census,taxa_list,active,scientific_name,"Corresponding TaxonID's scientific name using standard scientific nomenclature. If the species cannot be identified to species, report genus or higher",text,NA,NA,NA
 visual_census,taxa_list,active,taxon_notes,"Any additional notes regarding observations, context, or concerns about the data.",text,NA,NA,NA
-visual_census,taxa_list,active,table,The observation's table of origin.,text,NA,NA,NA
-visual_census,taxa_list,active,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
 visual_census,taxa_list,active,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-water_quality,environmental_data,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
-water_quality,environmental_data,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-water_quality,environmental_data,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-water_quality,environmental_data,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-water_quality,environmental_data,retired,salinity_ppt,"Salinity, measured with a probe, sonde, or refractometer, in parts per thousand",numeric,NA,NA,NA
-water_quality,environmental_data,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-water_quality,environmental_data,retired,table,The observation's table of origin.,text,NA,NA,NA
-water_quality,environmental_data,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-water_quality,environmental_data,retired,secchi_depth_m,"Turbidity, measured as Secchi depth in meters (to the nearest 0.1 m)",numeric,NA,NA,NA
-water_quality,environmental_data,retired,temperature_c,"Temperature, measured with a probe, sonde, or thermometer, in degrees Celsius",numeric,NA,NA,NA
-water_quality,sample_metadata,retired,site_code,Enter your 6 character site code. Codes can be found in the standards section of the MarineGEO protocol website: https://marinegeo.github.io/standards/,character,NA,NA,NA
-water_quality,sample_metadata,retired,sample_collection_date,The date the sample was collected in the field,Date,NA,NA,NA
-water_quality,sample_metadata,retired,sample_point_decimal_latitude,"Latitude of the sampling point, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-water_quality,sample_metadata,retired,temperature_method,"Method used to measure temperature, such as ""YSI probe"" or ""thermometer""",character,NA,NA,NA
-water_quality,sample_metadata,retired,transect,"The transect at the location the sample came from: 1, 2, or 3",numeric,NA,NA,NA
-water_quality,sample_metadata,retired,depth_m,"Site depth in meters. For sites spanning a depth range, please provide a single average depth.",numeric,NA,NA,NA
-water_quality,sample_metadata,retired,turbidity_method,"Method used to measure turbidity, e.g. ""Secchi disk""",character,NA,NA,NA
-water_quality,sample_metadata,retired,salinity_method,"Method used to measure salinity, such as ""YSI probe"" or ""refractometer""",character,NA,NA,NA
-water_quality,sample_metadata,retired,location_comments,Any additional comments regarding the sampling location or methods used,character,NA,NA,NA
-water_quality,sample_metadata,retired,protocol,MarineGEO protocol data is associated with.,text,NA,NA,NA
-water_quality,sample_metadata,retired,location_name,"The name of the specific location where the sample was collected; e.g., Curlew Cay",character,NA,NA,NA
-water_quality,sample_metadata,retired,table,The observation's table of origin.,text,NA,NA,NA
-water_quality,sample_metadata,retired,sample_point_decimal_longitude,"Longitude of the sampling point, in decimal degrees (to five decimal places)",numeric,NA,NA,NA
-water_quality,sample_metadata,retired,submission_id,The submission ID represents the unique time that the data was submitted to MarineGEO.,text,NA,NA,NA
+visual_census,taxa_list,active,table_id,The observation's table of origin.,text,NA,NA,NA
+visual_census,taxa_list,active,protocol_id,The observation's MarineGEO protocol of origin,text,NA,NA,NA

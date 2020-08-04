@@ -10,7 +10,7 @@ function(input, output, session) {
   source("./qaqc_scripts/numeric_type_test.R", local=TRUE)
   source("./qaqc_scripts/date_format_test.R", local=TRUE)
   source("./qaqc_scripts/schema_evaluation.R", local=TRUE)
-  
+
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
   
@@ -94,6 +94,16 @@ function(input, output, session) {
   output$data_policy <- renderTable({data_policy_table})
   
   ##  Data submission page button logic and observers ##############
+  # Table on UI which reveals names of uploaded files. 
+  output$uploaded <- renderTable({
+    if(!is.null(input$fileExcel)){
+      input$fileExcel %>%
+        select(name) %>%
+        rename(`Uploaded Files` = name)
+    } else {
+      tibble(`Uploaded Files` = "No files uploaded")
+    }
+  })
   
   # Return to data policy from submission page
   observeEvent(input$return_to_data_policy, {
@@ -134,7 +144,7 @@ function(input, output, session) {
       extractProtocolMetadata()
 
       # Upload initial files to dropbox and run QA checks
-      if(!no_db_testing) saveInitialData()
+      saveInitialData()
 
       # Run beta QA process 
       QAQC()
@@ -242,16 +252,11 @@ function(input, output, session) {
   # the data is sent to the Dropbox directory.
   saveInitialData <- function() {
     # Upload the Excel file and updated submission log file to Dropbox
-    # Create a temporary working directory
-    #tmpdir <- tempdir()
     setwd(tempdir())
-    date <- as.character(submissionDate())
-    
-    # Make sure date folder exists
-    if(!drop_exists(path = paste0(destination, 
-                                  "initial_directory/", date))){
-      
-      # If it doesn't, create 
+    date <- as.character(humanTime())
+
+    # If it doesn't, create 
+    if(!no_db_testing){
       drop_create(path = paste0(destination, 
                                 "initial_directory/", date))
     }
@@ -262,73 +267,94 @@ function(input, output, session) {
       if(!(submission_metadata$original_filename[i] %in% protocol_metadata_error$df$filename)){
         attribute <- submission_metadata$new_filename[i]
       } else {
-        attribute <- input$fileExcel$datapath[i]
+        attribute <- input$fileExcel$name[i]
+        
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "Upload failed initial processing",
+                  filename = input$fileExcel$name[i])
       }
       
-      # upload the initial data submission to dropbox
-      drop_upload(attribute,
-                  path = paste0(destination,
-                                "initial_directory/", date))
-      
+      if(!no_db_testing){
+        # upload the initial data submission to dropbox
+        drop_upload(attribute,
+                    path = paste0(destination,
+                                  "initial_directory/", date))
+      }
     }
-    
   }
   
   saveCuratedData <- function(){
     setwd(tempdir())
     
-    for(row in 1:nrow(output_metadata$protocol)){
-      target_protocol <- pull(output_metadata$protocol[row,], protocol)
-      target_site <- pull(output_metadata$protocol[row,], site)
+    tryCatch({
       
-      for(target_table in names(submission_data$all_data[[row]])){
-        target_filename <- paste(target_site,
-                                 gsub("_", "-", target_protocol),
-                                 gsub("_", "-", target_table),
-                                 submission_time(),
-                                 sep="_")
+      # If this object is length 0, then no valid data has been uploaded
+      if(length(submission_data$all_data) != 0){
         
-        destination_check <- protocol_structure %>%
-          select(protocol, table) %>%
-          distinct() %>%
-          filter(protocol == target_protocol,
-                 table == target_table)
-        
-        # Write the curated set to the directory and send to Dropbox
-        write_csv(submission_data$all_data[[row]][[target_table]],
-                  paste0(target_filename, ".csv"))
-        
-        if(nrow(destination_check) == 1){
-          drop_upload(paste0(target_filename, ".csv"),
-                      path = paste0(destination,
-                                    "curated_directory/",
-                                    target_protocol, "/",
-                                    target_table))
-
-          output_metadata$table <- output_metadata$table %>%
-            add_row(protocol = target_protocol,
-                    table = target_table,
-                    filename = paste0(target_filename, ".csv"),
-                    valid_destination = TRUE)
-
-        } else {
-          drop_upload(paste0(target_filename, ".csv"),
-                      path = paste0(destination,
-                                    "curated_directory/invalid_table"))
-
-          output_metadata$table <- output_metadata$table %>%
-            add_row(protocol = target_protocol,
-                    table = target_table,
-                    filename = paste0(target_filename, ".csv"),
-                    valid_destination = FALSE)
+        for(row in 1:nrow(output_metadata$protocol)){
+          target_protocol <- pull(output_metadata$protocol[row,], protocol)
+          target_site <- pull(output_metadata$protocol[row,], site)
+          
+          for(target_table in names(submission_data$all_data[[row]])){
+            target_filename <- paste(target_site,
+                                     gsub("_", "-", target_protocol),
+                                     gsub("_", "-", target_table),
+                                     submission_time(),
+                                     sep="_")
+            
+            destination_check <- protocol_structure %>%
+              select(protocol, table) %>%
+              distinct() %>%
+              filter(protocol == target_protocol,
+                     table == target_table)
+            
+            # Write the curated set to the directory and send to Dropbox
+            write_csv(submission_data$all_data[[row]][[target_table]],
+                      paste0(target_filename, ".csv"))
+            
+            if(nrow(destination_check) == 1){
+              drop_upload(paste0(target_filename, ".csv"),
+                          path = paste0(destination,
+                                        "curated_directory/",
+                                        target_protocol, "/",
+                                        target_table))
+              
+              output_metadata$table <- output_metadata$table %>%
+                add_row(protocol = target_protocol,
+                        table = target_table,
+                        filename = paste0(target_filename, ".csv"),
+                        valid_destination = TRUE)
+              
+            } else {
+              drop_upload(paste0(target_filename, ".csv"),
+                          path = paste0(destination,
+                                        "curated_directory/invalid_tables"))
+              
+              output_metadata$table <- output_metadata$table %>%
+                add_row(protocol = target_protocol,
+                        table = target_table,
+                        filename = paste0(target_filename, ".csv"),
+                        valid_destination = FALSE)
+            }
+          }
         }
-      
+      } else {
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "No valid data uploaded")
+        
       }
+    },
+    
+    error = function(e){
       
-    }
+      print(e)
+      
+      # Create an error message in the QA result log
+      QA_results$df <- QA_results$df %>%
+        add_row(test = "Error transmitting curated data")
+    })
     
-  setwd(original_wd)
-    
+    setwd(original_wd)
   }
   
 
@@ -355,7 +381,6 @@ checkFileExtensions <- function(){
     return(FALSE)
     
   } else return(TRUE)
-  
 }
 
 QAQC <- function(){
@@ -370,6 +395,16 @@ QAQC <- function(){
 
       original_filename_qa(submission_metadata$original_filename[i])
       current_protocol(submission_metadata$protocol[i])
+      
+      # If protocol name is out of date, update it. 
+      current_protocol(
+        case_when(
+          current_protocol() == "fish_seines" ~ "beach_seines",
+          current_protocol() == "water_quality" ~ "environmental_monitoring",
+          current_protocol() == "seagrass_organic_matter" ~ "sediment_organic_matter",
+          TRUE ~ current_protocol()
+        )
+      )
       
       # Only submissions with a valid protocol name will go through the QAQC process and be saved as CSVs
       # This includes deprecated protocol names (water quality, fish seines, seagrass_organic_matter, etc.)
@@ -396,8 +431,8 @@ QAQC <- function(){
           if(nrow(df) > 0){
             protocol_df[[sheet_name]] <- df %>%
               mutate(submission_id = paste(submission_time(), i, sep = "_"),
-                     protocol = current_protocol(),
-                     table = sheet_name)
+                     protocol_id = current_protocol(),
+                     table_id = sheet_name)
           
             } else{
               # Remove the 0 row table from the protocol sheets object
@@ -446,8 +481,6 @@ QAQC <- function(){
                   protocol = current_protocol(),
                   filename = original_filename_qa()) 
       }
-      
-      
     },
 
     error = function(e){
@@ -460,15 +493,15 @@ QAQC <- function(){
                protocol = submission_metadata$protocol[i],
                filename = submission_metadata$original_filename[i])
     })
-    
   }
-  
 }
 
 # Called by the saveInitialData() function to acquire the submission log from DB and append new information to it  
 saveSubmissionMetadata <- function(){
   setwd(tempdir())
   
+  tryCatch({
+    
   # Access the submission log from dropbox and append current emails/time/datafile name
   submission_log <- drop_read_csv(paste0(destination, "submission_log.csv"))
   
@@ -513,8 +546,18 @@ saveSubmissionMetadata <- function(){
                               "resources/protocol_metadata"))
   }   
   
-  setwd(original_wd)
+  },
   
+  error = function(e){
+    
+    print(e)
+    
+    # Create an error message in the QA result log
+    QA_results$df <- QA_results$df %>%
+      add_row(test = "Error transmitting submission metadata")
+  })
+  
+  setwd(original_wd)
 }
 
 # Generate the QA report in markdown
@@ -522,26 +565,40 @@ renderReport <- function(){
   
   setwd(original_wd)
   
-  # Check if the submission failed any QA tests
-  if(nrow(QA_results$df) == 0){
-    report_status("Submission successful")
-  } else{
-    report_status("Some files did not pass all tests")
-  }
+  tryCatch({
+    
+    # Check if the submission failed any QA tests
+    if(nrow(QA_results$df) == 0){
+      report_status("Submission successful")
+    } else{
+      report_status("Some files did not pass all tests")
+    }
+    
+    ## Write RMarkdown report #########
+    rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
+                      output_format = "html_document",
+                      output_file = paste0("submission_report_", submission_time(), ".html"),
+                      output_dir = "./www/")
+    
+    report_path(paste0("submission_report_", submission_time(), ".html"))
+    
+    if(!no_db_testing){
+      # Send the report to the dropbox
+      drop_upload(paste0("./www/", report_path()),
+                  path = paste0(destination, "submission_reports"))
+    }
+    
+  },
   
-  ## Write RMarkdown report #########
-  rmarkdown::render(input = "./marinegeo_submission_report.Rmd",
-                    output_format = "html_document",
-                    output_file = paste0("submission_report_", submission_time(), ".html"),
-                    output_dir = "./www/")
+  error = function(e){
+    
+    print(e)
+    
+    # Create an error message in the QA result log
+    QA_results$df <- QA_results$df %>%
+      add_row(test = "Error creating RMarkdown report")
+  })
   
-  report_path(paste0("submission_report_", submission_time(), ".html"))
-  
-  if(!no_db_testing){
-    # Send the report to the dropbox
-    drop_upload(paste0("./www/", report_path()),
-                path = paste0(destination, "submission_reports"))
-  }
   
 }
 
