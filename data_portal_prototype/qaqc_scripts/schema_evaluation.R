@@ -80,6 +80,51 @@ schemaColumnNames <- function(x){
 
 }
 
+## Check validity of column order ####
+schemaColumnOrder <- function(x){
+  
+  # Get the list of table names that should be present in the current protocol
+  schema_tables <- protocol_structure %>%
+    filter(protocol == current_protocol()) 
+  
+  for(current_table in protocol_sheets()){
+    
+    # Only check column names if the sheet/table name is present in the upload
+    if(current_table %in% schema_tables$table){
+      
+      # Obtain any missing column names from data
+      absent_columns <- schema_tables %>%
+        filter(table == current_table) %>%
+        filter(!(attribute %in% colnames(stored_protocol$df[[current_table]]))) %$%
+        unique(.$attribute)
+      
+      # Determine which columns have been added by the submitter 
+      column_names <- colnames(stored_protocol$df[[current_table]])
+      invalid_columns <- column_names[!(column_names %in% schema_tables$attribute)]
+      
+      # Construct results 
+      if(length(absent_columns) >= 1){
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "Absent columns",
+                  sheet = current_table,
+                  column = absent_columns,
+                  protocol = current_protocol(),
+                  filename = original_filename_qa())
+      }
+      
+      if(length(invalid_columns) >= 1){
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "Invalid columns",
+                  sheet = current_table,
+                  column = invalid_columns,
+                  protocol = current_protocol(),
+                  filename = original_filename_qa())
+      }
+    }
+  }
+  
+}
+
 
 ## Check validity of values ####
 
