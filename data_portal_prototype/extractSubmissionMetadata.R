@@ -31,6 +31,8 @@ extractProtocolMetadata <- function(){
     # Check the number of sites - if more than one, data for each site will be filed separately. 
     submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
     
+    print(submission_metadata$site[i])
+    
     # If more than one site, list of sites created
     if(submission_metadata$site[i] == "multiple"){
       submission_metadata$all_sites[i] <- list(unique(sample_metadata$site_code)) 
@@ -151,6 +153,15 @@ checkNumberOfSites <- function(original_filename, sample_metadata){
   
   # Wrapped in an error catcher - if there is no site column present the submission will fail
   tryCatch({
+    
+    # If there's no site values entered
+    if(all(is.na(unique(sample_metadata$site_code)))){
+      # Track which file triggered the error and the cause (no site code column present)
+      protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
+                                                                              filter(warnings, title == "missing_site_column")$message)
+      return("invalid")
+    }
+    
     if(length(unique(sample_metadata$site_code))==1) {
       return(unique(sample_metadata$site_code))
     } else {

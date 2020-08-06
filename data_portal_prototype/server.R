@@ -315,7 +315,7 @@ function(input, output, session) {
             if(nrow(destination_check) == 1){
               drop_upload(paste0(target_filename, ".csv"),
                           path = paste0(destination,
-                                        "curated_directory/",
+                                        "L0_directory/",
                                         target_protocol, "/",
                                         target_table))
               
@@ -328,7 +328,7 @@ function(input, output, session) {
             } else {
               drop_upload(paste0(target_filename, ".csv"),
                           path = paste0(destination,
-                                        "curated_directory/invalid_tables"))
+                                        "L0_directory/invalid_tables"))
               
               output_metadata$table <- output_metadata$table %>%
                 add_row(protocol = target_protocol,

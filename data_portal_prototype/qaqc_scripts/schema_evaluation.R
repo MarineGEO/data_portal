@@ -80,6 +80,5 @@ schemaColumnNames <- function(x){
 
 }
 
-
 ## Check validity of values ####
 
