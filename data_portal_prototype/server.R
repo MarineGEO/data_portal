@@ -7,19 +7,23 @@ function(input, output, session) {
   current_file <- reactiveVal()
   
   output$uploaded <- renderTable({
-    req(input$fileExcel)
-    
-    current_file(input$fileExcel$name)
-    # print(current_file())
-
-    # for(i in 1:nrow(input$fileExcel)){
-      files <- data.frame(uploaded_files = current_file())
-      print(files)
-    # append(uploaded, current_file())
-    # data.frame(uploaded_files = input$fileExcel$name)
-    # }
-    as.data.frame(files)
-  })
+    input$fileExcel %>% select(name) %>% rename("Uploaded Files" = "name")
+    })
+  
+  # output$uploaded <- renderTable({
+  #   req(input$fileExcel)
+  #   
+  #   current_file(input$fileExcel$name)
+  #   # print(current_file())
+  # 
+  #   # for(i in 1:nrow(input$fileExcel)){
+  #     files <- data.frame(uploaded_files = current_file())
+  #     print(files)
+  #   # append(uploaded, current_file())
+  #   # data.frame(uploaded_files = input$fileExcel$name)
+  #   # }
+  #   as.data.frame(files)
+  # })
   
   # Functions for extracting submission metadata
   source("extractSubmissionMetadata.R", local=TRUE)
