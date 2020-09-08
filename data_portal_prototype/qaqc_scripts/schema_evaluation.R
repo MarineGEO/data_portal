@@ -21,7 +21,8 @@ schemaTableNames <- function(){
       add_row(test = "Absent table",
               sheet = absent_tables,
               protocol = current_protocol(),
-              filename = original_filename_qa())
+              filename = original_filename_qa(),
+              submission_id = current_submission_id())
   }
   
   if(length(invalid_tables) >= 1){
@@ -29,7 +30,8 @@ schemaTableNames <- function(){
       add_row(test = "Invalid table",
               sheet = invalid_tables,
               protocol = current_protocol(),
-              filename = original_filename_qa())
+              filename = original_filename_qa(),
+              submission_id = current_submission_id())
   }
   
 }
@@ -64,7 +66,8 @@ schemaColumnNames <- function(x){
                   sheet = current_table,
                   column = absent_columns,
                   protocol = current_protocol(),
-                  filename = original_filename_qa())
+                  filename = original_filename_qa(),
+                  submission_id = current_submission_id())
       }
       
       if(length(invalid_columns) >= 1){
@@ -73,7 +76,8 @@ schemaColumnNames <- function(x){
                   sheet = current_table,
                   column = invalid_columns,
                   protocol = current_protocol(),
-                  filename = original_filename_qa())
+                  filename = original_filename_qa(),
+                  submission_id = current_submission_id())
       }
     }
   }

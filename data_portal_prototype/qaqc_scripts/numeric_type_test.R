@@ -53,7 +53,8 @@ testNumericType <- function(){
             mutate(sheet = sheet_name,
                    protocol = current_protocol(),
                    test = "Invalid characters in numeric attribute",
-                   filename = original_filename_qa())
+                   filename = original_filename_qa(),
+                   submission_id = current_submission_id())
           
           QA_results$df <- QA_results$df %>%
             bind_rows(numeric_results)

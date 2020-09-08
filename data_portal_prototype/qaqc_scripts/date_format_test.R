@@ -38,7 +38,8 @@ evaluateDates <- function(x){
                       column = date_attribute,
                       sheet = sheet_name,
                       protocol = current_protocol(),
-                      filename = original_filename_qa())
+                      filename = original_filename_qa(),
+                      submission_id = current_submission_id())
                       
           } else if (is.character(x)){
             # First count the number of NAs already present
@@ -64,7 +65,8 @@ evaluateDates <- function(x){
                           column = date_attribute,
                           sheet = sheet_name,
                           protocol = current_protocol(),
-                          filename = original_filename_qa())
+                          filename = original_filename_qa(),
+                          submission_id = current_submission_id())
               }
             } 
             
@@ -78,7 +80,8 @@ evaluateDates <- function(x){
                       column = date_attribute,
                       sheet = sheet_name,
                       protocol = current_protocol(),
-                      filename = original_filename_qa())
+                      filename = original_filename_qa(),
+                      submission_id = current_submission_id())
           }
         
           # Check for any NA dates in sample metadata table ####
@@ -99,7 +102,8 @@ evaluateDates <- function(x){
                         sheet = sheet_name,
                         protocol = current_protocol(),
                         filename = original_filename_qa(),
-                        rows = paste(invalid_date_index, collapse = ", "))
+                        rows = paste(invalid_date_index, collapse = ", "),
+                        submission_id = current_submission_id())
             }
 
           }
@@ -116,7 +120,8 @@ evaluateDates <- function(x){
     QA_results$df <- QA_results$df %>%
       add_row(test = "Unknown error in date format test",
               protocol = current_protocol(),
-              filename = original_filename_qa())
+              filename = original_filename_qa(),
+              submission_id = current_submission_id())
   })
 }
 

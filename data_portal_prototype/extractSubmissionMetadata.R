@@ -31,8 +31,6 @@ extractProtocolMetadata <- function(){
     # Check the number of sites - if more than one, data for each site will be filed separately. 
     submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
     
-    print(submission_metadata$site[i])
-    
     # If more than one site, list of sites created
     if(submission_metadata$site[i] == "multiple"){
       submission_metadata$all_sites[i] <- list(unique(sample_metadata$site_code)) 

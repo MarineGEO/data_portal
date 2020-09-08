@@ -13,6 +13,8 @@ function(input, output, session) {
 
   # Submission time will store the time a user initially submits data using the humanTime function
   submission_time <- reactiveVal(0)
+  # Holds current ID to be appended to QA 
+  current_submission_id <- reactiveVal(NA)
   
   # Excel sheets with sensitive data must be tracked and stored separately from other files 
   # When users select the sensitive checkbox, this reactive value will change to TRUE
@@ -35,6 +37,7 @@ function(input, output, session) {
                                            column = NA_character_,
                                            rows = NA_character_,
                                            values = NA_character_,
+                                           submission_id = NA_character_,
                                            .rows=0))
   
   # Dataframes holds all metadata required to create output filenames and save data
@@ -433,6 +436,8 @@ QAQC <- function(){
               mutate(submission_id = paste(submission_time(), i, sep = "_"),
                      protocol_id = current_protocol(),
                      table_id = sheet_name)
+            
+            current_submission_id(paste(submission_time(), i, sep = "_"))
           
             } else{
               # Remove the 0 row table from the protocol sheets object

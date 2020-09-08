@@ -41,7 +41,8 @@ checkIDRelationships <- function(){
                  protocol = current_protocol(),
                  test = "Invalid ID value in sample data",
                  filename = original_filename_qa(),
-                 values = as.character(value)) %>%
+                 values = as.character(value),
+                 submission_id = current_submission_id()) %>%
           select(-value)
         
         QA_results$df <- QA_results$df %>%
@@ -64,7 +65,8 @@ checkIDRelationships <- function(){
                  protocol = current_protocol(),
                  test = "Invalid ID value in sample metadata",
                  filename = original_filename_qa(),
-                 values = as.character(value)) %>%
+                 values = as.character(value),
+                 submission_id = current_submission_id()) %>%
           select(-value)
         
         QA_results$df <- QA_results$df %>%
