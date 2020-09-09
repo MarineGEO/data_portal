@@ -4,6 +4,7 @@
 
 
 bootstrapPage('', 
+              
 navbarPage("MarineGEO Data Portal", id="nav", 
 
            tabPanel("Welcome", 
@@ -164,6 +165,9 @@ navbarPage("MarineGEO Data Portal", id="nav",
                         Neither the contributing participant(s) nor the Smithsonian Institution are liable for any damages resulting from any use or 
                         interpretation of the data.", tags$br(), tags$br(), 
                         
+                        tags$h4(tags$b("Privacy")),
+                        "The ", tags$a(href="https://www.si.edu/Privacy", "Smithsonian Institution's Privacy Statement"), "applies to the use of MarineGEO's Data Submission Portal application to submit data", tags$br(), tags$br(),
+                        
                         tags$h4(tags$b("Authorship")),
                         "The opportunity for co-authorship on publications and products resulting from MarineGEO activities will be extended to contributing participants 
                         according to typical norms of scientific societies and journals. Generally, co-authors shall meet both of the following qualifications:", tags$br(), tags$br(), 
@@ -315,4 +319,3 @@ tags$style(type = 'text/css',
 )
 
 )
-
