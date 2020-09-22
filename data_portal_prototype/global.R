@@ -24,7 +24,7 @@ portal_version <- "v0.5.0"
 # No data transmission
 # FALSE = Objects saved to DB
 # TRUE = Objects not saved to DB
-no_db_testing <- T
+no_db_testing <- F
 
 # Dropbox testing
 # FALSE = Objects saved to official directory
@@ -43,9 +43,22 @@ humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
 submissionDate <- function() format(Sys.time(), "%Y%m%d")
   
 # footer disclaimer code
-footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
-                                          align = "center", 
-                                          style = "
+# footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
+#                                           align = "center", 
+#                                           style = "
+#                                           position:fixed;
+#                                           bottom:0;
+#                                           width:100%;
+#                                           height:20px; 
+#                                           color: black;
+#                                           background-color: yellow;
+#                                           z-index: 1000;"
+# )
+# footer disclaimer code
+footer <- tags$footer(tags$a(href="https://www.si.edu/Privacy", "View our privacy statement"),
+                      " Beta version: Send feedback to MarineGEO@si.edu", 
+                      align = "center", 
+                      style = "
                                           position:fixed;
                                           bottom:0;
                                           width:100%;
@@ -54,6 +67,8 @@ footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu",
                                           background-color: yellow;
                                           z-index: 1000;"
 )
+
+
 
 # Authenticate your dropbox token 
 drop_auth(rdstoken = "./droptoken.rds")
