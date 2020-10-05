@@ -43,18 +43,6 @@ humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
 submissionDate <- function() format(Sys.time(), "%Y%m%d")
   
 # footer disclaimer code
-# footer <- tags$footer("Beta version: Send feedback to MarineGEO@si.edu", 
-#                                           align = "center", 
-#                                           style = "
-#                                           position:fixed;
-#                                           bottom:0;
-#                                           width:100%;
-#                                           height:20px; 
-#                                           color: black;
-#                                           background-color: yellow;
-#                                           z-index: 1000;"
-# )
-# footer disclaimer code
 footer <- tags$footer(tags$a(href="https://www.si.edu/Privacy", "View our privacy statement"),
                       " Beta version: Send feedback to MarineGEO@si.edu", 
                       align = "center", 

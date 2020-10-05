@@ -15,11 +15,7 @@ function(input, output, session) {
   submission_time <- reactiveVal(0)
   # Holds current ID to be appended to QA 
   current_submission_id <- reactiveVal(NA)
-  
-  # Excel sheets with sensitive data must be tracked and stored separately from other files 
-  # When users select the sensitive checkbox, this reactive value will change to TRUE
-  sensitive <- reactiveVal()
-  
+
   # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
   submission_metadata <- reactiveValues()
@@ -71,26 +67,32 @@ function(input, output, session) {
   # Store specific error message(s) if protocol metadata information extraction fails 
   protocol_error_message <- reactiveVal()
   
-  ## Welcome and Data Policy action button logic ###############
   
-  ## ... Intro/First page
-  # Move to data policy page from introduction
-  observeEvent(input$data_policy_intro, {
-    if(!no_db_testing){
-      updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
-    } else updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
+  survey_submission <- updateActivePageServer("welcome_survey_data", "nav", "Data Policy", parent_session = session)
+  sensor_submission <- updateActivePageServer("welcome_sensor_data", "nav", "Data Policy", parent_session = session)
+  updateActivePageServer("new_submission", "nav", "Data Upload", parent_session = session)
+  updateActivePageServer("return_to_intro", "nav", "Welcome", parent_session = session)
+  updateActivePageServer("return_to_data_policy", "nav", "Data Policy", parent_session = session)
+  
+  submission_data_type <- reactiveVal(NA)
+  
+  observeEvent(!is.na(survey_submission()), {
+    submission_data_type("survey")
   })
   
-  # ... Data policy page
-  # Accept data policy and move to data submission
-  observeEvent( input$new_submission, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Upload")
+  observeEvent(!is.na(sensor_submission()), {
+    submission_data_type("sensor")
   })
   
-  # Return to welcome screen from data policy 
-  # Does not indicate agreement with data policy
-  observeEvent(input$return_to_intro, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Welcome")
+  fileUploadServer("excel")
+  fileUploadServer("csv")
+  
+  output$file_upload <- renderUI({
+    if(submission_data_type() == "survey"){
+      fileUploadUI("excel", TRUE, ".xlsx")
+    } else if(submission_data_type() == "sensor"){
+      fileUploadUI("csv", FALSE, ".csv")
+    }
   })
   
   # Data policy table
@@ -98,121 +100,104 @@ function(input, output, session) {
   
   ##  Data submission page button logic and observers ##############
   # Table on UI which reveals names of uploaded files. 
-  output$uploaded <- renderTable({
-    if(!is.null(input$fileExcel)){
-      input$fileExcel %>%
-        select(name) %>%
-        rename(`Uploaded Files` = name)
-    } else {
-      tibble(`Uploaded Files` = "No files uploaded")
-    }
-  })
-  
-  # Return to data policy from submission page
-  observeEvent(input$return_to_data_policy, {
-    updateTabsetPanel(session, inputId = "nav", selected = "Data Policy")
-  })
+  # output$uploaded <- renderTable({
+  #   if(!is.null(input$fileExcel)){
+  #     input$fileExcel %>%
+  #       select(name) %>%
+  #       rename(`Uploaded Files` = name)
+  #   } else {
+  #     tibble(`Uploaded Files` = "No files uploaded")
+  #   }
+  # })
   
   ## ... submit data button - file save, QA, report display functions ##############
   # As long as the user has also provided an excel file and an email address, the initial file will be uploaded to a dropbox directory
   # QA/QC tests will be conducted on the file and a RMD report generated 
   # The user will be moved to a page with the report and whether their submission was successful
-  observeEvent(input$submit, {
-    
-    # Put entire submission process inside a try catch 
-    # This should prevent any unexpected errors from crashing the submission portal
-    # tryCatch({
-    # Get the current time
-    submission_time(humanTime())
-    
-    # Create inital submission receipt (save email and submission time)
-    if(!no_db_testing) initialReceipt() 
-    
-    # Make sure each file is an excel (.xlsx) file
-    # And data entry date - protocol - site information can all be extracted
-    file_test <- checkFileExtensions()
-
-    # Only upload data if all files are .xlsx
-    if(file_test){
-      showModal(modalDialog(
-        title = "Data Uploading", 
-        div("Thank you for submitting data to MarineGEO! Your data is currently undergoing QA tests, 
-            and being saved to our database. This will take a few moments. If you are uploading data for multiple sites or more than three protocols, it could take from one to three minutes. Once complete, this page will update, and you will have access to a report 
-            with additional details about the status of your submission."),
-        
-        easyClose = TRUE
-      ))
-      
-      # Extract essential metadata needed to classify that submission represents a MarineGEO protocol
-      extractProtocolMetadata()
-
-      # Upload initial files to dropbox and run QA checks
-      saveInitialData()
-
-      # Run beta QA process 
-      QAQC()
-      
-      if(!no_db_testing) {
-        saveCuratedData()
-        saveSubmissionMetadata()
-      }
-
-      # Render the report and save to MarineGEO dropbox
-      renderReport()
-      
-      # Move user to the data report page
-      updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
-      
-    } else {
-      # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
-      shinyjs::reset("fileExcel")
-      
-      showModal(modalDialog(
-        title = "Failed Submission", 
-        div(protocol_error_message()),
-        
-        easyClose = TRUE
-      ))
-    }
-    # 
-    # },
-    # error = function(e){
-    #   showModal(modalDialog(
-    #     title = "An unexpected error occurred", 
-    #     div("An unexpected error occurred.", 
-    #         "Please email MarineGEO (marinegeo@si.edu) your Excel spreadsheets, and we will respond promptly.",
-    #         "We apologize for this inconvenience."),
-    #     
-    #     easyClose = TRUE
-    #   ))
-    # })
-  })
+  # observeEvent(input$submit, {
+  #   
+  #   # Put entire submission process inside a try catch 
+  #   # This should prevent any unexpected errors from crashing the submission portal
+  #   # tryCatch({
+  #   # Get the current time
+  #   submission_time(humanTime())
+  #   
+  #   # Create inital submission receipt (save email and submission time)
+  #   if(!no_db_testing) initialReceipt() 
+  #   
+  #   # Make sure each file is an excel (.xlsx) file
+  #   # And data entry date - protocol - site information can all be extracted
+  #   file_test <- checkFileExtensions()
+  # 
+  #   # Only upload data if all files are .xlsx
+  #   if(file_test){
+  #     showModal(modalDialog(
+  #       title = "Data Uploading", 
+  #       div("Thank you for submitting data to MarineGEO! Your data is currently undergoing QA tests, 
+  #           and being saved to our database. This will take a few moments. If you are uploading data for multiple sites or more than three protocols, it could take from one to three minutes. Once complete, this page will update, and you will have access to a report 
+  #           with additional details about the status of your submission."),
+  #       
+  #       easyClose = TRUE
+  #     ))
+  #     
+  #     # Extract essential metadata needed to classify that submission represents a MarineGEO protocol
+  #     extractProtocolMetadata()
+  # 
+  #     # Upload initial files to dropbox and run QA checks
+  #     saveInitialData()
+  # 
+  #     # Run beta QA process 
+  #     QAQC()
+  #     
+  #     if(!no_db_testing) {
+  #       saveCuratedData()
+  #       saveSubmissionMetadata()
+  #     }
+  # 
+  #     # Render the report and save to MarineGEO dropbox
+  #     renderReport()
+  #     
+  #     # Move user to the data report page
+  #     updateTabsetPanel(session, inputId = "nav", selected = "Data Report")
+  #     
+  #   } else {
+  #     # This resets the file input but doesn't erase the file path, thus triggering errors even if the user then uploads the correct file type
+  #     shinyjs::reset("fileExcel")
+  #     
+  #     showModal(modalDialog(
+  #       title = "Failed Submission", 
+  #       div(protocol_error_message()),
+  #       
+  #       easyClose = TRUE
+  #     ))
+  #   }
+  #   # 
+  #   # },
+  #   # error = function(e){
+  #   #   showModal(modalDialog(
+  #   #     title = "An unexpected error occurred", 
+  #   #     div("An unexpected error occurred.", 
+  #   #         "Please email MarineGEO (marinegeo@si.edu) your Excel spreadsheets, and we will respond promptly.",
+  #   #         "We apologize for this inconvenience."),
+  #   #     
+  #   #     easyClose = TRUE
+  #   #   ))
+  #   # })
+  # })
   
   ## ... data submission button lock conditions ###########
   # Prevent the "submit" button on the data submission page to be pressed if a user does not 
-  # A. provide an email address. 
-  # B. select if their data does or does not contain sensitive information 
-  # C. upload an excel document 
-  observe({
-    if(!no_db_testing){
-      if(input$email != "" & 
-         grepl("@", input$email) &
-         !is.null(input$fileExcel) &
-         input$sensitive_prompt != "Not specified"){
-        shinyjs::enable("submit")
-      } else {
-        shinyjs::disable("submit")
-      }
-    } else shinyjs::enable("submit")
-  })
-  
-  observeEvent(input$sensitive_prompt, {
-    if(input$sensitive_prompt == "Yes, my data contains sensitive information") {
-      sensitive(TRUE)
-    } else {
-      sensitive(FALSE)
-    }
-  }) 
+  # observe({
+  #   if(!no_db_testing){
+  #     if(input$email != "" & 
+  #        grepl("@", input$email) &
+  #        !is.null(input$fileExcel)){
+  #       shinyjs::enable("submit")
+  #     } else {
+  #       shinyjs::disable("submit")
+  #     }
+  #   } else shinyjs::enable("submit")
+  # })
   
   ## Finalize data submission/View report ##################
   # Render RMarkdown generated report
