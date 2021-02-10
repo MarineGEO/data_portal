@@ -44,9 +44,12 @@ extractProtocolMetadata <- function(){
 
     # Create new filename and record original filename
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
+    # i is appended to end of file in case multiple files for a given protocol and site are submitted
     submission_metadata$new_filename[i] <- paste0(gsub("_", "-", submission_metadata$protocol[i]), "_",
                                                   submission_metadata$site[i], "_",
-                                                  submission_metadata$data_entry_date[i], ".xlsx")
+                                                  submission_metadata$data_entry_date[i], "_", 
+                                                  i, ".xlsx")
+    
     submission_metadata$original_filename[i] <- original_filename
     
     # Don't change filename if any error occurred during submission metadata scripts

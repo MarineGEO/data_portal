@@ -256,12 +256,12 @@ function(input, output, session) {
   saveInitialData <- function() {
     # Upload the Excel file and updated submission log file to Dropbox
     setwd(tempdir())
-    date <- as.character(humanTime())
+    #date <- as.character(humanTime())
 
     # If it doesn't, create 
     if(!no_db_testing){
       drop_create(path = paste0(destination, 
-                                "initial_directory/", date))
+                                "initial_directory/", submission_time()))
     }
     
     # For each file uploaded:
@@ -281,7 +281,7 @@ function(input, output, session) {
         # upload the initial data submission to dropbox
         drop_upload(attribute,
                     path = paste0(destination,
-                                  "initial_directory/", date))
+                                  "initial_directory/", submission_time()), mode = "add")
       }
     }
   }

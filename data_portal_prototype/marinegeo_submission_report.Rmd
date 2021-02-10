@@ -48,9 +48,9 @@ if(nrow(failed_submissions) > 0){
                 rename(Filename = filename) %>%
                 select(Filename)))
   
-  cat("We'll review any files that failed to successfully transmit to our database and will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email MarineGEO (marinegeo@si.edu).")
+  cat("We'll review any files that failed to successfully transmit to our database and will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo@si.edu.")
 } else {
-  cat("MarineGEO will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email MarineGEO (marinegeo@si.edu).")
+  cat("Our data team will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email us at marinegeo@si.edu.")
 }
 
 
