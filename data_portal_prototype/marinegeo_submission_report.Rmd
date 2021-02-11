@@ -46,7 +46,8 @@ if(nrow(failed_submissions) > 0){
   
   print(kable(failed_submissions %>%
                 rename(Filename = filename) %>%
-                select(Filename)))
+                select(Filename) %>%
+                distinct()))
   
   cat("We'll review any files that failed to successfully transmit to our database and will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo@si.edu.")
 } else {

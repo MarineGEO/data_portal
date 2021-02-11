@@ -42,13 +42,14 @@ function(input, output, session) {
   
   # Dataframes holds all metadata required to create output filenames and save data
   output_metadata <- reactiveValues(protocol = tibble(protocol = NA_character_,
-                                                filename = NA_character_,
-                                                site = NA_character_,
-                                                .rows = 0),
-                                    
+                                                      filename = NA_character_,
+                                                      site = NA_character_,
+                                                      submission_id = NA_character_,
+                                                      .rows = 0),
                                     table = tibble(protocol = NA_character_,
                                                    table = NA_character_,
                                                    filename = NA_character_,
+                                                   submission_id = NA_character_,
                                                    valid_destination = NA,
                                                    .rows = 0))
                                     
@@ -297,12 +298,13 @@ function(input, output, session) {
         for(row in 1:nrow(output_metadata$protocol)){
           target_protocol <- pull(output_metadata$protocol[row,], protocol)
           target_site <- pull(output_metadata$protocol[row,], site)
-          
+          target_submission_id <- pull(output_metadata$protocol[row,], submission_id)
+            
           for(target_table in names(submission_data$all_data[[row]])){
             target_filename <- paste(target_site,
                                      gsub("_", "-", target_protocol),
                                      gsub("_", "-", target_table),
-                                     submission_time(),
+                                     target_submission_id,
                                      sep="_")
             
             destination_check <- protocol_structure %>%
@@ -325,6 +327,7 @@ function(input, output, session) {
               output_metadata$table <- output_metadata$table %>%
                 add_row(protocol = target_protocol,
                         table = target_table,
+                        submission_id = target_submission_id,
                         filename = paste0(target_filename, ".csv"),
                         valid_destination = TRUE)
               
@@ -336,6 +339,7 @@ function(input, output, session) {
               output_metadata$table <- output_metadata$table %>%
                 add_row(protocol = target_protocol,
                         table = target_table,
+                        submission_id = target_submission_id,
                         filename = paste0(target_filename, ".csv"),
                         valid_destination = FALSE)
             }
@@ -477,7 +481,8 @@ QAQC <- function(){
         output_metadata$protocol <- output_metadata$protocol %>%
           add_row(protocol = current_protocol(),
                   filename = submission_metadata$original_filename[i],
-                  site = submission_metadata$site[i])
+                  site = submission_metadata$site[i],
+                  submission_id = paste(submission_time(), i, sep = "_"))
         
       # Create a warning if an invalid or missing protocol name was provided
       } else {
