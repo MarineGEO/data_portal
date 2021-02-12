@@ -22,26 +22,41 @@ extractProtocolMetadata <- function(){
         bind_rows(current_protocol_metadata)
     }
 
-    sample_metadata <- readSampleMetadata(input$fileExcel$datapath[i], original_filename)
-
-    ## Extract each piece of metadata needed to store submission ##
-    submission_metadata$wb_version[i] <- extractWorkbookVersions(original_filename, current_protocol_metadata) 
     submission_metadata$protocol[i] <- extractProtocolName(original_filename, current_protocol_metadata) 
     
-    # Check the number of sites - if more than one, data for each site will be filed separately. 
-    submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
-    
-    # If more than one site, list of sites created
-    if(submission_metadata$site[i] == "multiple"){
-      submission_metadata$all_sites[i] <- list(unique(sample_metadata$site_code)) 
-    } else submission_metadata$all_sites[i] <- submission_metadata$site[i]
-    
-    # Extract data entry date - method will depend on workbook version
-    submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, current_protocol_metadata, submission_metadata$wb_version[i])
+    if(submission_metadata$protocol[i] == "SED-BIOME"){
+      
+      # SED-BIOME is lowercase in support documentation
+      submission_metadata$protocol[i] <- tolower(submission_metadata$protocol[i])
+      
+      # Extract data entry date - method will depend on workbook version
+      submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, current_protocol_metadata, "v1")
+      submission_metadata$site[i] <- paste("Site", current_protocol_metadata$site_number, sep = "-")
+        
+    } else {
+      
+      sample_metadata <- readSampleMetadata(input$fileExcel$datapath[i], original_filename)
+      
+      ## Extract each piece of metadata needed to store submission ##
+      submission_metadata$wb_version[i] <- extractWorkbookVersions(original_filename, current_protocol_metadata) 
 
+      # Check the number of sites  
+      submission_metadata$site[i] <- checkNumberOfSites(original_filename, sample_metadata)
+      
+      # If more than one site, list of sites created
+      # Currently submission_metadata$all_sites is not used elsewhere
+      # if(submission_metadata$site[i] == "multiple"){
+      #   submission_metadata$all_sites[i] <- list(unique(sample_metadata$site_code)) 
+      # } else submission_metadata$all_sites[i] <- submission_metadata$site[i]
+      
+      # Extract data entry date - method will depend on workbook version
+      submission_metadata$data_entry_date[i] <- extractProtocolDate(original_filename, current_protocol_metadata, submission_metadata$wb_version[i])
+      
+    }
+    
     # Extract year from date string - year will be first four characters or simply a substring of "invalid" and submission will fail. 
     submission_metadata$year[i] <- substr(as.character(submission_metadata$data_entry_date[i]), 1, 4)
-
+    
     # Create new filename and record original filename
     # file name will be [Protocol]_[MarineGEO site code]_[data entry date in YYYY-MM-DD format]
     # i is appended to end of file in case multiple files for a given protocol and site are submitted
@@ -58,6 +73,7 @@ extractProtocolMetadata <- function(){
     } else {
       file.rename(input$fileExcel$datapath[i], input$fileExcel$name[i])
     }
+    
   }
 }
 

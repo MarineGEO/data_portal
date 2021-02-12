@@ -74,7 +74,7 @@ footer <- tags$footer(tags$a(href="https://www.si.edu/Privacy", "View our privac
 drop_auth(rdstoken = "./droptoken.rds")
 
 # Read in protocol structure table
-protocol_structure <- read_csv("./data/protocol_structure.csv")
+protocol_structure <- read_csv("./data/level1_schema.csv")
 
 # Data type and availability table for the data policy 
 data_policy_table <- read_csv("./data/data_policy_table.csv")
