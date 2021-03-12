@@ -535,12 +535,10 @@ saveSubmissionMetadata <- function(){
   QA_results$df <- mutate(QA_results$df, submission_time = submission_time())
   output_metadata$table <- mutate(output_metadata$table, submission_time = submission_time())
   
-  if(nrow(QA_results$df) > 0){
-    write_csv(QA_results$df, paste0("qc_", submission_time(), ".csv"))
-    drop_upload(paste0("qc_", submission_time(), ".csv"),
-                path = paste0(destination,
-                              "resources/quality_control_results"))
-  }
+  write_csv(QA_results$df, paste0("qc_", submission_time(), ".csv"))
+  drop_upload(paste0("qc_", submission_time(), ".csv"),
+              path = paste0(destination,
+                            "resources/quality_control_results"))
   
   if(nrow(output_metadata$table) > 0){
     write_csv(output_metadata$table, paste0("table_metadata_", submission_time(), ".csv"))
