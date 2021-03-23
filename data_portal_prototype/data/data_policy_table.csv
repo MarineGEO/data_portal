@@ -1,8 +1,0 @@
-Data category,Data type,Details,Availability to Participants,Availability to Public
-Geophysical,Maps,"Drone imagery, GIS layers",Immediate after basic QAQC,Immediate after basic QAQC
-Environmental,Geophysical,"Sonde, meteorological station",Immediate after basic QAQC,Immediate after basic QAQC
-Biodiversity,BioBlitz,"Species names, images, DNA barcode sequences, associated metadata",Immediate after basic QAQC,2 years
-Biodiversity,Bio-monitoring,"Surveys (e.g., quantitative abundance by taxon)",Immediate after basic QAQC,2 years
-Biodiversity,Experiments,Coordinated experiments,Immediate after basic QAQC,At publication*
-Personal Information,Personally Identifiable Information,"Names, contact information, photographs, and other personal details",Only with signed permission of person**,Only with signed permission of person**
-Metadata,Metadata,Descriptions and summaries of data sets,Immediate after basic QAQC,2 years
