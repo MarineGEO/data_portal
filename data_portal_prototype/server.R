@@ -379,15 +379,32 @@ initialReceipt <- function(){
   setwd(original_wd)
 }  
   
-# Test each file extension and ensure it's an xslx file
+# Test each file extension and ensure it's an xslx or csv file
 checkFileExtensions <- function(){
   
-  if(any(!grepl("xlsx", input$fileExcel$name))){
+  output <- c()
+  
+  for(file in input$fileExcel$name){
+    if(grepl(".xlsx", file) | grepl(".csv", file)){
+      output <- c(output, TRUE)
+    } else {
+      output <- c(output, FALSE)
+    }
+  }
+  
+  if(any(output == FALSE)){
     # Update protocol error message with proper warning
     protocol_error_message(filter(warnings, title == "no_excel_files")$message)
     return(FALSE)
     
-  } else return(TRUE)
+  } else {return(TRUE)}
+  
+  # if(any(!grepl("xlsx", input$fileExcel$name))){
+  #   # Update protocol error message with proper warning
+  #   protocol_error_message(filter(warnings, title == "no_excel_files")$message)
+  #   return(FALSE)
+  #   
+  # } else return(TRUE)
 }
 
 QAQC <- function(){

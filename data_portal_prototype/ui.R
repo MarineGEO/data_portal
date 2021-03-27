@@ -248,7 +248,8 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       hr(),
                                       
                                       "Upload official MarineGEO data spreadsheets below. You can find these spreadsheets on our",
-                                      tags$a(href="https://marinegeo.github.io/modules.html", "website."), tags$br(), tags$br(),
+                                      tags$a(href="https://marinegeo.github.io/modules.html", "website."), "You can also upload certain CSV files, ", 
+                                      "such as exports from hobo loggers and CoralNet.", tags$br(), tags$br(),
                                       
                                       "You can upload multiple spreadsheets by either clicking \"Browse\" once and selecting multiple files or",
                                       " by dragging multiple files simultaneously into the box below. If you browse to select or drag files more than once,",
@@ -257,7 +258,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       fileInput("fileExcel", "",
                                                 multiple = TRUE,
-                                                accept = c(".xlsx")),
+                                                accept = c(".xlsx", "csv")),
                                       hr(), 
                                       
                                       tableOutput('uploaded'),
