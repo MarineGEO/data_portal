@@ -56,7 +56,7 @@ submissionDate <- function() format(Sys.time(), "%Y%m%d")
 # )
 # footer disclaimer code
 footer <- tags$footer(tags$a(href="https://www.si.edu/Privacy", "View our privacy statement"),
-                      " Beta version: Send feedback to MarineGEO@si.edu", 
+                      " Beta version: Send feedback to MarineGEO-data@si.edu", 
                       align = "center", 
                       style = "
                                           position:fixed;

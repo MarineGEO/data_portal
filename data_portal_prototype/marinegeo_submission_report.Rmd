@@ -49,9 +49,9 @@ if(nrow(failed_submissions) > 0){
                 select(Filename) %>%
                 distinct()))
   
-  cat("We'll review these files and, if necessary, will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo@si.edu.")
+  cat("We'll review these files and, if necessary, will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo-data@si.edu.")
 } else {
-  cat("Our data team will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email us at marinegeo@si.edu.")
+  cat("Our data team will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email us at marinegeo-data@si.edu.")
 }
 
 
@@ -61,7 +61,7 @@ if(nrow(failed_submissions) > 0){
 
 ```{r echo=FALSE, results='asis'}
 
-# This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo@si.edu). 
+# This report documents whether the data submission passes MarineGEO's quality assurance/quality control tests. If your submission failed one of the tests, you can view which protocol and sheet failed the test. Please update your data to fix any issues based on this information. If you cannot determine how to interpret a result, modify your data, or believe your data should be able to pass the tests, email MarineGEO (marinegeo-data@si.edu). 
 # 
 # Once you've addressed any issues(s), resubmit ONLY the data associated with the failed submission. 
 # 

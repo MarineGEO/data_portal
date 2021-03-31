@@ -266,7 +266,11 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       tags$br(),
                                       
                                       # Submit button starts as disabled until the user provides an email address 
-                                      actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(), 
+                                      actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(),
+                                      
+                                      tags$b("If you have any issues submitting data, please contact the MarineGEO Data Manager at marinegeo-data@si.edu. Include the Excel files as attachments with the email."),
+                                      
+                                      tags$br(), tags$br(),
                                       
                                       actionButton("return_to_data_policy", "Return to the data policy page"), 
                                       
