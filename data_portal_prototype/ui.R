@@ -52,7 +52,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                       div(
                         
                         tags$iframe(style="height:600px; width:100%", 
-                                    src="MarineGEO Data Policy Authorship Agreement.pdf"),
+                                    src="MarineGEO Data Policy Authorship Agreement.pdf#zoom=99"),
                         
                         # img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250),
                         # 
