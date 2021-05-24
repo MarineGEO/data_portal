@@ -51,8 +51,16 @@ navbarPage("MarineGEO Data Portal", id="nav",
                       
                       div(
                         
+                        "Please accept the MarineGEO Data Policy Authorship Agreement prior to submitting data. ",
+                        "You may download a copy of the agreement for your records.", tags$br(), tags$br(),
+                        
+                        actionButton("new_submission", "I accept the MarineGEO data policy",
+                                     class = "btn-primary"), tags$br(), tags$br(),
+                        
+                        #actionButton("return_to_intro", "Return to previous page"), 
+                        
                         tags$iframe(style="height:600px; width:100%", 
-                                    src="MarineGEO Data Policy Authorship Agreement.pdf#zoom=99"),
+                                    src="MarineGEO Data Policy Authorship Agreement.pdf#zoom=99")
                         
                         # img(src="Logomark_MarineGEO_Tennenbaum_RGB.png", width=250),
                         # 
@@ -199,11 +207,6 @@ navbarPage("MarineGEO Data Portal", id="nav",
                         # hr(), 
                         # 
                         # "You must acknowledge and accept the data policy in order to submit data.", tags$br(), tags$br(),
-                        
-                        actionButton("new_submission", "I accept the MarineGEO data policy",
-                                     class = "btn-primary"), tags$br(), tags$br(),
-                        
-                        actionButton("return_to_intro", "Return to previous page")
                         
                       )
                       
