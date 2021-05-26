@@ -25,9 +25,27 @@ Thank you for submitting data to MarineGEO! We've received data conducted using 
 
 kable(output_metadata$protocol %>%
         mutate(protocol = gsub("_", " ", protocol)) %>%
+        select(-site) %>%
         rename(Protocol = protocol,
-               Filename = filename,
-               `MarineGEO Site Code` = site))
+               Filename = filename))
+
+```
+
+<br />
+
+```{r echo=FALSE, results='asis'}
+
+csv_submissions <- QA_results$df %>%
+  filter(test == "CSV file")
+
+if(!(nrow(csv_submissions) > 0 & "sed-biome" %in% output_metadata$protocol$protocol)){
+  
+  cat("You've submitted a data entry spreadsheet for the SED-BIOME protocol, but did not include hobo logger data in CSV format. Please email your logger data to   to  marinegeo-data@si.edu. If you submitted the logger previously, thank you!")
+} else {
+  
+  cat("Your SED-BIOME data submission is complete!")
+}
+
 
 ```
 
@@ -37,7 +55,8 @@ kable(output_metadata$protocol %>%
 
 failed_submissions <- QA_results$df %>%
   filter(test == "Invalid or missing protocol name" |
-         test ==  "Upload failed initial processing")
+         test ==  "Upload failed initial processing") %>%
+  filter(!filename %in% csv_submissions$filename)
 
 if(nrow(failed_submissions) > 0){
   

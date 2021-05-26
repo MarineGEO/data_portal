@@ -18,7 +18,7 @@ function(input, output, session) {
   
   # Excel sheets with sensitive data must be tracked and stored separately from other files 
   # When users select the sensitive checkbox, this reactive value will change to TRUE
-  sensitive <- reactiveVal()
+  sensitive <- reactiveVal(FALSE)
   
   # Create empty list to hold original and standardized filenames of uploaded protocols + related metadata
   filenames <- reactiveValues()
@@ -198,8 +198,8 @@ function(input, output, session) {
     if(!no_db_testing){
       if(input$email != "" & 
          grepl("@", input$email) &
-         !is.null(input$fileExcel) &
-         input$sensitive_prompt != "Not specified"){
+         !is.null(input$fileExcel)){
+         #input$sensitive_prompt != "Not specified"){
         shinyjs::enable("submit")
       } else {
         shinyjs::disable("submit")
@@ -207,13 +207,13 @@ function(input, output, session) {
     } else shinyjs::enable("submit")
   })
   
-  observeEvent(input$sensitive_prompt, {
-    if(input$sensitive_prompt == "Yes, my data contains sensitive information") {
-      sensitive(TRUE)
-    } else {
-      sensitive(FALSE)
-    }
-  }) 
+  # observeEvent(input$sensitive_prompt, {
+  #   if(input$sensitive_prompt == "Yes, my data contains sensitive information") {
+  #     sensitive(TRUE)
+  #   } else {
+  #     sensitive(FALSE)
+  #   }
+  # }) 
   
   ## Finalize data submission/View report ##################
   # Render RMarkdown generated report
@@ -270,6 +270,13 @@ function(input, output, session) {
       
       if(!(submission_metadata$original_filename[i] %in% protocol_metadata_error$df$filename)){
         attribute <- submission_metadata$new_filename[i]
+      } else if(grepl(".csv", input$fileExcel$name[i])){
+        attribute <- input$fileExcel$name[i]
+        
+        QA_results$df <- QA_results$df %>%
+          add_row(test = "CSV file",
+                  filename = input$fileExcel$name[i])
+        
       } else {
         attribute <- input$fileExcel$name[i]
         

@@ -234,28 +234,28 @@ extractProtocolDate <- function(original_filename, protocol_metadata, workbook_v
     # Wrapped in an error catcher - if there is missing date column present the submission will fail
     tryCatch({
       # Any warnings from as.numeric will trigger the tryCatch
-      year <- as.character(as.numeric(protocol_metadata$data_entry_year))
-      month <- as.character(as.numeric(protocol_metadata$data_entry_month))
-      day <- as.character(as.numeric(protocol_metadata$data_entry_day))
+      year <- protocol_metadata$data_entry_year
+      month <- protocol_metadata$data_entry_month
+      day <- protocol_metadata$data_entry_day
       
       # Add a 0 if month or day are only 1 digit
-      if(nchar(month)==1) {
-        month <- paste0("0", month)
-      }
-      if(nchar(day)==1){
-        day <- paste0("0", day)
-      }
-      
-      #Return the data entry date if all components look right
-      if(nchar(year) == 4 & 
-         nchar(month) == 2 & 
-         nchar(day) == 2) {
+      # if(nchar(month)==1) {
+      #   month <- paste0("0", month)
+      # }
+      # if(nchar(day)==1){
+      #   day <- paste0("0", day)
+      # }
+      # 
+      # #Return the data entry date if all components look right
+      # if(nchar(year) == 4 & 
+      #    nchar(month) == 2 & 
+      #    nchar(day) == 2) {
         return(paste(year, month, day, sep="-"))
-      } else {
-        protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
-                                                                                filter(warnings, title == "v4_date")$message)
-        return("invalid")
-      }
+      # } else {
+      #   # protocol_metadata_error$df[nrow(protocol_metadata_error$df) + 1,] <-  c(original_filename,
+      #   #                                                                         filter(warnings, title == "v4_date")$message)
+      #   return("invalid")
+      # }
     },
     warning = function(w){
       # Track which file triggered the error and the cause (issue with date format)

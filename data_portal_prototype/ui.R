@@ -25,7 +25,6 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       
                                       tags$a(href="https://marinegeo.github.io/modules.html", "website."),
                                       
-                                      "Each file must be an Excel file (the file extension is '.xlsx'). ",
                                       "We do not require your files to have a specific naming convention.",
                                       
                                       tags$br(), tags$br(), 
@@ -240,14 +239,14 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       tags$br(), tags$br(), 
                                       
                                       textInput("email", label = NULL, width = "80%"),
-                                      hr(), 
-                                      
-                                      "Does your data include sensitive information, such as the location of endangered animals or personally identifiable information?",
-                                      tags$br(), tags$br(),
-                                      
-                                      selectInput("sensitive_prompt", label = NULL, choices = c("Not specified", 
-                                                                                                "Yes, my data contains sensitive information", 
-                                                                                                "No, my data does not contain sensitive information")), 
+                                      # hr(), 
+                                      # 
+                                      # "Does your data include sensitive information, such as the location of endangered animals or personally identifiable information?",
+                                      # tags$br(), tags$br(),
+                                      # 
+                                      # selectInput("sensitive_prompt", label = NULL, choices = c("Not specified", 
+                                      #                                                           "Yes, my data contains sensitive information", 
+                                      #                                                           "No, my data does not contain sensitive information")), 
                                       hr(),
                                       
                                       "Upload official MarineGEO data spreadsheets below. You can find these spreadsheets on our",
@@ -271,7 +270,7 @@ navbarPage("MarineGEO Data Portal", id="nav",
                                       # Submit button starts as disabled until the user provides an email address 
                                       actionButton("submit", "Submit", class = "btn-primary"), tags$br(), tags$br(),
                                       
-                                      tags$b("If you have any issues submitting data, please contact the MarineGEO Data Manager at marinegeo-data@si.edu. Include the Excel files as attachments with the email."),
+                                      tags$b("If you have any issues submitting data, please contact the MarineGEO Data Manager at marinegeo-data@si.edu. Include the files as attachments with the email."),
                                       
                                       tags$br(), tags$br(),
                                       
