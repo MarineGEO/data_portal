@@ -38,12 +38,32 @@ kable(output_metadata$protocol %>%
 csv_submissions <- QA_results$df %>%
   filter(test == "CSV file")
 
-if(!(nrow(csv_submissions) > 0 & "sed-biome" %in% output_metadata$protocol$protocol)){
+failed_submissions <- QA_results$df %>%
+  filter(test == "Invalid or missing protocol name" |
+         test ==  "Upload failed initial processing") %>%
+  filter(!filename %in% csv_submissions$filename)
+
+if("sed-biome" %in% output_metadata$protocol$protocol){
   
-  cat("You've submitted a data entry spreadsheet for the SED-BIOME protocol but did not include hobo logger data in CSV format. If you submitted the logger data previously or submitted it as a Microsoft Excel file during this submission, then you do not need to take any further action. Otherwise, please email your logger data to marinegeo-data@si.edu in any format. Thank you!")
+  cat("Thank you for submitting data for the SED-BIOME project! If you did not submit the hobo logger temperature data with this submission, please email it to marinegeo-data@si.edu. If you did submit hobo logger data alongside the data entry spreadsheet, then your submission is complete!")
+  
 } else {
   
-  cat("Your SED-BIOME data submission is complete!")
+  if(nrow(failed_submissions) > 0){
+    
+    cat("MarineGEO received but was unable to process the following files:", 
+        "\n", "\n")
+    
+    print(kable(failed_submissions %>%
+                  rename(Filename = filename) %>%
+                  select(Filename) %>%
+                  distinct()))
+    
+    cat("We'll review these files and, if necessary, will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo-data@si.edu.")
+  } else {
+    cat("Our data team will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email us at marinegeo-data@si.edu.")
+  }
+  
 }
 
 
@@ -53,25 +73,7 @@ if(!(nrow(csv_submissions) > 0 & "sed-biome" %in% output_metadata$protocol$proto
 
 ```{r echo=FALSE, results='asis'}
 
-failed_submissions <- QA_results$df %>%
-  filter(test == "Invalid or missing protocol name" |
-         test ==  "Upload failed initial processing") %>%
-  filter(!filename %in% csv_submissions$filename)
 
-if(nrow(failed_submissions) > 0){
-  
-  cat("MarineGEO received but was unable to process the following files:", 
-         "\n", "\n")
-  
-  print(kable(failed_submissions %>%
-                rename(Filename = filename) %>%
-                select(Filename) %>%
-                distinct()))
-  
-  cat("We'll review these files and, if necessary, will reach out to data submitters with additional information or instructions. If you have any questions or concerns regarding this submission, please email us at  marinegeo-data@si.edu.")
-} else {
-  cat("Our data team will review this submission and reach out to you if necessary. If you have any questions or concerns regarding this submission, please email us at marinegeo-data@si.edu.")
-}
 
 
 ```

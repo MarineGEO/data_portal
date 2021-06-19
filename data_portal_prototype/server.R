@@ -392,7 +392,7 @@ checkFileExtensions <- function(){
   output <- c()
   
   for(file in input$fileExcel$name){
-    if(grepl(".xlsx", file) | grepl(".csv", file)){
+    if(grepl(".xlsx", file) | grepl(".csv", file) | grepl(".hobo", file) | grepl(".hproj", file)){
       output <- c(output, TRUE)
     } else {
       output <- c(output, FALSE)
